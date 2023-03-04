@@ -20,6 +20,16 @@ class ComposerStaticInit6b243d37ff5d44d159bce029f6c3c88c
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'M' => 
+        array (
+            'Michelf' => 
+            array (
+                0 => __DIR__ . '/..' . '/michelf/php-smartypants',
+            ),
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -29,6 +39,7 @@ class ComposerStaticInit6b243d37ff5d44d159bce029f6c3c88c
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit6b243d37ff5d44d159bce029f6c3c88c::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit6b243d37ff5d44d159bce029f6c3c88c::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit6b243d37ff5d44d159bce029f6c3c88c::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit6b243d37ff5d44d159bce029f6c3c88c::$classMap;
 
         }, null, ClassLoader::class);

@@ -26,19 +26,39 @@
 </style>
 
 
-<div id="body">
-<div class="flex-container">
+<div id="body" markdown="1">
+<div class="flex-container" markdown="1">
 <h1></h1>
-# Introduction a la programmation des Algorithmes  
+
+
+<h1> Introduction a la programmation des Algorithmes  </h1>
+
+
 <h1 class="course-code"> 11X01 </h1>
 </div>
 
----
 
-Frédérique LISACEK (MER), François Fleuret (PO)
+<hr />
+<div markdown="1" style="text-align:right">
+Frédérique LISACEK (MER), François Fleuret (PO)  
+</div>
+<hr/>
 
----
+
+|  |  |
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  | Content Cell
 
 
+|             |          Grouping           ||
+First Header  | Second Header | Third Header |
+ ------------ | :-----------: | -----------: |
+Content       |          *Long Cell*        ||
+Content       |   **Cell**    |         Cell |
+
+New section   |     More      |         Data |
+And more      | With an escaped '\|'         ||  
+[Prototype table]
 
 </div>
