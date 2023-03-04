@@ -2,7 +2,10 @@
 
 __Personnes présentes:__ Noah Munz, Anne-Isabelle Giuntanni
 
+
 Besoin cliente: 
+
+
 - Extraires les données de la base de donnée de l'unige
 (celles utilisées pour générer les descriptions de cours de https://pgc.unige.ch/main/teachings)
 - Clarifier leur représentation dans des pdfs (≈ 1 page A4) générés et mis à jours automatiquement.  
