@@ -1,5 +1,8 @@
 <html>
-<head> <title>PHP Test</title> </head>
+
+<head>
+    <title>PHP Test</title>
+</head>
 
 <body>
     <?php
@@ -7,9 +10,10 @@
     require 'vendor/autoload.php';
     $my_text = file_get_contents("desc-ipa.md");
 
-    use Michelf\MarkdownExtra;
+    use Michelf\MarkdownExtra, Michelf\SmartyPants;
 
     $my_html = MarkdownExtra::defaultTransform($my_text);
+    $my_html = SmartyPants::defaultTransform($my_html);
 
     echo $my_html
 

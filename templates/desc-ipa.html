@@ -1,45 +1,59 @@
 <style>
-#body {
-    /*border: 1px solid red;*/
-    font-family: Roboto, Verdana, sans-serif;
-    max-width: 84em;
-}  
+    #body {
+        /*border: 1px solid red;*/
+        font-family: Roboto, Verdana, sans-serif;
+        max-width: 84em;
+    }
 
 <p>.flex-container {
 display: flex;
 justify-content: space-between;
-/<em>border: 1px solid black;</em>/
+background-color: DodgerBlue;
 }</p>
 
-<p>.flex-container&gt;div {
+<p>.flex-container &gt; div {
 background-color: #f1f1f1;
-width: 100px;
 margin: 10px;
-text-align: center;
-/<em>line-height: 75px;
-font-size: 30px;</em>/
+padding: 20px;
+font-size: 30px;
+}
+.course-code {
+color: Grey;
 }</p>
 
-<p>.course-code {
-color: Grey;
+<pre><code>table,
+th,
+td {
+    border: 1px solid black;
+    padding: 5px;
+    border-collapse: collapse;
 }
-</style></p>
 
+.noth&gt;table &gt; thead { display: none; }
+</code></pre>
+
+</style>
+
+<div class="flex-container">
+<div>1</div>
+<div>2</div>
+<div>3</div>  
+
+</div>
 <div id="body" markdown="1">
 <div class="flex-container" markdown="1">
-<h1></h1>
-
-<h1> Introduction a la programmation des Algorithmes  </h1>
-
+<h1> Introduction a la programmation des Algorithmes </h1>
 <h1 class="course-code"> 11X01 </h1>
 </div>
 
 <hr />
 
 <div markdown="1" style="text-align:right">
-Frédérique LISACEK (MER), François Fleuret (PO)  
+Frédérique LISACEK (MER), François Fleuret (PO)
 </div>
-<hr/>
+<hr />
+
+<div class="noth" markdown="1"> 
 
 <table>
 <colgroup>
@@ -49,67 +63,23 @@ Frédérique LISACEK (MER), François Fleuret (PO)
 
 <thead>
 <tr>
-	<th> </th>
-	<th> </th>
+	<th>  a  </th>
+	<th>   a </th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-	<td>Content Cell </td>
-	<td> Content Cell</td>
+	<td> Content Cell </td>
+	<td> Content Cell </td>
 </tr>
 <tr>
-	<td>Content Cell </td>
-	<td> Content Cell</td>
+	<td> ^^ </td>
+	<td> Content Cell </td>
 </tr>
 </tbody>
 </table>
 
-<table id="prototypetable">
-<caption style="caption-side: bottom;">Prototype table</caption>
-<colgroup>
-<col />
-<col style="text-align:center;"/>
-<col style="text-align:right;"/>
-</colgroup>
-
-<thead>
-<tr>
-	<th>    </th>
-	<th style="text-align:center;" colspan="2">   Grouping   </th>
-</tr>
-<tr>
-	<th>First Header </th>
-	<th style="text-align:center;"> Second Header </th>
-	<th style="text-align:right;"> Third Header </th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-	<td>Content  </td>
-	<td style="text-align:center;" colspan="2">   <em>Long Cell</em>  </td>
-</tr>
-<tr>
-	<td>Content  </td>
-	<td style="text-align:center;"> <strong>Cell</strong> </td>
-	<td style="text-align:right;">   Cell </td>
-</tr>
-</tbody>
-
-<tbody>
-<tr>
-	<td>New section </td>
-	<td style="text-align:center;">  More  </td>
-	<td style="text-align:right;">   Data </td>
-</tr>
-<tr>
-	<td>And more  </td>
-	<td style="text-align:center;" colspan="2"> With an escaped &#8216;|&#8217;   </td>
-</tr>
-</tbody>
-</table>
-
+</div>
 </div>
 
