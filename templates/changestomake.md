@@ -11,3 +11,4 @@
 - remove padding for `<hr>` (search also  border-top: 1px solid #eee)
 - remove `margin: 3rem 0;` of .page-content
 - maybe set a max size for table
+- remove huge script tags
