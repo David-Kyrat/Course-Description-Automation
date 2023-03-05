@@ -1,0 +1,47 @@
+---
+title: Introduction à la programmation des algorithmes 
+author: 11X001 | Frédérique LISACEK (MER), François Fleuret (PO), 
+params:
+  start_date: '2020-01-01'
+  end_date: '2020-06-01'
+  year: '2023'
+output:
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: true
+    gallery:  true
+    highlight: tango
+---
+
+
+---
+
+
+
+| Heures (Hebdo)                                                                         | 6                         |
+|----------------------------------------------------------------------------------------|---------------------------|
+| Cours <br> &nbsp;&nbsp; Exercices <br> &nbsp;&nbsp;  Pratique <br>&nbsp; &nbsp;  Total | 4 <br> 2 <br> N/A <br> 84 |
+| Langue                                                                                 | Français                  |
+| Semestre                                                                               | automne                   |
+| Mode d'évaluation                                                                      | écrit                     |
+| Session                                                                                | Janvier / Août            |
+
+
+
+
+<!-- github_document:
+    toc : false
+    toc_depth : 3
+    number_sections : false
+    math_method : "default"
+    preserve_yaml : false
+    fig_width : 7
+    fig_height : 5
+    dev : "png"
+    df_print : "kable"
+    includes : null
+    md_extensions : null
+    hard_line_breaks : true
+    pandoc_args : null
+    html_preview : true
+    keep_html : true  -->

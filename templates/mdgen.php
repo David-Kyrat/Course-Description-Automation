@@ -8,7 +8,7 @@
     <?php
     ini_set('memory_limit', '-1');
     require 'vendor/autoload.php';
-    $my_text = file_get_contents("desc-ipa.md");
+    $my_text = file_get_contents("table.md");
 
     use Michelf\MarkdownExtra, Michelf\SmartyPants;
 
