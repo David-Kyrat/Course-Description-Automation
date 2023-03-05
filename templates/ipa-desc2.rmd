@@ -1,6 +1,6 @@
 ---
 title: Introduction à la programmation des algorithmes 
-author: Frédérique LISACEK (MER), François Fleuret (PO), 
+author: 11X001 | Frédérique LISACEK (MER), François Fleuret (PO), 
 params:
   start_date: '2020-01-01'
   end_date: '2020-06-01'
@@ -13,16 +13,7 @@ output:
     highlight: tango
 ---
 
-
-<script>
-   $(document).ready(function() {
-     $head = $('#header');
-     $head.prepend('<img src=\"unige.png\" style=\"float: right;width: 150px;\"/>')
-   });
-</script>
-
-
-# Some h1 title
+---
 
 
 ## Some h2 title {#introduction .important .large}
@@ -30,9 +21,12 @@ output:
 
 This is my introduction.
 
+
 ## Gapminder Analysis for 'r params$year'
 
+
 ### Document 
+
 
 from the $params_start_date to $params_end_date
 
