@@ -8513,7 +8513,6 @@
           width: 100%;
           height: 100%;
           /*max-width: 1480px;*/
-          margin: 0 !important;
         }
 
         .layout-wide .Wrap {
@@ -9973,8 +9972,6 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
       margin-left: 0 !important;
     }
 
-
-
     .smallimg {
       display: inline;
       text-align: right;
@@ -9991,7 +9988,7 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
       font-family: sans-serif;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
       table-layout: fixed;
-      max-width: 200px;
+      max-width: 400px;
     }
 
     .styled-table thead tr,
@@ -10022,9 +10019,17 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
       border-bottom: 2px solid #009879;
     }
     .Main {
-      float: right !important;
-      margin-left: 10em;
-      margin-top: -28.5em;
+      margin-top: -28em;
+    }
+    #leftmain {
+      width: 15% !important;
+/*      border: 2px solid black;
+*/    }
+    #rightmain {
+      max-width:  none !important;
+      /*padding-left: 5em; for A3*/
+      width: 100% !important;
+      /*border: 2px solid red;*/
     }
 
   </style>
@@ -10032,12 +10037,10 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
 </head>
 <body class="preload">
   <div id="docute" class="Root theme-default">
-    <div class="Page layout-narrow">
-      <div class="Wrap">
         <table class=".tablepage">
           <tbody>
             <tr>
-              <td>
+              <td id="leftmain">
                 <div class="styled-table"  id="sidetable">
                   <table>
                     <thead>
@@ -10121,7 +10124,7 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
                 </div>
               </td>
 
-              <td>
+              <td id="rightmain">
                 <div class="Main">
                   <div class="Content" id="content">
                     <h1 class="title" style="color: #029093 !important;">Introduction à la programmation des
@@ -10195,8 +10198,6 @@ https://prismjs.com/download.html#themes=prism-dark&languages=markup+css+clike+j
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
       <script>
         $(document).ready(function () {
         // add bootstrap table styles to pandoc tables
