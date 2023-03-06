@@ -1,5 +1,11 @@
 # Unige - 12X015 | Course Description Automator
 
+Application to automatically generate printable 1-2 page PDF of course descriptions.
+
+Exemple given:
+
+<img style="display: block; margin: 0 auto; margin-bottom: 3em" src="res/readme-example.png" width=650em>
+
 
 Made with:  
 
