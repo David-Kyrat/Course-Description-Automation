@@ -1,3 +1,7 @@
 **/vendor
 **/node_modules
 **/rome.json
+
+
+# Scala config folders
+null
