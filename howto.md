@@ -1,4 +1,8 @@
+# html / pdf auto-generation
+
+
 ## build / compile / parse info
+
 
 - mdgen.php is used to parse a markdown file in [php markdown extra](https://michelf.ca/projects/php-markdown/extra/)
 into html. it's used like so:
@@ -18,4 +22,19 @@ each value to be filled. Make sure to exaclty match the parameter names
 setup in the html template.
 For an example / list of values, see the example in `example/desc-content-example.md`  
 Then call `pandoc <desc-content-file.md> -t html --template=<desc-template.html> -o <filled-course-desc.html>`
-Replace the name in `<>` by the actual path to the file.
+Replace the name in `<>` by the actual path to the file.  
+
+
+<br/>
+
+
+# DB access & Requests
+
+
+**base url:** `https://pgc.unige.ch/main/api/`  
+
+Exemple:
+
+    GET https://pgc.unige.ch/main/api/activities/languages  //  return available languages
+    GET https://pgc.unige.ch/main/api/academical-years/2019 //  return details for the given academical-year
+    GET https://pgc.unige.ch/main/api/teachings/2022-11X001 //  return details for given course at given year
