@@ -5,3 +5,6 @@
 
 # Scala config folders
 null
+.bsp
+target
+project
