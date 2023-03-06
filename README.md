@@ -2,11 +2,6 @@
 
 Application to automatically generate printable 1-2 page PDF of course descriptions.
 
-Exemple given:
-<p align="center">
-<img style="display: block; margin: 0 auto; margin-bottom: 3em" src="res/readme-example.png" width=650em>
-</p>
-
 Made with:  
 
 <a href="https://unige.ch/"> ![unige](https://img.shields.io/badge/UNIGE-e11b67?style=for-the-badge)</a>
@@ -17,8 +12,14 @@ Made with:
 
 ---
 
+Exemple given:
+<p align="center">
+<img style="display: block; margin: 0 auto; margin-bottom: 3em" src="res/readme-example.png" width=650em>
+</p>
+
 <br/>
-<div style=" margin: 0 auto; width: 70%; ">
+<div style=" margin: 0 auto; width: 70%; " align="center">
+
 
 |                                      Client                                      |                 Student / Developer                 |                                     Supervisor                                    |
 |:--------------------------------------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------------------------------------:|
