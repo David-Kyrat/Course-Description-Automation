@@ -1,0 +1,329 @@
+2023.03.06 23:20:45 INFO  tracing is disabled for protocol LSP, to enable tracing of incoming and outgoing JSON messages create an empty file at c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\.metals\lsp.trace.json or c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\null\scalameta\metals\cache\lsp.trace.json
+2023.03.06 23:20:45 INFO  logging to file C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\.metals\metals.log
+2023.03.06 23:20:45 INFO  Started: Metals version 0.11.9 in workspace 'C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template' for client Visual Studio Code 1.75.1.
+2023.03.06 23:20:47 INFO  time: initialize in 1.55s
+2023.03.06 23:20:48 WARN  Build server is not auto-connectable.
+2023.03.06 23:20:52 INFO  running 'C:\PROGRA~1\Java\jdk-17\bin\java -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar C:\Users\noahm\AppData\Local\Temp\metals16713047434180709174\sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'
+2023.03.06 23:20:53 INFO  [info] welcome to sbt 1.8.2 (Oracle Corporation Java 17.0.6)
+2023.03.06 23:20:54 INFO  [info] loading global plugins from C:\Users\noahm\.sbt\1.0\plugins
+2023.03.06 23:20:57 INFO  [info] loading settings for project project-template-build-build from metals.sbt ...
+2023.03.06 23:20:57 INFO  [info] loading project definition from C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\project\project
+2023.03.06 23:21:00 INFO  [info] loading settings for project project-template-build from metals.sbt ...
+2023.03.06 23:21:00 INFO  [info] loading project definition from C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\project
+2023.03.06 23:21:04 INFO  [success] Generated .bloop\project-template-build.json
+2023.03.06 23:21:04 INFO  [success] Total time: 5 s, completed 6 Mar 2023, 23:21:04
+2023.03.06 23:21:05 INFO  [info] loading settings for project project-template from build.sbt ...
+2023.03.06 23:21:05 INFO  [info] set current project to template-project (in build file:/C:/Users/noahm/OneDrive/Prog-Projects/Scala/project-template/)
+2023.03.06 23:21:07 INFO  [success] Generated .bloop\project-template-test.json
+2023.03.06 23:21:07 INFO  [success] Generated .bloop\project-template.json
+2023.03.06 23:21:07 INFO  [success] Total time: 1 s, completed 6 Mar 2023, 23:21:07
+2023.03.06 23:21:07 INFO  time: ran 'sbt bloopInstall' in 15s
+2023.03.06 23:21:07 INFO  Attempting to connect to the build server...
+2023.03.06 23:21:07 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json
+2023.03.06 23:21:07 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\.metals\bsp.trace.json or c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\null\scalameta\metals\cache\bsp.trace.json
+2023.03.06 23:21:13 INFO  Attempting to connect to the build server...
+2023.03.06 23:21:13 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json
+2023.03.06 23:21:13 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\project\.metals\bsp.trace.json or c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\null\scalameta\metals\cache\bsp.trace.json
+2023.03.06 23:21:15 INFO  time: Connected to build server in 8.49s
+2023.03.06 23:21:15 INFO  Connected to Build server: Bloop v1.5.6
+2023.03.06 23:21:15 INFO  time: Imported build in 0.13s
+2023.03.06 23:21:25 INFO  time: indexed workspace in 9.27s
+2023.03.06 23:22:18 INFO  compiling project-template (1 scala source)
+Mar 06, 2023 11:22:24 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2023.03.06 23:22:35 INFO  time: compiled project-template in 17s
+2023.03.06 23:23:30 INFO  Configured debugger context in 3 seconds
+2023.03.06 23:23:30 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\.metals\dap-server.trace.json or c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\null\scalameta\metals\cache\dap-server.trace.json
+2023.03.06 23:23:30 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\.metals\dap-client.trace.json or c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\null\scalameta\metals\cache\dap-client.trace.json
+2023.03.06 23:23:30 INFO  Starting debug proxy for [Main]
+2023.03.06 23:23:30 INFO  Trying to attach to remote debuggee VM 127.0.0.1:62637 .
+2023.03.06 23:23:30 INFO  Attaching to debuggee VM succeeded.
+2023.03.06 23:23:30 INFO  Canceling debug proxy for [Main]
+2023.03.06 23:23:30 INFO  Closing debug server tcp://0.0.0.0:62635
+2023.03.06 23:23:33 INFO  Deduplicating compilation of project-template from bsp client 'Metals 0.11.9' (since 2m 26.271s)
+2023.03.06 23:23:35 INFO  Configured debugger context in 1 second
+2023.03.06 23:23:35 INFO  tracing is disabled for protocol dap-server, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\.metals\dap-server.trace.json or c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\null\scalameta\metals\cache\dap-server.trace.json
+2023.03.06 23:23:35 INFO  tracing is disabled for protocol dap-client, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\.metals\dap-client.trace.json or c:\Users\noahm\OneDrive\Prog-Projects\Scala\project-template\null\scalameta\metals\cache\dap-client.trace.json
+2023.03.06 23:23:35 INFO  Starting debug proxy for [Main]
+2023.03.06 23:23:35 INFO  Trying to attach to remote debuggee VM 127.0.0.1:62648 .
+2023.03.06 23:23:35 INFO  Attaching to debuggee VM succeeded.
+2023.03.06 23:23:35 INFO  Canceling debug proxy for [Main]
+2023.03.06 23:23:35 INFO  Closing debug server tcp://0.0.0.0:62645
+2023.03.06 23:25:19 INFO  time: code lens generation in 1.05s
+Mar 06, 2023 11:26:39 PM scala.meta.internal.pc.CompilerAccess handleError
+SEVERE: jar%3Afile%3A%2F%2F%2FC%3A%2FUsers%2Fnoahm%2FAppData%2FLocal%2FCoursier%2Fcache%2Fv1%2Fhttps%2Frepo1.maven.org%2Fmaven2%2Forg%2Fscala-sbt%2Flibrarymanagement-core_2.12%2F1.8.0%2Flibrarymanagement-core_2.12-1.8.0-sources.jar%21%2Fsbt%2Flibrarymanagement%2FModuleID.scala:13: error: ; expected but final found
+final class ModuleID private (
+^
+jar%3Afile%3A%2F%2F%2FC%3A%2FUsers%2Fnoahm%2FAppData%2FLocal%2FCoursier%2Fcache%2Fv1%2Fhttps%2Frepo1.maven.org%2Fmaven2%2Forg%2Fscala-sbt%2Flibrarymanagement-core_2.12%2F1.8.0%2Flibrarymanagement-core_2.12-1.8.0-sources.jar%21%2Fsbt%2Flibrarymanagement%2FModuleID.scala:13: error: ; expected but final found
+final class ModuleID private (
+^
+	at scala.meta.internal.parsers.Reporter.syntaxError(Reporter.scala:16)
+	at scala.meta.internal.parsers.Reporter.syntaxError$(Reporter.scala:16)
+	at scala.meta.internal.parsers.Reporter$$anon$1.syntaxError(Reporter.scala:22)
+	at scala.meta.internal.parsers.Reporter.syntaxError(Reporter.scala:17)
+	at scala.meta.internal.parsers.Reporter.syntaxError$(Reporter.scala:17)
+	at scala.meta.internal.parsers.Reporter$$anon$1.syntaxError(Reporter.scala:22)
+	at scala.meta.internal.parsers.ScalametaParser.syntaxErrorExpected(ScalametaParser.scala:372)
+	at scala.meta.internal.parsers.ScalametaParser.accept(ScalametaParser.scala:376)
+	at scala.meta.internal.parsers.ScalametaParser.acceptStatSep(ScalametaParser.scala:387)
+	at scala.meta.internal.parsers.ScalametaParser.acceptStatSepOpt(ScalametaParser.scala:391)
+	at scala.meta.internal.parsers.ScalametaParser.statSeqBuf(ScalametaParser.scala:4222)
+	at scala.meta.internal.parsers.ScalametaParser.$anonfun$batchSource$14(ScalametaParser.scala:4437)
+	at scala.Option.getOrElse(Option.scala:189)
+	at scala.meta.internal.parsers.ScalametaParser.$anonfun$batchSource$1(ScalametaParser.scala:4437)
+	at scala.meta.internal.parsers.ScalametaParser.atPos(ScalametaParser.scala:316)
+	at scala.meta.internal.parsers.ScalametaParser.autoPos(ScalametaParser.scala:357)
+	at scala.meta.internal.parsers.ScalametaParser.batchSource(ScalametaParser.scala:4392)
+	at scala.meta.internal.parsers.ScalametaParser.$anonfun$source$1(ScalametaParser.scala:4385)
+	at scala.meta.internal.parsers.ScalametaParser.atPos(ScalametaParser.scala:316)
+	at scala.meta.internal.parsers.ScalametaParser.autoPos(ScalametaParser.scala:357)
+	at scala.meta.internal.parsers.ScalametaParser.source(ScalametaParser.scala:4385)
+	at scala.meta.internal.parsers.ScalametaParser.entrypointSource(ScalametaParser.scala:4390)
+	at scala.meta.internal.parsers.ScalametaParser.parseSourceImpl(ScalametaParser.scala:132)
+	at scala.meta.internal.parsers.ScalametaParser.$anonfun$parseSource$1(ScalametaParser.scala:129)
+	at scala.meta.internal.parsers.ScalametaParser.parseRuleAfterBOF(ScalametaParser.scala:56)
+	at scala.meta.internal.parsers.ScalametaParser.parseRule(ScalametaParser.scala:51)
+	at scala.meta.internal.parsers.ScalametaParser.parseSource(ScalametaParser.scala:129)
+	at scala.meta.parsers.Parse$.$anonfun$parseSource$1(Parse.scala:29)
+	at scala.meta.parsers.Parse$$anon$1.apply(Parse.scala:36)
+	at scala.meta.parsers.Api$XtensionParseDialectInput.parse(Api.scala:25)
+	at scala.meta.internal.semanticdb.scalac.ParseOps$XtensionCompilationUnitSource.toSource(ParseOps.scala:17)
+	at scala.meta.internal.semanticdb.scalac.TextDocumentOps$XtensionCompilationUnitDocument.toTextDocument(TextDocumentOps.scala:203)
+	at scala.meta.internal.pc.SemanticdbTextDocumentProvider.textDocument(SemanticdbTextDocumentProvider.scala:54)
+
+2023.03.06 23:27:04 INFO  shutting down Metals
+2023.03.06 23:27:04 INFO  Shut down connection with build server.
+2023.03.06 23:27:04 INFO  Shut down connection with build server.
+2023.03.06 23:32:29 INFO  Started: Metals version 0.11.11 in workspace 'C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation' for client Neovim 0.8.1.[0m
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J: Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J: Ignoring binding found at [jar:file:/C:/Users/noahm/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/com/outr/scribe-slf4j_2.13/3.11.0/scribe-slf4j_2.13-3.11.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+2023.03.06 23:32:29 INFO  time: initialize in 0.44s[0m
+2023.03.06 23:32:30 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:32:30 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:32:30 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:32:33 INFO  running 'C:\PROGRA~1\Java\jdk-17\bin\java -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar C:\Users\noahm\AppData\Local\Temp\metals14072549615178687934\sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'[0m
+2023.03.06 23:32:35 INFO  [info] welcome to sbt 1.8.2 (Oracle Corporation Java 17.0.6)[0m
+2023.03.06 23:32:36 INFO  [info] loading global plugins from C:\Users\noahm\.sbt\1.0\plugins[0m
+2023.03.06 23:32:38 INFO  [info] loading settings for project course-description-automation-build-build from metals.sbt ...[0m
+2023.03.06 23:32:38 INFO  [info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\project[0m
+2023.03.06 23:32:39 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:32:39 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:32:39 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:32:42 INFO  [info] loading settings for project course-description-automation-build from metals.sbt ...[0m
+2023.03.06 23:32:42 INFO  [info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project[0m
+2023.03.06 23:32:43 INFO  [success] Generated .bloop\course-description-automation-build.json[0m
+2023.03.06 23:32:43 INFO  [warn] Removed stale C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\.bloop\project-template-build.json[0m
+2023.03.06 23:32:43 INFO  [success] Total time: 2 s, completed 6 Mar 2023, 23:32:43[0m
+2023.03.06 23:32:44 INFO  [info] loading settings for project course-description-automation from build.sbt ...[0m
+2023.03.06 23:32:44 INFO  [info] set current project to template-project (in build file:/C:/Users/noahm/DocumentsNb/BA4/Course-Description-Automation/)[0m
+2023.03.06 23:32:44 INFO  [success] Generated .bloop\course-description-automation.json[0m
+2023.03.06 23:32:44 INFO  [success] Generated .bloop\course-description-automation-test.json[0m
+2023.03.06 23:32:44 INFO  [warn] Removed stale C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.bloop\project-template.json[0m
+2023.03.06 23:32:44 INFO  [warn] Removed stale C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.bloop\project-template-test.json[0m
+2023.03.06 23:32:44 INFO  [success] Total time: 0 s, completed 6 Mar 2023, 23:32:45[0m
+2023.03.06 23:32:45 INFO  time: ran 'sbt bloopInstall' in 11s[0m
+2023.03.06 23:32:45 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:32:45 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:32:45 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:32:45 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:32:45 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:32:45 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:32:46 INFO  time: Connected to build server in 15s[0m
+2023.03.06 23:32:46 INFO  Connected to Build server: Bloop v1.5.6[0m
+2023.03.06 23:32:45 INFO  time: Connected to build server in 0.55s[0m
+2023.03.06 23:32:46 INFO  Connected to Build server: Bloop v1.5.6[0m
+2023.03.06 23:32:54 INFO  time: indexed workspace in 8.55s[0m
+2023.03.06 23:32:54 INFO  time: indexed workspace in 8.56s[0m
+2023.03.06 23:32:56 INFO  skipping build import with status 'Installed'[0m
+2023.03.06 23:32:58 INFO  time: code lens generation in 3.67s[0m
+2023.03.06 23:32:58 INFO  skipping build import with status 'Installed'[0m
+2023.03.06 23:41:51 INFO  running 'C:\PROGRA~1\Java\jdk-17\bin\java -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar C:\Users\noahm\AppData\Local\Temp\metals17468723437859744322\sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'[0m
+2023.03.06 23:41:52 INFO  [info] welcome to sbt 1.8.2 (Oracle Corporation Java 17.0.6)[0m
+2023.03.06 23:41:53 INFO  [info] loading global plugins from C:\Users\noahm\.sbt\1.0\plugins[0m
+2023.03.06 23:41:54 INFO  [info] loading settings for project course-description-automation-build-build from metals.sbt ...[0m
+2023.03.06 23:41:54 INFO  [info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\project[0m
+2023.03.06 23:41:54 INFO  [info] loading settings for project course-description-automation-build from metals.sbt ...[0m
+2023.03.06 23:41:54 INFO  [info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project[0m
+2023.03.06 23:41:56 INFO  [success] Generated .bloop\course-description-automation-build.json[0m
+2023.03.06 23:41:56 INFO  [success] Total time: 2 s, completed 6 Mar 2023, 23:41:57[0m
+2023.03.06 23:41:56 INFO  [info] loading settings for project course-description-automation from build.sbt ...[0m
+2023.03.06 23:41:56 INFO  [info] set current project to template-project (in build file:/C:/Users/noahm/DocumentsNb/BA4/Course-Description-Automation/)[0m
+2023.03.06 23:41:56 INFO  [success] Generated .bloop\course-description-automation.json[0m
+2023.03.06 23:41:56 INFO  [success] Generated .bloop\course-description-automation-test.json[0m
+2023.03.06 23:41:56 INFO  [success] Total time: 0 s, completed 6 Mar 2023, 23:41:57[0m
+2023.03.06 23:41:57 INFO  time: ran 'sbt bloopInstall' in 6.5s[0m
+2023.03.06 23:41:57 INFO  Disconnecting from Bloop session...[0m
+2023.03.06 23:41:57 INFO  Shut down connection with build server.[0m
+2023.03.06 23:41:57 INFO  Shut down connection with build server.[0m
+2023.03.06 23:41:57 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:41:57 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:41:57 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:41:57 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:41:57 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:41:57 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:41:57 INFO  time: Connected to build server in 65ms[0m
+2023.03.06 23:41:57 INFO  Connected to Build server: Bloop v1.5.6[0m
+2023.03.06 23:41:58 INFO  time: indexed workspace in 1.07s[0m
+2023.03.06 23:42:09 ERROR No rules requested to run
+scala.meta.internal.metals.ScalafixProvider$ScalafixRunException: No rules requested to run
+	at scala.meta.internal.metals.ScalafixProvider.$anonfun$runScalafixRules$1(ScalafixProvider.scala:156)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:470)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:833)
+[0m
+Mar 06, 2023 11:42:09 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint fallbackResponseError
+SEVERE: Internal error: scala.meta.internal.metals.ScalafixProvider$ScalafixRunException: No rules requested to run
+java.util.concurrent.CompletionException: scala.meta.internal.metals.ScalafixProvider$ScalafixRunException: No rules requested to run
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:332)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:347)
+	at java.base/java.util.concurrent.CompletableFuture$UniAccept.tryFire(CompletableFuture.java:708)
+	at java.base/java.util.concurrent.CompletableFuture.postComplete(CompletableFuture.java:510)
+	at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2162)
+	at scala.concurrent.java8.FuturesConvertersImpl$CF.apply(FutureConvertersImpl.scala:29)
+	at scala.concurrent.java8.FuturesConvertersImpl$CF.apply(FutureConvertersImpl.scala:26)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:484)
+	at scala.concurrent.ExecutionContext$parasitic$.execute(ExecutionContext.scala:222)
+	at scala.concurrent.impl.Promise$Transformation.submitWithValue(Promise.scala:429)
+	at scala.concurrent.impl.Promise$DefaultPromise.submitWithValue(Promise.scala:338)
+	at scala.concurrent.impl.Promise$DefaultPromise.tryComplete0(Promise.scala:285)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:504)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: scala.meta.internal.metals.ScalafixProvider$ScalafixRunException: No rules requested to run
+	at scala.meta.internal.metals.ScalafixProvider.$anonfun$runScalafixRules$1(ScalafixProvider.scala:156)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:470)
+	... 3 more
+
+2023.03.06 23:46:49 INFO  Shutting down server[0m
+2023.03.06 23:46:49 INFO  shutting down Metals[0m
+2023.03.06 23:46:49 INFO  Shut down connection with build server.[0m
+2023.03.06 23:46:49 INFO  Shut down connection with build server.[0m
+2023.03.06 23:46:49 INFO  Exiting server[0m
+2023.03.06 23:46:52 INFO  Started: Metals version 0.11.11 in workspace 'C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation' for client Neovim 0.8.1.[0m
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J: Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J: Ignoring binding found at [jar:file:/C:/Users/noahm/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/com/outr/scribe-slf4j_2.13/3.11.0/scribe-slf4j_2.13-3.11.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+2023.03.06 23:46:52 INFO  time: initialize in 0.48s[0m
+2023.03.06 23:46:53 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:46:53 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:46:53 INFO  skipping build import with status 'Installed'[0m
+2023.03.06 23:46:54 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:46:54 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:46:54 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:46:54 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:46:54 INFO  time: Connected to build server in 0.25s[0m
+2023.03.06 23:46:54 INFO  Connected to Build server: Bloop v1.5.6[0m
+2023.03.06 23:46:56 INFO  time: indexed workspace in 1.95s[0m
+2023.03.06 23:46:59 INFO  time: code lens generation in 3.59s[0m
+2023.03.06 23:52:43 INFO  Shutting down server[0m
+2023.03.06 23:52:43 INFO  shutting down Metals[0m
+2023.03.06 23:52:43 INFO  Shut down connection with build server.[0m
+2023.03.06 23:52:43 INFO  Shut down connection with build server.[0m
+2023.03.06 23:52:45 INFO  Started: Metals version 0.11.11 in workspace 'C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation' for client Neovim 0.8.1.[0m
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J: Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J: Ignoring binding found at [jar:file:/C:/Users/noahm/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/com/outr/scribe-slf4j_2.13/3.11.0/scribe-slf4j_2.13-3.11.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+2023.03.06 23:52:46 WARN  resetting database: C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.metals\metals.h2.db[0m
+2023.03.06 23:52:48 INFO  Started: Metals version 0.11.11 in workspace 'C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation' for client Neovim 0.8.1.[0m
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J: Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J: Ignoring binding found at [jar:file:/C:/Users/noahm/AppData/Local/Coursier/cache/v1/https/repo1.maven.org/maven2/com/outr/scribe-slf4j_2.13/3.11.0/scribe-slf4j_2.13-3.11.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+2023.03.06 23:52:51 INFO  time: initialize in 2.48s[0m
+2023.03.06 23:52:52 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:52:52 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:52:52 INFO  skipping build import with status 'Installed'[0m
+2023.03.06 23:52:52 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:52:52 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:52:52 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:52:52 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:52:52 INFO  time: Connected to build server in 0.34s[0m
+2023.03.06 23:52:52 INFO  Connected to Build server: Bloop v1.5.6[0m
+2023.03.06 23:52:54 INFO  time: indexed workspace in 2.03s[0m
+2023.03.06 23:52:58 INFO  time: code lens generation in 3.66s[0m
+2023.03.06 23:54:11 INFO  skipping build import with status 'Installed'[0m
+2023.03.06 23:56:18 INFO  running 'C:\PROGRA~1\Java\jdk-17\bin\java -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar C:\Users\noahm\AppData\Local\Temp\metals3774620334187021384\sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'[0m
+2023.03.06 23:56:19 INFO  [info] welcome to sbt 1.8.2 (Oracle Corporation Java 17.0.6)[0m
+2023.03.06 23:56:21 INFO  [info] loading global plugins from C:\Users\noahm\.sbt\1.0\plugins[0m
+2023.03.06 23:56:22 INFO  [info] loading settings for project course-description-automation-build-build from metals.sbt ...[0m
+2023.03.06 23:56:22 INFO  [info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\project[0m
+2023.03.06 23:56:22 INFO  [info] loading settings for project course-description-automation-build from metals.sbt ...[0m
+2023.03.06 23:56:22 INFO  [info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project[0m
+2023.03.06 23:56:24 INFO  [success] Generated .bloop\course-description-automation-build.json[0m
+2023.03.06 23:56:24 INFO  [success] Total time: 2 s, completed 6 Mar 2023, 23:56:24[0m
+2023.03.06 23:56:25 INFO  [info] loading settings for project course-description-automation from build.sbt ...[0m
+2023.03.06 23:56:25 INFO  [info] set current project to Course-Description-Automation (in build file:/C:/Users/noahm/DocumentsNb/BA4/Course-Description-Automation/)[0m
+2023.03.06 23:56:25 INFO  [success] Generated .bloop\course-description-automation.json[0m
+2023.03.06 23:56:25 INFO  [success] Generated .bloop\course-description-automation-test.json[0m
+2023.03.06 23:56:25 INFO  [success] Total time: 0 s, completed 6 Mar 2023, 23:56:26[0m
+2023.03.06 23:56:26 INFO  time: ran 'sbt bloopInstall' in 7.98s[0m
+2023.03.06 23:56:26 INFO  Disconnecting from Bloop session...[0m
+2023.03.06 23:56:26 INFO  Shut down connection with build server.[0m
+2023.03.06 23:56:26 INFO  Shut down connection with build server.[0m
+2023.03.06 23:56:26 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:56:26 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:56:26 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:56:26 INFO  Attempting to connect to the build server...[0m
+2023.03.06 23:56:26 INFO  Bloop uses C:\PROGRA~1\Java\jdk-17 defined at C:\Users\noahm\.bloop\bloop.json[0m
+2023.03.06 23:56:26 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\.metals\bsp.trace.json or C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\null\scalameta\metals\cache\bsp.trace.json[0m
+2023.03.06 23:56:26 INFO  time: Connected to build server in 67ms[0m
+2023.03.06 23:56:26 INFO  Connected to Build server: Bloop v1.5.6[0m
+2023.03.06 23:56:27 INFO  time: indexed workspace in 0.97s[0m
+2023.03.06 23:58:40 INFO  Shutting down server[0m
+2023.03.06 23:58:40 INFO  shutting down Metals[0m
+2023.03.06 23:58:40 INFO  skipping build import with status 'Installed'[0m
+2023.03.06 23:58:40 INFO  Shut down connection with build server.[0m
+2023.03.06 23:58:40 INFO  Shut down connection with build server.[0m
+Mar 06, 2023 11:58:40 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint notify
+INFO: Failed to send notification message.
+org.eclipse.lsp4j.jsonrpc.JsonRpcException: java.nio.channels.ClosedChannelException
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageConsumer.consume(StreamMessageConsumer.java:72)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.notify(RemoteEndpoint.java:126)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.sendCancelNotification(RemoteEndpoint.java:180)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint$1.cancel(RemoteEndpoint.java:150)
+	at scala.meta.internal.metals.BuildServerConnection.$anonfun$register$2(BuildServerConnection.scala:348)
+	at scala.runtime.java8.JFunction0$mcZ$sp.apply(JFunction0$mcZ$sp.scala:17)
+	at scala.util.Try$.apply(Try.scala:210)
+	at scala.meta.internal.metals.BuildServerConnection.$anonfun$register$1(BuildServerConnection.scala:348)
+	at scala.meta.internal.metals.Cancelable$$anon$1.cancel(Cancelable.scala:18)
+	at scala.meta.internal.metals.Cancelable$.$anonfun$cancelAll$1(Cancelable.scala:29)
+	at scala.collection.immutable.List.foreach(List.scala:333)
+	at scala.meta.internal.metals.Cancelable$.cancelAll(Cancelable.scala:28)
+	at scala.meta.internal.metals.MutableCancelable.cancel(MutableCancelable.scala:25)
+	at scala.meta.internal.metals.BuildServerConnection.cancel(BuildServerConnection.scala:285)
+	at scala.meta.internal.metals.BuildServerConnection.$anonfun$shutdown$1(BuildServerConnection.scala:121)
+	at scala.meta.internal.metals.BuildServerConnection.$anonfun$shutdown$1$adapted(BuildServerConnection.scala:114)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: java.nio.channels.ClosedChannelException
+	at java.base/sun.nio.ch.SocketChannelImpl.ensureOpenAndConnected(SocketChannelImpl.java:215)
+	at java.base/sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:527)
+	at java.base/sun.nio.ch.SinkChannelImpl.write(SinkChannelImpl.java:123)
+	at java.base/java.nio.channels.Channels.writeFullyImpl(Channels.java:74)
+	at java.base/java.nio.channels.Channels.writeFully(Channels.java:93)
+	at java.base/java.nio.channels.Channels$1.write(Channels.java:171)
+	at java.base/java.io.OutputStream.write(OutputStream.java:127)
+	at java.base/java.nio.channels.Channels$1.write(Channels.java:151)
+	at scala.meta.internal.metals.ClosableOutputStream.write(ClosableOutputStream.scala:26)
+	at java.base/java.io.FilterOutputStream.write(FilterOutputStream.java:137)
+	at java.base/java.io.FilterOutputStream.write(FilterOutputStream.java:108)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageConsumer.consume(StreamMessageConsumer.java:67)
+	... 19 more
+
+2023.03.06 23:58:40 INFO  Cancelling compilation on Bloop server[0m
