@@ -1,7 +1,7 @@
-# html / pdf auto-generation
+# Markdown Parsing and html / pdf generation
 
 
-## build / compile / parse info
+### Parsing & Rendering Markdown
 
 
 - mdgen.php is used to parse a markdown file in [php markdown extra](https://michelf.ca/projects/php-markdown/extra/)
@@ -16,6 +16,8 @@ into html. it's used like so:
 - To convert a html generated output into pdf see `html_to_pdf`
 ---
 
+### Generating html with markdown based on pandoc templates
+
 - To fill the pandoc html template with the required info for a given course, 
 fill an "empty" markdown file, with just the YAML header specifying
 each value to be filled. Make sure to exaclty match the parameter names
@@ -24,6 +26,13 @@ For an example / list of values, see the example in `example/desc-content-exampl
 Then call `pandoc <desc-content-file.md> -t html --template=<desc-template.html> -o <filled-course-desc.html>`
 Replace the name in `<>` by the actual path to the file.  
 
+---
+
+NB: In the end php markdown extra, was not used and R markdown was
+used only to generate the core/base (css) theme for the pandoc html template.
+(It was inspired from the "downcute" theme available
+here: [rmdformats](https://github.com/juba/rmdformats).)  
+_Hence the only dependency for this part is pandoc._
 
 <br/>
 

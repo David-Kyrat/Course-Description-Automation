@@ -12,12 +12,30 @@ Made with:
 ---
 
 <br/>
-<div style=" margin: auto; width: 70%; ">
+<div style=" margin: 0 auto; width: 70%; ">
 
-| Client                                                                           | Student / Developer                                 | Supervisor                                                                        |
-|----------------------------------------------------------------------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------|
+|                                      Client                                      |                 Student / Developer                 |                                     Supervisor                                    |
+|:--------------------------------------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------------------------------------:|
 | [Anne-Isabelle Giuntini](https://www.unige.ch/dinfo/contacts/contacts-francais/) | [Noah Munz](https://www.linkedin.com/in/noah-munz/) | [Dr. Guillaume Chanel](https://www.unige.ch/cisa/center/members/chanel-guillaume) |
 
 </div>
+<br>
 
 
+## Meeting Reports
+
+
+Meeting repots are available __[here](https://github.com/David-Kyrat/Course-Description-Automation/tree/master/PV)__.
+They are numbered and dated and contains a quick summary
+of what was discussed during the meeting as well as a list of all the participants. 
+
+
+### Documentation
+
+
+The file __[howto.md](https://github.com/David-Kyrat/Course-Description-Automation/blob/master/howto.md)__
+contains a (very) quick summary of  which/how technology has been used as well as some brief commands.
+
+
+Its goal is not to be documentation on how to use the project but rather
+to categorize the "major steps" this project went through and to give some informations on how to reproduce some of these steps.
