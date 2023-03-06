@@ -18,4 +18,4 @@ each value to be filled. Make sure to exaclty match the parameter names
 setup in the html template.
 For an example / list of values, see the example in `example/desc-content-example.md`  
 Then call `pandoc <desc-content-file.md> -t html --template=<desc-template.html> -o <filled-course-desc.html>`
-Replace the name in `<>` by the actual file names.
+Replace the name in `<>` by the actual path to the file.
