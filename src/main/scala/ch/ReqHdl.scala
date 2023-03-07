@@ -15,7 +15,10 @@ object ReqHdl {
     * @return
     *   server raw json response
     */
-  def g(endpoint: String): String =
-    Source.fromURL(f"$baseUrl/$endpoint").mkString
+  def g(endpoint: String) = Resp(Source.fromURL(f"$baseUrl/$endpoint").mkString)
 
+  private val studyPlanUrl: String = f"$baseUrl/study-plans"
+
+  def gStudyPlan(id : Int = 0) = if (id == 0) g(studyPlanUrl) else g(f"$studyPlanUrl/$id")
+ 
 }

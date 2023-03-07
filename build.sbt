@@ -14,7 +14,7 @@ scalaVersion := "2.13.10"
 // It's possible to define many kinds of settings, such as:
 
 name := "Course-Description-Automation"
-org := "ch"
+organization := "ch"
 // Note, it's not required for you to define these three settings. These are
 // mostly only necessary if you intend to publish your library's binaries on a
 // place like Sonatype.
