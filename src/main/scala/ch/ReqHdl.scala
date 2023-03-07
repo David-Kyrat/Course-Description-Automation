@@ -2,16 +2,16 @@ package ch
 
 import scala.io.Source
 
-case class ReqHdl private(val request: String, val page: Int = 0) extends Function0[Resp] {
+case class ReqHdl private (val request: String, val page: Int = 0)
+    extends Function0[Resp] {
 
-  /**
-    * Execute the `GET` request
+  /** Execute the `GET` request
     *
-    * @return Server Response wrapped in an instance of the case class Resp
+    * @return
+    *   Server Response wrapped in an instance of the case class Resp
     */
   override def apply(): Resp = Resp(Source.fromURL(request).mkString)
 
-  
   /** @param page
     *   (optional) index of page to request. If not given, defaults to
     *   `this.page + 1`
@@ -32,16 +32,23 @@ object ReqHdl {
   val baseUrl: String = "https://pgc.unige.ch/main/api"
 
   /** Simple `GET` request for given request to API defined in `this.baseUrl`
-   *
-   * Instantiate ReqHdl class with a new request, to execute it call teh apply method i.e. `ReqHdl(req)()` or `ReqHdl(req).apply`
+    *
+    * Instantiate ReqHdl class with a new request, to execute it call teh apply
+    * method i.e. `ReqHdl(req)()` or `ReqHdl(req).apply`
     * @param endpoint
     *   end of url to be appended to `this.baseUrl`
-    * @return `ReqHdl` instance
+    * @return
+    *   `ReqHdl` instance
     */
   def g(endpoint: String) = ReqHdl(f"$baseUrl/$endpoint")
 
   val studyPlanUrl: String = f"$baseUrl/study-plans"
 
-  def gStudyPlan(id : Int = 0) = if (id == 0) g(studyPlanUrl) else g(f"$studyPlanUrl/$id")
+
+  /** @param id Int, id of study plan, optional, 
+    * @return GET request for all study-plans if id was not given or is 0 else details about study-plan with specified id
+    */
+  def gStudyPlan(id: Int = 0) =
+    if (id == 0) g(studyPlanUrl) else g(f"$studyPlanUrl/$id")
 
 }

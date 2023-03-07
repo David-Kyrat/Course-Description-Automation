@@ -1,0 +1,1404 @@
+[info] welcome to sbt 1.8.2 (Oracle Corporation Java 17.0.6)
+[info] loading global plugins from C:\Users\noahm\.sbt\1.0\plugins
+[info] loading settings for project course-description-automation-build-build from metals.sbt ...
+[info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project\project
+[info] loading settings for project course-description-automation-build from metals.sbt ...
+[info] loading project definition from C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\project
+[success] Generated .bloop\course-description-automation-build.json
+[success] Total time: 0 s, completed 7 Mar 2023, 23:13:02
+[info] loading settings for project course-description-automation from build.sbt ...
+[info] set current project to Course-Description-Automation (in build file:/C:/Users/noahm/DocumentsNb/BA4/Course-Description-Automation/)
+[info] running ch.Main 
+
+
+
+{
+  "_links": {
+    "list": {
+      "href": "https://pgc.unige.ch/main/api/teachings"
+    },
+    "module": {
+      "href": "https://pgc.unige.ch/main/api"
+    },
+    "self": {
+      "href": "https://pgc.unige.ch/main/api/teachings/2022-11X001"
+    }
+  },
+  "academicalYear": "2022",
+  "activities": [{
+    "activityTeachers": [{
+      "activityId": "140498",
+      "contactInfos": [{
+        "building": "BAT A",
+        "buildingName": "Battelle Bâtiment A",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Francois.Fleuret@unige.ch",
+        "entityId": "11963651",
+        "faxNumber": null,
+        "firstName": "FRANCOIS JEAN",
+        "function": "Professeur-e ordinaire",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "CAROUGE",
+        "name": "FLEURET",
+        "officeName": "BAT A 410",
+        "officeNumber": "410",
+        "phoneNumber": "022 379 02 21",
+        "resId": "11963651",
+        "searchCriterias": null,
+        "street": "ROUTE DE DRIZE 7",
+        "structure": "DEPARTEMENT D'INFORMATIQUE",
+        "teacherId": "766513",
+        "title": "M.",
+        "visible": true,
+        "zipCode": "1227"
+      }],
+      "creation": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "displayFirstName": "François",
+      "displayFonction": "Professeur-e ordinaire",
+      "displayLastName": "Fleuret",
+      "entityId": "140498-2022-766513",
+      "lastUpdate": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "personId": "766513",
+      "resId": "140498-2022-766513",
+      "searchCriterias": null,
+      "teacherId": "2022-766513",
+      "teachingId": "2022-11X001"
+    }, {
+      "activityId": "140498",
+      "contactInfos": [{
+        "building": "CMU",
+        "buildingName": "CMU",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Frederique.Lisacek@unige.ch",
+        "entityId": "11960789",
+        "faxNumber": "95858",
+        "firstName": "FREDERIQUE",
+        "function": "Maître d'enseignement et de recherche",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "GENEVE",
+        "name": "LISACEK",
+        "officeName": "CMU C00.1334.A",
+        "officeNumber": "C00.1334.A",
+        "phoneNumber": "022 379 59 88",
+        "resId": "11960789",
+        "searchCriterias": null,
+        "street": "RUE MICHEL-SERVET 1",
+        "structure": "SERV. COMM. FAC. DE MEDECINE",
+        "teacherId": "639315",
+        "title": "Mme",
+        "visible": true,
+        "zipCode": "1206"
+      }, {
+        "building": "BAT A",
+        "buildingName": "Battelle Bâtiment A",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Frederique.Lisacek@unige.ch",
+        "entityId": "11960790",
+        "faxNumber": null,
+        "firstName": "FREDERIQUE",
+        "function": "Maître d'enseignement et de recherche",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "CAROUGE",
+        "name": "LISACEK",
+        "officeName": "BAT A 331",
+        "officeNumber": "331",
+        "phoneNumber": "022 379 01 95",
+        "resId": "11960790",
+        "searchCriterias": null,
+        "street": "ROUTE DE DRIZE 7",
+        "structure": "CENTRE UNIV. D'INFORMATIQUE",
+        "teacherId": "639315",
+        "title": "Mme",
+        "visible": true,
+        "zipCode": "1227"
+      }],
+      "creation": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "displayFirstName": "Frédérique",
+      "displayFonction": "Maître d'enseignement et de recherche",
+      "displayLastName": "Lisacek",
+      "entityId": "140498-2022-639315",
+      "lastUpdate": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "personId": "639315",
+      "resId": "140498-2022-639315",
+      "searchCriterias": null,
+      "teacherId": "2022-639315",
+      "teachingId": "2022-11X001"
+    }],
+    "bibliography": "Support de cours et ouvrages de référence.",
+    "code": "11X001CR01",
+    "codeLanguage": "FR",
+    "comment": "Cours, exercices, travaux pratiques intégrés",
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": "Concepts d'algorithmes, notions fondamentales, abstraction, séquences, itérations, récursivité.\r\n\r\n'\tProgrammes et langages de programmation, compilateurs et interpréteurs.\r\n\r\n'\tFondamentaux de la programmation :\r\n\r\n+ modèle de von Neumann, mémoire,\r\n+ types primitifs,\r\n+ tableaux et chaînes de caractères,\r\n+ structures et énumérations,\r\n+ instructions d'affectation et de contrôle,\r\n+ fonctions, récursivité,\r\n+ fonctions anonymes et d'ordres supérieurs.\r\n\r\n'\tPratique de la programmation\r\n\r\n+ entrées /sorties, fichiers,\r\n+ utilisation de librairies pré-existantes,\r\n+ gestion des erreurs, débogage.\r\n\r\n'\tAnalyse, notion de complexité des algorithmes.\r\n\r\n'\tAlgorithmes et leur analyse, tris, programmation dynamique et recherche de motifs.\r\n",
+    "displayDuration": "4h de cours, automne",
+    "displayNotGiven": null,
+    "duration": "4h",
+    "englishTitle": "Introduction to Programming Algorithms",
+    "entityId": "140498",
+    "evaluation": "Examen écrit",
+    "evaluationComment": null,
+    "given": true,
+    "intended": "Baccalauréat universitaire en sciences informatiques et baccalauréat universitaire en mathématiques, informatique et sciences numériques",
+    "language": "français",
+    "languageForSearch": "français",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": true,
+    "objective": "Ce cours a pour but d'introduire les concepts fondamentaux de la programmation des ordinateurs et de l'algorithmique. Des algorithmes représentatifs de problèmes classiques sont étudiés.",
+    "periodicity": "Automne",
+    "publicAccepted": false,
+    "recommended": null,
+    "resId": "140498",
+    "scheduleText": "LU 15h-17h, Bat D/Amphi\nMA 14h-16h, SCIII/0019",
+    "searchCriterias": null,
+    "shortEvaluation": "E",
+    "shortPeriodicity": "A",
+    "shortType": "CR",
+    "subtitle": null,
+    "teachingId": "2022-11X001",
+    "title": "Introduction à la programmation des algorithmes",
+    "type": "Cours",
+    "variousInformation": "Préparation pour : Langages formels, Structure de données, Sémantique des langages informatiques"
+  }, {
+    "activityTeachers": [{
+      "activityId": "140499",
+      "contactInfos": [{
+        "building": "BAT A",
+        "buildingName": "Battelle Bâtiment A",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Francois.Fleuret@unige.ch",
+        "entityId": "11963651",
+        "faxNumber": null,
+        "firstName": "FRANCOIS JEAN",
+        "function": "Professeur-e ordinaire",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "CAROUGE",
+        "name": "FLEURET",
+        "officeName": "BAT A 410",
+        "officeNumber": "410",
+        "phoneNumber": "022 379 02 21",
+        "resId": "11963651",
+        "searchCriterias": null,
+        "street": "ROUTE DE DRIZE 7",
+        "structure": "DEPARTEMENT D'INFORMATIQUE",
+        "teacherId": "766513",
+        "title": "M.",
+        "visible": true,
+        "zipCode": "1227"
+      }],
+      "creation": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "displayFirstName": "François",
+      "displayFonction": "Professeur-e ordinaire",
+      "displayLastName": "Fleuret",
+      "entityId": "140499-2022-766513",
+      "lastUpdate": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "personId": "766513",
+      "resId": "140499-2022-766513",
+      "searchCriterias": null,
+      "teacherId": "2022-766513",
+      "teachingId": "2022-11X001"
+    }, {
+      "activityId": "140499",
+      "contactInfos": [{
+        "building": "CMU",
+        "buildingName": "CMU",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Frederique.Lisacek@unige.ch",
+        "entityId": "11960789",
+        "faxNumber": "95858",
+        "firstName": "FREDERIQUE",
+        "function": "Maître d'enseignement et de recherche",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "GENEVE",
+        "name": "LISACEK",
+        "officeName": "CMU C00.1334.A",
+        "officeNumber": "C00.1334.A",
+        "phoneNumber": "022 379 59 88",
+        "resId": "11960789",
+        "searchCriterias": null,
+        "street": "RUE MICHEL-SERVET 1",
+        "structure": "SERV. COMM. FAC. DE MEDECINE",
+        "teacherId": "639315",
+        "title": "Mme",
+        "visible": true,
+        "zipCode": "1206"
+      }, {
+        "building": "BAT A",
+        "buildingName": "Battelle Bâtiment A",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Frederique.Lisacek@unige.ch",
+        "entityId": "11960790",
+        "faxNumber": null,
+        "firstName": "FREDERIQUE",
+        "function": "Maître d'enseignement et de recherche",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "CAROUGE",
+        "name": "LISACEK",
+        "officeName": "BAT A 331",
+        "officeNumber": "331",
+        "phoneNumber": "022 379 01 95",
+        "resId": "11960790",
+        "searchCriterias": null,
+        "street": "ROUTE DE DRIZE 7",
+        "structure": "CENTRE UNIV. D'INFORMATIQUE",
+        "teacherId": "639315",
+        "title": "Mme",
+        "visible": true,
+        "zipCode": "1227"
+      }],
+      "creation": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "displayFirstName": "Frédérique",
+      "displayFonction": "Maître d'enseignement et de recherche",
+      "displayLastName": "Lisacek",
+      "entityId": "140499-2022-639315",
+      "lastUpdate": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "personId": "639315",
+      "resId": "140499-2022-639315",
+      "searchCriterias": null,
+      "teacherId": "2022-639315",
+      "teachingId": "2022-11X001"
+    }],
+    "bibliography": null,
+    "code": "11X001EX01",
+    "codeLanguage": "FR",
+    "comment": "Pour les travaux pratiques, voir \"Laboratoire de programmation\"",
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": "\n\n",
+    "displayDuration": "2h de exercices, automne",
+    "displayNotGiven": null,
+    "duration": "2h",
+    "englishTitle": "Introduction to Programming Algorithms",
+    "entityId": "140499",
+    "evaluation": null,
+    "evaluationComment": null,
+    "given": true,
+    "intended": "Baccalauréat universitaire en sciences informatiques / baccalauréat universitaire en mathématiques, informatique et sciences numériques",
+    "language": "français",
+    "languageForSearch": "français",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": false,
+    "objective": null,
+    "periodicity": "Automne",
+    "publicAccepted": false,
+    "recommended": null,
+    "resId": "140499",
+    "scheduleText": "LU 13h-15h, Bat D/Amphi et Bat A salles PC 314-315 et 322-323 (selon TP)",
+    "searchCriterias": null,
+    "shortEvaluation": null,
+    "shortPeriodicity": "A",
+    "shortType": "EX",
+    "subtitle": null,
+    "teachingId": "2022-11X001",
+    "title": "Introduction à la programmation des algorithmes",
+    "type": "Exercices",
+    "variousInformation": null
+  }],
+  "code": "11X001",
+  "creation": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "credits": 6.0,
+  "departments": [{
+    "code": "NDINF",
+    "entityId": "202210238",
+    "label": "Département d'informatique",
+    "teachingId": "2022-11X001"
+  }],
+  "domains": [{
+    "entityId": "91",
+    "label": "Informatique"
+  }],
+  "entityId": "2022-11X001",
+  "facultyId": "547",
+  "facultyLabel": "Faculté des sciences",
+  "lastUpdate": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "listStudyPlan": [{
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175430",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "6",
+    "resId": "175430",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73713",
+    "studyPlanId": "73710",
+    "studyPlanLabel": "Baccalauréat universitaire en informatique",
+    "studyPlanPath": "Baccalauréat universitaire en informatique/1re année",
+    "teachingId": "2022-11X001",
+    "teachingOrder": "4"
+  }, {
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175653",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "7",
+    "resId": "175653",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73734",
+    "studyPlanId": "73726",
+    "studyPlanLabel": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques",
+    "studyPlanPath": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques/Cours de 1re année",
+    "teachingId": "2022-11X001",
+    "teachingOrder": "15"
+  }, {
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "187595",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "6",
+    "resId": "187595",
+    "searchCriterias": null,
+    "studyPlanGroupId": "77687",
+    "studyPlanId": "77661",
+    "studyPlanLabel": "Master of Science in Biology 120 crédits",
+    "studyPlanPath": "Master of Science in Biology 120 crédits/Master of Science in Biology Bioinformatics and Data Analysis in Biology (BIADB)/Elective courses (to bring to a total of 60 ECTS)",
+    "teachingId": "2022-11X001",
+    "teachingOrder": "25"
+  }, {
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175531",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "6",
+    "resId": "175531",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73724",
+    "studyPlanId": "73724",
+    "studyPlanLabel": "Cours donnés pour la Section de mathématiques par d'autres sections",
+    "studyPlanPath": "Cours donnés pour la Section de mathématiques par d'autres sections",
+    "teachingId": "2022-11X001",
+    "teachingOrder": "85"
+  }],
+  "resId": "2022-11X001",
+  "searchCriterias": null,
+  "shortFaculty": "S",
+  "studyLevel": "Bachelor",
+  "teachingLinks": [{
+    "entityId": "2022-11X001-1150",
+    "label": "Site e-learning (moodle)",
+    "teachingId": "2022-11X001",
+    "url": "https://moodle.unige.ch/course/view.php?id=2663",
+    "urlNumber": "1"
+  }],
+  "title": "Introduction à la programmation des algorithmes"
+}
+
+
+----------------------- Study Plans -----------------------------
+{
+  "_data": [{
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/19779"
+      }
+    },
+    "academicalYear": "2015",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "19779",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "19779",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/19514"
+      }
+    },
+    "academicalYear": "2013",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "19514",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "19514",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/19648"
+      }
+    },
+    "academicalYear": "2014",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "19648",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "19648",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/19376"
+      }
+    },
+    "academicalYear": "2012",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "19376",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "19376",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/73710"
+      }
+    },
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "73710",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "73710",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/22799"
+      }
+    },
+    "academicalYear": "2017",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "22799",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "22799",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/25619"
+      }
+    },
+    "academicalYear": "2019",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "25619",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "25619",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/52020"
+      }
+    },
+    "academicalYear": "2020",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "52020",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "52020",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/24429"
+      }
+    },
+    "academicalYear": "2018",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "24429",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "24429",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/21129"
+      }
+    },
+    "academicalYear": "2016",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "21129",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "21129",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/60890"
+      }
+    },
+    "academicalYear": "2021",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "60890",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15INFO",
+    "formationId": 1272,
+    "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+    "label": "Baccalauréat universitaire en informatique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "60890",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "152"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/22806"
+      }
+    },
+    "academicalYear": "2017",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "22806",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "22806",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/60902"
+      }
+    },
+    "academicalYear": "2021",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "60902",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "60902",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/52027"
+      }
+    },
+    "academicalYear": "2020",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "52027",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "52027",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/19655"
+      }
+    },
+    "academicalYear": "2014",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "19655",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "19655",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/73722"
+      }
+    },
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "73722",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "73722",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/21136"
+      }
+    },
+    "academicalYear": "2016",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "21136",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "21136",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/19383"
+      }
+    },
+    "academicalYear": "2012",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "19383",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "19383",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/19786"
+      }
+    },
+    "academicalYear": "2015",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "19786",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "19786",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }, {
+    "_links": {
+      "list": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans/25626"
+      }
+    },
+    "academicalYear": "2019",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "credits": 180,
+    "departmentId": null,
+    "entityId": "25626",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "formationCode": "15MATH",
+    "formationId": 1270,
+    "formationLabel": "Baccalauréat universitaire en mathématiques",
+    "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+    "label": "Baccalauréat universitaire en mathématique",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "optionCode": null,
+    "optionLabel": null,
+    "resId": "25626",
+    "searchCriterias": null,
+    "searchTerm": null,
+    "studyLevel": "Bachelor",
+    "studyLevelId": "195",
+    "studyPlanSortColumn": "202"
+  }],
+  "_links": {
+    "lastCreated": {
+      "href": "https://pgc.unige.ch/main/api/study-plans?sort=creation.when,desc"
+    },
+    "lastUpdated": {
+      "href": "https://pgc.unige.ch/main/api/study-plans?sort=lastUpdate.when,desc"
+    },
+    "module": {
+      "href": "https://pgc.unige.ch/main/api"
+    },
+    "next": {
+      "href": "https://pgc.unige.ch/main/api/study-plans?size=20&page=1"
+    },
+    "self": {
+      "href": "https://pgc.unige.ch/main/api/study-plans"
+    }
+  },
+  "_page": {
+    "currentPage": 0,
+    "sizePage": 20,
+    "totalItems": 2993,
+    "totalPages": 150
+  }
+}
+
+
+
+[success] Total time: 2 s, completed 7 Mar 2023, 23:13:04
