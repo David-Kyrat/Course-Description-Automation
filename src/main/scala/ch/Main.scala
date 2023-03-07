@@ -12,7 +12,10 @@ object Main extends App {
    
   println(serverResponse)
 
-  val studyPlans = gStudyPlan()
+  println("\n\n----------------------- Study Plans -----------------------------")
+  val studyPlansReq: ReqHdl = gStudyPlan()
+  val studyPlansResp: Resp = studyPlansReq()
+  println(studyPlansResp)
   // println(studyPlans)
   // println(serverResponse)
 
