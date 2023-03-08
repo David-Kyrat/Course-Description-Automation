@@ -16,7 +16,7 @@ final case class Course(id: String, year: String) {
     // NB: fields are mutable for now to simplify initialization, => This will be removed latter on.
 
     // year in StudyPlan i.e 1->3 for Bachelor / 1->2 for Master ...
-    var spYear = ???
+    var spYear = ??? //first letter of course code
 
 
     var title = ???
@@ -27,6 +27,7 @@ final case class Course(id: String, year: String) {
 
     var semester: Semester = ???
 
+
     val language: String = ???
 
     // StudyPlan, Credits, IsMandatory Map (only string of studyplan otherwise we'll be stuck at construction since course Needs to have initialized Study plans and studyPlan needs initialized courses)
@@ -35,6 +36,13 @@ final case class Course(id: String, year: String) {
 
 
     var content: String = ???
+
+    
+    var faculty: String = ???
+
+    
+    var section: String = ???
+
 
 
     var documentation: String = ???

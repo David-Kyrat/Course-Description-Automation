@@ -47,3 +47,54 @@ Exemple:
     GET https://pgc.unige.ch/main/api/activities/languages  //  return available languages
     GET https://pgc.unige.ch/main/api/academical-years/2019 //  return details for the given academical-year
     GET https://pgc.unige.ch/main/api/teachings/2022-11X001 //  return details for given course at given year
+
+
+## Parsing
+
+
+### Which field from the database is relevant ?
+
+
+Each JSON response is **significantly** big, there is **a lot** of data duplication.
+E.g. if a course is given to several different section/departments then almost every information
+about the teachers giving the course will appear at least more than 1 time.  
+Which begs the question "which field is relevant?", which is what we will record here in
+an approximate [YAML](https://en.wikipedia.org/wiki/YAML) format.
+
+
+#### Course:
+
+Request: `GET https://pgc.unige.ch/main/api/teachings/<courseYear>-<courseId>`
+
+
+The necessary fields to fill the class [Course.scala](https://github.com/David-Kyrat/Course-Description-Automation/blob/master/src/main/scala/ch/Course.scala) are located as following:
+
+
+```YAML
+
+- academicalYear  # year
+- code   # id
+- activities:
+    # lectures: 
+    -  - title   # name 
+       - duration   # hoursNb.lectures
+       - periodicity   # Semester
+       - objective   # objectives
+       - intended   # study plan names
+       - variousInfo   # to check if all variousInfo contains the same category of info
+       - comment    # idem
+       - type  # presence of type = exercies indicate hoursNb.exercices > 0, idem for hoursNb.practice
+    # exercices:    
+    -  - duration # hoursNb.exercices 
+
+    # pratice:    
+    -  - duration # hoursNb.pratice (if present)
+
+- facultyLabel   # faculty
+- ListStudyPlan:  # List of each study plan that has this course
+    - studyPlanLabel
+    - planCredits
+    - facultyLabel
+
+```
+
