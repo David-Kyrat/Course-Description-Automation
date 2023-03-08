@@ -3,7 +3,10 @@ package ch
 // import ch.Resp._
 import ch.ReqHdl._
 import ch.Utils
+
+import com.google.gson.{JsonElement, JsonParser, JsonSerializer, JsonDeserializer}
 import java.nio.file.Path
+
 
 object Main {
     def testGetStudyPlans() = {
@@ -40,6 +43,10 @@ object Main {
 
     def main(args: Array[String]): Unit = {
         print("\u001b[2J") // clears sbt output TODO: remove for Production!
-        println("lul")
+
+        val jsonString = Utils.prettifyJson(course("2023-11X001").get())
+        Utils.write(Path.of("res/ipa-23-desc.json"), jsonString)
+
+
     }
 }

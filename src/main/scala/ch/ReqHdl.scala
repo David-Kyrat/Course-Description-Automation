@@ -2,9 +2,9 @@ package ch
 
 import scala.io.{Source, BufferedSource}
 import scala.io.Codec.UTF8
-import ch.Resp._
-
 import scala.util.{Using, Success, Failure}
+
+import ch.Utils.prettifyJson
 
 /**
  * Class representing an HTTP request, methods in the object `ReqHdl` returns
@@ -38,7 +38,6 @@ case class ReqHdl private (val req: String, val page: Int = 0) extends Function0
     /**
      * Execute the `GET` request and directly formats the json instead of
      * creating a `Resp` instance.
-     *
      * @return prettified Server JSON Response
      */
     def get(): String = prettifyJson(request(req))
@@ -87,8 +86,12 @@ object ReqHdl {
 
     /** API entry point */
     val baseUrl: String = "https://pgc.unige.ch/main/api"
-    val studyPlanUrl: String = f"$baseUrl/study-plans"
-    val courseUrl = f"$baseUrl/teachings/" // append courseYear-courseId
+   
+    private val spPart = "study-plans"
+    private val coursePart = "teachings"
+   
+    val studyPlanUrl: String = f"$baseUrl/$spPart"
+    val courseUrl = f"$baseUrl/$coursePart" // append courseYear-courseId
 
     /**
      * Instantiate ReqHdl class with a new request, to execute it call the apply
@@ -100,12 +103,12 @@ object ReqHdl {
     def g(endpoint: String) = ReqHdl(f"$baseUrl/$endpoint")
 
     /**
-     * @param id String, exact url-id of the form `studyPlanUrlId-studyPlanYear`. (Optional) if not given, defaults to aksing for the list of studyPlans
+     * @param id String, exact url-id of the form `studyPlanYear-studyPlanUrlId`. (Optional) if not given, defaults to aksing for the list of studyPlans
      * @param size Int, number of results (optional, defaults to 1000)
      * @return new Request i.e. `ReqHdl` instance, requesting a list of study-plans if id was not given and details about study-plan with given `id` if it was
      */
     def studyPlan(id: String = null, size: Int = 1000) =
-        if (id == null) g(f"$studyPlanUrl?size=$size") else g(f"$studyPlanUrl/$id?size=$size")
+        if (id == null) g(f"$spPart?size=$size") else g(f"$spPart/$id?size=$size")
 
     /**
      * Same as `studyPlan()` but for couse, see [[ch.ReqHdl.studyPlan]] for more infos
@@ -115,6 +118,8 @@ object ReqHdl {
      * @return new Request i.e. `ReqHdl` instance, requesting a list of courses if id was not given and details about course with given `id` if it was
      */
     def course(id: String = null, size: Int = 1000) =
-        if (id == null) g(f"$courseUrl/find?size=$size") else g(f"$courseUrl/$id")
+        if (id == null) g(f"$coursePart/find?size=$size") else g(f"$coursePart/$id")
 
+    // BUG: Request 'https://pgc.unige.ch/main/api/teachings/find' does not work (error 400)
+ 
 }

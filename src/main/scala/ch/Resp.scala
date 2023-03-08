@@ -1,6 +1,6 @@
 package ch
-import spray.json._
-import DefaultJsonProtocol._
+
+import ch.Utils.prettifyJson
 
 /** Cases class modelizing the server's response to request. Allows doing
   * several useful operations with it (i.e. ask for next page)
@@ -8,7 +8,7 @@ import DefaultJsonProtocol._
 final case class Resp(val resp: String, val page: Int = 0) {
 
 
-  override def toString(): String = Resp.prettifyJson(this.resp)
+  override def toString(): String = prettifyJson(this.resp)
 
 }
 
@@ -19,5 +19,5 @@ object Resp {
     * @return
     *   prettify json string, i.e. indented ...
     */
-  def prettifyJson(rawJson: String) = rawJson.parseJson.prettyPrint
+  // def prettifyJson(rawJson: String) = rawJson.parseJson.prettyPrint
 }

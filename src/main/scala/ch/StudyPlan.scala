@@ -1,7 +1,7 @@
 package ch
 
-import ch.Resp.prettifyJson
-import ch.ReqHdl.{studyPlanUrl}
+import ch.ReqHdl.studyPlanUrl
+import ch.Utils.prettifyJson
 
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
@@ -10,7 +10,8 @@ import ch.ReqHdl.{studyPlanUrl}
  * @param year String, year the course in this studyplan are given
  */
 final case class StudyPlan(val id: String, val year: String) {
-    val request = f"$studyPlanUrl/$id-$year"
+    //val request = f"$studyPlanUrl/$year-$id"
+    val urlId = f"$year-$id"
     // TODO: implement retrieving fields from server response
 
     val faculty: String = ???
@@ -23,11 +24,11 @@ object StudyPlan {
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
-     * url-id (i.e. be of the form `studyPlanUrlId-studyPlanYear`)
+     * url-id (i.e. be of the form `studyPlanYear-studyPlanUrlId`)
      * @param year String year / version of this study plan (optional)
      * @return formatted Json response from server for details about given study plan
      */
     def get(id: String, year: String = null) =
-        if (year == null) ReqHdl.studyPlan(id).get() else ReqHdl.studyPlan(f"$id-$year").get()
+        if (year == null) ReqHdl.studyPlan(id).get() else ReqHdl.studyPlan(f"$year-$id")
 
 }
