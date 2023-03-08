@@ -27,7 +27,7 @@ final case class Course(id: String, year: String) {
 
     var semester: Semester = ???
 
-
+    val language: String = ???
 
     // StudyPlan, Credits, IsMandatory Map (only string of studyplan otherwise we'll be stuck at construction since course Needs to have initialized Study plans and studyPlan needs initialized courses)
     // ral StudyPlans: Map[String, Int, Boolean] = ???
