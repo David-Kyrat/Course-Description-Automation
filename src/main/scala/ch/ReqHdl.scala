@@ -94,16 +94,17 @@ object ReqHdl {
 
     /**
      * @param id String, exact url-id of the form `studyPlanUrlId-studyPlanYear`. (Optional) if not given, defaults to aksing for the list of studyPlans
-     *
+     * @param size Int, number of results (optional, defaults to 1000)
      * @return new Request i.e. `ReqHdl` instance, requesting a list of study-plans if id was not given and details about study-plan with given `id` if it was
      */
-    def studyPlan(id: String = null) =
-        if (id == null) g(studyPlanUrl) else g(f"$studyPlanUrl/$id")
+    def studyPlan(id: String = null, size: Int = 1000) =
+        if (id == null) g(f"$studyPlanUrl?size=$size") else g(f"$studyPlanUrl/$id?size=$size")
 
     /**
      * Same as `studyPlan()` but for couse, see [[ch.ReqHdl.studyPlan]] for more infos
      *
      * @param id
+     * @param size Int, number of results (optional, defaults to 1000)
      * @return new Request i.e. `ReqHdl` instance, requesting a list of courses if id was not given and details about course with given `id` if it was
      */
     def course(id: String = null, size: Int = 1000) =
