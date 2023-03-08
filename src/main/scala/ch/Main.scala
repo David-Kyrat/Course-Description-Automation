@@ -1,24 +1,23 @@
 package ch
 
-import ch.Resp._
+// import ch.Resp._
 import ch.ReqHdl._
-
-import scala.io.{Source, BufferedSource}
-import scala.io.Codec.UTF8
-import scala.util.Using
-import scala.util.Success
-import scala.util.Failure
-
+import ch.Utils
+import java.nio.file.Path
 
 object Main extends App {
-    println("\n\n")
+    print("\u001b[2J") //clears sbt output TODO: remove for Production!
 
-    val descIpa22 = "teachings/2022-11X001"
+    val ipa22Id = "2022-11X001"
+    val ipa22Req = ReqHdl.course(f"$ipa22Id?size=1000")
+    val ipa22Resp = ipa22Req.get()
+    Utils.write(Path.of("res/out.json"), ipa22Resp)
 
-    val x: String = Using(Source.fromURL(f"$baseUrl/$descIpa22"))(_.mkString) match {
-        case Success(response: String) => response
-        case Failure(reason)           => throw new IllegalArgumentException(f"`ReqHDL.request()`: HTTP Request Failed, reason: $reason")
-    }
+    // println(ipa22Req.get())
+    //println(ipa22Req.next().get())
+    // println(ipa22Req.next(26).get())
+
+
 //  val bs = Using(Source.fromURL(f"${ReqHdl.baseUrl}/$descIpa22"))
     // val resp = bs.mkString
     // bs.close()
@@ -33,6 +32,4 @@ object Main extends App {
   val studyPlansReq: ReqHdl = studyPlan()
   val studyPlansResp: Resp = studyPlansReq()
   println(studyPlansResp) */
-
-    println("\n\n")
 }

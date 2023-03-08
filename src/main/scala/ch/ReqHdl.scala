@@ -52,8 +52,12 @@ case class ReqHdl private (val req: String, val page: Int = 0) extends Function0
     def next(newPage: Int = 0): ReqHdl = {
         var resolvedNewPage = if (newPage == 0) this.page + 1 else newPage
         val newReq =
-            if (this.page == 0) f"${this.req}?page=$resolvedNewPage"
-            else {
+            if (this.page == 0) {
+                val tokenToAdd = if (this.req.contains('?')) '&' else '?' // if request already contains the '?' for advanced search => do not re-add it and add a '&' instead
+
+                f"${this.req}${tokenToAdd}page=$resolvedNewPage"
+
+            } else {
                 val patternPair = ("page=", 5) // pair ["pattern", "patternLength"]
                 val idx = this.req.lastIndexOf(patternPair._1) + patternPair._2 // idx of pageNb
                 this.req.substring(0, idx + 1) + f"$resolvedNewPage"
@@ -76,6 +80,8 @@ object ReqHdl {
 
     /** API entry point */
     val baseUrl: String = "https://pgc.unige.ch/main/api"
+    val studyPlanUrl: String = f"$baseUrl/study-plans"
+    val courseUrl = f"$baseUrl/teachings/" // append courseYear-courseId
 
     /**
      * Instantiate ReqHdl class with a new request, to execute it call the apply
@@ -86,8 +92,6 @@ object ReqHdl {
      */
     def g(endpoint: String) = ReqHdl(f"$baseUrl/$endpoint")
 
-    val studyPlanUrl: String = f"$baseUrl/study-plans"
-
     /**
      * @param id String, exact url-id of the form `studyPlanUrlId-studyPlanYear`. (Optional) if not given, defaults to aksing for the list of studyPlans
      *
@@ -95,5 +99,14 @@ object ReqHdl {
      */
     def studyPlan(id: String = null) =
         if (id == null) g(studyPlanUrl) else g(f"$studyPlanUrl/$id")
+
+    /**
+     * Same as `studyPlan()` but for couse, see [[ch.ReqHdl.studyPlan]] for more infos
+     *
+     * @param id
+     * @return new Request i.e. `ReqHdl` instance, requesting a list of courses if id was not given and details about course with given `id` if it was
+     */
+    def course(id: String = null, size: Int = 1000) =
+        if (id == null) g(f"$courseUrl/find?size=$size") else g(f"$courseUrl/$id")
 
 }

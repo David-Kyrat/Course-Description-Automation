@@ -15,9 +15,6 @@ scalaVersion := "2.13.10"
 
 name := "Course-Description-Automation"
 organization := "ch"
-// Note, it's not required for you to define these three settings. These are
-// mostly only necessary if you intend to publish your library's binaries on a
-// place like Sonatype.
 
 
 // Want to use a published library in your project?
@@ -28,7 +25,5 @@ libraryDependencies += "io.spray" %%  "spray-json" % "1.3.6"
 // Here, `libraryDependencies` is a set of dependencies, and by using `+=`,
 // we're adding the scala-parser-combinators dependency to the set of dependencies
 
+scalacOptions += "-deprecation"
 
-// that sbt will go and fetch when it starts up.
-// Now, in any Scala file, you can import classes, objects, etc., from
-// scala-parser-combinators with a regular import.
