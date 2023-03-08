@@ -44,8 +44,8 @@ object Main {
     def main(args: Array[String]): Unit = {
         print("\u001b[2J") // clears sbt output TODO: remove for Production!
 
-        val jsonString = Utils.prettifyJson(course("2023-11X001").get())
-        Utils.write(Path.of("res/ipa-23-desc.json"), jsonString)
+        val jsonString = Utils.prettifyJson(course("2022-11X001").get())
+        Utils.write(Path.of("res/ipa-22-desc.json"), jsonString)
 
 
     }
