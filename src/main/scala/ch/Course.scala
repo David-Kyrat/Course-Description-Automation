@@ -46,10 +46,10 @@ final case class Course(id: String, year: String) {
     var teachers: Vector[String] = ???
 
     /*
-     Optional bc we dont know if its actually in the db (=> need to actually actively search for it)
+     Option bc we dont know if its actually in the db (=> need to actually actively search for it)
      plus it must be immutable but need not being given at runtime
      */
-    var format: Optional[_] = ???
-    var preRequisites: Optional[Vector[String]] = ???
-    var usefulFor: Optional[Vector[String]] = ???
+    var format: Option[_] = ???
+    var preRequisites: Option[Vector[String]] = ???
+    var usefulFor: Option[Vector[String]] = ???
 }
