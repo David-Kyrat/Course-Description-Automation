@@ -4,17 +4,18 @@ import ch.Resp.prettifyJson
 import ch.ReqHdl.{studyPlanUrl}
 
 /**
-  * Represents a Study Plan (i.e. Computer Science Bachelor)
-  *
-  * @param id String, immutable id of the studyPlan (i.e. the part without the year, that will never change, at least not supposed to)
-  * @param year String, year the course in this studyplan are given
-  */
+ * Represents a Study Plan (i.e. Computer Science Bachelor)
+ *
+ * @param id String, immutable id of the studyPlan (i.e. the part without the year, that will never change, at least not supposed to)
+ * @param year String, year the course in this studyplan are given
+ */
 final case class StudyPlan(val id: String, val year: String) {
-    
     val request = f"$studyPlanUrl/$id-$year"
-    val faculty: Faculty = ??? //TODO: implement retrieving faculty from server response
-    val section: Section = ??? //TODO: idem
-    val courses: Vector[Course] = ??? //TODO: idem
+    // TODO: implement retrieving fields from server response
+
+    val faculty: String = ???
+    val section: String = ???
+    val courses: Vector[Course] = ???
 }
 
 object StudyPlan {
