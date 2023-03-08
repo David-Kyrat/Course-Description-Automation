@@ -47,7 +47,7 @@ case class ReqHdl private (val req: String, val page: Int = 0) extends Function0
      * Return next page of current request. (faster than looking through the
      * significatively long & complex json response for the "next" item)
      * @param page (optional) index of page to request. If not given, defaults to `this.page + 1`
-     * @return next page of result for the request `this.req`
+     * @return Request for the next page of result of current request
      */
     def next(newPage: Int = 0): ReqHdl = {
         var resolvedNewPage = if (newPage == 0) this.page + 1 else newPage
@@ -68,6 +68,13 @@ case class ReqHdl private (val req: String, val page: Int = 0) extends Function0
 
         ReqHdl(newReq, newPage)
     }
+
+    def nextAll(): Vector[Resp] = ???
+    /* NOTE: Only things that indicates that there are no more results is the absence
+     * of "next" item in the json response => so we do have to:
+     * 1. Search for it in the end
+     * 2. And actually execute those request to look for the presence of that `next` item
+     */
 
     override def toString(): String = this.req
 

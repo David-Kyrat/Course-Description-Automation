@@ -11,12 +11,14 @@ object Main extends App {
     val ipa22Id = "2022-11X001"
     val ipa22Req = ReqHdl.course(f"$ipa22Id?size=1000")
     val ipa22Resp = ipa22Req.get()
-    Utils.write(Path.of("res/out.json"), ipa22Resp)
+    val next = ipa22Req.next(26)
+    // Utils.write(Path.of("res/out.json"), ipa22Resp)
 
     // println(ipa22Req.get())
     //println(ipa22Req.next().get())
-    // println(ipa22Req.next(26).get())
-
+    println(next.get())
+    println(f"\n$next")
+    
 
 //  val bs = Using(Source.fromURL(f"${ReqHdl.baseUrl}/$descIpa22"))
     // val resp = bs.mkString
