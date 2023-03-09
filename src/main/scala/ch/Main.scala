@@ -3,7 +3,6 @@ package ch
 // import ch.Resp._
 import ch.ReqHdl._
 import ch.Utils
-import ch.Utils.clearTermOutput
 
 import com.google.gson.{JsonElement, JsonParser, JsonSerializer, JsonDeserializer}
 import java.nio.file.Path
@@ -39,10 +38,7 @@ object Main {
         println(f"\n$next")
     }
 
-    def main(args: Array[String]): Unit = {
-        println("\n\n")
-        //print("\u001b[2J") // clears sbt output TODO: remove for Production!
-        clearTermOutput
+    def testJsonLib() = {
 
         val jsonString = Utils.prettifyJson(course("2022-11X001").get())
         val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
@@ -64,6 +60,12 @@ object Main {
         for (jsVal <- vec) { 
             println(jsVal)
         }
+    }
+
+    def main(args: Array[String]): Unit = {
+        //print("\u001b[2J") // clears sbt output TODO: remove for Production!
+        //clearTermOutput
+        println("lul")
 
     }
 }

@@ -24,13 +24,4 @@ object Utils {
      * @return prettify json string, i.e. indented ...
      */
     def prettifyJson(rawJson: String) = rawJson.parseJson.prettyPrint
-
-    /**
-     * Clears clutter from terminal output
-     * TODO: Remove for Production!
-     */
-    def clearTermOutput: Unit = {
-        import sys.process._
-        "C:/Users/noahm/bin/clear.exe" !
-    }
 }
