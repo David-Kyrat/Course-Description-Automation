@@ -1,16 +1,17 @@
 package ch
 
-import com.google.gson.{Gson, GsonBuilder}
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import spray.json._
 
 import java.nio.charset.StandardCharsets.UTF_8
-import java.nio.file.Files
-import java.nio.file.Path
+import java.nio.file.{Files, Path}
 import java.nio.file.StandardOpenOption._
+import scala.language.postfixOps
 
 import io.{Source, BufferedSource}
 import DefaultJsonProtocol._
-import com.google.gson.reflect.TypeToken
 
 object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
@@ -23,4 +24,13 @@ object Utils {
      * @return prettify json string, i.e. indented ...
      */
     def prettifyJson(rawJson: String) = rawJson.parseJson.prettyPrint
+
+    /**
+     * Clears clutter from terminal output
+     * TODO: Remove for Production!
+     */
+    def clearTermOutput: Unit = {
+        import sys.process._
+        "C:/Users/noahm/bin/clear.exe" !
+    }
 }
