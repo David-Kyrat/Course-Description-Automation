@@ -6,8 +6,7 @@ import ch._
 import com.google.gson.JsonArray
 import scala.jdk.CollectionConverters._
 
-
-
+import ch.CourseHours.CourseHoursBuilder
 
 /**
  * Represents a course for a given year.
@@ -90,27 +89,22 @@ object Course extends Function2[String, Int, Course] {
         val request: ReqHdl = ReqHdl.course(reqUrl)
         request().jsonObj
     }
-
     private def resolveSemester(sem: String): Semester = ???
     private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
         val activities: JsonArray = jsObj.getAsJsonArray("activities")
         val hoursNbJsonKey = "duration" // json object with that key should hold the nb of weekly hours by activity
-        val activitiesNb = activities.size()
-        var lectureHoursNb = 0
-        var exoHoursNb = 0
-        var practiceHoursNb = 0
+        val bld = CourseHoursBuilder()
 
         for (_activity <- activities.asList.asScala) {
             val activity = _activity.getAsJsonObject
             val parsedAct = CourseActivity.ALL_MAP(activity.get("type").getAsString)
             parsedAct match {
-                case Cours     => lectureHoursNb = activity.get(hoursNbJsonKey).getAsInt()
-                case Exercices => exoHoursNb = activity.get(hoursNbJsonKey).getAsInt()
-                case Practice  => practiceHoursNb = activity.get(hoursNbJsonKey).getAsInt()
+                case Cours     => bld.lectures = activity.get(hoursNbJsonKey).getAsInt()
+                case Exercices => bld.exercices = activity.get(hoursNbJsonKey).getAsInt()
+                case Practice  => bld.practice = activity.get(hoursNbJsonKey).getAsInt()
             }
         }
-
-        CourseHours(lectureHoursNb, exoHoursNb, practiceHoursNb)
+        bld.build()
     }
 
     private def resolveCourseHours(courseHours: String): CourseHours = ???
