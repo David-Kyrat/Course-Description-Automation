@@ -63,8 +63,6 @@ object Main {
     }
 
     def main(args: Array[String]): Unit = {
-        //print("\u001b[2J") // clears sbt output TODO: remove for Production!
-        //clearTermOutput
         println("lul")
 
     }
