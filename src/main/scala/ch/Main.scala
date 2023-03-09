@@ -26,6 +26,10 @@ object Main {
         println(studyPlansResp)
     }
 
+    def writeCoursDecsToRes(id: String, year: Int) = {
+        Utils.write(Path.of(f"res/$id-desc.json") , ReqHdl.course(f"$year-$id").get())
+    }
+
     def testNext() = {
         val ipa22Id = "2022-11X001"
         val ipa22Req = ReqHdl.course(f"$ipa22Id?size=1000")
@@ -45,25 +49,30 @@ object Main {
         val ye = jsObj.get("academicalYear")
         val v1 = jsObj.get("code")
         val v2 = "activities"
-        val activities:JsonArray = jsObj.getAsJsonArray(v2)
+        val activities: JsonArray = jsObj.getAsJsonArray(v2)
         val lectures: JsonObject = activities.get(0).getAsJsonObject()
-        val v3 = lectures.get("title") 
-        val v4 = lectures.get("duration")     
-        val v5 = lectures.get("periodicity")     
-        val v6 = lectures.get("objective")     
-        val v7 = lectures.get("intended")     
-        val v8 = lectures.get("variousInfo")     
-        val v9 = lectures.get("comment") 
-        val v0 = lectures.get("type") //NOTE: WORKS ! 
-        
+        val v3 = lectures.get("title")
+        val v4 = lectures.get("duration")
+        val v5 = lectures.get("periodicity")
+        val v6 = lectures.get("objective")
+        val v7 = lectures.get("intended")
+        val v8 = lectures.get("variousInfo")
+        val v9 = lectures.get("comment")
+        val v0 = lectures.get("type") // NOTE: WORKS !
+
         val vec = Vector(ye, v1, v2, v3, v4, v5, v6, v7, v8, v9, v0)
-        for (jsVal <- vec) { 
-            println(jsVal)
-        }
+        // for (jsVal <- vec) {
+        //     println(jsVal)
+        // }
+        activities.forEach(el => {
+            println(el.getClass)
+            //println(el)
+        })
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
+        //writeCoursDecsToRes("12M040", 2022)
         testJsonLib()
 
         println("\n\n")

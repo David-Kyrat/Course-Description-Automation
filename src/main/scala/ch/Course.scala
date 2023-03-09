@@ -1,4 +1,4 @@
-    package ch
+package ch
 
 import ch.ReqHdl
 import ch.ReqHdl.courseUrl
@@ -89,12 +89,22 @@ object Course extends Function2[String, Int, Course] {
 
     private def resolveSemester(sem: String): Semester = ???
     private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
-        val activitiesNb = 
+        val activities: JsonArray = jsObj.getAsJsonArray("activities")
+        val activitiesNb = activities.size()
+        var courseHours = (0, 0, 0) // lectures, exercice, practice
+        /* activities.forEach((activity: JsonObject) => {
+            activity.get("type") match {
+                case "Cours" => null
+            }
+        }) */
+        // for (activity <- activities) {
+        //     activity.
+        // }
+        null
     }
 
     private def resolveCourseHours(courseHours: String): CourseHours = ???
-    private def resolveStudyPlan(studyPlans: IndexedSeq[String]): Map[String, (Int, CourseType)]
- = ???
+    private def resolveStudyPlan(studyPlans: IndexedSeq[String]): Map[String, (Int, CourseType)] = ???
 
     private def factory(id: String, year: Int): Course = {
         val jsObj = get(id, year)
@@ -103,7 +113,7 @@ object Course extends Function2[String, Int, Course] {
         // Just some testing function, remove after
         assert(_id.getAsString == id)
         assert(_year.getAsInt == year)
-        val v2 = "activities"x
+        val v2 = "activities"
         val activities: JsonArray = jsObj.getAsJsonArray(v2)
         val lectures: JsonObject = activities.get(0).getAsJsonObject()
         val title = lectures.get("title").getAsString
@@ -116,8 +126,9 @@ object Course extends Function2[String, Int, Course] {
         val comment = lectures.get("comment").getAsString()
         val coursType = lectures.get("type").getAsString()
 
-        new Course(id, year, title, resolveSemester(semester), objective, description,
-            language, , , , resolveCourseHours(), documentation, , , resolveStudyPlan()
+        // new Course(id, year, title, resolveSemester(semester), objective, description,
+        //     language, , , , resolveCourseHours(), documentation, , , resolveStudyPlan()
+        null
     }
 
     override def apply(id: String, year: Int): Course = factory(id, year)

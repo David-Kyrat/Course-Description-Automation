@@ -1,0 +1,378 @@
+{
+  "_links": {
+    "list": {
+      "href": "https://pgc.unige.ch/main/api/teachings"
+    },
+    "module": {
+      "href": "https://pgc.unige.ch/main/api"
+    },
+    "self": {
+      "href": "https://pgc.unige.ch/main/api/teachings/2022-12M040"
+    }
+  },
+  "academicalYear": "2022",
+  "activities": [{
+    "activityTeachers": [{
+      "activityId": "140597",
+      "contactInfos": [{
+        "building": "CON7",
+        "buildingName": "Conseil Général 7",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Bart.Vandereycken@unige.ch",
+        "entityId": "11995678",
+        "faxNumber": null,
+        "firstName": "BART",
+        "function": "Professeur-e associé-e",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "GENEVE",
+        "name": "VANDEREYCKEN",
+        "officeName": "CON7 5-17",
+        "officeNumber": "5-17",
+        "phoneNumber": "022 379 11 71",
+        "resId": "11995678",
+        "searchCriterias": null,
+        "street": "RUE DU CONSEIL-GENERAL 7",
+        "structure": "SECTION DE MATHEMATIQUES",
+        "teacherId": "829601",
+        "title": "M.",
+        "visible": true,
+        "zipCode": "1205"
+      }, {
+        "building": null,
+        "buildingName": null,
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Bart.Vandereycken@unige.ch",
+        "entityId": "11995679",
+        "faxNumber": null,
+        "firstName": "BART",
+        "function": "Professeur-e associé-e",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": null,
+        "name": "VANDEREYCKEN",
+        "officeName": " ",
+        "officeNumber": null,
+        "phoneNumber": "076.693 62 91",
+        "resId": "11995679",
+        "searchCriterias": null,
+        "street": null,
+        "structure": "SECTION DE MATHEMATIQUES",
+        "teacherId": "829601",
+        "title": "M.",
+        "visible": true,
+        "zipCode": null
+      }],
+      "creation": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "displayFirstName": "Bart",
+      "displayFonction": "Professeur-e associé-e",
+      "displayLastName": "Vandereycken",
+      "entityId": "140597-2022-829601",
+      "lastUpdate": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "personId": "829601",
+      "resId": "140597-2022-829601",
+      "searchCriterias": null,
+      "teacherId": "2022-829601",
+      "teachingId": "2022-12M040"
+    }],
+    "bibliography": null,
+    "code": "12M040CR01",
+    "codeLanguage": "FR",
+    "comment": "ECTS informaticiens : 11 annuel / ECTS math-info-sc.num : 14 annuel",
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": " \r\r\n1. Intégration numérique.\r \n2. Interpolation et approximation.\n3. Résolution numérique des équations différentielles ordinaires.\r \n4. Algèbre linéaire numérique, méthode des moindres carrés.\r \n5. Calcul des vecteurs et valeurs propres.\r \n6. Équations non linéaires à plusieurs variables.\r\r\r\n\n",
+    "displayDuration": "2h de cours, annuel",
+    "displayNotGiven": null,
+    "duration": "2h",
+    "englishTitle": "Numerical Analysis",
+    "entityId": "140597",
+    "evaluation": "Examen écrit",
+    "evaluationComment": "travaux pratiques",
+    "given": true,
+    "intended": null,
+    "language": "français",
+    "languageForSearch": "français",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": true,
+    "objective": "Ce cours a pour but d'introduire les techniques importantes du calcul scientifique et d'en analyser les algorithmes.",
+    "periodicity": "Annuel",
+    "publicAccepted": false,
+    "recommended": "\nPré-requis : 1ere année de mathématique ou informatique ou physique\r\nMode d'évaluation : examen oral\r/écrit\n",
+    "resId": "140597",
+    "scheduleText": "JE 13H-15H, SCII-A100",
+    "searchCriterias": null,
+    "shortEvaluation": "E",
+    "shortPeriodicity": "AN",
+    "shortType": "CR",
+    "subtitle": null,
+    "teachingId": "2022-12M040",
+    "title": "Analyse numérique",
+    "type": "Cours",
+    "variousInformation": "REMARQUE : à partir de la rentrée de septembre 2019, les travaux pratiques deviennent obligatoires pour les mathématiciens."
+  }, {
+    "activityTeachers": [],
+    "bibliography": null,
+    "code": "12M040EX01",
+    "codeLanguage": "FR",
+    "comment": null,
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": null,
+    "displayDuration": "1h de exercices, annuel",
+    "displayNotGiven": null,
+    "duration": "1h",
+    "englishTitle": "Numerical Analysis",
+    "entityId": "140598",
+    "evaluation": null,
+    "evaluationComment": null,
+    "given": true,
+    "intended": null,
+    "language": "français",
+    "languageForSearch": "français",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": false,
+    "objective": null,
+    "periodicity": "Annuel",
+    "publicAccepted": false,
+    "recommended": null,
+    "resId": "140598",
+    "scheduleText": "JE 15H-16H, SCII-A100/A50a \n",
+    "searchCriterias": null,
+    "shortEvaluation": null,
+    "shortPeriodicity": "AN",
+    "shortType": "EX",
+    "subtitle": null,
+    "teachingId": "2022-12M040",
+    "title": "Analyse numérique",
+    "type": "Exercices",
+    "variousInformation": null
+  }, {
+    "activityTeachers": [],
+    "bibliography": null,
+    "code": "12M040TP01",
+    "codeLanguage": "FR",
+    "comment": "REMARQUE : à partir de la rentrée de septembre 2019, les travaux pratiques deviennent obligatoires pour les mathématiciens.",
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": null,
+    "displayDuration": "2h de travaux pratiques, annuel",
+    "displayNotGiven": null,
+    "duration": "2h",
+    "englishTitle": "Numerical Analysis",
+    "entityId": "140599",
+    "evaluation": null,
+    "evaluationComment": null,
+    "given": true,
+    "intended": null,
+    "language": "français",
+    "languageForSearch": "français",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": true,
+    "objective": null,
+    "periodicity": "Annuel",
+    "publicAccepted": false,
+    "recommended": null,
+    "resId": "140599",
+    "scheduleText": "\nAUTOMNE : MER  13H-15H, PONT D'ARVE/4-106 \n\nPRINTEMPS :  VE 8H00-10H, PONT D'ARVE/4-106 (sauf Ve 31.03.23 en salle Pavillon Ansermet 115/119)\n",
+    "searchCriterias": null,
+    "shortEvaluation": null,
+    "shortPeriodicity": "AN",
+    "shortType": "TP",
+    "subtitle": null,
+    "teachingId": "2022-12M040",
+    "title": "Analyse numérique",
+    "type": "Travaux pratiques",
+    "variousInformation": null
+  }],
+  "code": "12M040",
+  "creation": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "credits": 12.0,
+  "departments": [{
+    "code": "NMATH",
+    "entityId": "202210103",
+    "label": "Section de mathématiques",
+    "teachingId": "2022-12M040"
+  }],
+  "domains": [{
+    "entityId": "89",
+    "label": "Mathématiques"
+  }],
+  "entityId": "2022-12M040",
+  "facultyId": "547",
+  "facultyLabel": "Faculté des sciences",
+  "lastUpdate": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "listStudyPlan": [{
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "176538",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "10",
+    "resId": "176538",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73822",
+    "studyPlanId": "73812",
+    "studyPlanLabel": "Baccalauréat universitaire en physique",
+    "studyPlanPath": "Baccalauréat universitaire en physique/3e année/Cours à option/Cours à option B",
+    "teachingId": "2022-12M040",
+    "teachingOrder": "4"
+  }, {
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175445",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "11",
+    "resId": "175445",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73714",
+    "studyPlanId": "73710",
+    "studyPlanLabel": "Baccalauréat universitaire en informatique",
+    "studyPlanPath": "Baccalauréat universitaire en informatique/2e année",
+    "teachingId": "2022-12M040",
+    "teachingOrder": "10"
+  }, {
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175666",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "14",
+    "resId": "175666",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73735",
+    "studyPlanId": "73726",
+    "studyPlanLabel": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques",
+    "studyPlanPath": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques/Cours de 2ème année",
+    "teachingId": "2022-12M040",
+    "teachingOrder": "25"
+  }, {
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175612",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "12",
+    "resId": "175612",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73731",
+    "studyPlanId": "73722",
+    "studyPlanLabel": "Baccalauréat universitaire en mathématique",
+    "studyPlanPath": "Baccalauréat universitaire en mathématique/Cours de 2ème année",
+    "teachingId": "2022-12M040",
+    "teachingOrder": "30"
+  }],
+  "resId": "2022-12M040",
+  "searchCriterias": null,
+  "shortFaculty": "S",
+  "studyLevel": "Bachelor",
+  "teachingLinks": [{
+    "entityId": "2022-12M040-1231",
+    "label": "Site e-learning (moodle) - 2018",
+    "teachingId": "2022-12M040",
+    "url": "https://moodle.unige.ch/course/view.php?id=4878",
+    "urlNumber": "1"
+  }, {
+    "entityId": "2022-12M040-1213",
+    "label": "Site e-learning (moodle)",
+    "teachingId": "2022-12M040",
+    "url": "https://moodle.unige.ch/course/view.php?id=3842",
+    "urlNumber": "1"
+  }],
+  "title": "Analyse numérique"
+}
