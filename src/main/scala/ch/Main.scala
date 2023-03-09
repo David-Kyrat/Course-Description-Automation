@@ -27,7 +27,7 @@ object Main {
     }
 
     def writeCoursDecsToRes(id: String, year: Int) = {
-        Utils.write(Path.of(f"res/$id-desc.json") , ReqHdl.course(f"$year-$id").get())
+        Utils.write(Path.of(f"res/$id-desc.json"), ReqHdl.course(f"$year-$id").get())
     }
 
     def testNext() = {
@@ -41,9 +41,7 @@ object Main {
         println(next.get())
         println(f"\n$next")
     }
-
     def testJsonLib() = {
-
         val jsonString = Utils.prettifyJson(course("2022-11X001").get())
         val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
         val ye = jsObj.get("academicalYear")
@@ -61,19 +59,20 @@ object Main {
         val v0 = lectures.get("type") // NOTE: WORKS !
 
         val vec = Vector(ye, v1, v2, v3, v4, v5, v6, v7, v8, v9, v0)
-        // for (jsVal <- vec) {
-        //     println(jsVal)
-        // }
-        activities.forEach(el => {
-            println(el.getClass)
-            //println(el)
-        })
+        activities.forEach(el => println(el.getClass))
+    }
+
+    def testResolveCoursHours() = {
+        val jsObj = Course.get("12M040", 2022)
+        val coursHours = Course.resolveCourseHours(jsObj = jsObj)
+        println(coursHours)
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-        //writeCoursDecsToRes("12M040", 2022)
-        testJsonLib()
+        // writeCoursDecsToRes("12M040", 2022)
+        //testJsonLib()
+        testResolveCoursHours()
 
         println("\n\n")
     }

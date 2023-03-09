@@ -11,17 +11,13 @@ package ch
  * @param exercices
  * @param practice
  */
-final case class CourseHours(lectures: Int, exercices: Int, practice: Int)
+final case class CourseHours(lectures: Int, exercices: Int, practice: Int) = {
+    
+}
 
 object CourseHours {
 
-    /**
-     * Builder for CourseHours
-     *
-     * @param lectures
-     * @param exercices
-     * @param practice
-     */
+    /** Builder for CourseHours */
     case class CourseHoursBuilder(var lectures: Int = 0, var exercices: Int = 0, var practice: Int = 0) {
 
         /** @return New immutable CoursHours instance */
@@ -30,17 +26,3 @@ object CourseHours {
 
 }
 
-sealed trait CourseActivity
-
-case object Cours extends CourseActivity
-case object Exercices extends CourseActivity
-case object Practice extends CourseActivity {
-    override def toString = "Travaux pratiques"
-}
-
-object CourseActivity {
-    val ALL = Vector(Cours, Exercices)
-    val ALL_MAP: Map[String, CourseActivity] = ALL.map(act => (act.toString(), act)).toMap
-}
-
-// their toString methods defaults to "Cours", "Exercices" i.e. what we want

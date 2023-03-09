@@ -89,8 +89,11 @@ object Course extends Function2[String, Int, Course] {
         val request: ReqHdl = ReqHdl.course(reqUrl)
         request().jsonObj
     }
+    
     private def resolveSemester(sem: String): Semester = ???
-    private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
+
+
+    def resolveCourseHours(jsObj: JsonObject): CourseHours = {
         val activities: JsonArray = jsObj.getAsJsonArray("activities")
         val hoursNbJsonKey = "duration" // json object with that key should hold the nb of weekly hours by activity
         val bld = CourseHoursBuilder()
@@ -99,9 +102,9 @@ object Course extends Function2[String, Int, Course] {
             val activity = _activity.getAsJsonObject
             val parsedAct = CourseActivity.ALL_MAP(activity.get("type").getAsString)
             parsedAct match {
-                case Cours     => bld.lectures = activity.get(hoursNbJsonKey).getAsInt()
-                case Exercices => bld.exercices = activity.get(hoursNbJsonKey).getAsInt()
-                case Practice  => bld.practice = activity.get(hoursNbJsonKey).getAsInt()
+                case Cours     => bld.lectures = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
+                case Exercices => bld.exercices = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
+                case Practice  => bld.practice = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt  //removing the 'h' for hours at the end
             }
         }
         bld.build()
@@ -136,8 +139,6 @@ object Course extends Function2[String, Int, Course] {
     }
 
     override def apply(id: String, year: Int): Course = factory(id, year)
-
-    println("Hello, world!")
 }
 
 sealed trait CourseType
