@@ -1,8 +1,9 @@
-package ch
+    package ch
 
 import ch.ReqHdl
 import ch.ReqHdl.courseUrl
 import ch._
+import com.google.gson.JsonArray
 
 /**
  * Represents a course for a given year.
@@ -78,7 +79,7 @@ object Course extends Function2[String, Int, Course] {
      * @param id String, i.e. course code, if `year` is not given => id must be the exact
      * urlId (i.e. be of the form `year-code`, e.g. `2022-11X001`)
      * @param year Int, year this course was given (optional)
-      * @return `JsonObject` that can be traversed like a Map with a `get()` method
+     * @return `JsonObject` that can be traversed like a Map with a `get()` method
      */
     def get(id: String, year: Int = 0): JsonObject = {
         val reqUrl = if (year == 0) id else f"$year-$id"
@@ -86,10 +87,37 @@ object Course extends Function2[String, Int, Course] {
         request().jsonObj
     }
 
-    private def factory(id: String, year: Int): Course = {
-        val jsonObj = get(id, year)
+    private def resolveSemester(sem: String): Semester = ???
+    private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
+        val activitiesNb = 
+    }
 
-        null
+    private def resolveCourseHours(courseHours: String): CourseHours = ???
+    private def resolveStudyPlan(studyPlans: IndexedSeq[String]): Map[String, (Int, CourseType)]
+ = ???
+
+    private def factory(id: String, year: Int): Course = {
+        val jsObj = get(id, year)
+        val _year = jsObj.get("academicalYear")
+        val _id = jsObj.get("code")
+        // Just some testing function, remove after
+        assert(_id.getAsString == id)
+        assert(_year.getAsInt == year)
+        val v2 = "activities"x
+        val activities: JsonArray = jsObj.getAsJsonArray(v2)
+        val lectures: JsonObject = activities.get(0).getAsJsonObject()
+        val title = lectures.get("title").getAsString
+        val language = lectures.get("language").getAsString
+        val lectureDuration = lectures.get("duration").getAsInt()
+        val semester = lectures.get("periodicity").getAsString()
+        val objective = lectures.get("objective").getAsString()
+        val studyPlanNames = lectures.get("intended").getAsString()
+        val various = lectures.get("variousInfo").getAsString()
+        val comment = lectures.get("comment").getAsString()
+        val coursType = lectures.get("type").getAsString()
+
+        new Course(id, year, title, resolveSemester(semester), objective, description,
+            language, , , , resolveCourseHours(), documentation, , , resolveStudyPlan()
     }
 
     override def apply(id: String, year: Int): Course = factory(id, year)
