@@ -42,8 +42,8 @@ object Main {
 
         val jsonString = Utils.prettifyJson(course("2022-11X001").get())
         val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
-        val ye = "academicalYear"
-        val v1 = "code"
+        val ye = jsObj.get("academicalYear")
+        val v1 = jsObj.get("code")
         val v2 = "activities"
         val activities:JsonArray = jsObj.getAsJsonArray(v2)
         val lectures: JsonObject = activities.get(0).getAsJsonObject()
@@ -56,14 +56,16 @@ object Main {
         val v9 = lectures.get("comment") 
         val v0 = lectures.get("type") //NOTE: WORKS ! 
         
-        val vec = Vector(v1, v2, v3, v4, v5, v6, v7, v8, v9, v0)
+        val vec = Vector(ye, v1, v2, v3, v4, v5, v6, v7, v8, v9, v0)
         for (jsVal <- vec) { 
             println(jsVal)
         }
     }
 
     def main(args: Array[String]): Unit = {
-        println("lul")
+        println("\n\n")
+        testJsonLib()
 
+        println("\n\n")
     }
 }
