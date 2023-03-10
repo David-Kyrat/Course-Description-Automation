@@ -92,7 +92,7 @@ object Course extends Function2[String, Int, Course] {
 
     private def resolveSemester(sem: String): Semester = ???
 
-    def resolveCourseHours(jsObj: JsonObject): CourseHours = {
+    private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
         val activities: JsonArray = jsObj.getAsJsonArray("activities")
         val hoursNbJsonKey = "duration" // json object with that key should hold the nb of weekly hours by activity
         val chBld = new CourseHoursBuilder()
@@ -138,7 +138,3 @@ object Course extends Function2[String, Int, Course] {
 
     override def apply(id: String, year: Int): Course = factory(id, year)
 }
-
-sealed trait CourseType
-case object Mandatory extends CourseType
-case object Optional extends CourseType

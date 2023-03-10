@@ -64,8 +64,8 @@ object Main {
 
     def testResolveCoursHours() = {
         val jsObj = Course.get("12M040", 2022)
-        val coursHours = Course.resolveCourseHours(jsObj = jsObj)
-        println(coursHours)
+        /* val coursHours = Course.resolveCourseHours(jsObj = jsObj)
+        println(coursHours) */
     }
 
     def main(args: Array[String]): Unit = {
