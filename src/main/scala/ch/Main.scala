@@ -71,7 +71,7 @@ object Main {
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // writeCoursDecsToRes("12M040", 2022)
-        //testJsonLib()
+        // testJsonLib()
         testResolveCoursHours()
 
         println("\n\n")

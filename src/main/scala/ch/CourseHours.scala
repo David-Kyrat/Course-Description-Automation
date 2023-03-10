@@ -11,14 +11,14 @@ package ch
  * @param exercices
  * @param practice
  */
-final case class CourseHours(lectures: Int, exercices: Int, practice: Int) = {
-    
+final case class CourseHours(lectures: Int, exercices: Int, practice: Int) {
+    override def toString = f"{lectures: $lectures, exercices: $exercices, practice: $practice}"
 }
 
 object CourseHours {
 
     /** Builder for CourseHours */
-    case class CourseHoursBuilder(var lectures: Int = 0, var exercices: Int = 0, var practice: Int = 0) {
+    class CourseHoursBuilder(var lectures: Int = 0, var exercices: Int = 0, var practice: Int = 0) {
 
         /** @return New immutable CoursHours instance */
         def build() = CourseHours(lectures, exercices, practice)

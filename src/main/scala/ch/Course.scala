@@ -89,28 +89,26 @@ object Course extends Function2[String, Int, Course] {
         val request: ReqHdl = ReqHdl.course(reqUrl)
         request().jsonObj
     }
-    
-    private def resolveSemester(sem: String): Semester = ???
 
+    private def resolveSemester(sem: String): Semester = ???
 
     def resolveCourseHours(jsObj: JsonObject): CourseHours = {
         val activities: JsonArray = jsObj.getAsJsonArray("activities")
         val hoursNbJsonKey = "duration" // json object with that key should hold the nb of weekly hours by activity
-        val bld = CourseHoursBuilder()
+        val chBld = new CourseHoursBuilder()
 
         for (_activity <- activities.asList.asScala) {
             val activity = _activity.getAsJsonObject
             val parsedAct = CourseActivity.ALL_MAP(activity.get("type").getAsString)
             parsedAct match {
-                case Cours     => bld.lectures = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
-                case Exercices => bld.exercices = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
-                case Practice  => bld.practice = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt  //removing the 'h' for hours at the end
+                case Cours     => chBld.lectures = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
+                case Exercices => chBld.exercices = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
+                case Practice  => chBld.practice = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
             }
         }
-        bld.build()
+        chBld.build()
     }
 
-    private def resolveCourseHours(courseHours: String): CourseHours = ???
     private def resolveStudyPlan(studyPlans: IndexedSeq[String]): Map[String, (Int, CourseType)] = ???
 
     private def factory(id: String, year: Int): Course = {
