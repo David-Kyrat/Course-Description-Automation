@@ -68,7 +68,7 @@ object Main {
         println(coursHours) */
     }
 
-    def testCourseFactoryMethod() {
+    def testCourseFactoryMethod() = {
         val course = Course("12X001", 2022)
         println(course)
     }

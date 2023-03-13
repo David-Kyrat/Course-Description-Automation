@@ -104,7 +104,7 @@ object Course extends Function2[String, Int, Course] {
         for (teacher <- activityTeachers) {
             var fn: String = extractor("displayFirstName", teacher.asInstanceOf[JsonObject])
             val ln = extractor("displayLastName", teacher.asInstanceOf[JsonObject])
-            stringBufr += (f"$fn ln")
+            stringBufr += (f"$fn $ln")
         }
         stringBufr.to(Vector)
     }
@@ -136,7 +136,7 @@ object Course extends Function2[String, Int, Course] {
         val hoursNb = resolveCourseHours(jsObj)
         val studyPlanNames = extractor("intended")
         val documentation = extractor("bibliography")
-        val various = extractor("variousInfo")
+        val various = "" // extractor("variousInformation")
         val comment = extractor("comment")
         val coursType = extractor("type")
 

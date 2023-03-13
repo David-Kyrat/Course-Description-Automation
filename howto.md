@@ -85,7 +85,7 @@ The necessary fields to fill the class [Course.scala](https://github.com/David-K
        - language
        - evaluation   # evalMode
        - intended   # study plan names
-       - variousInfo   # check if all variousInfo contains the same category of info => they dont
+       - variousInformation   # check if all variousInfo contains the same category of info => they dont
        - comment       # idem
        - activityTeachers:
        - - displayFirstName  # n-th teacher first name
