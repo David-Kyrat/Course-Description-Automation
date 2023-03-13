@@ -5,6 +5,7 @@ package ch.sealedconcept
  * @param T type of sealed trait
  */
 trait SealedConceptObject[T] {
+    def jsonKey: String
 
     /**
      * Vector containing all the entity implementing

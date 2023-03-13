@@ -8,6 +8,7 @@ import scala.jdk.CollectionConverters._
 
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
 import ch.sealedconcept.{CourseType, CourseHours, Semester, CourseActivity, Cours, Exercices, Practice}
+import ch.sealedconcept.SealedConceptObject
 
 /**
  * Represents a course for a given year.
@@ -59,6 +60,10 @@ object Course extends Function2[String, Int, Course] {
         val reqUrl = if (year == 0) id else f"$year-$id"
         val request: ReqHdl = ReqHdl.course(reqUrl)
         request().jsonObj
+    }
+
+    private def resolveSealedConceptObject(obj: SealedConceptObject) = {
+        
     }
 
     private def resolveSemester(sem: String): Semester = ???

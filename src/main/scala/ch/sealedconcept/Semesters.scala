@@ -44,5 +44,13 @@ case object Yearly extends Semester {
 }
 
 object Semester extends SealedConceptObject[Semester] {
+
+    /**
+     * Watch out, use `getAsJsonArray("activities")` first before
+     * calling `get("periodicity").getAsString`
+     *
+     * @return json "hierarchy" in which to fetch the required data
+     */
+    override def jsonKey = "activities.periodicity" //TODO:
     override def ALL = Vector(Autumn, Spring, Yearly)
 }

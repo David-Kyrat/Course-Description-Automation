@@ -11,6 +11,15 @@ case object Practice extends CourseActivity {
 }
 
 object CourseActivity extends SealedConceptObject[CourseActivity] {
+
+    /**
+     * Watch out, use `getAsJsonArray("activities")` first before
+     * calling `get("type").getAsString`
+     *
+     * @return json "hierarchy" in which to fetch the required data
+     */
+    override def jsonKey = "activities.type"
+
     /**
      * Vector containing all the entity implementing
      *  the sealed trait defined in this file

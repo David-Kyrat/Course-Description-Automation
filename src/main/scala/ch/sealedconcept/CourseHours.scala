@@ -17,6 +17,14 @@ final case class CourseHours(lectures: Int, exercices: Int, practice: Int) {
 
 object CourseHours {
 
+    /**
+     * Watch out, use `getAsJsonArray("activities")` first before
+     * calling `get("duration").getAsString`
+     *
+     * @return json "hierarchy" in which to fetch the required data
+     */
+    def jsonKey = "activities.duration"
+
     /** Builder for CourseHours */
     class CourseHoursBuilder(var lectures: Int = 0, var exercices: Int = 0, var practice: Int = 0) {
 
