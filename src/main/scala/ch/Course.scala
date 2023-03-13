@@ -118,7 +118,7 @@ object Course extends Function2[String, Int, Course] {
         val evalMode = extractor("evaluation")
         val hoursNb = resolveCourseHours(jsObj)
         val studyPlanNames = extractor("intended")
-        val documentation = "" // TODO:
+        val documentation = extractor("bibliography")
         val various = extractor("variousInfo")
         val comment = extractor("comment")
         val coursType = extractor("type")

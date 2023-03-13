@@ -81,11 +81,12 @@ The necessary fields to fill the class [Course.scala](https://github.com/David-K
        - periodicity   # Semester
        - objective     # objective of course is in the `objective` field of 1st element of list of activities (the lectures)
        - description   # idem as for objective
+       - bibliography  # idem (documentation)
        - language
        - evaluation   # evalMode
        - intended   # study plan names
-       - variousInfo   # to check if all variousInfo contains the same category of info
-       - comment    # idem
+       - variousInfo   # check if all variousInfo contains the same category of info => they dont
+       - comment       # idem
        - type  # presence of type = exercies indicate hoursNb.exercices > 0, idem for hoursNb.practice
     # exercices:    
     -  - duration # hoursNb.exercices 
