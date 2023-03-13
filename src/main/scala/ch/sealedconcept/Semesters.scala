@@ -22,6 +22,7 @@ case object Autumn extends Semester {
      *  during the January/February Exam Session
      */
     val session: ExaSession = Jan
+    override def toString = "Automne"
 }
 
 case object Spring extends Semester {
@@ -31,6 +32,7 @@ case object Spring extends Semester {
      *  during the June/Jully Exam Session
      */
     val session: ExaSession = Jul
+    override def toString = "Printemps"
 }
 
 // not actually "one" semester but it doesn't matter in our implementation
@@ -41,6 +43,7 @@ case object Yearly extends Semester {
      *  during the June/Jully Exam Session
      */
     val session: ExaSession = Jul
+    override def toString = "Annuel"
 }
 
 object Semester extends SealedConceptObject[Semester] {
