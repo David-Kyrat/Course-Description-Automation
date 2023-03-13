@@ -9,6 +9,8 @@ import scala.jdk.CollectionConverters._
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
 import ch.sealedconcept.{CourseType, CourseHours, Semester, CourseActivity, Cours, Exercices, Practice}
 import ch.sealedconcept.SealedConceptObject
+import com.google.gson.JsonElement
+import scala.collection.mutable.ArrayBuffer
 
 /**
  * Represents a course for a given year.
@@ -91,7 +93,23 @@ object Course extends Function2[String, Int, Course] {
         chBld.build()
     }
 
-    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, CourseType)] = ???
+    /**
+     * @param activitiesObj JsonObject `jsObj.get("activities").getAsJsonArray`
+     * @return Vector of teachers names
+     */
+    private def resolveTeacherNames(activitiesObj: JsonObject): Vector[String] = {
+        val activityTeachers: IndexedSeq[JsonElement] = activitiesObj.get("activityTeachers").getAsJsonArray.asScala.toIndexedSeq
+        def extractor(key: String, obj: JsonObject = activitiesObj): String = obj.get(key).getAsString
+        val stringBufr = new ArrayBuffer[String]()
+        for (teacher <- activityTeachers) {
+            var fn: String = extractor("displayFirstName", teacher.asInstanceOf[JsonObject])
+            val ln = extractor("displayLastName", teacher.asInstanceOf[JsonObject])
+            stringBufr += (f"$fn ln")
+        }
+        stringBufr.to(Vector)
+    }
+
+    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, CourseType)] = null
 
     private def factory(id: String, year: Int): Course = {
         val jsObj = get(id, year)
@@ -122,7 +140,8 @@ object Course extends Function2[String, Int, Course] {
         val various = extractor("variousInfo")
         val comment = extractor("comment")
         val coursType = extractor("type")
-        val teachers: Vector[String] = Vector.empty // TODO: PARSE TEACHERS
+
+        val teachers: Vector[String] = resolveTeacherNames(lectures)
         val studPlan: Map[String, (Int, CourseType)] = resolveStudyPlan(jsObj) // TODO: PARSE STUDY PLAN
 
         new Course(id, year, title, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
