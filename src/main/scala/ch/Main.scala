@@ -68,12 +68,17 @@ object Main {
         println(coursHours) */
     }
 
+    def testCourseFactoryMethod() {
+        val course = Course("12X001", 2022)
+        println(course)
+    }
+
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // writeCoursDecsToRes("12M040", 2022)
         // testJsonLib()
-        testResolveCoursHours()
-
+        // testResolveCoursHours()
+        testCourseFactoryMethod()
         println("\n\n")
     }
 }

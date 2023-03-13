@@ -126,7 +126,6 @@ object Course extends Function2[String, Int, Course] {
 
         val title = extractor("title")
         val language = extractor("language")
-        // val lectureDuration = lectures.get("duration").getAsInt
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
         val description = extractor("description")
         val objective = extractor("objective")
