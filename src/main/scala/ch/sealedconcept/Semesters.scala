@@ -51,6 +51,7 @@ object Semester extends SealedConceptObject[Semester] {
      *
      * @return json "hierarchy" in which to fetch the required data
      */
-    override def jsonKey = "activities.periodicity" //TODO:
+    override def jsonKey = "activities"
+    def jsonKey2 = "periodicity"
     override def ALL = Vector(Autumn, Spring, Yearly)
 }

@@ -79,8 +79,8 @@ The necessary fields to fill the class [Course.scala](https://github.com/David-K
     -  - title   # name 
        - duration   # hoursNb.lectures
        - periodicity   # Semester
-       - objective   
-       - description
+       - objective     # objective of course is in the `objective` field of 1st element of list of activities (the lectures)
+       - description   # idem as for objective
        - language
        - evaluation   # evalMode
        - intended   # study plan names

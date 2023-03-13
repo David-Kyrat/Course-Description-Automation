@@ -18,7 +18,8 @@ object CourseActivity extends SealedConceptObject[CourseActivity] {
      *
      * @return json "hierarchy" in which to fetch the required data
      */
-    override def jsonKey = "activities.type"
+    override def jsonKey = "activities"
+    def jsonKey2 = "type"
 
     /**
      * Vector containing all the entity implementing

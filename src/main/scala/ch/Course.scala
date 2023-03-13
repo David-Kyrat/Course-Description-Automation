@@ -25,26 +25,25 @@ final case class Course(
   description: String,
   language: String,
   faculty: String,
-  section: String,
+//  section: String,
   evalMode: String,
   hoursNb: CourseHours,
   documentation: String,
   teachers: Vector[String],
-  format: String,
   studyPlan: Map[String, (Int, CourseType)]
 ) {
-    val HoursequestHours = f"$courseUrl/$id-$year"
+    val requestUrl = f"$courseUrl/$id-$year"
 
     // year in StudyPlan i.e 1->3 for Bachelor / 1->2 for Master ...
-    val spYear: Int = id.head.toInt // first letter of course code, TODO find smth that works also for master and phd
+    val spYear: Int = id.head.toInt // first letter of course code, TODO: find smth that works also for master and phd
 
     /*
      Option bc we dont know if its actually in the db (=> need to actually actively search for it)
      plus it must be immutable but need not being given at runtime
      */
-    /* var format: Option[_] = ???
-    var preRequisites: Option[Vector[String]] = ???
-    var usefulFor: Option[Vector[String]] = ??? */
+    val format: Option[String] = None
+    val preRequisites: Option[Vector[String]] = None
+    val usefulFor: Option[Vector[String]] = None
 }
 
 object Course extends Function2[String, Int, Course] {
@@ -62,21 +61,27 @@ object Course extends Function2[String, Int, Course] {
         request().jsonObj
     }
 
-    private def resolveSealedConceptObject(obj: SealedConceptObject) = {
-        
+    /**
+     * Shortcut method for very simple data to extract (i.e. the jsonKey isn't something nested like activities.<somehting>)
+     * @param jsObj JsonObject, response to get request wrapped in JsonObject
+     * @param sco SealedConceptObject[T], trait representing data to extract
+     * @param U, case object, i.e. realisation of trait of type T (e.g. `Semester` => `Autumn`, `Semester` is a sealed Trait and `Autumn` is a case object)
+     */
+    private def simpleResolveSealedConceptObject[T, U >: T](jsObj: JsonObject, sco: SealedConceptObject[T], customJsonKey: String = null): U = {
+        val jsonKey = if (customJsonKey == null) sco.jsonKey else customJsonKey
+        return sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
     }
 
-    private def resolveSemester(sem: String): Semester = ???
-
     private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
-        val activities: JsonArray = jsObj.getAsJsonArray("activities")
-        val hoursNbJsonKey = "duration" // json object with that key should hold the nb of weekly hours by activity
+        val activities: JsonArray = jsObj.getAsJsonArray(CourseHours.jsonKey)
+        val hoursNbJsonKey = CourseHours.jsonKey2 // json object with that key should hold the nb of weekly hours by activity
         val chBld = new CourseHoursBuilder()
-        val extractor = (activity: JsonObject) => activity.get(hoursNbJsonKey).getAsString().dropRight(1).toInt // removing the 'h' for hours at the end
+        val extractor = (activity: JsonObject) => activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
 
-        for (_activity <- activities.asList.asScala) {
+        for (_activity <- activities.asScala) {
             val activity = _activity.getAsJsonObject
-            val parsedAct = CourseActivity.ALL_MAP(activity.get("type").getAsString)
+            val parsedAct = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
+
             parsedAct match {
                 case Cours     => chBld.lectures = extractor(activity)
                 case Exercices => chBld.exercices = extractor(activity)
@@ -86,7 +91,7 @@ object Course extends Function2[String, Int, Course] {
         chBld.build()
     }
 
-    private def resolveStudyPlan(studyPlans: IndexedSeq[String]): Map[String, (Int, CourseType)] = ???
+    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, CourseType)] = ???
 
     private def factory(id: String, year: Int): Course = {
         val jsObj = get(id, year)
@@ -98,19 +103,29 @@ object Course extends Function2[String, Int, Course] {
         val v2 = "activities"
         val activities: JsonArray = jsObj.getAsJsonArray(v2)
         val lectures: JsonObject = activities.get(0).getAsJsonObject()
-        val title = lectures.get("title").getAsString
-        val language = lectures.get("language").getAsString
-        val lectureDuration = lectures.get("duration").getAsInt()
-        val semester = lectures.get("periodicity").getAsString()
-        val objective = lectures.get("objective").getAsString()
-        val studyPlanNames = lectures.get("intended").getAsString()
-        val various = lectures.get("variousInfo").getAsString()
-        val comment = lectures.get("comment").getAsString()
-        val coursType = lectures.get("type").getAsString()
 
-        // new Course(id, year, title, resolveSemester(semester), objective, description,
-        //     language, , , , resolveCourseHours(), documentation, , , resolveStudyPlan()
-        null
+        def extractor(key: String, jsObj: JsonObject = lectures) = jsObj.get(key).getAsString
+
+        val title = extractor("title")
+        val language = extractor("language")
+        // val lectureDuration = lectures.get("duration").getAsInt
+        val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
+        val description = extractor("description")
+        val objective = extractor("objective")
+        val faculty = extractor("facultyLabel", jsObj)
+        // val section = ???
+
+        val evalMode = extractor("evaluation")
+        val hoursNb = resolveCourseHours(jsObj)
+        val studyPlanNames = extractor("intended")
+        val documentation = "" // TODO:
+        val various = extractor("variousInfo")
+        val comment = extractor("comment")
+        val coursType = extractor("type")
+        val teachers: Vector[String] = Vector.empty // TODO: PARSE TEACHERS
+        val studPlan: Map[String, (Int, CourseType)] = resolveStudyPlan(jsObj) // TODO: PARSE STUDY PLAN
+
+        new Course(id, year, title, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
     }
 
     override def apply(id: String, year: Int): Course = factory(id, year)

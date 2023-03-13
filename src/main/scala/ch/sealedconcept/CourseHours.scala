@@ -23,7 +23,8 @@ object CourseHours {
      *
      * @return json "hierarchy" in which to fetch the required data
      */
-    def jsonKey = "activities.duration"
+    def jsonKey = "activities"
+    def jsonKey2 = "duration"
 
     /** Builder for CourseHours */
     class CourseHoursBuilder(var lectures: Int = 0, var exercices: Int = 0, var practice: Int = 0) {
