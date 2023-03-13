@@ -44,7 +44,5 @@ case object Yearly extends Semester {
 }
 
 object Semester extends SealedConceptObject[Semester] {
-
-    /** Vector containing all the entity implementing the sealed trait defined in this file */
-    def ALL = Vector(Autumn, Spring, Yearly)
+    override def ALL = Vector(Autumn, Spring, Yearly)
 }

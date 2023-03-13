@@ -12,5 +12,5 @@ case object Phd extends SPType
 case object Other extends SPType //NOTE: Placeholder for other types that may have been forgotten at time of writing
 
 object SPType extends SealedConceptObject[SPType] {
-    def ALL = Vector(Bachelor, Master, Phd, Other)
+    override def ALL = Vector(Bachelor, Master, Phd, Other)
 }

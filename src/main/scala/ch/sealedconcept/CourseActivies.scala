@@ -10,18 +10,10 @@ case object Practice extends CourseActivity {
     override def toString = "Travaux pratiques"
 }
 
-object CourseActivity {
-
+object CourseActivity extends SealedConceptObject[CourseActivity] {
     /**
      * Vector containing all the entity implementing
      *  the sealed trait defined in this file
      */
-    val ALL: Vector[CourseActivity] = Vector(Cours, Exercices, Practice)
-
-    /**
-     * Map association the string representation of each case object
-     * implementing the sealed trait defined here to itself
-     */
-    val ALL_MAP: Map[String, CourseActivity] = ALL.map(act => (act.toString, act)).toMap
-
+    override def ALL = Vector(Cours, Exercices, Practice)
 }

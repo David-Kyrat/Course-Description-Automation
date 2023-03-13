@@ -34,38 +34,8 @@ final case class Course(
 ) {
     val HoursequestHours = f"$courseUrl/$id-$year"
 
-    /**
-     * We have to define an auxiliary constructor taking only 1 tuple
-     * argument to be able to do some json parsing before calling the constructor
-     * (in scala the first line of an auxiliary must always be a call to another constructor,)
-     *
-     * @param args
-     * @return
-     */
-    /* def this(args: (String, Int, String, Semester, String, String, String, String, String, String, CourseHours, String, Vector[String], String, Map[String, (Int, CourseType)])) = {
-
-    } */
-
-    // TODO implement retrieving fields from server response!
-    // NB fields are mutable for now to simplify initialization, => This will be removed latter on.
-
     // year in StudyPlan i.e 1->3 for Bachelor / 1->2 for Master ...
     val spYear: Int = id.head.toInt // first letter of course code, TODO find smth that works also for master and phd
-
-    // var title = ???
-    // var hoursNb: CourseHours = ???
-    // var semester: Semester = ???
-    // val language: String = ???
-
-    // StudyPlan, Credits, IsMandatory Map (only string of studyplan otherwise we'll be stuck at construction since course Needs to have initialized Study plans and studyPlan needs initialized courses)
-    // val StudyPlans: Map[String, Int, Boolean] = ???
-    /* var objective: String = ???
-    var description: String = ???
-    var faculty: String = ???
-    var section: String = ???
-    var documentation: String = ???
-    var evalMode: String = ???
-    var teachers: Vector[String] = ??? */
 
     /*
      Option bc we dont know if its actually in the db (=> need to actually actively search for it)

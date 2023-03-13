@@ -16,5 +16,5 @@ trait SealedConceptObject[T] {
      * Map association the string representation of each case object
      * implementing the sealed trait defined here to itself
      */
-    def ALL_MAP: Map[String, T] = ALL.map(t => (t.toString(), t)).toMap
+    def ALL_MAP: Map[String, T] = ALL.map(t => (t.toString, t)).toMap
 }
