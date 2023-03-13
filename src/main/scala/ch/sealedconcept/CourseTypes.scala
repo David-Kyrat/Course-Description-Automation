@@ -10,6 +10,6 @@ case object Optional extends CourseType {
     override def toString = "Optionnel"
 }
 
-object CourseType extends SealedConceptObject[CourseType]  {
+object CourseType extends SealedConceptObject[CourseType] {
     override def ALL = Vector(Mandatory, Optional)
 }

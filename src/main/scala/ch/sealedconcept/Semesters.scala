@@ -46,10 +46,5 @@ case object Yearly extends Semester {
 object Semester extends SealedConceptObject[Semester] {
 
     /** Vector containing all the entity implementing the sealed trait defined in this file */
-    def ALL: Vector[Semester] = Vector(Autumn, Spring, Yearly)
-
-    /**
-     * Map associating the string representation of each case object implementing the sealed trait defined in this file to itself
-     */
-    def ALL_MAP: Map[String, Semester] = ALL.map(sem => (sem.toString, sem)).toMap
+    def ALL = Vector(Autumn, Spring, Yearly)
 }

@@ -12,8 +12,10 @@ case object Practice extends CourseActivity {
 
 object CourseActivity {
 
-    /** Vector containing all the entity implementing
-     *  the sealed trait defined in this file */
+    /**
+     * Vector containing all the entity implementing
+     *  the sealed trait defined in this file
+     */
     val ALL: Vector[CourseActivity] = Vector(Cours, Exercices, Practice)
 
     /**

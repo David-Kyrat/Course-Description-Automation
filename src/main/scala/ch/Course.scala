@@ -6,7 +6,8 @@ import ch._
 import com.google.gson.JsonArray
 import scala.jdk.CollectionConverters._
 
-import ch.CourseHours.CourseHoursBuilder
+import ch.sealedconcept.CourseHours.CourseHoursBuilder
+import ch.sealedconcept.{CourseType, CourseHours, Semester, CourseActivity, Cours, Exercices, Practice}
 
 /**
  * Represents a course for a given year.
