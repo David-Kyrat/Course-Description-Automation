@@ -1,4 +1,4 @@
-package ch
+package ch.sealedconcept
 
 /**
  * Study Plan Type, i.e. bachelor, master, phd

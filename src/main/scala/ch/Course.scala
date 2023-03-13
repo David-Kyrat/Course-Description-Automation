@@ -96,14 +96,15 @@ object Course extends Function2[String, Int, Course] {
         val activities: JsonArray = jsObj.getAsJsonArray("activities")
         val hoursNbJsonKey = "duration" // json object with that key should hold the nb of weekly hours by activity
         val chBld = new CourseHoursBuilder()
+        val extractor = (activity: JsonObject) => activity.get(hoursNbJsonKey).getAsString().dropRight(1).toInt // removing the 'h' for hours at the end
 
         for (_activity <- activities.asList.asScala) {
             val activity = _activity.getAsJsonObject
             val parsedAct = CourseActivity.ALL_MAP(activity.get("type").getAsString)
             parsedAct match {
-                case Cours     => chBld.lectures = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
-                case Exercices => chBld.exercices = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt
-                case Practice  => chBld.practice = activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
+                case Cours     => chBld.lectures = extractor(activity)
+                case Exercices => chBld.exercices = extractor(activity)
+                case Practice  => chBld.practice = extractor(activity)
             }
         }
         chBld.build()

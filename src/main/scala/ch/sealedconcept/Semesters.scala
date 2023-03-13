@@ -1,6 +1,6 @@
-package ch
+package ch.sealedconcept
 
-import ch.ExaSession
+import ch.sealedconcept.ExaSession
 
 /**
  * Represents a period of time in which a course is given
@@ -43,13 +43,13 @@ case object Yearly extends Semester {
     val session: ExaSession = Jul
 }
 
-object Semester {
+object Semester extends SealedConceptObject[Semester] {
 
     /** Vector containing all the entity implementing the sealed trait defined in this file */
-    val ALL:Vector[Semester] = Vector(Autumn, Spring, Yearly)
+    def ALL: Vector[Semester] = Vector(Autumn, Spring, Yearly)
 
     /**
      * Map associating the string representation of each case object implementing the sealed trait defined in this file to itself
      */
-    val ALL_MAP: Map[String, Semester] = ALL.map(sem => (sem.toString, sem)).toMap
+    def ALL_MAP: Map[String, Semester] = ALL.map(sem => (sem.toString, sem)).toMap
 }

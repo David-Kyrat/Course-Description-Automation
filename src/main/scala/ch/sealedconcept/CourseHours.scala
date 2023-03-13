@@ -1,4 +1,4 @@
-package ch
+package ch.sealedconcept
 
 /**
  * Case class wrapping a tripple of "amount of time"
