@@ -24,4 +24,24 @@ object Utils {
      * @return prettify json string, i.e. indented ...
      */
     def prettifyJson(rawJson: String) = rawJson.parseJson.prettyPrint
+
+    /**
+     * Try to apply given function `resolver` if it succeeds => return the result,
+     * or if an exception happened => return `defaultVal`
+     *
+     * @param resolver, function to try
+     * @param arg argument to `resolver`
+     * @param defaultVal value to return when an exception happened
+     * @return see above
+     */
+    def tryOrElse[T](resolver: Function0[T], defaultVal: T): T = {
+        try {
+            resolver()
+        } catch {
+            case e: Exception => {
+                e.printStackTrace()
+                defaultVal
+            }
+        }
+    }
 }

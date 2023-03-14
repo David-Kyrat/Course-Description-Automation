@@ -12,6 +12,7 @@ import ch.sealedconcept.SealedConceptObject
 import com.google.gson.JsonElement
 import scala.collection.mutable.ArrayBuffer
 import ch.sealedconcept.Other
+import ch.Utils.tryOrElse
 
 /**
  * Represents a course for a given year.
@@ -52,6 +53,8 @@ final case class Course(
 object Course extends Function2[String, Int, Course] {
     import com.google.gson.JsonObject
 
+    // TODO: exract Extractor method here
+
     /**
      * @param id String, i.e. course code, if `year` is not given => id must be the exact
      * urlId (i.e. be of the form `year-code`, e.g. `2022-11X001`)
@@ -83,7 +86,7 @@ object Course extends Function2[String, Int, Course] {
      * @return resolved instance of `CourseHours`
      */
     private def resolveCourseHours(activities: IndexedSeq[JsonObject]): CourseHours = {
-        //val activities = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
+        // val activities = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
         val chBld = new CourseHoursBuilder()
         def extractor(activity: JsonObject) = activity.get(CourseHours.jsonKey2).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
 
@@ -126,25 +129,28 @@ object Course extends Function2[String, Int, Course] {
         val lectures: JsonObject = activities.head
 
         def extractor(key: String, jsObj: JsonObject = lectures) = jsObj.get(key).getAsString
+        def tryExtract(key: String, default: String = "", jsObj: JsonObject = lectures) = tryOrElse(() => extractor(key, jsObj), default)
 
-        val title = extractor("title")
-        val language = extractor("language")
+        val title = tryExtract("title", "")
+        val language = tryExtract("language", "")
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
-        val description = extractor("description")
-        val objective = extractor("objective")
-        val faculty = extractor("facultyLabel", jsObj)
+        // TODO: FIND DEFAULT VALUES FOR ALL SealedConceptObject
+
+        val description = tryExtract("description", "")
+        val objective = tryExtract("objective", "")
+        val faculty = tryExtract("facultyLabel", "", jsObj)
         // val section = ???
 
-        val evalMode = extractor("evaluation")
-        val hoursNb = resolveCourseHours(activities)
-        val studyPlanNames = extractor("intended")
-        val documentation = extractor("bibliography")
-        val various = "" // extractor("variousInformation")
-        val comment = extractor("comment")
-        val coursType = extractor("type")
+        val evalMode = tryExtract("evaluation", "")
+        val hoursNb = tryOrElse(() => resolveCourseHours(activities), CourseHours(0, 0, 0)) // default value is 0 everywhere
+        val studyPlanNames = tryExtract("intended", "")
+        val documentation = tryExtract("bibliography", "")
+        val various = tryExtract("variousInformation", "")
+        val comment = tryExtract("comment", "")
+        val coursType = tryExtract("type", "")
 
-        val teachers: Vector[String] = resolveTeacherNames(lectures)
-        val studPlan: Map[String, (Int, Option[CourseType])] = resolveStudyPlan(jsObj) // TODO: PARSE STUDY PLAN
+        val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), Vector.empty)
+        val studPlan: Map[String, (Int, Option[CourseType])] = tryOrElse(() => resolveStudyPlan(jsObj), Map.empty)
 
         new Course(id, year, title, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
     }

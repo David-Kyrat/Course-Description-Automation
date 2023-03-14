@@ -73,8 +73,11 @@ object Main {
     }
 
     def testCourseFactoryMethod() = {
-        val course = Course("12X001", 2022)
+        val course = Course("11X001", 2022)
         println(course)
+        println("-------------------------------------------------\n\n\n")
+        val course2 = Course("12M040", 2022)
+        println(course2)
     }
 
     def main(args: Array[String]): Unit = {
