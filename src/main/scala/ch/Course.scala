@@ -77,18 +77,12 @@ object Course extends Function2[String, Int, Course] {
 
     private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
         val activities = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
-        val hoursNbJsonKey = CourseHours.jsonKey2 // json object with that key should hold the nb of weekly hours by activity
         val chBld = new CourseHoursBuilder()
-        val extractor = (activity: JsonObject) => activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
+        def extractor(activity: JsonObject) = activity.get(CourseHours.jsonKey2).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
 
         for (activity <- activities) {
             val ca: CourseActivity = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
-            val hoursAsInt: Int = extractor(activity)
-            /* ca match {
-                case Cours     => chBld.lectures = hoursAsInt 
-                case Exercices => chBld.exercices = hoursAsInt
-                case Practice  => chBld.practice = hoursAsInt 
-            } */
+            chBld.setActivity(ca, extractor(activity))
         }
         chBld.build()
     }

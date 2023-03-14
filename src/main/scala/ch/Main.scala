@@ -82,10 +82,10 @@ object Main {
         //writeCoursDecsToRes("11X001", 2022)
         // testJsonLib()
         // testResolveCoursHours()
-        //testCourseFactoryMethod()
-        val bld = new CourseHours.CourseHoursBuilder()
+        testCourseFactoryMethod()
+        /* val bld = new CourseHours.CourseHoursBuilder()
         val ch = bld.setActivity(Cours, 12).setActivity(Exercices, 5).setActivity(Practice, 2).build()
-        println(ch)
+        println(ch) */
 
         println("\n\n")
     }
