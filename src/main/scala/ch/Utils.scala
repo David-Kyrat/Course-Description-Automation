@@ -17,7 +17,7 @@ object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
 
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
-    def write(path: Path, content: String) = Files.writeString(path, content, UTF_8, CREATE_NEW, APPEND)
+    def write(path: Path, content: String) = Files.writeString(path, content, UTF_8, CREATE_NEW, TRUNCATE_EXISTING)
 
     /**
      * @param rawJson String

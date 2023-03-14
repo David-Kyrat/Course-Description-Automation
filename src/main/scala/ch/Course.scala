@@ -33,7 +33,7 @@ final case class Course(
   hoursNb: CourseHours,
   documentation: String,
   teachers: Vector[String],
-  studyPlan: Map[String, (Int, Option[CourseType])] //Option because i havent found the data relevant to CourseType in the DB yet
+  studyPlan: Map[String, (Int, Option[CourseType])] // Option because i havent found the data relevant to CourseType in the DB yet
 ) {
     val requestUrl = f"$courseUrl/$id-$year"
 
@@ -76,20 +76,19 @@ object Course extends Function2[String, Int, Course] {
     }
 
     private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
-        val activities: JsonArray = jsObj.getAsJsonArray(CourseHours.jsonKey)
+        val activities = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
         val hoursNbJsonKey = CourseHours.jsonKey2 // json object with that key should hold the nb of weekly hours by activity
         val chBld = new CourseHoursBuilder()
         val extractor = (activity: JsonObject) => activity.get(hoursNbJsonKey).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
 
-        for (_activity <- activities.asScala) {
-            val activity = _activity.getAsJsonObject
-            val parsedAct = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
-
-            parsedAct match {
-                case Cours     => chBld.lectures = extractor(activity)
-                case Exercices => chBld.exercices = extractor(activity)
-                case Practice  => chBld.practice = extractor(activity)
-            }
+        for (activity <- activities) {
+            val ca: CourseActivity = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
+            val hoursAsInt: Int = extractor(activity)
+            /* ca match {
+                case Cours     => chBld.lectures = hoursAsInt 
+                case Exercices => chBld.exercices = hoursAsInt
+                case Practice  => chBld.practice = hoursAsInt 
+            } */
         }
         chBld.build()
     }
@@ -110,18 +109,14 @@ object Course extends Function2[String, Int, Course] {
         stringBufr.to(Vector)
     }
 
-
-
     private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, Option[CourseType])] = {
-        val tmp = jsObj.get("listStudyPlan").getAsJsonArray.asScala//.toIndexedSeq
+        val tmp = jsObj.get("listStudyPlan").getAsJsonArray.asScala // .toIndexedSeq
         def extractor(key: String, obj: JsonObject) = obj.get(key).getAsString
-        val studyPlans: IndexedSeq[JsonObject] = tmp.map(_.asInstanceOf[JsonObject]).toIndexedSeq//.asInstanceOf[IndexedSeq[JsonObject]]
+        val studyPlans: IndexedSeq[JsonObject] = tmp.map(_.asInstanceOf[JsonObject]).toIndexedSeq // .asInstanceOf[IndexedSeq[JsonObject]]
         // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
-        //val y: Map[String, (Int, Option[CourseType])]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
+        // val y: Map[String, (Int, Option[CourseType])]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
         studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
     }
-
-
 
     private def factory(id: String, year: Int): Course = {
         val jsObj = get(id, year)

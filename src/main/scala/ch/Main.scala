@@ -10,6 +10,10 @@ import com.google.gson.JsonObject
 import com.google.gson._
 import com.google.gson.JsonObject._
 import com.google.gson.Gson
+import ch.sealedconcept.CourseHours
+import ch.sealedconcept.Cours
+import ch.sealedconcept.Exercices
+import ch.sealedconcept.Practice
 
 object Main {
     def testGetStudyPlans() = {
@@ -75,10 +79,14 @@ object Main {
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-        // writeCoursDecsToRes("12M040", 2022)
+        //writeCoursDecsToRes("11X001", 2022)
         // testJsonLib()
         // testResolveCoursHours()
-        testCourseFactoryMethod()
+        //testCourseFactoryMethod()
+        val bld = new CourseHours.CourseHoursBuilder()
+        val ch = bld.setActivity(Cours, 12).setActivity(Exercices, 5).setActivity(Practice, 2).build()
+        println(ch)
+
         println("\n\n")
     }
 }
