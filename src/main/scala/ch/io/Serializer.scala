@@ -19,12 +19,14 @@ object Serializer {
      * @param key String
      * @param value String
      */
-    def yamlFmt[T](key: String, value: T): String = {
-        val s = f"$key: $value"
-        println(s)
-        s
-    }
+    def yamlFmt[T](key: String, value: T): String = f"$key: $value"
 
+    def yamlFmtCursus(course: Course) = {
+        val map = course.studyPlan
+        val sbld = new StringBuilder("cursus:\n")
+        map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${kv._2._1}}\n")
+        sbld.toString
+    }
     def yamlFmt[T](key: String, values: Seq[T]): String = ??? // TODO:
 
     /**
@@ -62,10 +64,9 @@ object Serializer {
                 case Some(f) => f
                 case None    => ""
             }
-          )
+          ),
+          yamlFmtCursus(course)
         )
-        // , yamlFmt("cursus", ), //TODO: serialize yaml map
-        // )
         write(yamlHeaderSep)
         wr.flush()
         wr.close
