@@ -12,12 +12,19 @@ import scala.language.postfixOps
 
 import io.{Source, BufferedSource}
 import DefaultJsonProtocol._
+import java.io.PrintWriter
+import java.io.FileWriter
 
 object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
+    private val errLogPrintWriter = new PrintWriter(new FileWriter(Path.of("err.log").toAbsolutePath.toString, UTF_8, true), true)
+    private val sep = "---------------------------------------\n\n"
 
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
-    def write(path: Path, content: String) = Files.writeString(path, content, UTF_8, CREATE_NEW, TRUNCATE_EXISTING)
+    def write(path: Path, content: String, append: Boolean = false) = {
+        val opt = if (append) APPEND else TRUNCATE_EXISTING
+        Files.writeString(path, content, UTF_8, CREATE, opt)
+    }
 
     /**
      * @param rawJson String
@@ -26,11 +33,20 @@ object Utils {
     def prettifyJson(rawJson: String) = rawJson.parseJson.prettyPrint
 
     /**
+     * Removes special characters and other that can
+     * prevent text from displaying / being read/written properly
+     *
+     * @param str sring to sanitize
+     * @return sanitized string
+     */
+    def sanitize(str: String): String = str.replace("\r", "") 
+    // \n line endings are supported fine on a greater number of platform (including windows) than "\r\n"
+
+    /**
      * Try to apply given function `resolver` if it succeeds => return the result,
      * or if an exception happened => return `defaultVal`
      *
      * @param resolver, function to try
-     * @param arg argument to `resolver`
      * @param defaultVal value to return when an exception happened
      * @return see above
      */
@@ -39,7 +55,8 @@ object Utils {
             resolver()
         } catch {
             case e: Exception => {
-                e.printStackTrace()
+                e.printStackTrace(errLogPrintWriter)
+                errLogPrintWriter.println(sep)
                 defaultVal
             }
         }

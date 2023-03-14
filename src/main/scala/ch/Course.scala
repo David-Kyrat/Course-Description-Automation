@@ -128,8 +128,8 @@ object Course extends Function2[String, Int, Course] {
         val activities: IndexedSeq[JsonObject] = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
         val lectures: JsonObject = activities.head
 
-        def extractor(key: String, jsObj: JsonObject = lectures) = jsObj.get(key).getAsString
-        def tryExtract(key: String, default: String = "", jsObj: JsonObject = lectures) = tryOrElse(() => extractor(key, jsObj), default)
+        def tryExtract(key: String, default: String = "", jsObj: JsonObject = lectures) =
+            tryOrElse(() => jsObj.get(key).getAsString, default)
 
         val title = tryExtract("title", "")
         val language = tryExtract("language", "")

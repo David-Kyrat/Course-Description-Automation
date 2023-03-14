@@ -74,15 +74,16 @@ object Main {
 
     def testCourseFactoryMethod() = {
         val course = Course("11X001", 2022)
-        println(course)
+        // println(course)
         println("-------------------------------------------------\n\n\n")
         val course2 = Course("12M040", 2022)
-        println(course2)
+        Utils.write(Path.of("desc.txt"), Utils.sanitize(course2.description))
+        // println(course2)
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-        //writeCoursDecsToRes("11X001", 2022)
+        // writeCoursDecsToRes("11X001", 2022)
         // testJsonLib()
         // testResolveCoursHours()
         testCourseFactoryMethod()
