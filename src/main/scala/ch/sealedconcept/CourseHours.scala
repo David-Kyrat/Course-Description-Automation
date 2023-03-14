@@ -7,7 +7,7 @@ package ch.sealedconcept
  * `exercices` hours of exercices sets/correction and `practice` hours per week.
  * they vary based what `c` is.
  *
- * @param lectures   (corresponds to `sealedconcept.Cours`)
+ * @param lectures   (corresponds to `sealedconcept.Lectures`)
  * @param exercices  (corresponds to `sealedconcept.Exercices`)
  * @param practice  (corresponds to `sealedconcept.Practice`)
  */
@@ -41,7 +41,7 @@ object CourseHours {
          */
         def setActivity[T >: CourseActivity](courseActivity: T, hours: Int): CourseHoursBuilder = {
             courseActivity match {
-                case Cours     => this.lectures = hours 
+                case Lectures     => this.lectures = hours 
                 case Exercices => this.exercices = hours 
                 case Practice  => this.practice = hours 
             }

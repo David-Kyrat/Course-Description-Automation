@@ -7,7 +7,7 @@ import com.google.gson.JsonArray
 import scala.jdk.CollectionConverters._
 
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
-import ch.sealedconcept.{CourseType, CourseHours, Semester, CourseActivity, Cours, Exercices, Practice}
+import ch.sealedconcept.{CourseType, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice}
 import ch.sealedconcept.SealedConceptObject
 import com.google.gson.JsonElement
 import scala.collection.mutable.ArrayBuffer
@@ -79,7 +79,7 @@ object Course extends Function2[String, Int, Course] {
      * Takes the sequence of jsonObject representing the jsonArray of "activities" of each course
      * (they are represented by `sealedconcept.CourseActivity`)
      * @param activities result of `obj.get("activities").getAsJsonArray`
-     * (`obj` is the json response for the details of this course i.e. `Course.get()`)
+     * (`obj` is the json response for the details of this course i.e. `Course.get(this.year, this.id)`)
      * @return resolved instance of `CourseHours`
      */
     private def resolveCourseHours(activities: IndexedSeq[JsonObject]): CourseHours = {

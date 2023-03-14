@@ -11,7 +11,7 @@ import com.google.gson._
 import com.google.gson.JsonObject._
 import com.google.gson.Gson
 import ch.sealedconcept.CourseHours
-import ch.sealedconcept.Cours
+import ch.sealedconcept.Lectures
 import ch.sealedconcept.Exercices
 import ch.sealedconcept.Practice
 

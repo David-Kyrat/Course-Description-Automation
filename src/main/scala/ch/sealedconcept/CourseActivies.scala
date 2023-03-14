@@ -2,7 +2,9 @@ package ch.sealedconcept
 
 sealed trait CourseActivity
 
-case object Cours extends CourseActivity
+case object Lectures extends CourseActivity {
+    override def toString = "Cours"
+}
 case object Exercices extends CourseActivity
 // their toString methods defaults to "Cours", "Exercices" i.e. what we want to search for when parsing
 
@@ -25,5 +27,5 @@ object CourseActivity extends SealedConceptObject[CourseActivity] {
      * Vector containing all the entity implementing
      *  the sealed trait defined in this file
      */
-    override def ALL = Vector(Cours, Exercices, Practice)
+    override def ALL = Vector(Lectures, Exercices, Practice)
 }
