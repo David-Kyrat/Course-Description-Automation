@@ -75,8 +75,15 @@ object Course extends Function2[String, Int, Course] {
         return sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
     }
 
-    private def resolveCourseHours(jsObj: JsonObject): CourseHours = {
-        val activities = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
+    /**
+     * Takes the sequence of jsonObject representing the jsonArray of "activities" of each course
+     * (they are represented by `sealedconcept.CourseActivity`)
+     * @param activities result of `obj.get("activities").getAsJsonArray`
+     * (`obj` is the json response for the details of this course i.e. `Course.get()`)
+     * @return resolved instance of `CourseHours`
+     */
+    private def resolveCourseHours(activities: IndexedSeq[JsonObject]): CourseHours = {
+        //val activities = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
         val chBld = new CourseHoursBuilder()
         def extractor(activity: JsonObject) = activity.get(CourseHours.jsonKey2).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
 
@@ -114,14 +121,9 @@ object Course extends Function2[String, Int, Course] {
 
     private def factory(id: String, year: Int): Course = {
         val jsObj = get(id, year)
-        val _year = jsObj.get("academicalYear")
-        val _id = jsObj.get("code")
-        // Just some testing function, remove after
-        assert(_id.getAsString == id)
-        assert(_year.getAsInt == year)
         val v2 = "activities"
-        val activities: JsonArray = jsObj.getAsJsonArray(v2)
-        val lectures: JsonObject = activities.get(0).getAsJsonObject()
+        val activities: IndexedSeq[JsonObject] = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
+        val lectures: JsonObject = activities.head
 
         def extractor(key: String, jsObj: JsonObject = lectures) = jsObj.get(key).getAsString
 
@@ -134,7 +136,7 @@ object Course extends Function2[String, Int, Course] {
         // val section = ???
 
         val evalMode = extractor("evaluation")
-        val hoursNb = resolveCourseHours(jsObj)
+        val hoursNb = resolveCourseHours(activities)
         val studyPlanNames = extractor("intended")
         val documentation = extractor("bibliography")
         val various = "" // extractor("variousInformation")
