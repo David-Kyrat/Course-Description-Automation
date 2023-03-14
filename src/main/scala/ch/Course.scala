@@ -11,6 +11,7 @@ import ch.sealedconcept.{CourseType, CourseHours, Semester, CourseActivity, Cour
 import ch.sealedconcept.SealedConceptObject
 import com.google.gson.JsonElement
 import scala.collection.mutable.ArrayBuffer
+import ch.sealedconcept.Other
 
 /**
  * Represents a course for a given year.
@@ -32,7 +33,7 @@ final case class Course(
   hoursNb: CourseHours,
   documentation: String,
   teachers: Vector[String],
-  studyPlan: Map[String, (Int, CourseType)]
+  studyPlan: Map[String, (Int, Option[CourseType])] //Option because i havent found the data relevant to CourseType in the DB yet
 ) {
     val requestUrl = f"$courseUrl/$id-$year"
 
@@ -109,7 +110,18 @@ object Course extends Function2[String, Int, Course] {
         stringBufr.to(Vector)
     }
 
-    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, CourseType)] = null
+
+
+    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, Option[CourseType])] = {
+        val tmp = jsObj.get("listStudyPlan").getAsJsonArray.asScala//.toIndexedSeq
+        def extractor(key: String, obj: JsonObject) = obj.get(key).getAsString
+        val studyPlans: IndexedSeq[JsonObject] = tmp.map(_.asInstanceOf[JsonObject]).toIndexedSeq//.asInstanceOf[IndexedSeq[JsonObject]]
+        // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
+        //val y: Map[String, (Int, Option[CourseType])]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
+        studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
+    }
+
+
 
     private def factory(id: String, year: Int): Course = {
         val jsObj = get(id, year)
@@ -141,7 +153,7 @@ object Course extends Function2[String, Int, Course] {
         val coursType = extractor("type")
 
         val teachers: Vector[String] = resolveTeacherNames(lectures)
-        val studPlan: Map[String, (Int, CourseType)] = resolveStudyPlan(jsObj) // TODO: PARSE STUDY PLAN
+        val studPlan: Map[String, (Int, Option[CourseType])] = resolveStudyPlan(jsObj) // TODO: PARSE STUDY PLAN
 
         new Course(id, year, title, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
     }

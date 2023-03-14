@@ -99,7 +99,7 @@ The necessary fields to fill the class [Course.scala](https://github.com/David-K
     -  - duration # hoursNb.pratice (if present)
 
 - facultyLabel   # faculty
-- ListStudyPlan:  # List of each study plan that has this course
+- listStudyPlan:  # List of each study plan that has this course
     - studyPlanLabel
     - planCredits
     - facultyLabel
