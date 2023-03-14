@@ -10,20 +10,26 @@ import java.nio.file.{Files, Path}
 import java.nio.file.StandardOpenOption._
 import scala.language.postfixOps
 
-import io.{Source, BufferedSource}
+import scala.io.{Source, BufferedSource}
 import DefaultJsonProtocol._
 import java.io.PrintWriter
 import java.io.FileWriter
+import java.io.BufferedWriter
 
 object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
-    private val errLogPrintWriter = new PrintWriter(new FileWriter(Path.of("err.log").toAbsolutePath.toString, UTF_8, true), true)
+    private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(Path.of("err.log").toAbsolutePath.toString, UTF_8, true)), true)
     private val sep = "---------------------------------------\n\n"
 
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
     def write(path: Path, content: String, append: Boolean = false) = {
         val opt = if (append) APPEND else TRUNCATE_EXISTING
         Files.writeString(path, content, UTF_8, CREATE, opt)
+    }
+    def writes(path: Path, content : String*) = {
+        for (s <- content) {
+            write(path, s + "\n", true)
+        }
     }
 
     /**

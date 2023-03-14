@@ -14,6 +14,7 @@ import ch.sealedconcept.CourseHours
 import ch.sealedconcept.Lectures
 import ch.sealedconcept.Exercices
 import ch.sealedconcept.Practice
+import ch.io.Serializer
 
 object Main {
     def testGetStudyPlans() = {
@@ -74,11 +75,16 @@ object Main {
 
     def testCourseFactoryMethod() = {
         val course = Course("11X001", 2022)
-        // println(course)
+        println(course)
         println("-------------------------------------------------\n\n\n")
         val course2 = Course("12M040", 2022)
-        Utils.write(Path.of("desc.txt"), Utils.sanitize(course2.description))
-        // println(course2)
+        //Utils.write(Path.of("desc.txt"), Utils.sanitize(course2.description))
+        println(course2)
+    }
+
+    def testCourseToMarkdown() = {
+        val course = Course("12M040", 2022)
+        Serializer.courseToMarkdown(course)
     }
 
     def main(args: Array[String]): Unit = {
@@ -86,10 +92,8 @@ object Main {
         // writeCoursDecsToRes("11X001", 2022)
         // testJsonLib()
         // testResolveCoursHours()
-        testCourseFactoryMethod()
-        /* val bld = new CourseHours.CourseHoursBuilder()
-        val ch = bld.setActivity(Cours, 12).setActivity(Exercices, 5).setActivity(Practice, 2).build()
-        println(ch) */
+        // testCourseFactoryMethod()
+        testCourseToMarkdown()
 
         println("\n\n")
     }

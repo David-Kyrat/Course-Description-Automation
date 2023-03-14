@@ -13,6 +13,12 @@ package ch.sealedconcept
  */
 final case class CourseHours(lectures: Int, exercices: Int, practice: Int) {
     override def toString = f"{lectures: $lectures, exercices: $exercices, practice: $practice}"
+
+    /** sum of 3 fields. i.e. total nb of hours per week */
+    def sum = lectures + exercices + practice
+
+    /** sum throughout the whole semester */
+    def semesterSum = sum * 14 // 14 weeks in a semester
 }
 
 object CourseHours {
@@ -41,9 +47,9 @@ object CourseHours {
          */
         def setActivity[T >: CourseActivity](courseActivity: T, hours: Int): CourseHoursBuilder = {
             courseActivity match {
-                case Lectures     => this.lectures = hours 
-                case Exercices => this.exercices = hours 
-                case Practice  => this.practice = hours 
+                case Lectures  => this.lectures = hours
+                case Exercices => this.exercices = hours
+                case Practice  => this.practice = hours
             }
             return this
         }

@@ -2,17 +2,13 @@ package ch
 
 import ch.ReqHdl
 import ch.ReqHdl.courseUrl
-import ch._
-import com.google.gson.JsonArray
-import scala.jdk.CollectionConverters._
-
-import ch.sealedconcept.CourseHours.CourseHoursBuilder
-import ch.sealedconcept.{CourseType, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice}
-import ch.sealedconcept.SealedConceptObject
-import com.google.gson.JsonElement
-import scala.collection.mutable.ArrayBuffer
-import ch.sealedconcept.Other
 import ch.Utils.tryOrElse
+import ch.sealedconcept.{SealedConceptObject, CourseType, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice}
+import ch.sealedconcept.CourseHours.CourseHoursBuilder
+import com.google.gson.{JsonArray, JsonElement, JsonObject}
+
+import scala.collection.mutable.ArrayBuffer
+import scala.jdk.CollectionConverters._
 
 /**
  * Represents a course for a given year.
@@ -33,7 +29,7 @@ final case class Course(
   evalMode: String,
   hoursNb: CourseHours,
   documentation: String,
-  teachers: Vector[String],
+  authors: Vector[String],
   studyPlan: Map[String, (Int, Option[CourseType])] // Option because i havent found the data relevant to CourseType in the DB yet
 ) {
     val requestUrl = f"$courseUrl/$id-$year"
@@ -49,6 +45,7 @@ final case class Course(
     val preRequisites: Option[Vector[String]] = None
     val usefulFor: Option[Vector[String]] = None
 }
+
 
 object Course extends Function2[String, Int, Course] {
     import com.google.gson.JsonObject

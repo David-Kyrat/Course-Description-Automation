@@ -12,3 +12,4 @@ project
 .bloop
 howto-copy.md
 *.sc
+*.log
