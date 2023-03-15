@@ -3,6 +3,7 @@ package ch
 // import ch.Resp._
 import ch.ReqHdl._
 import ch.Utils
+import ch.Utils.crtYear
 
 import com.google.gson.{JsonElement, JsonParser, JsonSerializer, JsonDeserializer}
 import java.nio.file.Path
@@ -36,7 +37,7 @@ object Main {
     }
 
     def testNext() = {
-        val ipa22Id = "2022-11X001"
+        val ipa22Id = f"${crtYear}-11X001"
         val ipa22Req = ReqHdl.course(f"$ipa22Id?size=1000")
         val ipa22Resp = ipa22Req.get()
         val next = ipa22Req.next(26)
@@ -47,7 +48,7 @@ object Main {
         println(f"\n$next")
     }
     def testJsonLib() = {
-        val jsonString = Utils.prettifyJson(course("2022-11X001").get())
+        val jsonString = Utils.prettifyJson(course(f"${crtYear}-11X001").get())
         val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
         val ye = jsObj.get("academicalYear")
         val v1 = jsObj.get("code")
@@ -61,35 +62,36 @@ object Main {
         val v7 = lectures.get("intended")
         val v8 = lectures.get("variousInfo")
         val v9 = lectures.get("comment")
-        val v0 = lectures.get("type") // NOTE: WORKS !
+        val v0 = lectures.get("type")
 
         val vec = Vector(ye, v1, v2, v3, v4, v5, v6, v7, v8, v9, v0)
         activities.forEach(el => println(el.getClass))
     }
 
     def testResolveCoursHours() = {
-        val jsObj = Course.get("12M040", 2022)
+        val courseTest = "11X001"
+        val jsObj = Course.get(courseTest, crtYear)
         /* val coursHours = Course.resolveCourseHours(jsObj)
         println(coursHours) */
     }
 
     def testCourseFactoryMethod() = {
-        val course = Course("11X001", 2022)
+        val course = Course("11X001", crtYear)
         println(course)
         println("-------------------------------------------------\n\n\n")
-        val course2 = Course("12M040", 2022)
+        val course2 = Course("12M040", crtYear)
         // Utils.write(Path.of("desc.txt"), Utils.sanitize(course2.description))
         println(course2)
     }
 
     def testCourseToMarkdown() = {
-        val course = Course("12M040", 2022)
+        val course = Course("11X001", crtYear)
         Serializer.courseToMarkdown(course)
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-        // writeCoursDecsToRes("11X001", 2022)
+        // writeCoursDecsToRes("11X001", crtYear)
         // testJsonLib()
         // testResolveCoursHours()
         // testCourseFactoryMethod()

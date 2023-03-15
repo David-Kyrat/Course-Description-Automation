@@ -3,7 +3,7 @@ package ch
 import ch.ReqHdl
 import ch.ReqHdl.courseUrl
 import ch.Utils.tryOrElse
-import ch.sealedconcept.{SealedConceptObject, CourseType, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice}
+import ch.sealedconcept.{SealedConceptObject, CourseType, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice, SPType}
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
 import com.google.gson.{JsonArray, JsonElement, JsonObject}
 
@@ -20,6 +20,8 @@ final case class Course(
   id: String,
   year: Int,
   title: String,
+  spType: SPType,
+  spYear: String, // year in StudyPlan i.e 1->3 for Bachelor / 1->2 for Master ...
   semester: Semester,
   objective: String,
   description: String,
@@ -34,9 +36,6 @@ final case class Course(
 ) {
     val requestUrl = f"$courseUrl/$id-$year"
 
-    // year in StudyPlan i.e 1->3 for Bachelor / 1->2 for Master ...
-    val spYear: Int = id.head.toInt // first letter of course code, TODO: find smth that works also for master and phd
-
     /*
      Option bc we dont know if its actually in the db (=> need to actually actively search for it)
      plus it must be immutable but need not being given at runtime
@@ -45,7 +44,6 @@ final case class Course(
     val preRequisites: Option[Vector[String]] = None
     val usefulFor: Option[Vector[String]] = None
 }
-
 
 object Course extends Function2[String, Int, Course] {
     import com.google.gson.JsonObject
@@ -119,7 +117,21 @@ object Course extends Function2[String, Int, Course] {
         studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
     }
 
-    private def factory(id: String, year: Int): Course = {
+    // TODO:  SPTYPE
+    private def resolveSpType(jsObj: JsonObject): SPType = SPType.Other
+
+    // second letter of course code,  TODO: find smth that works also for master and phd
+    private def resolveSpYear(jsObj: JsonObject, id: String) = id.substring(1, 2)
+
+    /**
+     * Factory methods that builds an Instance of `Course` by fetching data
+     * from the http request and parses / resolve its result
+     *
+     * @param id  course code
+     * @param year year this course was given (optional defaults to Utils.crtYear)
+     * @return new instance of `Course`
+     */
+    private def factory(id: String, year: Int = Utils.crtYear): Course = {
         val jsObj = get(id, year)
         val v2 = "activities"
         val activities: IndexedSeq[JsonObject] = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
@@ -130,6 +142,10 @@ object Course extends Function2[String, Int, Course] {
 
         val title = tryExtract("title", "")
         val language = tryExtract("language", "")
+
+        val spType: SPType = tryOrElse(() => resolveSpType(jsObj), SPType.Other)
+        val spYear: String = tryOrElse(() => resolveSpYear(jsObj, id), "N/A")
+
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
         // TODO: FIND DEFAULT VALUES FOR ALL SealedConceptObject
 
@@ -149,7 +165,7 @@ object Course extends Function2[String, Int, Course] {
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), Vector.empty)
         val studPlan: Map[String, (Int, Option[CourseType])] = tryOrElse(() => resolveStudyPlan(jsObj), Map.empty)
 
-        new Course(id, year, title, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
+        new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
     }
 
     override def apply(id: String, year: Int): Course = factory(id, year)

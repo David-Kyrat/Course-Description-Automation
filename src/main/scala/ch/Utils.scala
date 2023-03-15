@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import spray.json._
 
+import java.time.LocalDate
 import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.{Files, Path}
 import java.nio.file.StandardOpenOption._
@@ -19,7 +20,7 @@ import java.io.BufferedWriter
 object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
     private val logPath = Path.of("res/log/err.log").toAbsolutePath
-    write(logPath, "")  // prevents logfile content from getting to big by cleaning it
+    write(logPath, "") // prevents logfile content from getting to big by cleaning it
     private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
     private val sep = "---------------------------------------\n\n"
 
@@ -28,11 +29,12 @@ object Utils {
         val opt = if (append) APPEND else TRUNCATE_EXISTING
         Files.writeString(path, content, UTF_8, CREATE, opt)
     }
-    /* def writes(path: Path, content : String*) = {
-        for (s <- content) {
-            write(path, s + "\n", true)
-        }
-    } */
+
+    /**
+      * @return Lastest version for course & study plan information
+      * i.e. current year - 1
+      */
+    def crtYear: Int = LocalDate.now.getYear - 1
 
     /**
      * @param rawJson String

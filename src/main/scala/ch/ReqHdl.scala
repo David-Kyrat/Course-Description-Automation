@@ -86,10 +86,10 @@ object ReqHdl {
 
     /** API entry point */
     val baseUrl: String = "https://pgc.unige.ch/main/api"
-   
+
     private val spPart = "study-plans"
     private val coursePart = "teachings"
-   
+
     val studyPlanUrl: String = f"$baseUrl/$spPart"
     val courseUrl = f"$baseUrl/$coursePart" // append courseYear-courseId
 
@@ -121,5 +121,5 @@ object ReqHdl {
         if (id == null) g(f"$coursePart/find?size=$size") else g(f"$coursePart/$id")
 
     // BUG: Request 'https://pgc.unige.ch/main/api/teachings/find' does not work (error 400)
- 
+
 }
