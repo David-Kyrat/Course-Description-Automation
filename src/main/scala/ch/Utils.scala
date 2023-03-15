@@ -18,7 +18,9 @@ import java.io.BufferedWriter
 
 object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
-    private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(Path.of("res/log/err.log").toAbsolutePath.toString, UTF_8, true)), true)
+    private val logPath = Path.of("res/log/err.log").toAbsolutePath
+    write(logPath, "")  // prevents logfile content from getting to big by cleaning it
+    private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
     private val sep = "---------------------------------------\n\n"
 
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
@@ -45,7 +47,7 @@ object Utils {
      * @param str sring to sanitize
      * @return sanitized string
      */
-    def sanitize(str: String): String = str.replace("\r", "") 
+    def sanitize(str: String): String = str.replace("\r", "")
     // \n line endings are supported fine on a greater number of platform (including windows) than "\r\n"
 
     /**
