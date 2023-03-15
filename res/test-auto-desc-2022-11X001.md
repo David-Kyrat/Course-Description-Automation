@@ -9,7 +9,7 @@ total_hours: 84
 course_lang: français
 semester: Automne
 eval_mode: Examen écrit
-exa_session: Jan
+exa_session: Janvier
 course_format: 
 cursus:
   - {name: Baccalauréat universitaire en informatique, type: N/A, credits: 6}
