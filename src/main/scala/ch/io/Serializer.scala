@@ -21,13 +21,22 @@ object Serializer {
      */
     def yamlFmt[T](key: String, value: T): String = f"$key: $value"
 
+    def yamlMultiLineStr(key: String, value: String) = {
+        val sbld = new StringBuilder(f"$key:  |\n")
+        val indent = " " * (f"$key:  ".length)  // indentation to respect to have correct yaml syntax
+        sbld ++= indent
+        val lines = value.strip().replace("\n", f"\n$indent")
+        sbld ++= lines
+        /* lines.map(line => f"$line\n$indent") */
+        sbld.toString//.stripTrailing()
+    }
+
     def yamlFmtCursus(course: Course) = {
         val map = course.studyPlan
         val sbld = new StringBuilder("cursus:\n")
         map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${kv._2._1}}\n")
         sbld.toString
     }
-    def yamlFmt[T](key: String, values: Seq[T]): String = ??? // TODO:
 
     /**
      * Serialize a `Course` into a markdown file that can be used to fill
@@ -40,7 +49,8 @@ object Serializer {
      * @param course Course to serialize
      */
     def courseToMarkdown(course: Course) = {
-        val path = Path.of("res/test-auto-desc.md")
+        val name = f"test-auto-desc-${course.year}-${course.id}.md"
+        val path = Path.of(f"res/$name")
         val wr = new PrintWriter(new BufferedWriter(new FileWriter(path.toAbsolutePath.toString, UTF_8)), true)
         // Just returns the Writer at the end
         def write(content: String) = { wr.print(content + "\n") }
@@ -65,7 +75,10 @@ object Serializer {
                 case None    => ""
             }
           ),
-          yamlFmtCursus(course)
+          yamlFmtCursus(course),
+          yamlMultiLineStr("objective", Utils.sanitize(course.objective)),
+          yamlMultiLineStr("description", Utils.sanitize(course.description))
+
         )
         write(yamlHeaderSep)
         wr.flush()

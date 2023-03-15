@@ -78,7 +78,7 @@ object Main {
         println(course)
         println("-------------------------------------------------\n\n\n")
         val course2 = Course("12M040", 2022)
-        //Utils.write(Path.of("desc.txt"), Utils.sanitize(course2.description))
+        // Utils.write(Path.of("desc.txt"), Utils.sanitize(course2.description))
         println(course2)
     }
 
