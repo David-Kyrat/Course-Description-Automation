@@ -18,7 +18,7 @@ import java.io.BufferedWriter
 
 object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
-    private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(Path.of("res/err.log").toAbsolutePath.toString, UTF_8, true)), true)
+    private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(Path.of("res/log/err.log").toAbsolutePath.toString, UTF_8, true)), true)
     private val sep = "---------------------------------------\n\n"
 
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
