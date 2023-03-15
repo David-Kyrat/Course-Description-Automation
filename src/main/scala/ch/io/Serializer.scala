@@ -2,7 +2,7 @@ package ch.io
 
 import ch.Course
 
-import ch.sealedconcept.{SealedConceptObject, CourseType, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice}
+import ch.sealedconcept.{SealedConceptObject, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice}
 import java.nio.charset.StandardCharsets.UTF_8
 import java.io.{PrintWriter, FileWriter}
 import java.nio.file.Path
@@ -61,8 +61,9 @@ object Serializer {
           yamlFmt("title", course.title),
           yamlFmt("author", course.authors.mkString(", ")),
           yamlFmt("weekly_hours", course.hoursNb.sum),
-          yamlFmt("wekkly_exo_hours", course.hoursNb.exercices),
-          yamlFmt("wekkly_practice_hours", course.hoursNb.practice),
+          yamlFmt("lectures_hours", course.hoursNb.lectures),
+          yamlFmt("exercices_hours", course.hoursNb.exercices),
+          yamlFmt("practice_hours", course.hoursNb.practice),
           yamlFmt("total_hours", course.hoursNb.semesterSum),
           yamlFmt("course_lang", course.language),
           yamlFmt("semester", course.semester),

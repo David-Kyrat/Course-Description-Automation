@@ -1,0 +1,187 @@
+{
+  "_links": {
+    "list": {
+      "href": "https://pgc.unige.ch/main/api/teachings"
+    },
+    "module": {
+      "href": "https://pgc.unige.ch/main/api"
+    },
+    "self": {
+      "href": "https://pgc.unige.ch/main/api/teachings/2022-14M252"
+    }
+  },
+  "academicalYear": "2022",
+  "activities": [{
+    "activityTeachers": [{
+      "activityId": "141282",
+      "contactInfos": [{
+        "building": "CON7",
+        "buildingName": "Conseil Général 7",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Gleb.Smirnov@unige.ch",
+        "entityId": "12103445",
+        "faxNumber": null,
+        "firstName": "GLEB",
+        "function": "Collaborateur-trice scientifique I et II",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "GENEVE",
+        "name": "SMIRNOV",
+        "officeName": "CON7 4-05",
+        "officeNumber": "4-05",
+        "phoneNumber": "022 379 11 43",
+        "resId": "12103445",
+        "searchCriterias": null,
+        "street": "RUE DU CONSEIL-GENERAL 7",
+        "structure": "SECTION DE MATHEMATIQUES",
+        "teacherId": "966952",
+        "title": "M.",
+        "visible": true,
+        "zipCode": "1205"
+      }],
+      "creation": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "displayFirstName": "Gleb",
+      "displayFonction": "Collaborateur-trice scientifique I et II",
+      "displayLastName": "Smirnov",
+      "entityId": "141282-2022-966952",
+      "lastUpdate": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "personId": "966952",
+      "resId": "141282-2022-966952",
+      "searchCriterias": null,
+      "teacherId": "2022-966952",
+      "teachingId": "2022-14M252"
+    }],
+    "bibliography": null,
+    "code": "14M252CR01",
+    "codeLanguage": "EN",
+    "comment": null,
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": "1.\tProjective space(s). Plane algebraic curves. Bezout's theorem.\r\n2.\tRational curves.\r\n3.\tAlgebraic curves as complex manifolds. Branched coverings. The Riemann-Hurwitz formula.\r\n4.\tLine bundles and divisors on curves.\r\n5.\tThe Riemann'Roch theorem for curves.\r\n6.\tMetrics of constant negative curvature and uniformization theorem.\r\n7.\tModuli of elliptic curves.\r\n\r\n\r\n",
+    "displayDuration": "2h de cours, printemps",
+    "displayNotGiven": "2h de cours non donné en 2022-2023",
+    "duration": "2h",
+    "englishTitle": null,
+    "entityId": "141282",
+    "evaluation": "Examen oral",
+    "evaluationComment": null,
+    "given": false,
+    "intended": null,
+    "language": "anglais",
+    "languageForSearch": "anglais",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": true,
+    "objective": "This course gives and introduction to algebraic geometry and develops the theory of complex algebraic curves.",
+    "periodicity": "Printemps",
+    "publicAccepted": false,
+    "recommended": "Pré-requis : Good knowledge of multi-variable calculus and algebra (the more, the better !), familiarity with complex analysis (holomorphic functions, Cauchy's integral formula) and topology (convergence, homotopies, homology groups).",
+    "resId": "141282",
+    "scheduleText": "LU 13H-15H, SM 1-05",
+    "searchCriterias": null,
+    "shortEvaluation": "O",
+    "shortPeriodicity": "P",
+    "shortType": "CR",
+    "subtitle": null,
+    "teachingId": "2022-14M252",
+    "title": "Algebraic curves",
+    "type": "Cours",
+    "variousInformation": null
+  }, {
+    "activityTeachers": [],
+    "bibliography": null,
+    "code": "14M252EX01",
+    "codeLanguage": "EN",
+    "comment": null,
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": null,
+    "displayDuration": "2h de exercices, printemps",
+    "displayNotGiven": "2h d'exercices non donné en 2022-2023",
+    "duration": "2h",
+    "englishTitle": null,
+    "entityId": "141283",
+    "evaluation": null,
+    "evaluationComment": null,
+    "given": false,
+    "intended": null,
+    "language": "anglais",
+    "languageForSearch": "anglais",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": true,
+    "objective": null,
+    "periodicity": "Printemps",
+    "publicAccepted": false,
+    "recommended": null,
+    "resId": "141283",
+    "scheduleText": "LU 15H-17H, SM 1-05",
+    "searchCriterias": null,
+    "shortEvaluation": null,
+    "shortPeriodicity": "P",
+    "shortType": "EX",
+    "subtitle": null,
+    "teachingId": "2022-14M252",
+    "title": "Algebraic curves",
+    "type": "Exercices",
+    "variousInformation": null
+  }],
+  "code": "14M252",
+  "creation": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "credits": null,
+  "departments": [{
+    "code": "NMATH",
+    "entityId": "202210103",
+    "label": "Section de mathématiques",
+    "teachingId": "2022-14M252"
+  }],
+  "domains": [],
+  "entityId": "2022-14M252",
+  "facultyId": "547",
+  "facultyLabel": "Faculté des sciences",
+  "lastUpdate": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "listStudyPlan": [],
+  "resId": "2022-14M252",
+  "searchCriterias": null,
+  "shortFaculty": "S",
+  "studyLevel": "Bachelor / Master",
+  "teachingLinks": [],
+  "title": "Algebraic curves"
+}

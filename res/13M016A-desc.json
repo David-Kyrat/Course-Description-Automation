@@ -1,0 +1,237 @@
+{
+  "_links": {
+    "list": {
+      "href": "https://pgc.unige.ch/main/api/teachings"
+    },
+    "module": {
+      "href": "https://pgc.unige.ch/main/api"
+    },
+    "self": {
+      "href": "https://pgc.unige.ch/main/api/teachings/2022-13M016A"
+    }
+  },
+  "academicalYear": "2022",
+  "activities": [{
+    "activityTeachers": [{
+      "activityId": "140758",
+      "contactInfos": [{
+        "building": "CON7",
+        "buildingName": "Conseil Général 7",
+        "creation": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "email": "Antti.Knowles@unige.ch",
+        "entityId": "12102199",
+        "faxNumber": null,
+        "firstName": "ANTTI",
+        "function": "Professeur-e associé-e",
+        "lastUpdate": {
+          "fullName": null,
+          "when": null,
+          "who": null
+        },
+        "locality": "GENEVE",
+        "name": "KNOWLES",
+        "officeName": "CON7 5-05",
+        "officeNumber": "5-05",
+        "phoneNumber": "022 379 11 66",
+        "resId": "12102199",
+        "searchCriterias": null,
+        "street": "RUE DU CONSEIL-GENERAL 7",
+        "structure": "SECTION DE MATHEMATIQUES",
+        "teacherId": "860179",
+        "title": "M.",
+        "visible": true,
+        "zipCode": "1205"
+      }],
+      "creation": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "displayFirstName": "Antti",
+      "displayFonction": "Professeur-e associé-e",
+      "displayLastName": "Knowles",
+      "entityId": "140758-2022-860179",
+      "lastUpdate": {
+        "fullName": null,
+        "when": null,
+        "who": null
+      },
+      "personId": "860179",
+      "resId": "140758-2022-860179",
+      "searchCriterias": null,
+      "teacherId": "2022-860179",
+      "teachingId": "2022-13M016A"
+    }],
+    "bibliography": null,
+    "code": "13M016ACR01",
+    "codeLanguage": "FR",
+    "comment": null,
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": "1.\tRappel de la théorie de la mesure: espaces de probabilité, variables aléatoires, espérance, indépendance.\r\n2.\tLa loi des grands nombres: construction de variables indépendantes, les lemmes de Borel-Cantelli, convergence de séries aléatoires, les lois faible et forte des grands nombres.\r\n3.\tLe théorème central limite : convergence faible, fonctions caractéristiques, le théorème central limite, processus de Poisson.\r\n4.\tConditionnement.\r\n\r\n",
+    "displayDuration": "2h de cours, automne",
+    "displayNotGiven": null,
+    "duration": "2h",
+    "englishTitle": null,
+    "entityId": "140758",
+    "evaluation": "Examen écrit",
+    "evaluationComment": null,
+    "given": true,
+    "intended": null,
+    "language": "français",
+    "languageForSearch": "français",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": true,
+    "objective": "IIntroduction des concepts de base de la théorie des probabilités: espaces de probabilité, évènements, mesures de probabilité, indépendance, variables aléatoires, lois des grands nombres, convergence de séries aléatoires, convergence faible, fonctions caractéristiques, le théorème central limite, conditionnement.",
+    "periodicity": "Automne",
+    "publicAccepted": false,
+    "recommended": "Pré-requis : analyse II réelle, analyse II complexe, théorie de la mesure et intégration, topologie générale",
+    "resId": "140758",
+    "scheduleText": "VE 8H-10H, SM 1-15",
+    "searchCriterias": null,
+    "shortEvaluation": "E",
+    "shortPeriodicity": "A",
+    "shortType": "CR",
+    "subtitle": null,
+    "teachingId": "2022-13M016A",
+    "title": "Probabilités et statistique",
+    "type": "Cours",
+    "variousInformation": null
+  }, {
+    "activityTeachers": [],
+    "bibliography": null,
+    "code": "13M016AEX01",
+    "codeLanguage": "FR",
+    "comment": null,
+    "courses": [],
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "description": null,
+    "displayDuration": "2h de exercices, automne",
+    "displayNotGiven": null,
+    "duration": "2h",
+    "englishTitle": null,
+    "entityId": "140759",
+    "evaluation": null,
+    "evaluationComment": null,
+    "given": true,
+    "intended": null,
+    "language": "français",
+    "languageForSearch": "français",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "listenerAccepted": true,
+    "objective": null,
+    "periodicity": "Automne",
+    "publicAccepted": false,
+    "recommended": null,
+    "resId": "140759",
+    "scheduleText": "VE, 10H-12H, SM 1-15",
+    "searchCriterias": null,
+    "shortEvaluation": null,
+    "shortPeriodicity": "A",
+    "shortType": "EX",
+    "subtitle": null,
+    "teachingId": "2022-13M016A",
+    "title": "Probabilités et statistique",
+    "type": "Exercices",
+    "variousInformation": null
+  }],
+  "code": "13M016A",
+  "creation": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "credits": null,
+  "departments": [{
+    "code": "NMATH",
+    "entityId": "202210103",
+    "label": "Section de mathématiques",
+    "teachingId": "2022-13M016A"
+  }],
+  "domains": [],
+  "entityId": "2022-13M016A",
+  "facultyId": "547",
+  "facultyLabel": "Faculté des sciences",
+  "lastUpdate": {
+    "fullName": null,
+    "when": null,
+    "who": null
+  },
+  "listStudyPlan": [{
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175636",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "6",
+    "resId": "175636",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73732",
+    "studyPlanId": "73722",
+    "studyPlanLabel": "Baccalauréat universitaire en mathématique",
+    "studyPlanPath": "Baccalauréat universitaire en mathématique/Cours avancés de 3ème année",
+    "teachingId": "2022-13M016A",
+    "teachingOrder": "115"
+  }, {
+    "academicalYear": "2022",
+    "creation": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "entityId": "175694",
+    "facultyCode": "S",
+    "facultyId": "547",
+    "facultyLabel": "Faculté des sciences",
+    "lastUpdate": {
+      "fullName": null,
+      "when": null,
+      "who": null
+    },
+    "planCredits": "5",
+    "resId": "175694",
+    "searchCriterias": null,
+    "studyPlanGroupId": "73736",
+    "studyPlanId": "73726",
+    "studyPlanLabel": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques",
+    "studyPlanPath": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques/Cours de 3ème année",
+    "teachingId": "2022-13M016A",
+    "teachingOrder": "145"
+  }],
+  "resId": "2022-13M016A",
+  "searchCriterias": null,
+  "shortFaculty": "S",
+  "studyLevel": "Bachelor / Master",
+  "teachingLinks": [],
+  "title": "Probabilités et statistique"
+}

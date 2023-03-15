@@ -3,7 +3,7 @@ package ch
 import ch.ReqHdl
 import ch.ReqHdl.courseUrl
 import ch.Utils.tryOrElse
-import ch.sealedconcept.{SealedConceptObject, CourseType, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice, SPType}
+import ch.sealedconcept.{SealedConceptObject, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice, SPType}
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
 import com.google.gson.{JsonArray, JsonElement, JsonObject}
 
@@ -32,7 +32,7 @@ final case class Course(
   hoursNb: CourseHours,
   documentation: String,
   authors: Vector[String],
-  studyPlan: Map[String, (Int, Option[CourseType])] // Option because i havent found the data relevant to CourseType in the DB yet
+  studyPlan: Map[String, (Int, String)] // Option because i havent found the data relevant to CourseType in the DB yet
 ) {
     val requestUrl = f"$courseUrl/$id-$year"
 
@@ -108,13 +108,19 @@ object Course extends Function2[String, Int, Course] {
         stringBufr.to(Vector)
     }
 
-    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, Option[CourseType])] = {
+    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, String)] = {
         val tmp = jsObj.get("listStudyPlan").getAsJsonArray.asScala // .toIndexedSeq
         def extractor(key: String, obj: JsonObject) = obj.get(key).getAsString
         val studyPlans: IndexedSeq[JsonObject] = tmp.map(_.asInstanceOf[JsonObject]).toIndexedSeq // .asInstanceOf[IndexedSeq[JsonObject]]
         // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
-        // val y: Map[String, (Int, Option[CourseType])]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
-        studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
+        // val y: Map[String, (Int, String)]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
+
+        studyPlans.map(obj => {
+            val studyPlanLabel:String = extractor("studyPlanLabel", obj)
+            val isOptional = studyPlanLabel.contains("à option") 
+            // if false => does not mean the course is mandatory, we just dont know (lack the info in the database)
+            (studyPlanLabel, (obj.get("planCredits").getAsInt, if (isOptional) "Optionnel" else "N/A" ))
+        }).toMap
     }
 
     // TODO:  SPTYPE
@@ -163,7 +169,7 @@ object Course extends Function2[String, Int, Course] {
         val coursType = tryExtract("type", "")
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), Vector.empty)
-        val studPlan: Map[String, (Int, Option[CourseType])] = tryOrElse(() => resolveStudyPlan(jsObj), Map.empty)
+        val studPlan: Map[String, (Int, String)] = tryOrElse(() => resolveStudyPlan(jsObj), Map.empty)
 
         new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
     }

@@ -32,7 +32,7 @@ object Main {
         println(studyPlansResp)
     }
 
-    def writeCoursDecsToRes(id: String, year: Int) = {
+    def writeCoursDecsToRes(id: String, year: Int = crtYear) = {
         Utils.write(Path.of(f"res/$id-desc.json"), ReqHdl.course(f"$year-$id").get())
     }
 
@@ -85,13 +85,17 @@ object Main {
     }
 
     def testCourseToMarkdown() = {
-        val course = Course("11X001", crtYear)
+        val code = "12M040"
+        val code2 = "11X001"
+        val course = Course(code, crtYear)
+        val course2 = Course(code2, crtYear)
         Serializer.courseToMarkdown(course)
+        Serializer.courseToMarkdown(course2)
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-        // writeCoursDecsToRes("11X001", crtYear)
+        // writeCoursDecsToRes("14M252")
         // testJsonLib()
         // testResolveCoursHours()
         // testCourseFactoryMethod()

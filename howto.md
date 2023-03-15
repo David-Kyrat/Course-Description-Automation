@@ -106,3 +106,11 @@ The necessary fields to fill the class [Course.scala](https://github.com/David-K
 
 ```
 
+The information "mandatory/optional" course is given as follows:
+
+- if `listStudyPlan[i].studyPlanLabel` contains "Cours à option" then it is not mandatory
+- otherwise it is. (for each study plan `i`)
+
+!! does not works all the time, e.g. Bachelor "Maths-Info" theres is more
+than almost 30 courses in 3rd year and none of theme says "option" and 
+it is extremely unlikely that the bachelor actually contains > 30 courses for the 3rd year...

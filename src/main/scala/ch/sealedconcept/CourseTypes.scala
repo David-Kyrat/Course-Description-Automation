@@ -1,4 +1,4 @@
-package ch.sealedconcept
+/* package ch.sealedconcept
 
 sealed trait CourseType
 
@@ -13,4 +13,4 @@ case object Optional extends CourseType {
 object CourseType extends SealedConceptObject[CourseType] {
     override def jsonKey = "type" // TODO: check if its actually that
     override def ALL = Vector(Mandatory, Optional)
-}
+} */
