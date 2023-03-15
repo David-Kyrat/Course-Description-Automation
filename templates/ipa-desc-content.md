@@ -15,9 +15,4 @@ course_format: Cours exercices et TP intégrés
 cursus:
   - {name: Bachelor en Sciences Informatique, type: Obligatoire, credits: 6}
   - {name: Bachelor en Maths Info, type: Obligatoire, credits: 6}
-objective:  |
-            a
-
 ---
-
-
