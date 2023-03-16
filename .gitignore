@@ -9,6 +9,7 @@ null
 #target
 target/*
 !target/windows
+!target/scala-2.13/api
 
 project/.bloop
 project/project/
