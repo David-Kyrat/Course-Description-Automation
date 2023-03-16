@@ -129,5 +129,8 @@ Left to do:
 - [ ] Find a way to bundle `res/` directory with the installer
 - [ ] Find a way to generate an executable instead of `.bat`
     - [ ] If that's not possible just hide the `.bat` and make a C wrapper that calls it.
-    The wrapper will then be compiled as `.exe`
+    The wrapper will then be compiled as `.exe`  
 
+Not urgent:
+- [ ] Remove empty (0 Kb) / useless wix features (from "features to be installed" screen)
+- [ ] Replace the lorem ipsum in the license screen by an actual license 
