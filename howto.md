@@ -114,3 +114,20 @@ The information "mandatory/optional" course is given as follows:
 !! does not works all the time, e.g. Bachelor "Maths-Info" theres is more
 than almost 30 courses in 3rd year and none of theme says "option" and 
 it is extremely unlikely that the bachelor actually contains > 30 courses for the 3rd year...
+
+
+
+## Packaging
+
+Using [Wix](https://wixtoolset.org/) and the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/index.html) an MSI executable can be created with the command  
+`sbt 'Windows / packageBin'`.  
+
+Unfortunately, this require a **heavily** configurated `build.sbt` config file. 
+Actually the heaviness isn't really the issue here, but rather the "outdatedness" and scarcity of actually usefull the informations. That's what makes the packaging / installer generation *really* time consuming. 
+
+Left to do:
+- [ ] Find a way to bundle `res/` directory with the installer
+- [ ] Find a way to generate an executable instead of `.bat`
+    - [ ] If that's not possible just hide the `.bat` and make a C wrapper that calls it.
+    The wrapper will then be compiled as `.exe`
+
