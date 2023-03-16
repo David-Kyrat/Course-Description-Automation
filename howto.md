@@ -119,6 +119,8 @@ it is extremely unlikely that the bachelor actually contains > 30 courses for th
 ----
 
 
+<br/>  
+
 ## Packaging
 
 Using [Wix](https://wixtoolset.org/) and the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/index.html) an MSI executable can be created with the command  
