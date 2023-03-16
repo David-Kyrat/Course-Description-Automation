@@ -8,8 +8,11 @@ null
 .bsp
 #target
 target/*
-!target/windows
+target/scala-2.13/*
+!target/scala-2.13
 !target/scala-2.13/api
+!target/windows
+
 
 project/.bloop
 project/project/
