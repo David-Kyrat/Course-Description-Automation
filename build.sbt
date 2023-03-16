@@ -1,3 +1,10 @@
+import com.typesafe.sbt.packager.windows.WindowsFeature
+import com.typesafe.sbt.packager.windows._
+import com.typesafe.sbt.SbtNativePackager.Universal
+import com.typesafe.sbt.packager.universal.UniversalPlugin
+import com.typesafe.sbt.packager.Keys.wixFeatures
+import com.typesafe.sbt.packager.Keys.{wixProductId, wixProductUpgradeId}
+
 ThisBuild / organization := "ch"
 
 ThisBuild / scalaVersion := "2.13.10"
@@ -16,7 +23,10 @@ lazy val root = (project in file(".")).settings(
   libraryDependencies ++= Seq(scalaBaseDep, prettyPrintJsonLib, jsonLib),
   maintainer := "Josh Suereth <joshua.suereth@typesafe.com>",
   packageSummary := "test-windows",
-  packageDescription := """Test Windows MSI."""
+  packageDescription := """Test Windows MSI.""",
+  // wix build information
+  wixProductId := "ce07be71-510d-414a-92d4-dff47631848a",
+  wixProductUpgradeId := "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"
 )
 
 Windows / mappings := (Universal / mappings).value
@@ -27,22 +37,12 @@ Windows / mappings ++= {
     Seq(jar -> "lib/cool.jar", (dir / "cool.bat") -> "bin/cool.bat")
 }
 
-/* Windows / mappings ++= jar.zipWith(dir) */
-
-/* mappings in Windows ++= (packageBin in Compile, sourceDirectory in Windows) map { (jar, dir) =>
-  Seq(jar -> "lib/cool.jar", (dir / "cool.bat") -> "bin/cool.bat")
-} */
-/* Windows / mappings ++= (Compile / packageBin, Windows / sourceDirectory) map { (jar, dir) =>
-    Seq(jar -> "lib/cool.jar", (dir / "cool.bat") -> "bin/cool.bat")
-} */
-/*
-Windows / mappings ++= (Compile / packageBin, Windows / sourceDirectory) map { (jar, dir) =>
-    Seq(jar -> "lib/cool.jar", (dir / "cool.bat") -> "bin/cool.bat")
-}
+/* (Windows / wixFeatures) += Windows / WindowsFeature( */
 
 wixFeatures += WindowsFeature(
   id = "BinaryAndPath",
   title = "My Project's Binaries and updated PATH settings",
   desc = "Update PATH environment variables (requires restart).",
   components = Seq(ComponentFile("bin/cool.bat"), ComponentFile("lib/cool.jar"), AddDirectoryToPath("bin"))
-) */
+)
+
