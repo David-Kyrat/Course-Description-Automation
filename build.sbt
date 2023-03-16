@@ -27,7 +27,7 @@ enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
 lazy val root = (project in file(".")).settings(
   name := pName,
   version := "0.1",
-  assembly / assemblyJarName := jarName, // name + ".jar",
+  /* assembly / assemblyJarName := jarName, // name + ".jar", */
   libraryDependencies ++= Seq(scalaBaseDep, prettyPrintJsonLib, jsonLib),
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
@@ -40,11 +40,11 @@ lazy val root = (project in file(".")).settings(
 
 Windows / mappings := (Universal / mappings).value
 
-Windows / mappings ++= {
+/* Windows / mappings ++= {
   val jar = (Compile / packageBin).value
   val dir = (Windows / sourceDirectory).value
   Seq(jar -> jarPath, (dir / batName) -> batPath)
-}
+} */
 
 wixFeatures += WindowsFeature(
   id = "BinaryAndPath",
@@ -55,3 +55,6 @@ wixFeatures += WindowsFeature(
     ComponentFile(jarPath)
   ) // , AddDirectoryToPath("bin"))
 )
+
+// HINT: TO GENERATE MSI INSTALLER RUN `sbt 'Windows / packageBin'` (or windows:packageBin but sbt says its deprecated)
+
