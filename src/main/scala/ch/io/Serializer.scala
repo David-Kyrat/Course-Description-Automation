@@ -50,7 +50,7 @@ object Serializer {
      */
     def courseToMarkdown(course: Course) = {
         val name = f"test-auto-desc-${course.year}-${course.id}.md"
-        val path = Path.of(f"res/$name")
+        val path = Path.of(f"res/md/$name")
         val wr = new PrintWriter(new BufferedWriter(new FileWriter(path.toAbsolutePath.toString, UTF_8)), true)
         // Just returns the Writer at the end
         def write(content: String) = { wr.print(content + "\n") }
