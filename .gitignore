@@ -13,3 +13,6 @@ project
 howto-copy.md
 *.sc
 *.log
+
+# I don't know why this folder keep getting generated
+**/Powershell 7.3.3
