@@ -1,0 +1,128 @@
+<Wix xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns="http://schemas.microsoft.com/wix/2006/wi">
+      <Product Id="ce07be71-510d-414a-92d4-dff47631848a" Name="test-windows" Language="1033" Version="0.1" Manufacturer="Josh Suereth &lt;joshua.suereth@typesafe.com&gt;" UpgradeCode="4552fb0e-e257-4dbd-9ecb-dba9dbacf424">
+        <Package Description="Test Windows MSI." Comments="TODO - we need comments." Manufacturer="Josh Suereth &lt;joshua.suereth@typesafe.com&gt;" InstallScope="perMachine" InstallerVersion="200" Compressed="yes"/>
+        <Media Id="1" Cabinet="_course_description_automation21236090x.cab" EmbedCab="yes"/>
+        
+      <!-- Define the directories we use -->
+      <Directory Id="TARGETDIR" Name="SourceDir">
+        <Directory Id="ProgramMenuFolder">
+          <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">
+            <Component Id="_ApplicationProgramsFolderRemove689092593" Guid="667a71ea-3c57-4a03-ab8f-36f584a50de1">
+              <RemoveFolder Id="ApplicationProgramsFolderRemove" On="uninstall"/>
+              <RegistryValue Root="HKCU" Key="Software\Josh Suereth &lt;joshua.suereth@typesafe.com&gt;\Course-Description-Automation" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+            </Component>
+          </Directory>
+        </Directory>
+        <Directory Id="ProgramFilesFolder" Name="PFiles">
+          <Directory Id="INSTALLDIR" Name="Course-Description-Automation">
+            <Directory Id="_lib107141xxx" Name="lib">
+        
+      </Directory><!-- --><Directory Id="_bin97543xxxx" Name="bin">
+        
+      </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+      <!-- Now define the components -->
+      <DirectoryRef Id="_lib107141xxx">
+            <Component Id="_lib_ch_course_description_automation_0_1_jar866535474" Guid="81a1ffdc-34b7-49f9-91b4-875241f761c0">
+              <File Id="fl__lib_ch_course_description_automation_0_1_jar866535474" Name="ch.course-description-automation-0.1.jar" DiskId="1" Source="lib\ch.course-description-automation-0.1.jar">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
+            <Component Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854" Guid="25cb3009-d008-4aab-bff2-ec02316d7c93">
+              <File Id="fl__lib_org_scala_lang_scala_library_2_13_10_jar116078854" Name="org.scala-lang.scala-library-2.13.10.jar" DiskId="1" Source="lib\org.scala-lang.scala-library-2.13.10.jar">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
+            <Component Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917" Guid="defb08a3-8e4b-42b2-b9fa-7b7e52c82738">
+              <File Id="fl__cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917" Name="org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar" DiskId="1" Source="lib\org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
+            <Component Id="_lib_io_spray_spray_json_2_13_1_3_6_jar144648104" Guid="666e9b86-6aad-45e6-81a7-b39f22a4745a">
+              <File Id="fl__lib_io_spray_spray_json_2_13_1_3_6_jar144648104" Name="io.spray.spray-json_2.13-1.3.6.jar" DiskId="1" Source="lib\io.spray.spray-json_2.13-1.3.6.jar">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
+            <Component Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206" Guid="5a372d40-eabb-4b27-86c9-07bb5bb8bc82">
+              <File Id="fl__lib_com_google_code_gson_gson_2_10_1_jar112890206" Name="com.google.code.gson.gson-2.10.1.jar" DiskId="1" Source="lib\com.google.code.gson.gson-2.10.1.jar">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
+            <Component Id="_bin_course_description_automation626901618" Guid="25d1add5-249c-4695-9ea4-3b7d3f955afc">
+              <File Id="fl__bin_course_description_automation626901618" Name="course-description-automation" DiskId="1" Source="bin\course-description-automation">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
+            <Component Id="_bin_course_description_automation_bat485908839" Guid="e61c8606-38ac-40fd-94ad-bd8d9feb0e2d">
+              <File Id="fl__bin_course_description_automation_bat485908839" Name="course-description-automation.bat" DiskId="1" Source="bin\course-description-automation.bat">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
+            <Component Id="_lib_cool_jar322491840" Guid="76761afd-1a08-41ad-9aad-1596fac3024e">
+              <File Id="fl__lib_cool_jar322491840" Name="cool.jar" DiskId="1" Source="lib\cool.jar">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
+            <Component Id="_bin_cool_bat323478520" Guid="a40a2775-add7-4fbc-92b5-2355cd40448c">
+              <File Id="fl__bin_cool_bat323478520" Name="cool.bat" DiskId="1" Source="bin\cool.bat">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
+            <Component Id="_bin97543xxxxPathC" Guid="02b042d8-b19a-46db-a160-9fd2b5a6b7ae">
+              <CreateFolder/>
+              <Environment Id="COURSE_DESCRIPTION_AUTOMATION_HOME" Name="COURSE_DESCRIPTION_AUTOMATION_HOME" Value="[INSTALLDIR]" Permanent="no" Action="set" System="yes"/>
+              <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes"/>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="ApplicationProgramsFolder">
+            <Component Id="_shortcut_eb23e980_55ea_4224_b787_20f209ddbf6d111684431" Guid="329d3efa-6d60-4c50-a240-f478b29c1336">
+              
+              <RegistryValue Root="HKCU" Key="Software\Josh Suereth &lt;joshua.suereth@typesafe.com&gt;\Course-Description-Automation" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
+            <Component Id="_bin_cool_bat323478520" Guid="c2ecc0cc-d2ba-40c1-a5d0-8c263039f905">
+              <File Id="fl__bin_cool_bat323478520" Name="cool.bat" DiskId="1" Source="bin\cool.bat">
+                
+              </File>
+            </Component>
+          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
+            <Component Id="_lib_cool_jar322491840" Guid="7aea1714-1eeb-40ed-b594-f07377c3ed02">
+              <File Id="fl__lib_cool_jar322491840" Name="cool.jar" DiskId="1" Source="lib\cool.jar">
+                
+              </File>
+            </Component>
+          </DirectoryRef>
+      <!-- Now define the features! -->
+      <Feature Id="Complete" Title="test-windows" Description="Test Windows MSI." Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+        <!-- Manually added uninstall feautre -->
+        <Feature Id="Uninstall" Title="Uninstall" Description="Uninstall ApplicationFolder" Level="1" Absent="allow">
+          <ComponentRef Id="_ApplicationProgramsFolderRemove689092593"/>
+        </Feature>
+        <Feature Id="e_description_automation_core151743571" Title="course-description-automation" Description="All core files." Level="1" Absent="disallow">
+                    <ComponentRef Id="_lib_ch_course_description_automation_0_1_jar866535474"/><ComponentRef Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854"/><ComponentRef Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917"/><ComponentRef Id="_lib_io_spray_spray_json_2_13_1_3_6_jar144648104"/><ComponentRef Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206"/><ComponentRef Id="_bin_course_description_automation626901618"/><ComponentRef Id="_bin_course_description_automation_bat485908839"/><ComponentRef Id="_lib_cool_jar322491840"/><ComponentRef Id="_bin_cool_bat323478520"/>
+                  </Feature><Feature Id="AddBinToPath" Title="Update Environment Variables" Description="Update PATH environment variables (requires restart)." Level="1" Absent="allow">
+                    <ComponentRef Id="_bin97543xxxxPathC"/>
+                  </Feature><Feature Id="AddConfigLinks" Title="Configuration start menu links" Description="Adds start menu shortcuts to edit configuration files." Level="1" Absent="allow">
+                    <ComponentRef Id="_shortcut_eb23e980_55ea_4224_b787_20f209ddbf6d111684431"/>
+                  </Feature><Feature Id="BinaryAndPath" Title="My Project's Binaries and updated PATH settings" Description="Update PATH environment variables (requires restart)." Level="1" Absent="allow">
+                    <ComponentRef Id="_bin_cool_bat323478520"/><ComponentRef Id="_lib_cool_jar322491840"/>
+                  </Feature>
+      </Feature>
+      <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
+      <UIRef Id="WixUI_FeatureTree"/>
+      <UIRef Id="WixUI_ErrorProgressText"/>
+      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
+      
+    
+      </Product>
+    </Wix>

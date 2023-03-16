@@ -19,7 +19,6 @@ lazy val root = (project in file(".")).settings(
   name := "Course-Description-Automation",
   version := "0.1",
   assembly / assemblyJarName := "cool.jar", // name + ".jar",
-  /* libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1", */
   libraryDependencies ++= Seq(scalaBaseDep, prettyPrintJsonLib, jsonLib),
   maintainer := "Josh Suereth <joshua.suereth@typesafe.com>",
   packageSummary := "test-windows",
@@ -43,6 +42,6 @@ wixFeatures += WindowsFeature(
   id = "BinaryAndPath",
   title = "My Project's Binaries and updated PATH settings",
   desc = "Update PATH environment variables (requires restart).",
-  components = Seq(ComponentFile("bin/cool.bat"), ComponentFile("lib/cool.jar"), AddDirectoryToPath("bin"))
+  components = Seq(ComponentFile("bin/cool.bat"), ComponentFile("lib/cool.jar"))//, AddDirectoryToPath("bin"))
 )
 

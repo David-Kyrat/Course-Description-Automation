@@ -6,7 +6,10 @@
 # Scala config folders
 null
 .bsp
-target
+#target
+target/*
+!target/windows
+
 project/.bloop
 project/project/
 project/target
