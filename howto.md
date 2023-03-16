@@ -116,6 +116,8 @@ than almost 30 courses in 3rd year and none of theme says "option" and
 it is extremely unlikely that the bachelor actually contains > 30 courses for the 3rd year...
 
 
+----
+
 
 ## Packaging
 
