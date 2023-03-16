@@ -46,3 +46,6 @@ contains a (very) quick summary of  which/how technology has been used as well a
 
 Its goal is not to be documentation on how to use the project but rather
 to categorize the "major steps" this project went through and to give some informations on how to reproduce some of these steps.
+
+
+"Published" documentation is available here: [Scala-Documentation](./target/scala-2.13/api/index.html)
