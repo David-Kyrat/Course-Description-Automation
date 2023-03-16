@@ -24,7 +24,8 @@ howto-copy.md
 *.sc
 *.log
 
-errwix*.txt
+*err*.txt
+
 
 # I don't know why this folder keep getting generated
 **/Powershell 7.3.3
