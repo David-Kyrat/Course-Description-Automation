@@ -131,8 +131,9 @@ Actually the heaviness isn't really the issue here, but rather the "outdatedness
 
 Left to do:
 - [x] Find a way to bundle `res/` directory with the installer
-- [ ] Find a way to force project installation outside of protected folder like `Program Files` because 
-each time a pdf is generated, it fails if user does not have admin permission
+- [ ] Find a way to force project installation in document directory and add symlink the "pdf" folder next to the .exe
+- [ ] Find a way to put it in smth like `C:\ProgramData\Microsoft\Windows\Start Menu\Programs` to make it searchable from windows seach 
+- [ ] Small GUI
 
 - [ ] Find a way to generate an executable instead of `.bat`
     - [ ] If that's not possible just hide the `.bat` and make a C wrapper that calls it.
@@ -141,3 +142,7 @@ each time a pdf is generated, it fails if user does not have admin permission
 Not urgent:
 - [ ] Remove empty (0 Kb) / useless wix features (from "features to be installed" screen)
 - [ ] Replace the lorem ipsum in the license screen by an actual license 
+
+
+The actual wix configuration of the installer is present in the file `target/windows/Course-Description-Automation.wxs` file.
+It's just an xml file with a specific microsoft-defined syntax see here [Course-Description-Automation.wxs](target/windows/Course-Description-Automation.wxs)
