@@ -153,6 +153,11 @@
                                         Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script9.js" />
                                 </Component>
                             </Directory>
+                            <Component Id="_restemplates_unige_png913304442" Guid="*">
+                                <File Id="_restemplates_unige_png913304442_file474135254"
+                                    Name="unige.png" DiskId="1"
+                                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\unige.png" />
+                            </Component>
                         </Directory>
                         <!-- end resource directory  -->
                     </Directory>
@@ -166,7 +171,6 @@
                 <File Id="fl__lib_ch_course_description_automation_0_1_jar866535474"
                     Name="ch.course-description-automation-0.1.jar" DiskId="1"
                     Source="lib\ch.course-description-automation-0.1.jar">
-
                 </File>
             </Component>
         </DirectoryRef>
@@ -176,7 +180,6 @@
                 <File Id="fl__lib_org_scala_lang_scala_library_2_13_10_jar116078854"
                     Name="org.scala-lang.scala-library-2.13.10.jar" DiskId="1"
                     Source="lib\org.scala-lang.scala-library-2.13.10.jar">
-
                 </File>
             </Component>
         </DirectoryRef>
@@ -186,7 +189,6 @@
                 <File Id="fl__cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917"
                     Name="org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar" DiskId="1"
                     Source="lib\org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar">
-
                 </File>
             </Component>
         </DirectoryRef>
@@ -262,7 +264,7 @@
         <!-- Now define the features! -->
         <Feature Id="Complete" Title="Course-Description-Automation Installer"
             Description="MSI Installer for the application Course-Description-Automation"
-            Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+            Display="expand" Level="1"><!--  ConfigurableDirectory="INSTALLDIR"> -->
             <!-- Manually added uninstall feautre -->
             <Feature Id="Uninstall" Title="Uninstall" Description="Uninstall ApplicationFolder"
                 Level="1" Absent="allow">
@@ -310,7 +312,8 @@
                 <ComponentRef Id="_restemplates_js_script7_js185647772" />
                 <ComponentRef Id="_restemplates_js_script8_js185650751" />
                 <ComponentRef Id="_restemplates_js_script9_js185653730" />
-                <ComponentRef Id="_resmd_test_auto_desc_2022_11X001_md917824561"/> 
+                <ComponentRef Id="_resmd_test_auto_desc_2022_11X001_md917824561" />
+                <ComponentRef Id="_restemplates_unige_png913304442" />
             </Feature>
         </Feature>
         <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize"

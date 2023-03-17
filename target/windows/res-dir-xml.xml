@@ -95,5 +95,9 @@
                     Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script9.js" />
             </Component>
         </Directory>
+        <Component Id="_restemplates_unige_png913304442" Guid="*">
+            <File Id="_restemplates_unige_png913304442_file474135254" Name="unige.png" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\unige.png" />
+        </Component>
     </Directory>
 </Directory>
