@@ -130,7 +130,10 @@ Unfortunately, this require a **heavily** configurated `build.sbt` config file.
 Actually the heaviness isn't really the issue here, but rather the "outdatedness" and scarcity of actually usefull the informations. That's what makes the packaging / installer generation *really* time consuming. 
 
 Left to do:
-- [ ] Find a way to bundle `res/` directory with the installer
+- [x] Find a way to bundle `res/` directory with the installer
+- [ ] Find a way to force project installation outside of protected folder like `Program Files` because 
+each time a pdf is generated, it fails if user does not have admin permission
+
 - [ ] Find a way to generate an executable instead of `.bat`
     - [ ] If that's not possible just hide the `.bat` and make a C wrapper that calls it.
     The wrapper will then be compiled as `.exe`  
