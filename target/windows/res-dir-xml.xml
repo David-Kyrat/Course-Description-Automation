@@ -1,159 +1,185 @@
 <Directory Id="_res112800xxx" Name="res">
-          <Directory Id="_resjson109722560" Name="json">
-          <Component Id="_resjson_11X001_desc_json967164379" Guid="*">
-          <File Id="_resjson_11X001_desc_json967164379_file162058401" Name="11X001-desc.json" 
-DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\11X00
-1-desc.json"/>
-        </Component><Component Id="_resjson_12M025_desc_json828107693" Guid="*">
-          <File Id="_resjson_12M025_desc_json828107693_file192901191" Name="12M025-desc.json" 
-DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\12M02
-5-desc.json"/>
-        </Component><Component Id="_resjson_13M016A_desc_json198575821" Guid="*">
-          <File Id="_resjson_13M016A_desc_json198575821_file104422128" Name="13M016A-desc.json
-" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\13M
-016A-desc.json"/>
-        </Component><Component Id="_resjson_14M252_desc_json121164244" Guid="*">
-          <File Id="_resjson_14M252_desc_json121164244_file644733498" Name="14M252-desc.json" 
-DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\14M25
-2-desc.json"/>
-        </Component><Component Id="_resjson_14P017_desc_json124230190" Guid="*">
-          <File Id="_resjson_14P017_desc_json124230190_file731983813" Name="14P017-desc.json" 
-DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\14P01
-7-desc.json"/>
-        </Component><Component Id="_resjson_ipa_22_desc_json80539007x" Guid="*">
-          <File Id="_resjson_ipa_22_desc_json80539007x_file107927402" Name="ipa-22-desc.json" 
-DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\ipa-2
-2-desc.json"/>
-        </Component><Component Id="_resjson_study_plans_json157460282" Guid="*">
-          <File Id="_resjson_study_plans_json157460282_file171437108" Name="study-plans.json" 
-DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\study
--plans.json"/>
+    <Directory Id="_resjson109722560" Name="json">
+        <Component Id="_resjson_11X001_desc_json967164379" Guid="*">
+            <File Id="_resjson_11X001_desc_json967164379_file162058401" Name="11X001-desc.json"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\11X00 1-desc.json" />
         </Component>
-        </Directory><Directory Id="_reslog934435164" Name="log">
-          <Component Id="_reslog_err_log208419276" Guid="*">
-          <File Id="_reslog_err_log208419276_file118952506" Name="err.log" DiskId="1" Source="
-C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\err.log"/>
-        </Component><Component Id="_reslog_pdf_convert_log501357302" Guid="*">
-          <File Id="_reslog_pdf_convert_log501357302_file426328212" Name="pdf-convert.log" Dis
-kId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\pdf-conve
-rt.log"/>
+        <Component Id="_resjson_12M025_desc_json828107693" Guid="*">
+            <File Id="_resjson_12M025_desc_json828107693_file192901191" Name="12M025-desc.json"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\12M02 5-desc.json" />
         </Component>
-        </Directory><Directory Id="_resmd108404279" Name="md">
-          <Component Id="_resmd_test_auto_desc_2022_12X050_md162974458" Guid="*">
-          <File Id="_resmd_test_auto_desc_2022_12X050_md162974458_file236201486" Name="test-au
-to-desc-2022-12X050.md" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-A
-utomation\res\md\test-auto-desc-2022-12X050.md"/>
-        </Component><Component Id="_resmd_test_auto_desc_md540591852" Guid="*">
-          <File Id="_resmd_test_auto_desc_md540591852_file827792099" Name="test-auto-desc.md" 
-DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\md\test-au
-to-desc.md"/>
+        <Component Id="_resjson_13M016A_desc_json198575821" Guid="*">
+            <File Id="_resjson_13M016A_desc_json198575821_file104422128" Name="13M016A-desc.json"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\13M 016A-desc.json" />
         </Component>
-        </Directory><Directory Id="_respdf934431662" Name="pdf">
-          <Component Id="_respdf_11X001_lisacek_fleuret_pdf178327570" Guid="*">
-          <File Id="_respdf_11X001_lisacek_fleuret_pdf178327570_file123447392" Name="11X001_li
-sacek_fleuret.pdf" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automa
-tion\res\pdf\11X001_lisacek_fleuret.pdf"/>
-        </Component><Component Id="_respdf_test_auto_desc_2022_12M040_pdf705749124" Guid="*"> 
-          <File Id="_respdf_test_auto_desc_2022_12M040_pdf705749124_file741558207" Name="test-
-auto-desc-2022-12M040.pdf" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descriptio
-n-Automation\res\pdf\test-auto-desc-2022-12M040.pdf"/>
-        </Component><Component Id="_respdf_Uni_DB_doc_pdf142145258" Guid="*">
-          <File Id="_respdf_Uni_DB_doc_pdf142145258_file17649264x" Name="Uni-DB-doc.pdf" DiskI
-d="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\pdf\Uni-DB-doc.
-pdf"/>
+        <Component Id="_resjson_14M252_desc_json121164244" Guid="*">
+            <File Id="_resjson_14M252_desc_json121164244_file644733498" Name="14M252-desc.json"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\14M25 2-desc.json" />
         </Component>
-        </Directory><Component Id="_resreadme_example_png207946103" Guid="*">
-          <File Id="_resreadme_example_png207946103_file101667675" Name="readme-example.png" D
-iskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\readme-exam
-ple.png"/>
-        </Component><Directory Id="_restemplates158457820" Name="templates">
-          <Component Id="_restemplates_course_desc_css109847842" Guid="*">
-          <File Id="_restemplates_course_desc_css109847842_file600558440" Name="course-desc.cs
-s" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templat
-es\course-desc.css"/>
-        </Component><Component Id="_restemplates_desc_template_html625479814" Guid="*">       
-          <File Id="_restemplates_desc_template_html625479814_file212731215" Name="desc-templa
-te.html" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\t
-emplates\desc-template.html"/>
-        </Component><Directory Id="_restemplates_example969688871" Name="example">
-          <Component Id="_restemplates_example_course_desc_pdf119094037" Guid="*">
-          <File Id="_restemplates_example_course_desc_pdf119094037_file133965973" Name="course
--desc.pdf" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res
-\templates\example\course-desc.pdf"/>
-        </Component><Component Id="_restemplates_example_desc_content_example_md193322561" Gui
-d="*">
-          <File Id="_restemplates_example_desc_content_example_md193322561_file118793335" Name
-="desc-content-example.md" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descriptio
-n-Automation\res\templates\example\desc-content-example.md"/>
+        <Component Id="_resjson_14P017_desc_json124230190" Guid="*">
+            <File Id="_resjson_14P017_desc_json124230190_file731983813" Name="14P017-desc.json"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\14P01 7-desc.json" />
         </Component>
-        </Directory><Component Id="_restemplates_fill_template_convert_pdf_ps14954438xx" Guid=
-"*">
-          <File Id="_restemplates_fill_template_convert_pdf_ps14954438xx_file540766997" Name="
-fill-template_convert-pdf.ps1" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descri
-ption-Automation\res\templates\fill-template_convert-pdf.ps1"/>
-        </Component><Component Id="_restemplates_ipa_desc_content_md531498610" Guid="*">      
-          <File Id="_restemplates_ipa_desc_content_md531498610_file628159909" Name="ipa-desc-c
-ontent.md" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res
-\templates\ipa-desc-content.md"/>
-        </Component><Directory Id="_restemplates_js183727468" Name="js">
-          <Component Id="_restemplates_js_script1_js185629897" Guid="*">
-          <File Id="_restemplates_js_script1_js185629897_file528708069" Name="script1.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript1.js"/>
-        </Component><Component Id="_restemplates_js_script10_js171069519" Guid="*">
-          <File Id="_restemplates_js_script10_js171069519_file201720206" Name="script10.js" Di
-skId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js
-\script10.js"/>
-        </Component><Component Id="_restemplates_js_script2_js185632876" Guid="*">
-          <File Id="_restemplates_js_script2_js185632876_file159373234" Name="script2.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript2.js"/>
-        </Component><Component Id="_restemplates_js_script3_js185635855" Guid="*">
-          <File Id="_restemplates_js_script3_js185635855_file196059468" Name="script3.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript3.js"/>
-        </Component><Component Id="_restemplates_js_script4_js185638835" Guid="*">
-          <File Id="_restemplates_js_script4_js185638835_file193888112" Name="script4.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript4.js"/>
-        </Component><Component Id="_restemplates_js_script5_js185641814" Guid="*">
-          <File Id="_restemplates_js_script5_js185641814_file873856846" Name="script5.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript5.js"/>
-        </Component><Component Id="_restemplates_js_script6_js185644793" Guid="*">
-          <File Id="_restemplates_js_script6_js185644793_file196470262" Name="script6.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript6.js"/>
-        </Component><Component Id="_restemplates_js_script7_js185647772" Guid="*">
-          <File Id="_restemplates_js_script7_js185647772_file159784028" Name="script7.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript7.js"/>
-        </Component><Component Id="_restemplates_js_script8_js185650751" Guid="*">
-          <File Id="_restemplates_js_script8_js185650751_file532816011" Name="script8.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript8.js"/>
-        </Component><Component Id="_restemplates_js_script9_js185653730" Guid="*">
-          <File Id="_restemplates_js_script9_js185653730_file165953674" Name="script9.js" Disk
-Id="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s
-cript9.js"/>
+        <Component Id="_resjson_ipa_22_desc_json80539007x" Guid="*">
+            <File Id="_resjson_ipa_22_desc_json80539007x_file107927402" Name="ipa-22-desc.json"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\ipa-2 2-desc.json" />
         </Component>
-        </Directory><Component Id="_restemplates_test_auto_desc_2022_12M040_md237680588" Guid=
-"*">
-          <File Id="_restemplates_test_auto_desc_2022_12M040_md237680588_file22339753x" Name="
-test-auto-desc-2022-12M040.md" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descri
-ption-Automation\res\templates\test-auto-desc-2022-12M040.md"/>
-        </Component><Component Id="_restemplates_test_auto_desc_2022_12M040_pdf122183337" Guid
-="*">
-          <File Id="_restemplates_test_auto_desc_2022_12M040_pdf122183337_file185928600" Name=
-"test-auto-desc-2022-12M040.pdf" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Desc
-ription-Automation\res\templates\test-auto-desc-2022-12M040.pdf"/>
-        </Component><Component Id="_restemplates_unige_png913304442" Guid="*">
-          <File Id="_restemplates_unige_png913304442_file474135254" Name="unige.png" DiskId="1
-" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\unige.png
-"/>
+        <Component Id="_resjson_study_plans_json157460282" Guid="*">
+            <File Id="_resjson_study_plans_json157460282_file171437108" Name="study-plans.json"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\json\study -plans.json" />
         </Component>
-        </Directory><Component Id="_restest_txt86208436x" Guid="*">
-          <File Id="_restest_txt86208436x_file887274526" Name="test.txt" DiskId="1" Source="C:
-\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\test.txt"/>
+    </Directory>
+    <Directory Id="_reslog934435164" Name="log">
+        <Component Id="_reslog_err_log208419276" Guid="*">
+            <File Id="_reslog_err_log208419276_file118952506" Name="err.log" DiskId="1"
+                Source=" C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\err.log" />
         </Component>
+        <Component Id="_reslog_pdf_convert_log501357302" Guid="*">
+            <File Id="_reslog_pdf_convert_log501357302_file426328212" Name="pdf-convert.log" Dis kId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\pdf-conve rt.log" />
+        </Component>
+    </Directory>
+    <Directory Id="_resmd108404279" Name="md">
+        <Component Id="_resmd_test_auto_desc_2022_12X050_md162974458" Guid="*">
+            <File Id="_resmd_test_auto_desc_2022_12X050_md162974458_file236201486"
+                Name="test-au to-desc-2022-12X050.md" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-A utomation\res\md\test-auto-desc-2022-12X050.md" />
+        </Component>
+        <Component Id="_resmd_test_auto_desc_md540591852" Guid="*">
+            <File Id="_resmd_test_auto_desc_md540591852_file827792099" Name="test-auto-desc.md"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\md\test-au to-desc.md" />
+        </Component>
+    </Directory>
+    <Directory Id="_respdf934431662" Name="pdf">
+        <Component Id="_respdf_11X001_lisacek_fleuret_pdf178327570" Guid="*">
+            <File Id="_respdf_11X001_lisacek_fleuret_pdf178327570_file123447392"
+                Name="11X001_li sacek_fleuret.pdf" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automa tion\res\pdf\11X001_lisacek_fleuret.pdf" />
+        </Component>
+        <Component Id="_respdf_test_auto_desc_2022_12M040_pdf705749124" Guid="*">
+            <File Id="_respdf_test_auto_desc_2022_12M040_pdf705749124_file741558207"
+                Name="test- auto-desc-2022-12M040.pdf" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descriptio n-Automation\res\pdf\test-auto-desc-2022-12M040.pdf" />
+        </Component>
+        <Component Id="_respdf_Uni_DB_doc_pdf142145258" Guid="*">
+            <File Id="_respdf_Uni_DB_doc_pdf142145258_file17649264x" Name="Uni-DB-doc.pdf" DiskI d="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\pdf\Uni-DB-doc. pdf" />
+        </Component>
+    </Directory>
+    <Component Id="_resreadme_example_png207946103" Guid="*">
+        <File Id="_resreadme_example_png207946103_file101667675" Name="readme-example.png" D iskId="1"
+            Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\readme-exam ple.png" />
+    </Component>
+    <Directory Id="_restemplates158457820" Name="templates">
+        <Component Id="_restemplates_course_desc_css109847842" Guid="*">
+            <File Id="_restemplates_course_desc_css109847842_file600558440" Name="course-desc.cs s"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templat es\course-desc.css" />
+        </Component>
+        <Component Id="_restemplates_desc_template_html625479814" Guid="*">
+            <File Id="_restemplates_desc_template_html625479814_file212731215"
+                Name="desc-templa te.html" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\t emplates\desc-template.html" />
+        </Component>
+        <Directory Id="_restemplates_example969688871" Name="example">
+            <Component Id="_restemplates_example_course_desc_pdf119094037" Guid="*">
+                <File Id="_restemplates_example_course_desc_pdf119094037_file133965973"
+                    Name="course -desc.pdf" DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res \templates\example\course-desc.pdf" />
+            </Component>
+            <Component Id="_restemplates_example_desc_content_example_md193322561" Gui d="*">
+                <File Id="_restemplates_example_desc_content_example_md193322561_file118793335"
+                    Name="desc-content-example.md" DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descriptio n-Automation\res\templates\example\desc-content-example.md" />
+            </Component>
         </Directory>
+        <Component Id="_restemplates_fill_template_convert_pdf_ps14954438xx" Guid="*">
+            <File Id="_restemplates_fill_template_convert_pdf_ps14954438xx_file540766997"
+                Name=" fill-template_convert-pdf.ps1" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descri ption-Automation\res\templates\fill-template_convert-pdf.ps1" />
+        </Component>
+        <Component Id="_restemplates_ipa_desc_content_md531498610" Guid="*">
+            <File Id="_restemplates_ipa_desc_content_md531498610_file628159909"
+                Name="ipa-desc-c ontent.md" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res \templates\ipa-desc-content.md" />
+        </Component>
+        <Directory Id="_restemplates_js183727468" Name="js">
+            <Component Id="_restemplates_js_script1_js185629897" Guid="*">
+                <File Id="_restemplates_js_script1_js185629897_file528708069" Name="script1.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript1.js" />
+            </Component>
+            <Component Id="_restemplates_js_script10_js171069519" Guid="*">
+                <File Id="_restemplates_js_script10_js171069519_file201720206" Name="script10.js" Di
+                    skId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js \script10.js" />
+            </Component>
+            <Component Id="_restemplates_js_script2_js185632876" Guid="*">
+                <File Id="_restemplates_js_script2_js185632876_file159373234" Name="script2.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript2.js" />
+            </Component>
+            <Component Id="_restemplates_js_script3_js185635855" Guid="*">
+                <File Id="_restemplates_js_script3_js185635855_file196059468" Name="script3.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript3.js" />
+            </Component>
+            <Component Id="_restemplates_js_script4_js185638835" Guid="*">
+                <File Id="_restemplates_js_script4_js185638835_file193888112" Name="script4.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript4.js" />
+            </Component>
+            <Component Id="_restemplates_js_script5_js185641814" Guid="*">
+                <File Id="_restemplates_js_script5_js185641814_file873856846" Name="script5.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript5.js" />
+            </Component>
+            <Component Id="_restemplates_js_script6_js185644793" Guid="*">
+                <File Id="_restemplates_js_script6_js185644793_file196470262" Name="script6.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript6.js" />
+            </Component>
+            <Component Id="_restemplates_js_script7_js185647772" Guid="*">
+                <File Id="_restemplates_js_script7_js185647772_file159784028" Name="script7.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript7.js" />
+            </Component>
+            <Component Id="_restemplates_js_script8_js185650751" Guid="*">
+                <File Id="_restemplates_js_script8_js185650751_file532816011" Name="script8.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript8.js" />
+            </Component>
+            <Component Id="_restemplates_js_script9_js185653730" Guid="*">
+                <File Id="_restemplates_js_script9_js185653730_file165953674" Name="script9.js" Disk
+                    Id="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\s cript9.js" />
+            </Component>
+        </Directory>
+        <Component Id="_restemplates_test_auto_desc_2022_12M040_md237680588" Guid="*">
+            <File Id="_restemplates_test_auto_desc_2022_12M040_md237680588_file22339753x"
+                Name=" test-auto-desc-2022-12M040.md" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Descri ption-Automation\res\templates\test-auto-desc-2022-12M040.md" />
+        </Component>
+        <Component Id="_restemplates_test_auto_desc_2022_12M040_pdf122183337" Guid="*">
+            <File Id="_restemplates_test_auto_desc_2022_12M040_pdf122183337_file185928600"
+                Name="test-auto-desc-2022-12M040.pdf" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Desc ription-Automation\res\templates\test-auto-desc-2022-12M040.pdf" />
+        </Component>
+        <Component Id="_restemplates_unige_png913304442" Guid="*">
+            <File Id="_restemplates_unige_png913304442_file474135254" Name="unige.png" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\unige.png" />
+        </Component>
+    </Directory>
+    <Component Id="_restest_txt86208436x" Guid="*">
+        <File Id="_restest_txt86208436x_file887274526" Name="test.txt" DiskId="1"
+            Source="C: \Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\test.txt" />
+    </Component>
+</Directory>
