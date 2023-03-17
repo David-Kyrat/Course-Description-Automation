@@ -73,9 +73,9 @@ wixFeatures += WindowsFeature(
 lazy val printComp = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 printComp := {
     println("-----")
-    println(comp)
+    /* println(comp) */
     println("\n-----\n")
-    println(comp._2.mkString("\n"))
+    println(comp._2)
     println("\n-----\n")
     //println(resources.value)
 }
