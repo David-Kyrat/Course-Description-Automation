@@ -14,15 +14,14 @@ $template = "desc-template.html"  # html template to be filled each time
 $verbose = ($args -Contains "--verbose") 
 
 $in = "$oldPath\" + $args[0] # Markdown file containing course data
-$in_item = (Get-Item $in -ErrorAction Continue <#2>> $logFile#>) 
+$in_item = (Get-Item $in -ErrorAction Continue 2>> $logFile) 
 $in = $in_item.FullName  # Full absolute path to markdown file (i.e. input for pandoc)
 $inName = $in_item.Name  # Name of that file, should end in ".md"
 
 $outProvidedCondition = 1 + $verbose
-echo "outProvidedCondition: $outProvidedCondition"
 
 $outHtmlName = $inName -replace ".md", ".html"
-$outHtml = $outHtml  #"$oldPath/$outHtmlName"
+$outHtml = "$oldPath/$outHtmlName"
 $outPdf = ""
 
 if ($args.Length -gt $outProvidedCondition) { 
@@ -38,20 +37,20 @@ if ($args.Length -gt $outProvidedCondition) {
 if ($verbose) { echo "Generating course description (html)" }
 
 
-pandoc $in -t html --template=$template -o $outHtml #2>> $logFile
+pandoc $in -t html --template=$template -o $outHtml 2>> $logFile
 
 
 if ($verbose) { echo "`nConverting html to pdf" }
 
 
-wkhtmltopdf --enable-local-file-access -T 2 -B 0 -L 3 -R 0  $outHtml $outPdf #2>> $logFile
-#TODO: maybe do different log files
+wkhtmltopdf --enable-local-file-access -T 2 -B 0 -L 3 -R 0  $outHtml $outPdf 2>> $logFile
 
 
 if ($verbose) { echo "`nDone.`nPDF is present at `"$outPdf`"" }
 
-if ($outHtml -and (Test-Path $outHtml)) { rm "$outHtml" -ErrorAction SilentlyContinue  #2>> $logFile
-    }
+if ($outHtml -and (Test-Path $outHtml)) {
+    rm "$outHtml" -ErrorAction SilentlyContinue  2>> $logFile
+}
 
 
 cd $oldPath
