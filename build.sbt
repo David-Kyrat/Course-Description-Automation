@@ -1,3 +1,4 @@
+import sbt.IO
 import com.typesafe.sbt.packager.windows.WindowsFeature
 import com.typesafe.sbt.packager.windows._
 import com.typesafe.sbt.SbtNativePackager.Universal
@@ -75,7 +76,8 @@ printComp := {
     println("-----")
     /* println(comp) */
     println("\n-----\n")
-    println(comp._2)
+    IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin) 
+    IO.write(file("./target/windows/res22-dir-xml.xml"), comp._2.mkString("").strip().stripMargin)
     println("\n-----\n")
     //println(resources.value)
 }
