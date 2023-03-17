@@ -295,16 +295,16 @@
                 <ComponentRef Id="_restemplates_course_desc_css109847842" />
                 <ComponentRef Id="_restemplates_desc_template_html625479814" />
                 <ComponentRef Id="_restemplates_fill_template_convert_pdf_ps14954438xx" />
-                <ComponentRef Id="_restemplates_js_script1_js185629897" />  
-                <ComponentRef Id="_restemplates_js_script10_js171069519"/> 
-                <ComponentRef Id="_restemplates_js_script2_js185632876" /> 
-                <ComponentRef Id="_restemplates_js_script3_js185635855" />   
-                <ComponentRef Id="_restemplates_js_script4_js185638835" /> 
-                <ComponentRef Id="_restemplates_js_script5_js185641814" /> 
-                <ComponentRef Id="_restemplates_js_script6_js185644793" /> 
-                <ComponentRef Id="_restemplates_js_script7_js185647772" /> 
-                <ComponentRef Id="_restemplates_js_script8_js185650751" /> 
-                <ComponentRef Id="_restemplates_js_script9_js185653730" /> 
+                <ComponentRef Id="_restemplates_js_script1_js185629897" />
+                <ComponentRef Id="_restemplates_js_script10_js171069519" />
+                <ComponentRef Id="_restemplates_js_script2_js185632876" />
+                <ComponentRef Id="_restemplates_js_script3_js185635855" />
+                <ComponentRef Id="_restemplates_js_script4_js185638835" />
+                <ComponentRef Id="_restemplates_js_script5_js185641814" />
+                <ComponentRef Id="_restemplates_js_script6_js185644793" />
+                <ComponentRef Id="_restemplates_js_script7_js185647772" />
+                <ComponentRef Id="_restemplates_js_script8_js185650751" />
+                <ComponentRef Id="_restemplates_js_script9_js185653730" />
             </Feature>
         </Feature>
         <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize"
