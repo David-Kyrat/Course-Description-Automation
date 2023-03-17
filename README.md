@@ -48,4 +48,4 @@ Its goal is not to be documentation on how to use the project but rather
 to categorize the "major steps" this project went through and to give some informations on how to reproduce some of these steps.
 
 
-"Published" documentation is available here: [Scala-Documentation](./target/scala-2.13/api/index.html)
+"Published" documentation is available here: __[Scala-Documentation](https://raw.githack.com/David-Kyrat/Course-Description-Automation/master/target/scala-2.13/api/ch/index.html)__
