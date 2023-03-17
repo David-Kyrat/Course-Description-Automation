@@ -46,7 +46,12 @@
                             </Component>
                         </Directory>
                         <Directory Id="_resmd108404279" Name="md">
-
+                            <Component Id="_resmd_test_auto_desc_2022_11X001_md917824561" Guid="*">
+                                <File
+                                    Id="_resmd_test_auto_desc_2022_11X001_md917824561_file285404314"
+                                    Name="test-auto-desc-2022-11X001.md" DiskId="1"
+                                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\md\test-auto-desc-2022-11X001.md" />
+                            </Component>
                         </Directory>
                         <Directory Id="_respdf934431662" Name="pdf">
                             <Component Id="_respdf_Uni_DB_doc_pdf142145258" Guid="*">
@@ -305,6 +310,7 @@
                 <ComponentRef Id="_restemplates_js_script7_js185647772" />
                 <ComponentRef Id="_restemplates_js_script8_js185650751" />
                 <ComponentRef Id="_restemplates_js_script9_js185653730" />
+                <ComponentRef Id="_resmd_test_auto_desc_2022_11X001_md917824561"/> 
             </Feature>
         </Feature>
         <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize"

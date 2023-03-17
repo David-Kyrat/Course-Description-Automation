@@ -14,19 +14,13 @@
         </Component>
     </Directory>
     <Directory Id="_resmd108404279" Name="md">
-
+        <Component Id="_resmd_test_auto_desc_2022_11X001_md917824561" Guid="*">
+            <File Id="_resmd_test_auto_desc_2022_11X001_md917824561_file285404314"
+                Name="test-auto-desc-2022-11X001.md" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\md\test-auto-desc-2022-11X001.md" />
+        </Component>
     </Directory>
     <Directory Id="_respdf934431662" Name="pdf">
-        <Component Id="_respdf_11X001_lisacek_fleuret_pdf178327570" Guid="*">
-            <File Id="_respdf_11X001_lisacek_fleuret_pdf178327570_file123447392"
-                Name="11X001_lisacek_fleuret.pdf" DiskId="1"
-                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\pdf\11X001_lisacek_fleuret.pdf" />
-        </Component>
-        <Component Id="_respdf_test_auto_desc_2022_12M040_pdf705749124" Guid="*">
-            <File Id="_respdf_test_auto_desc_2022_12M040_pdf705749124_file741558207"
-                Name="test-auto-desc-2022-12M040.pdf" DiskId="1"
-                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\pdf\test-auto-desc-2022-12M040.pdf" />
-        </Component>
         <Component Id="_respdf_Uni_DB_doc_pdf142145258" Guid="*">
             <File Id="_respdf_Uni_DB_doc_pdf142145258_file17649264x" Name="Uni-DB-doc.pdf"
                 DiskId="1"

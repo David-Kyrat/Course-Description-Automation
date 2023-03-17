@@ -81,7 +81,6 @@ printComp := {
     /* println(comp) */
     println("\n-----\n")
     IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin) 
-    IO.write(file("./target/windows/res22-dir-xml.xml"), comp._2.mkString("").strip().stripMargin)
     println("\n-----\n")
     //println(resources.value)
 }
