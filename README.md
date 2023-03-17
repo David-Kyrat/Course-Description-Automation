@@ -32,7 +32,7 @@ Exemple given:
 ## Meeting Reports
 
 
-Meeting repots are available __[here](https://github.com/David-Kyrat/Course-Description-Automation/tree/master/PV)__.
+Meeting reports are available __[here](https://github.com/David-Kyrat/Course-Description-Automation/tree/master/PV)__.
 They are numbered and dated and contains a quick summary
 of what was discussed during the meeting as well as a list of all the participants. 
 
