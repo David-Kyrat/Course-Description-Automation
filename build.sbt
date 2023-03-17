@@ -60,6 +60,8 @@ Windows / mappings ++= {
 
 val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
 
+
+
 wixFeatures += WindowsFeature(
   id = "BinaryAndPath",
   // title = "My Project's Binaries and updated PATH settings",
@@ -70,6 +72,8 @@ wixFeatures += WindowsFeature(
     /* ComponentFile(jarPath) */
   ) // , AddDirectoryToPath("bin"))
 )
+
+wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val printComp = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 printComp := {
