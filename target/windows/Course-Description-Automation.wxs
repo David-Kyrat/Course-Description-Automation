@@ -10,7 +10,7 @@
     <Media Id="1" Cabinet="_course_description_automation21236090x.cab" EmbedCab="yes" />
 
     <!-- Define the directories we use -->
-    <!-- <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]Myapp" /> -->
+    <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">
@@ -321,7 +321,7 @@
       DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
     <UIRef Id="WixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
-    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" Secure="yes" />
 
 
   </Product>
