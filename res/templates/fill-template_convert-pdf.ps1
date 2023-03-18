@@ -20,8 +20,9 @@ $inName = $in_item.Name  # Name of that file, should end in ".md"
 
 $outProvidedCondition = 1 + $verbose
 
-$outHtmlName = $inName -replace ".md", ".html"
-$outHtml = "$oldPath/$outHtmlName"
+#HK: Place html file in $scriptPath i.e. in template file, or it won't find the css/js resources 
+$outHtmlName = $inName -replace ".md", ".html"  
+$outHtml = "$scriptPath/$outHtmlName"
 $outPdf = ""
 
 if ($args.Length -gt $outProvidedCondition) { 
