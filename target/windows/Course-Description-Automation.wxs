@@ -10,7 +10,7 @@
     <Media Id="1" Cabinet="_course_description_automation21236090x.cab" EmbedCab="yes" />
 
     <!-- Define the directories we use -->
-    <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]Myapp" />
+    <!-- <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]Myapp" /> -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">
@@ -23,7 +23,7 @@
           </Component>
         </Directory>
       </Directory>
-      <Directory Id="APPDATAFOLDER" Name="PFiles">
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
         <Directory Id="INSTALLDIR" Name="Course-Description-Automation">
           <Directory Id="_lib107141xxx" Name="lib">
           </Directory><!-- -->
@@ -268,7 +268,7 @@
       Display="expand" Level="1"><!--  ConfigurableDirectory="INSTALLDIR"> -->
       <!-- Manually added uninstall feautre -->
       <Feature Id="Uninstall" Title="Uninstall" Description="Uninstall ApplicationFolder"
-        Level="1" Absent="allow">
+        Level="1" Absent="disallow">
         <ComponentRef Id="_ApplicationProgramsFolderRemove689092593" />
       </Feature>
       <Feature Id="e_description_automation_core151743571"
@@ -286,17 +286,17 @@
       </Feature>
       <Feature Id="AddBinToPath" Title="Update Environment Variables"
         Description="Update PATH environment variables (requires restart)." Level="1"
-        Absent="allow">
+        Absent="disallow">
         <ComponentRef Id="_bin97543xxxxPathC" />
       </Feature>
       <Feature Id="AddConfigLinks" Title="Configuration start menu links"
         Description="Adds start menu shortcuts to edit configuration files." Level="1"
-        Absent="allow">
+        Absent="disallow">
         <ComponentRef Id="_shortcut_095eef9b_d388_4f17_a10f_2404476bd0b1147870779" />
       </Feature>
       <Feature Id="BinaryAndPath" Title="Project Resources"
         Description="Mandatory project resources (like pdf template) to be able to automatically generate some."
-        Level="1" Absent="allow">
+        Level="1" Absent="disallow">
         <ComponentRef Id="_reslog_err_log208419276" />
         <ComponentRef Id="_reslog_pdf_convert_log501357302" />
         <ComponentRef Id="_respdf_Uni_DB_doc_pdf142145258" />
