@@ -268,14 +268,13 @@
 
         <Feature Id="Complete"
             Title="Project files"
-            Description="All the mandatory files (core, libraries &#38; resources) for the project to run."
-            Display="expand" Level="1"><!--  ConfigurableDirectory="INSTALLDIR"> -->
+            Description="All the mandatory files (core, libraries and resources) for the project to run."
+            Level="1"><!--  ConfigurableDirectory="INSTALLDIR">             Display="expand"-->
             <!-- Manually added uninstall feautre -->
 
             <ComponentRef Id="_lib_ch_course_description_automation_0_1_jar866535474" />
             <ComponentRef Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854" />
-            <ComponentRef
-                Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917" />
+            <ComponentRef Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917" />
             <ComponentRef Id="_lib_io_spray_spray_json_2_13_1_3_6_jar144648104" />
             <ComponentRef Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206" />
             <ComponentRef Id="_bin_course_description_automation626901618" />
@@ -299,33 +298,13 @@
             <ComponentRef Id="_restemplates_js_script9_js185653730" />
             <ComponentRef Id="_resmd_test_auto_desc_2022_11X001_md917824561" />
             <ComponentRef Id="_restemplates_unige_png913304442" />
-            <Feature Id="Uninstall" Title="Uninstall" Description="Uninstall ApplicationFolder"
-                Level="1" Absent="disallow">
-                <ComponentRef Id="_ApplicationProgramsFolderRemove689092593" />
-            </Feature>
-
-            <Feature Id="e_description_automation_core151743571"
-                Title="Project files"
-                Description="All the mandatory files (core, libraries &#38; resources) for the project to run."
-                Level="1"
-                Absent="disallow">
-            </Feature>
+            <ComponentRef Id="_ApplicationProgramsFolderRemove689092593" />
+            <ComponentRef Id="_shortcut_095eef9b_d388_4f17_a10f_2404476bd0b1147870779" />
 
             <Feature Id="AddBinToPath" Title="Update Environment Variables"
                 Description="Update PATH environment variables (requires restart)." Level="1"
-                Absent="disallow">
+                Absent="allow">
                 <ComponentRef Id="_bin97543xxxxPathC" />
-            </Feature>
-
-            <Feature Id="AddConfigLinks" Title="Configuration start menu links"
-                Description="Adds start menu shortcuts to edit configuration files." Level="1"
-                Absent="disallow">
-                <ComponentRef Id="_shortcut_095eef9b_d388_4f17_a10f_2404476bd0b1147870779" />
-            </Feature>
-
-            <Feature Id="BinaryAndPath" Title="Project Resources"
-                Description="Mandatory project resources (like pdf template) to be able to automatically generate some."
-                Level="1" Absent="disallow">
             </Feature>
         </Feature>
         <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize"
