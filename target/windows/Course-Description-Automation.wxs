@@ -1,110 +1,323 @@
-<Wix xmlns:util="http://schemas.microsoft.com/wix/UtilExtension" xmlns="http://schemas.microsoft.com/wix/2006/wi">
-      <Product Id="ce07be71-510d-414a-92d4-dff47631848a" Name="Course-Description-Automation Installer" Language="1033" Version="0.1" Manufacturer="Noah Munz &lt;munz.no@gmail.com&gt;" UpgradeCode="4552fb0e-e257-4dbd-9ecb-dba9dbacf424">
-        <Package Description="MSI Installer for the application Course-Description-Automation" Comments="TODO - we need comments." Manufacturer="Noah Munz &lt;munz.no@gmail.com&gt;" InstallScope="perMachine" InstallerVersion="200" Compressed="yes"/>
-        <Media Id="1" Cabinet="_course_description_automation21236090x.cab" EmbedCab="yes"/>
-        
-      <!-- Define the directories we use -->
-      <Directory Id="TARGETDIR" Name="SourceDir">
-        <Directory Id="ProgramMenuFolder">
-          <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">
-            <Component Id="_ApplicationProgramsFolderRemove689092593" Guid="4e0e1eea-7b55-4a28-bdc1-c4a5dd2e6a14">
-              <RemoveFolder Id="ApplicationProgramsFolderRemove" On="uninstall"/>
-              <RegistryValue Root="HKCU" Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
-            </Component>
-          </Directory>
+<Wix xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+  xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="ce07be71-510d-414a-92d4-dff47631848a"
+    Name="Course-Description-Automation Installer" Language="1033" Version="0.1"
+    Manufacturer="Noah Munz &lt;munz.no@gmail.com&gt;"
+    UpgradeCode="4552fb0e-e257-4dbd-9ecb-dba9dbacf424">
+    <Package Description="MSI Installer for the application Course-Description-Automation"
+      Comments="TODO - we need comments." Manufacturer="Noah Munz &lt;munz.no@gmail.com&gt;"
+      InstallScope="perMachine" InstallerVersion="200" Compressed="yes" />
+    <Media Id="1" Cabinet="_course_description_automation21236090x.cab" EmbedCab="yes" />
+
+    <!-- Define the directories we use -->
+    <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]Course-Description-Automation" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">
+          <Component Id="_ApplicationProgramsFolderRemove689092593"
+            Guid="d0b531d0-f292-4e02-bf46-c051fb1d2eed">
+            <RemoveFolder Id="ApplicationProgramsFolderRemove" On="uninstall" />
+            <RegistryValue Root="HKCU"
+              Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation"
+              Name="installed" Type="integer" Value="1" KeyPath="yes" />
+          </Component>
         </Directory>
-        <Directory Id="ProgramFilesFolder" Name="PFiles">
-          <Directory Id="INSTALLDIR" Name="Course-Description-Automation">
+      </Directory>
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="INSTALLDIR" Name="Course-Description-Automation">
+          <Directory Id="_files207141xxx" Name="files">
+
             <Directory Id="_lib107141xxx" Name="lib">
-        
-      </Directory><!-- --><Directory Id="_bin97543xxxx" Name="bin">
-        
-      </Directory>
+            </Directory><!-- -->
+            <Directory Id="_bin97543xxxx" Name="bin">
+            </Directory>
+            <!-- define the resource directory  -->
+            <Directory Id="_res112800xxx" Name="res">
+              <Directory Id="_resjson109722560" Name="json">
+              </Directory>
+              <Directory Id="_reslog934435164" Name="log">
+                <Component Id="_reslog_err_log208419276" Guid="*">
+                  <File Id="_reslog_err_log208419276_file118952506" Name="err.log"
+                    DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\err.log" />
+                </Component>
+                <Component Id="_reslog_pdf_convert_log501357302" Guid="*">
+                  <File Id="_reslog_pdf_convert_log501357302_file426328212"
+                    Name="pdf-convert.log"
+                    DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\pdf-convert.log" />
+                </Component>
+              </Directory>
+              <Directory Id="_resmd108404279" Name="md">
+                <Component Id="_resmd_test_auto_desc_2022_11X001_md917824561"
+                  Guid="*">
+                  <File
+                    Id="_resmd_test_auto_desc_2022_11X001_md917824561_file285404314"
+                    Name="test-auto-desc-2022-11X001.md" DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\md\test-auto-desc-2022-11X001.md" />
+                </Component>
+              </Directory>
+              <Directory Id="_respdf934431662" Name="pdf">
+                <Component Id="_respdf_Uni_DB_doc_pdf142145258" Guid="*">
+                  <File Id="_respdf_Uni_DB_doc_pdf142145258_file17649264x"
+                    Name="Uni-DB-doc.pdf"
+                    DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\pdf\Uni-DB-doc.pdf" />
+                </Component>
+              </Directory>
+              <Directory Id="_restemplates158457820" Name="templates">
+                <Component Id="_restemplates_course_desc_css109847842" Guid="*">
+                  <File Id="_restemplates_course_desc_css109847842_file600558440"
+                    Name="course-desc.css"
+                    DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\course-desc.css" />
+                </Component>
+                <Component Id="_restemplates_desc_template_html625479814" Guid="*">
+                  <File
+                    Id="_restemplates_desc_template_html625479814_file212731215"
+                    Name="desc-template.html" DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\desc-template.html" />
+                </Component>
+                <Component Id="_restemplates_fill_template_convert_pdf_ps14954438xx"
+                  Guid="*">
+                  <File
+                    Id="_restemplates_fill_template_convert_pdf_ps14954438xx_file540766997"
+                    Name="fill-template_convert-pdf.ps1" DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\fill-template_convert-pdf.ps1" />
+                </Component>
+                <Directory Id="_restemplates_js183727468" Name="js">
+                  <Component Id="_restemplates_js_script1_js185629897" Guid="*">
+                    <File
+                      Id="_restemplates_js_script1_js185629897_file528708069"
+                      Name="script1.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script1.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script10_js171069519" Guid="*">
+                    <File
+                      Id="_restemplates_js_script10_js171069519_file201720206"
+                      Name="script10.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script10.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script2_js185632876" Guid="*">
+                    <File
+                      Id="_restemplates_js_script2_js185632876_file159373234"
+                      Name="script2.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script2.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script3_js185635855" Guid="*">
+                    <File
+                      Id="_restemplates_js_script3_js185635855_file196059468"
+                      Name="script3.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script3.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script4_js185638835" Guid="*">
+                    <File
+                      Id="_restemplates_js_script4_js185638835_file193888112"
+                      Name="script4.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script4.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script5_js185641814" Guid="*">
+                    <File
+                      Id="_restemplates_js_script5_js185641814_file873856846"
+                      Name="script5.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script5.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script6_js185644793" Guid="*">
+                    <File
+                      Id="_restemplates_js_script6_js185644793_file196470262"
+                      Name="script6.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script6.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script7_js185647772" Guid="*">
+                    <File
+                      Id="_restemplates_js_script7_js185647772_file159784028"
+                      Name="script7.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script7.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script8_js185650751" Guid="*">
+                    <File
+                      Id="_restemplates_js_script8_js185650751_file532816011"
+                      Name="script8.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script8.js" />
+                  </Component>
+                  <Component Id="_restemplates_js_script9_js185653730" Guid="*">
+                    <File
+                      Id="_restemplates_js_script9_js185653730_file165953674"
+                      Name="script9.js"
+                      DiskId="1"
+                      Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\js\script9.js" />
+                  </Component>
+                </Directory>
+                <Component Id="_restemplates_unige_png913304442" Guid="*">
+                  <File Id="_restemplates_unige_png913304442_file474135254"
+                    Name="unige.png" DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\unige.png" />
+                </Component>
+              </Directory>
+            </Directory><!-- -->
+            <!-- end resource directory  -->
           </Directory>
         </Directory>
       </Directory>
-      <!-- Now define the components -->
-      <DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_ch_course_description_automation_0_1_jar866535474" Guid="4b5da133-82b0-4bdd-bc55-61538abb0a49">
-              <File Id="fl__lib_ch_course_description_automation_0_1_jar866535474" Name="ch.course-description-automation-0.1.jar" DiskId="1" Source="lib\ch.course-description-automation-0.1.jar">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854" Guid="123007e9-dfde-49e6-ad79-fdb1480962f4">
-              <File Id="fl__lib_org_scala_lang_scala_library_2_13_10_jar116078854" Name="org.scala-lang.scala-library-2.13.10.jar" DiskId="1" Source="lib\org.scala-lang.scala-library-2.13.10.jar">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917" Guid="686db591-37ce-4c49-b5df-591404178f73">
-              <File Id="fl__cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917" Name="org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar" DiskId="1" Source="lib\org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_io_spray_spray_json_2_13_1_3_6_jar144648104" Guid="2ec35c45-3759-4ac3-a5b7-fa270a6f3772">
-              <File Id="fl__lib_io_spray_spray_json_2_13_1_3_6_jar144648104" Name="io.spray.spray-json_2.13-1.3.6.jar" DiskId="1" Source="lib\io.spray.spray-json_2.13-1.3.6.jar">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206" Guid="12475482-70be-46d8-b213-83766771a6c7">
-              <File Id="fl__lib_com_google_code_gson_gson_2_10_1_jar112890206" Name="com.google.code.gson.gson-2.10.1.jar" DiskId="1" Source="lib\com.google.code.gson.gson-2.10.1.jar">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
-            <Component Id="_bin_course_description_automation626901618" Guid="60d4ff06-c464-4997-b9fa-f90134fd71a6">
-              <File Id="fl__bin_course_description_automation626901618" Name="course-description-automation" DiskId="1" Source="bin\course-description-automation">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
-            <Component Id="_bin_course_description_automation_bat485908839" Guid="bb39c354-c2a3-4d0a-8430-20a6aa12d1b8">
-              <File Id="fl__bin_course_description_automation_bat485908839" Name="course-description-automation.bat" DiskId="1" Source="bin\course-description-automation.bat">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_course_description_automation_jar714145123" Guid="bc38bc22-809a-4816-a775-9c65b442895f">
-              <File Id="fl__lib_course_description_automation_jar714145123" Name="course-description-automation.jar" DiskId="1" Source="lib\course-description-automation.jar">
-                
-              </File>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
-            <Component Id="_bin97543xxxxPathC" Guid="25850d0c-c82e-4da3-b9db-5d58e5163b5d">
-              <CreateFolder/>
-              <Environment Id="COURSE_DESCRIPTION_AUTOMATION_HOME" Name="COURSE_DESCRIPTION_AUTOMATION_HOME" Value="[INSTALLDIR]" Permanent="no" Action="set" System="yes"/>
-              <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes"/>
-            </Component>
-          </DirectoryRef><DirectoryRef Id="ApplicationProgramsFolder">
-            <Component Id="_shortcut_53a897e8_e8fd_4112_857c_96fd74bf1f3f127161778" Guid="eeb1fe31-db57-4866-b76e-a5f9cf9d7d28">
-              
-              <RegistryValue Root="HKCU" Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
-            </Component>
-          </DirectoryRef>
-      <!-- Now define the features! -->
-      <Feature Id="Complete" Title="Course-Description-Automation Installer" Description="MSI Installer for the application Course-Description-Automation" Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
-        <!-- Manually added uninstall feautre -->
-        <Feature Id="Uninstall" Title="Uninstall" Description="Uninstall ApplicationFolder" Level="1" Absent="allow">
-          <ComponentRef Id="_ApplicationProgramsFolderRemove689092593"/>
-        </Feature>
-        <Feature Id="e_description_automation_core151743571" Title="course-description-automation" Description="All core files." Level="1" Absent="disallow">
-                    <ComponentRef Id="_lib_ch_course_description_automation_0_1_jar866535474"/><ComponentRef Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854"/><ComponentRef Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917"/><ComponentRef Id="_lib_io_spray_spray_json_2_13_1_3_6_jar144648104"/><ComponentRef Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206"/><ComponentRef Id="_bin_course_description_automation626901618"/><ComponentRef Id="_bin_course_description_automation_bat485908839"/><ComponentRef Id="_lib_course_description_automation_jar714145123"/>
-                  </Feature><Feature Id="AddBinToPath" Title="Update Environment Variables" Description="Update PATH environment variables (requires restart)." Level="1" Absent="allow">
-                    <ComponentRef Id="_bin97543xxxxPathC"/>
-                  </Feature><Feature Id="AddConfigLinks" Title="Configuration start menu links" Description="Adds start menu shortcuts to edit configuration files." Level="1" Absent="allow">
-                    <ComponentRef Id="_shortcut_53a897e8_e8fd_4112_857c_96fd74bf1f3f127161778"/>
-                  </Feature><Feature Id="BinaryAndPath" Title="My Project's Binaries and updated PATH settings" Description="Update PATH environment variables (requires restart)." Level="1" Absent="allow">
-                    
-                  </Feature>
-      </Feature>
-      <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>
-      <UIRef Id="WixUI_FeatureTree"/>
-      <UIRef Id="WixUI_ErrorProgressText"/>
-      <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
-      
-    
-      </Product>
-    </Wix>
+    </Directory>
+    <!-- Now define the components -->
+    <DirectoryRef Id="_lib107141xxx">
+      <Component Id="_lib_ch_course_description_automation_0_1_jar866535474"
+        Guid="e9da4235-f469-4e89-8e3c-104c3ed10d29">
+        <File Id="fl__lib_ch_course_description_automation_0_1_jar866535474"
+          Name="ch.course-description-automation-0.1.jar" DiskId="1"
+          Source="lib\ch.course-description-automation-0.1.jar">
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_lib107141xxx">
+      <Component Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854"
+        Guid="979ba44b-7cb8-43e1-bece-773c7f5cc858">
+        <File Id="fl__lib_org_scala_lang_scala_library_2_13_10_jar116078854"
+          Name="org.scala-lang.scala-library-2.13.10.jar" DiskId="1"
+          Source="lib\org.scala-lang.scala-library-2.13.10.jar">
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_lib107141xxx">
+      <Component Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917"
+        Guid="e3edc74a-a120-483a-87d5-1307963356c4">
+        <File Id="fl__cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917"
+          Name="org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar" DiskId="1"
+          Source="lib\org.scala-lang.modules.scala-parser-combinators_2.13-2.1.1.jar">
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_lib107141xxx">
+      <Component Id="_lib_io_spray_spray_json_2_13_1_3_6_jar144648104"
+        Guid="875a3709-6c5f-487c-a897-b50da77b6fdc">
+        <File Id="fl__lib_io_spray_spray_json_2_13_1_3_6_jar144648104"
+          Name="io.spray.spray-json_2.13-1.3.6.jar" DiskId="1"
+          Source="lib\io.spray.spray-json_2.13-1.3.6.jar">
+
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_lib107141xxx">
+      <Component Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206"
+        Guid="e04c4f42-a1cd-4ac4-9a79-213daa9b2449">
+        <File Id="fl__lib_com_google_code_gson_gson_2_10_1_jar112890206"
+          Name="com.google.code.gson.gson-2.10.1.jar" DiskId="1"
+          Source="lib\com.google.code.gson.gson-2.10.1.jar">
+
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_bin97543xxxx">
+      <Component Id="_bin_course_description_automation626901618"
+        Guid="c04b734f-799e-489d-93d3-4613cdfbe378">
+        <File Id="fl__bin_course_description_automation626901618"
+          Name="course-description-automation" DiskId="1"
+          Source="bin\course-description-automation">
+
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_bin97543xxxx">
+      <Component Id="_bin_course_description_automation_bat485908839"
+        Guid="504c2bba-de66-4faa-80dd-aba59ab91743">
+        <File Id="fl__bin_course_description_automation_bat485908839"
+          Name="course-description-automation.bat" DiskId="1"
+          Source="bin\course-description-automation.bat">
+
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_lib107141xxx">
+      <Component Id="_lib_course_description_automation_jar714145123"
+        Guid="a378ea50-d548-452e-b5ea-4339223a76ec">
+        <File Id="fl__lib_course_description_automation_jar714145123"
+          Name="course-description-automation.jar" DiskId="1"
+          Source="lib\course-description-automation.jar">
+
+        </File>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="_bin97543xxxx">
+      <Component Id="_bin97543xxxxPathC" Guid="b46f008d-b922-4b07-9cb0-55d822ebf5b6">
+        <CreateFolder />
+        <Environment Id="COURSE_DESCRIPTION_AUTOMATION_HOME"
+          Name="COURSE_DESCRIPTION_AUTOMATION_HOME" Value="[INSTALLDIR]" Permanent="no"
+          Action="set" System="yes" />
+        <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no"
+          Part="last" Action="set" System="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="_shortcut_095eef9b_d388_4f17_a10f_2404476bd0b1147870779"
+        Guid="ee5e7c52-fed7-4c6e-ad84-9f7ec394f63d">
+
+        <RegistryValue Root="HKCU"
+          Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation"
+          Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+
+    <!-- Now define the features! -->
+
+    <Feature Id="Complete"
+      Title="Project files"
+      Description="All the mandatory files (core, libraries and resources) for the project to run.">
+      <!--ConfigurableDirectory="INSTALLDIR">
+            Display="expand" Level="1"-->
+
+      <ComponentRef Id="_lib_ch_course_description_automation_0_1_jar866535474" />
+      <ComponentRef Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854" />
+      <ComponentRef Id="_cala_lang_modules_scala_parser_combinators_2_13_2_1_1_jar186427917" />
+      <ComponentRef Id="_lib_io_spray_spray_json_2_13_1_3_6_jar144648104" />
+      <ComponentRef Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206" />
+      <ComponentRef Id="_bin_course_description_automation626901618" />
+      <ComponentRef Id="_bin_course_description_automation_bat485908839" />
+      <ComponentRef Id="_lib_course_description_automation_jar714145123" />
+      <ComponentRef Id="_reslog_err_log208419276" />
+      <ComponentRef Id="_reslog_pdf_convert_log501357302" />
+      <ComponentRef Id="_respdf_Uni_DB_doc_pdf142145258" />
+      <ComponentRef Id="_restemplates_course_desc_css109847842" />
+      <ComponentRef Id="_restemplates_desc_template_html625479814" />
+      <ComponentRef Id="_restemplates_fill_template_convert_pdf_ps14954438xx" />
+      <ComponentRef Id="_restemplates_js_script1_js185629897" />
+      <ComponentRef Id="_restemplates_js_script10_js171069519" />
+      <ComponentRef Id="_restemplates_js_script2_js185632876" />
+      <ComponentRef Id="_restemplates_js_script3_js185635855" />
+      <ComponentRef Id="_restemplates_js_script4_js185638835" />
+      <ComponentRef Id="_restemplates_js_script5_js185641814" />
+      <ComponentRef Id="_restemplates_js_script6_js185644793" />
+      <ComponentRef Id="_restemplates_js_script7_js185647772" />
+      <ComponentRef Id="_restemplates_js_script8_js185650751" />
+      <ComponentRef Id="_restemplates_js_script9_js185653730" />
+      <ComponentRef Id="_resmd_test_auto_desc_2022_11X001_md917824561" />
+      <ComponentRef Id="_restemplates_unige_png913304442" />
+      <ComponentRef Id="_ApplicationProgramsFolderRemove689092593" />
+      <ComponentRef Id="_shortcut_095eef9b_d388_4f17_a10f_2404476bd0b1147870779" />
+      <ComponentRef Id="_bin97543xxxxPathC" />
+      <!-- <Feature Id="AddBinToPath" Title="Update Environment Variables"
+                Description="Update PATH environment variables (requires restart)." Level="1"
+                Absent="allow">
+                <ComponentRef Id="_bin97543xxxxPathC" /> 
+                WARN: To be kept only if not possible to force asking for admin right to modify path.
+                    Because if we cant installation will keep displaying warning message.
+            </Feature> -->
+    </Feature>
+    <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize"
+      DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
+    <UIRef Id="WixUI_FeatureTree" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" Secure="yes" />
+
+  </Product>
+</Wix>

@@ -1,3 +1,4 @@
+import sbt.IO
 import com.typesafe.sbt.packager.windows.WindowsFeature
 import com.typesafe.sbt.packager.windows._
 import com.typesafe.sbt.SbtNativePackager.Universal
@@ -15,7 +16,7 @@ ThisBuild / scalaVersion := "2.13.10"
 
 val resDir_String = "res"
 val resDir_File = file(resDir_String) // File object that can be passed to functions that doesnt accept macros like `resourceDirectory`
-resourceDirectory :=  baseDirectory.value / resDir_String
+resourceDirectory := baseDirectory.value / resDir_String
 
 Compile / resourceDirectory := resourceDirectory.value
 
@@ -54,7 +55,7 @@ Windows / mappings := (Universal / mappings).value
 Windows / mappings ++= {
     val jar = (Compile / packageBin).value
     /* val dir = (Windows / sourceDirectory).value */
-    Seq(jar -> jarPath)//, (Compile / resourceDirectory).value ->  // , (dir / batName) -> batPath)
+    Seq(jar -> jarPath) // , (Compile / resourceDirectory).value ->  // , (dir / batName) -> batPath)
 }
 
 val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
@@ -64,20 +65,19 @@ wixFeatures += WindowsFeature(
   // title = "My Project's Binaries and updated PATH settings",
   title = "Project Resources",
   desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-  components = Seq(
-    /* ComponentFile(batPath), */
-    /* ComponentFile(jarPath) */
-  ) // , AddDirectoryToPath("bin"))
+  components = Seq()
 )
 
-lazy val printComp = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
-printComp := {
+wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
+
+lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
+writeWixConfig := {
     println("-----")
     /* println(comp) */
     println("\n-----\n")
-    println(comp._2)
+    IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
     println("\n-----\n")
-    //println(resources.value)
+    // println(resources.value)
 }
 
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
@@ -92,3 +92,7 @@ getResPath := {
 }
 
 // HINT: TO GENERATE MSI INSTALLER RUN `sbt 'Windows / packageBin'` (or windows:packageBin but sbt says its deprecated)
+
+/* ComponentFile(batPath), */
+/* ComponentFile(jarPath) */
+// , AddDirectoryToPath("bin"))

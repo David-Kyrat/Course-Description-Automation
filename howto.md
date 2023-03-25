@@ -124,7 +124,7 @@ it is extremely unlikely that the bachelor actually contains > 30 courses for th
 ## Packaging
 
 Using [Wix](https://wixtoolset.org/) and the [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/index.html) an MSI executable can be created with the command  
-`sbt 'Windows / packageBin'`. To clean and update the changes in `build.sbt`, run `sbt clean bloopInstall 'Windows / packageBin'`.
+`sbt 'Windows / packageBin'`. To clean and update the changes in `build.sbt`, run `sbt bloopInstall 'Windows / packageBin'`.
 
 Unfortunately, this require a **heavily** configurated `build.sbt` config file. 
 Actually the heaviness isn't really the issue here, but rather the "outdatedness" and scarcity of actually usefull the informations. That's what makes the packaging / installer generation *really* time consuming. 
