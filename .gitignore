@@ -11,7 +11,9 @@ target/*
 target/scala-2.13/*
 !target/scala-2.13
 !target/scala-2.13/api
-!target/windows
+
+# ignoring windows build dir, because its in branch build
+target/windows
 
 
 project/.bloop
