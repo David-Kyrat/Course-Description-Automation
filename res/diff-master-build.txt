@@ -1,0 +1,36 @@
+ Course-Description-Automation.wxs                  | 128 ---
+ Notbuild.sbt.bak                                   |  62 --
+ README.md                                          |   4 +-
+ build.sbt                                          |  24 +-
+ howto.md                                           |  12 +-
+ res-dir-xml.xml                                    | 159 ----
+ res/app-info-logo.svg                              |  44 ++
+ res/json/11X001-desc.json                          | 517 ------------
+ res/json/12M025-desc.json                          | 240 ------
+ res/json/13M016A-desc.json                         | 237 ------
+ res/json/14M252-desc.json                          | 187 -----
+ res/json/14P017-desc.json                          | 419 ----------
+ res/json/ipa-22-desc.json                          | 517 ------------
+ res/json/study-plans.json                          | 866 ---------------------
+ res/md/test-auto-desc-2022-11X001.md               |  46 ++
+ res/md/test-auto-desc-2022-12X050.md               |  25 -
+ res/md/test-auto-desc.md                           |  19 -
+ res/pdf/11X001_lisacek_fleuret.pdf                 | Bin 81551 -> 0 bytes
+ res/pdf/test-auto-desc-2022-12M040.pdf             | Bin 24585 -> 0 bytes
+ res/readme-example.png                             | Bin 503508 -> 0 bytes
+ res/shortcut-res.ps1                               |  16 +
+ res/templates/example/course-desc.pdf              | Bin 110404 -> 0 bytes
+ res/templates/example/desc-content-example.md      |  19 -
+ res/templates/fill-template_convert-pdf.ps1        |  18 +-
+ res/templates/ipa-desc-content.md                  |  18 -
+ res/templates/test-auto-desc-2022-12M040.md        |  29 -
+ res/templates/test-auto-desc-2022-12M040.pdf       | Bin 108796 -> 0 bytes
+ res/test.txt                                       |   0
+ target/windows/Course-Description-Automation.msi   | Bin 6610944 -> 8699904 bytes
+ .../windows/Course-Description-Automation.wixobj   |   2 +-
+ .../windows/Course-Description-Automation.wixpdb   | Bin 451806 -> 506046 bytes
+ target/windows/Course-Description-Automation.wxs   | 423 +++++++---
+ .../lib/ch.course-description-automation-0.1.jar   | Bin 95785 -> 1141126 bytes
+ .../windows/lib/course-description-automation.jar  | Bin 95785 -> 1141126 bytes
+ target/windows/res-dir-xml.xml                     | 103 +++
+ 35 files changed, 563 insertions(+), 3571 deletions(-)
