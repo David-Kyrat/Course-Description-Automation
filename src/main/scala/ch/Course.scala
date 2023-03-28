@@ -174,5 +174,5 @@ object Course extends Function2[String, Int, Course] {
         new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
     }
 
-    override def apply(id: String, year: Int): Course = factory(id, year)
+    override def apply(id: String, year: Int = Utils.crtYear): Course = factory(id, year)
 }

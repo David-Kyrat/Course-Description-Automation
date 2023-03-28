@@ -86,16 +86,22 @@ object Main {
 
     def testCourseToMarkdown() = {
         val code = "12M040"
-        val code2 = "11X001"
         println("building course1")
         val course = Course(code, crtYear)
-        println("building course2")
-        val course2 = Course(code2, crtYear)
         println("converting to markdown - course1")
         Serializer.courseToMarkdown(course)
-        println("converting to markdown - course2")
-        Serializer.courseToMarkdown(course2)
         println("done")
+    }
+
+    def testMultipleCourseToMarkdown() = {
+        val codes = Vector("12M040", "11X001", "13M016A", "14M252", "12X050", "14P017")
+        for (code <- codes) {
+            println(f"Building course $code")
+            val course = Course(code)
+            println("converting to markdown")
+            Serializer.courseToMarkdown(course)
+            println("> Done.\n-------\n")
+        }
     }
 
     def main(args: Array[String]): Unit = {
@@ -104,7 +110,8 @@ object Main {
         // testJsonLib()
         // testResolveCoursHours()
         // testCourseFactoryMethod()
-        testCourseToMarkdown()
+        // testCourseToMarkdown()
+        testMultipleCourseToMarkdown()
 
         println("\n\n")
     }
