@@ -34,4 +34,8 @@ description:  |
               Le cours parcourra ensuite le champ de la nano-photonique dans les sciences de la vie en décrivant des approches telles que les boîtes quantiques (quantum dots), les nanoparticules plasmoniques ainsi que leurs applications dans l'imagerie et la bio-détection.
               
               Dans la dernière partie, après une présentation approfondie des propriétés optiques des tissus (absorption, diffusion, propriétés de polarisation), une sélection de techniques optiques biomédicales sera discutée. Les travaux dirigés prendront la forme d'un "journal club" sur la littérature spécialisée. Ainsi, les présentations réalisées par les étudiantes et étudiants seront suivies d'une discussion critique.
+various:  |
+          
+comments:  |
+           
 ---

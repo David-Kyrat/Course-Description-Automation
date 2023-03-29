@@ -32,7 +32,9 @@ final case class Course(
   hoursNb: CourseHours,
   documentation: String,
   authors: Vector[String],
-  studyPlan: Map[String, (Int, String)] // Option because i havent found the data relevant to CourseType in the DB yet
+  studyPlan: Map[String, (Int, String)], // Option because i havent found the data relevant to CourseType in the DB yet
+  various: String,
+  comments: String
 ) {
     val requestUrl = f"$courseUrl/$id-$year"
 
@@ -167,7 +169,7 @@ object Course extends Function2[String, Int, Course] {
         val studyPlanNames = tryExtract("intended", "")
         val documentation = tryExtract("bibliography", "")
         val various = tryExtract("variousInformation", "")
-        val comment = tryExtract("comment", "")
+        val comments = tryExtract("comment", "")
         val coursType = tryExtract("type", "")
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), Vector.empty)
@@ -179,7 +181,7 @@ object Course extends Function2[String, Int, Course] {
           },
           noSp
         )
-        new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
+        new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan, various, comments)
     }
 
     override def apply(id: String, year: Int = Utils.crtYear): Course = factory(id, year)

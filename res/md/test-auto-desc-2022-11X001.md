@@ -22,9 +22,9 @@ objective:  |
 description:  |
               Concepts d'algorithmes, notions fondamentales, abstraction, séquences, itérations, récursivité.
               
-              Programmes et langages de programmation, compilateurs et interpréteurs.
+              '	Programmes et langages de programmation, compilateurs et interpréteurs.
               
-              Fondamentaux de la programmation :
+              '	Fondamentaux de la programmation :
               
               + modèle de von Neumann, mémoire,
               + types primitifs,
@@ -34,13 +34,17 @@ description:  |
               + fonctions, récursivité,
               + fonctions anonymes et d'ordres supérieurs.
               
-              Pratique de la programmation
+              '	Pratique de la programmation
               
               + entrées /sorties, fichiers,
               + utilisation de librairies pré-existantes,
               + gestion des erreurs, débogage.
               
-              Analyse, notion de complexité des algorithmes.
+              '	Analyse, notion de complexité des algorithmes.
               
-              Algorithmes et leur analyse, tris, programmation dynamique et recherche de motifs.
+              '	Algorithmes et leur analyse, tris, programmation dynamique et recherche de motifs.
+various:  |
+          Préparation pour : Langages formels, Structure de données, Sémantique des langages informatiques
+comments:  |
+           Cours, exercices, travaux pratiques intégrés
 ---

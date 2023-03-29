@@ -26,4 +26,8 @@ description:  |
               4. Algèbre linéaire numérique, méthode des moindres carrés. 
               5. Calcul des vecteurs et valeurs propres. 
               6. Équations non linéaires à plusieurs variables.
+various:  |
+          REMARQUE : à partir de la rentrée de septembre 2019, les travaux pratiques deviennent obligatoires pour les mathématiciens.
+comments:  |
+           ECTS informaticiens : 11 annuel / ECTS math-info-sc.num : 14 annuel
 ---

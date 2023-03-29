@@ -22,4 +22,8 @@ description:  |
               2.	La loi des grands nombres: construction de variables indépendantes, les lemmes de Borel-Cantelli, convergence de séries aléatoires, les lois faible et forte des grands nombres.
               3.	Le théorème central limite : convergence faible, fonctions caractéristiques, le théorème central limite, processus de Poisson.
               4.	Conditionnement.
+various:  |
+          
+comments:  |
+           
 ---

@@ -24,4 +24,8 @@ description:  |
               5.	The Riemann'Roch theorem for curves.
               6.	Metrics of constant negative curvature and uniformization theorem.
               7.	Moduli of elliptic curves.
+various:  |
+          
+comments:  |
+           
 ---

@@ -23,4 +23,8 @@ description:  |
               - Les bases de données documentaires principales en informatique (IEEE Xplore, DBLP')
               - Le logiciel de gestion des références Zotero
               - Citation et plagiat
+various:  |
+          Le cours de Formation documentaire de la deuxième année est obligatoire. Une évaluation réussie donne lieu à l'obtention d'un certificat nécessaire à la réussite de la 2ème année de bachelor.
+comments:  |
+           
 ---
