@@ -8,7 +8,7 @@ import ch.io.cloudify.spdf._
 
 import java.io.{ByteArrayOutputStream, File}
 import java.net.URL
-import java.nio.file.Path
+import java.nio.file.{Files, Path}
 import scala.collection.parallel.immutable.ParVector
 
 object Main {
@@ -59,21 +59,17 @@ object Main {
         // Create a new Pdf converter with a custom configuration
         // run `wkhtmltopdf --extended-help` for a full list of options
         val pdf = spdf.Pdf(new PdfConfig {
-            orientation := Landscape
+            orientation := spdf.Portrait
             pageSize := "Letter"
-            marginTop := "1in"
-            marginBottom := "1in"
-            marginLeft := "1in"
-            marginRight := "1in"
+            marginTop := "2"
+            marginBottom := "0"
+            marginLeft := "3"
+            marginRight := "0"
         })
-        val page = <html><body><h1>Hello World</h1></body></html>
-
-        // Save the PDF generated from the above HTML into a Byte Array
-        val outputStream = new ByteArrayOutputStream
-        pdf.run(page, outputStream)
-
         // Save the PDF of Google's homepage into a file
-        pdf.run(new URL("https://www.google.com"), new File("google.pdf"))
+        val path = Path.of("res/templates/desc-2022-11X001.html")
+        val cntn = Files.readString(path)
+        pdf.run(cntn, new File("ipa.pdf"))
     }
 
     def main(args: Array[String]): Unit = {
