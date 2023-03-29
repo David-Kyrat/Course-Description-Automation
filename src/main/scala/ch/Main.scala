@@ -4,18 +4,13 @@ package ch
 import ch.ReqHdl._
 import ch.Utils
 import ch.Utils.crtYear
-
-import com.google.gson.{JsonElement, JsonParser, JsonSerializer, JsonDeserializer}
-import java.nio.file.Path
-import com.google.gson.JsonObject
-import com.google.gson._
-import com.google.gson.JsonObject._
-import com.google.gson.Gson
-import ch.sealedconcept.CourseHours
-import ch.sealedconcept.Lectures
-import ch.sealedconcept.Exercices
-import ch.sealedconcept.Practice
 import ch.io.Serializer
+import ch.sealedconcept.{CourseHours, Lectures, Exercices, Practice}
+
+import scala.collection.parallel.immutable.{ParSeq, ParMap, ParVector}
+import java.nio.file.Path
+import com.google.gson.{Gson, JsonElement, JsonObject, JsonArray, JsonParser, JsonSerializer, JsonDeserializer}
+import com.google.gson.JsonObject._
 
 object Main {
     def testGetStudyPlans() = {
@@ -94,14 +89,21 @@ object Main {
     }
 
     def testMultipleCourseToMarkdown() = {
-        val codes = Vector("12M040", "11X001", "13M016A", "14M252", "12X050", "14P017")
-        for (code <- codes) {
+        val codes = ParVector("12M040", "11X001", "13M016A", "14M252", "12X050", "14P017")
+        codes.foreach(code => {
+            println(f"Building course $code")
+            val course = Course(code)
+            println(f"converting $code to markdown")
+            Serializer.courseToMarkdown(course)
+            println(f"> $code done.\n-------\n")
+        })
+        /* for (code <- codes) {
             println(f"Building course $code")
             val course = Course(code)
             println("converting to markdown")
             Serializer.courseToMarkdown(course)
             println("> Done.\n-------\n")
-        }
+        } */
     }
 
     def testSpdfLib() = {}
