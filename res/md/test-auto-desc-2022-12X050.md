@@ -12,7 +12,7 @@ eval_mode:
 exa_session: Janvier
 course_format: 
 cursus:
-  - {name: Baccalauréat universitaire en informatique, type: N/A, credits: 0}
+  - {name: Baccalauréat universitaire en informatique, type: N/A, credits: -}
 
 objective:  |
             - Conduire et documenter des stratégies de recherche dans les bases de données documentaires principales en informatique

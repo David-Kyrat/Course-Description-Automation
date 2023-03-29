@@ -115,12 +115,14 @@ object Course extends Function2[String, Int, Course] {
         // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
         // val y: Map[String, (Int, String)]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
 
-        studyPlans.map(obj => {
-            val studyPlanLabel:String = extractor("studyPlanLabel", obj)
-            val isOptional = studyPlanLabel.contains("à option") 
-            // if false => does not mean the course is mandatory, we just dont know (lack the info in the database)
-            (studyPlanLabel, (obj.get("planCredits").getAsInt, if (isOptional) "Optionnel" else "N/A" ))
-        }).toMap
+        studyPlans
+            .map(obj => {
+                val studyPlanLabel: String = extractor("studyPlanLabel", obj)
+                val isOptional = studyPlanLabel.contains("à option")
+                // if false => does not mean the course is mandatory, we just dont know (lack the info in the database)
+                (studyPlanLabel, (obj.get("planCredits").getAsInt, if (isOptional) "Optionnel" else "N/A"))
+            })
+            .toMap
     }
 
     // TODO:  SPTYPE
@@ -169,8 +171,14 @@ object Course extends Function2[String, Int, Course] {
         val coursType = tryExtract("type", "")
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), Vector.empty)
-        val studPlan: Map[String, (Int, String)] = tryOrElse(() => resolveStudyPlan(jsObj), Map.empty)
-
+        val noSp = Map("Pas de cursus" -> (0, "-"))
+        var studPlan: Map[String, (Int, String)] = tryOrElse(
+          () => {
+              val sp = resolveStudyPlan(jsObj)
+              if (sp.isEmpty) noSp else sp
+          },
+          noSp
+        )
         new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan)
     }
 

@@ -12,6 +12,7 @@ eval_mode: Examen oral
 exa_session: Juillet
 course_format: 
 cursus:
+  - {name: Pas de cursus, type: -, credits: -}
 
 objective:  |
             This course gives and introduction to algebraic geometry and develops the theory of complex algebraic curves.

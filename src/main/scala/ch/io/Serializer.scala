@@ -34,7 +34,12 @@ object Serializer {
     def yamlFmtCursus(course: Course) = {
         val map = course.studyPlan
         val sbld = new StringBuilder("cursus:\n")
-        map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${kv._2._1}}\n")
+        val credFmt: (Int) => String = c => if (c <= 0) "-" else c.toString // if credits = 0 write a "-" instead
+        map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${credFmt(kv._2._1)}}\n")
+        if (course.id == "14M252") {
+          println("sbld: " + sbld.toString())
+          println("map: " + map)
+        }
         sbld.toString
     }
 
