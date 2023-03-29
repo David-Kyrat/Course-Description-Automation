@@ -23,12 +23,12 @@ object Serializer {
 
     def yamlMultiLineStr(key: String, value: String) = {
         val sbld = new StringBuilder(f"$key:  |\n")
-        val indent = " " * (f"$key:  ".length)  // indentation to respect to have correct yaml syntax
+        val indent = " " * (f"$key:  ".length) // indentation to respect to have correct yaml syntax
         sbld ++= indent
         val lines = value.strip().replace("\n", f"\n$indent")
         sbld ++= lines
         /* lines.map(line => f"$line\n$indent") */
-        sbld.toString//.stripTrailing()
+        sbld.toString // .stripTrailing()
     }
 
     def yamlFmtCursus(course: Course) = {
@@ -37,8 +37,8 @@ object Serializer {
         val credFmt: (Int) => String = c => if (c <= 0) "-" else c.toString // if credits = 0 write a "-" instead
         map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${credFmt(kv._2._1)}}\n")
         if (course.id == "14M252") {
-          println("sbld: " + sbld.toString())
-          println("map: " + map)
+            println("sbld: " + sbld.toString())
+            println("map: " + map)
         }
         sbld.toString
     }
@@ -84,7 +84,6 @@ object Serializer {
           yamlFmtCursus(course),
           yamlMultiLineStr("objective", Utils.sanitize(course.objective)),
           yamlMultiLineStr("description", Utils.sanitize(course.description))
-
         )
         write(yamlHeaderSep)
         wr.flush()
