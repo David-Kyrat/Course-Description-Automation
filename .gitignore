@@ -30,6 +30,7 @@ howto-copy.md
 
 **/.vscode
 **/.idea
+.idea
 fatp-lnk.ps1
 
 # I don't know why this folder keep getting generated
