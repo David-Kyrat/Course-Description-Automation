@@ -9530,7 +9530,7 @@ body .plot {
   position: absolute !important;
   top: 1em;
   right: 0;
-  left: 18em; /* Change this to change margin between sidebar and content in pdf */
+  left: 17em; /* Change this to change margin between sidebar and content in pdf */
   right: 0;
   width: 70%;
   height: 100px;
@@ -9542,6 +9542,7 @@ body .plot {
 }
 
 #leftmain {
+  padding-top: 9%;
   width: 22% !important;
 }
 
