@@ -119,7 +119,52 @@ it is extremely unlikely that the bachelor actually contains > 30 courses for th
 ----
 
 
+### Example of markdown structure used to generate  htmls & pdfs
+
+```YAML
+---
+title: Biophotonics
+author: Luigi Bonacina - 14P017
+weekly_hours: 3
+lectures_hours: 2
+exercices_hours: 1
+practice_hours: 0
+total_hours: 42
+course_lang: anglais
+semester: Printemps
+eval_mode: Examen oral
+exa_session: Juillet
+course_format: 
+cursus:
+  - {name: Maîtrise universitaire en biochimie (MSc biochimie), type: N/A, credits: 5}
+  - {name: Baccalauréat universitaire en physique, type: N/A, credits: 5}
+  - {name: Master in Physics with Specialization  120 ECTS, type: N/A, credits: 5}
+  - {name: Master of Science in Biology 120 crédits, type: N/A, credits: 5}
+  - {name: Baccalauréat universitaire en biologie, type: N/A, credits: 5}
+
+objective:  |
+            Biophotonics deals with interactions between light and biological matter. 
+            The course is open to Physics and Biology students interested in the applications
+            of state-of-the-art photonics to life sciences. [...]
+description:  |
+              La biophotonique traite des interactions entre la lumière
+              et la matière biologique. Ce cours est ouvert aux étudiant-es
+              de physique et de biologie qui portent un intérêt à l'état de l'art de la photonique
+              et ses applications aux sciences de la vie. [...]
+---
+```
+
+
+<br/>
+
+
+Each markdown file is generated automatically by the scala application that fetches the data
+from the database.  
+These files and the [html-template](res/template/desc-template.html) are then used by pandoc to generate a clean html page that will later be converted to pdf.
+
+
 <br/>  
+
 
 ## Packaging
 
@@ -131,7 +176,7 @@ Actually the heaviness isn't really the issue here, but rather the "outdatedness
 
 Left to do:
 - [x] Find a way to bundle `res/` directory with the installer
-- [ ] Find a way to force project installation in document directory and add symlink the "pdf" folder next to the .exe
+- [x] Find a way to force project installation in document directory and add symlink the "pdf" folder next to the .exe
 - [ ] Find a way to put it in smth like `C:\ProgramData\Microsoft\Windows\Start Menu\Programs` to make it searchable from windows seach 
 - [ ] Small GUI
 
@@ -140,7 +185,7 @@ Left to do:
     The wrapper will then be compiled as `.exe`  
 
 Not urgent:
-- [ ] Remove empty (0 Kb) / useless wix features (from "features to be installed" screen)
+- [x] Remove empty (0 Kb) / useless wix features (from "features to be installed" screen)
 - [ ] Replace the lorem ipsum in the license screen by an actual license 
 
 
