@@ -13,11 +13,9 @@ import scala.language.postfixOps
 
 import scala.io.{Source, BufferedSource}
 //import DefaultJsonProtocol._
-import java.io.PrintWriter
-import java.io.FileWriter
-import java.io.BufferedWriter
+import java.io.{PrintWriter, FileWriter, BufferedWriter}
 
-object Utils {
+final object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
     private val logPath = Path.of("res/log/err.log").toAbsolutePath
     write(logPath, "") // prevents logfile content from getting to big by cleaning it

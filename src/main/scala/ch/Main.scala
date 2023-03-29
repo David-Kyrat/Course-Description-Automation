@@ -3,10 +3,13 @@ package ch
 // import ch.Resp._
 import ch.Utils.crtYear
 import ch.io.Serializer
+import ch.io.cloudify.spdf
+import ch.io.cloudify.spdf._
 
+import java.io.{ByteArrayOutputStream, File}
+import java.net.URL
 import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
-
 
 object Main {
     def writeCoursDecsToRes(id: String, year: Int = crtYear) = Utils.write(Path.of(f"res/$id-desc.json"), ReqHdl.course(f"$year-$id").get())
@@ -53,7 +56,24 @@ object Main {
     }
 
     def testSpdfLib() = {
-        println("lul")
+        // Create a new Pdf converter with a custom configuration
+        // run `wkhtmltopdf --extended-help` for a full list of options
+        val pdf = spdf.Pdf(new PdfConfig {
+            orientation := Landscape
+            pageSize := "Letter"
+            marginTop := "1in"
+            marginBottom := "1in"
+            marginLeft := "1in"
+            marginRight := "1in"
+        })
+        val page = <html><body><h1>Hello World</h1></body></html>
+
+        // Save the PDF generated from the above HTML into a Byte Array
+        val outputStream = new ByteArrayOutputStream
+        pdf.run(page, outputStream)
+
+        // Save the PDF of Google's homepage into a file
+        pdf.run(new URL("https://www.google.com"), new File("google.pdf"))
     }
 
     def main(args: Array[String]): Unit = {

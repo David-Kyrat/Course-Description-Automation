@@ -29,6 +29,7 @@ howto-copy.md
 *err*.txt
 
 **/.vscode
+**/.idea
 fatp-lnk.ps1
 
 # I don't know why this folder keep getting generated
