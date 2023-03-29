@@ -9010,7 +9010,7 @@
     /* padding-left: var(--sidebar-width);*/
     /*padding-top: calc(var(--header-height) + 40px);*/
     padding-bottom: 2rem;
-    padding-left: 5rem;
+    padding-left: 0rem;
     background: var(--main-background)
   }
 
@@ -9028,7 +9028,7 @@
   }
 
   .Content {
-    padding: 0 20px 0 80px
+    padding: 0 20px 0 0px;
   }
 
   @media screen and (max-width:1000px) {
@@ -9479,7 +9479,7 @@
   .smallimg {
     position: absolute;
     bottom: 0.7em;
-    left: 80%;
+    left: 78%;
     text-align: right;
     margin-left: 1.2em;
   }
@@ -9537,14 +9537,18 @@
     /* border: 1px solid red; */
   }
 
+  .Content {
+    width: 95%;
+  }
+
   #leftmain {
-    width: 17% !important;
+    width: 22% !important;
   }
 
   #rightmain {
-    max-width: none !important;
+    /* max-width: none !important; */
     /*padding-left: 5em; for A3*/
-    padding-left: 40px;
+    padding-left: 0px;
     width: 100% !important;
-    /*border: 2px solid red;*/
+    /* border: 2px solid red; */
   }
