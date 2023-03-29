@@ -160,7 +160,7 @@ description:  |
 
 Each markdown file is generated automatically by the scala application that fetches the data
 from the database.  
-These files and the [html-template](res/template/desc-templates.html) are then used by pandoc to generate a clean html page that will later be converted to pdf.
+These files and the [html-template](res/templates/desc-template.html) are then used by pandoc to generate a clean html page that will later be converted to pdf.
 
 
 <br/>  
