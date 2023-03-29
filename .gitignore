@@ -28,6 +28,7 @@ howto-copy.md
 
 *err*.txt
 
+**/.vscode
 
 # I don't know why this folder keep getting generated
 **/Powershell 7.3.3
