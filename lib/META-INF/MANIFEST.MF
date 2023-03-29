@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Specification-Vendor: io.github.cloudify
+Specification-Title: sPDF
+Specification-Version: 1.4.0
+

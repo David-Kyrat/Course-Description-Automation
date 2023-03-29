@@ -17,6 +17,7 @@ ThisBuild / scalaVersion := "2.13.10"
 val resDir_String = "res"
 val resDir_File = file(resDir_String) // File object that can be passed to functions that doesnt accept macros like `resourceDirectory`
 resourceDirectory := baseDirectory.value / resDir_String
+unmanagedBase := baseDirectory.value / "lib"
 
 Compile / resourceDirectory := resourceDirectory.value
 
@@ -32,17 +33,22 @@ val batPath = "bin/" + batName
 val scalaBaseDep = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
 val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
 val jsonLib = "com.google.code.gson" % "gson" % "2.10.1"
-val spdf = "io.github.cloudify" %% "spdf" % "1.4.0"
 val parallelCollections =   "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
+val xml = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
+
 
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
+
 
 lazy val root = (project in file(".")).settings(
   name := pName,
   version := "0.1",
   resourceDirectory := baseDirectory.value / resDir_String,
   assembly / assemblyJarName := jarName, // name + ".jar",
-  libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib),
+  //
+  libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib, xml),
+  unmanagedBase := baseDirectory.value / "lib",
+  //
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
   packageDescription := """MSI Installer for the application Course-Description-Automation""",
