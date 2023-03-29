@@ -1,6 +1,6 @@
 ---
 title: Algebraic curves
-author: Gleb Smirnov
+author: Gleb Smirnov  -  14M252
 weekly_hours: 4
 lectures_hours: 2
 exercices_hours: 2

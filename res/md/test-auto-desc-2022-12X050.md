@@ -1,6 +1,6 @@
 ---
 title: Formation documentaire
-author: Vincent Laurent Huber
+author: Vincent Laurent Huber  -  12X050
 weekly_hours: 0
 lectures_hours: 0
 exercices_hours: 0

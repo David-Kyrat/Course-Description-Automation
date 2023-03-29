@@ -1,6 +1,6 @@
 ---
 title: Probabilités et statistique
-author: Antti Knowles
+author: Antti Knowles  -  13M016A
 weekly_hours: 4
 lectures_hours: 2
 exercices_hours: 2

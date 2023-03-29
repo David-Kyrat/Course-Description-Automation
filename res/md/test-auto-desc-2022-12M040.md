@@ -1,6 +1,6 @@
 ---
 title: Analyse numérique
-author: Bart Vandereycken
+author: Bart Vandereycken  -  12M040
 weekly_hours: 5
 lectures_hours: 2
 exercices_hours: 1
