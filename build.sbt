@@ -17,7 +17,7 @@ ThisBuild / scalaVersion := "2.13.10"
 val resDir_String = "res"
 val resDir_File = file(resDir_String) // File object that can be passed to functions that doesnt accept macros like `resourceDirectory`
 resourceDirectory := baseDirectory.value / resDir_String
-unmanagedBase := baseDirectory.value / "lib"
+/* unmanagedBase := baseDirectory.value / "lib" */
 
 Compile / resourceDirectory := resourceDirectory.value
 
@@ -47,7 +47,6 @@ lazy val root = (project in file(".")).settings(
   assembly / assemblyJarName := jarName, // name + ".jar",
   //
   libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib, xml),
-  unmanagedBase := baseDirectory.value / "lib",
   //
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
