@@ -12,7 +12,7 @@ import java.nio.file.StandardOpenOption._
 import scala.language.postfixOps
 
 import scala.io.{Source, BufferedSource}
-import DefaultJsonProtocol._
+//import DefaultJsonProtocol._
 import java.io.PrintWriter
 import java.io.FileWriter
 import java.io.BufferedWriter
@@ -50,6 +50,7 @@ object Utils {
      * @return sanitized string
      */
     def sanitize(str: String): String = str.replace("\r", "")
+      .replace("\'", "")
     // \n line endings are supported fine on a greater number of platform (including windows) than "\r\n"
 
     /**

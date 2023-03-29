@@ -85,12 +85,12 @@ object Main {
     }
 
     def testCourseToMarkdown() = {
-        val code = "12M040"
-        println("building course1")
+        val code = "11X001"
+        println(f"Building course $code")
         val course = Course(code, crtYear)
-        println("converting to markdown - course1")
+        println("converting to markdown")
         Serializer.courseToMarkdown(course)
-        println("done")
+        println("> Done.")
     }
 
     def testMultipleCourseToMarkdown() = {
@@ -104,9 +104,7 @@ object Main {
         }
     }
 
-    def testSpdfLib() = {
-
-    }
+    def testSpdfLib() = {}
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
@@ -114,7 +112,7 @@ object Main {
         // testJsonLib()
         // testResolveCoursHours()
         // testCourseFactoryMethod()
-        // testCourseToMarkdown()
+        testCourseToMarkdown()
         testMultipleCourseToMarkdown()
 
         println("\n\n")

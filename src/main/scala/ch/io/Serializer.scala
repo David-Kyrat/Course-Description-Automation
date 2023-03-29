@@ -28,6 +28,7 @@ object Serializer {
         val lines = value.strip().replace("\n", f"\n$indent")
         sbld ++= lines
         /* lines.map(line => f"$line\n$indent") */
+         
         sbld.toString // .stripTrailing()
     }
 
@@ -50,7 +51,7 @@ object Serializer {
      * @param course Course to serialize
      */
     def courseToMarkdown(course: Course) = {
-        val name = f"test-auto-desc-${course.year}-${course.id}.md"
+        val name = f"desc-${course.year}-${course.id}.md"
         val path = Path.of(f"res/md/$name")
         val wr = new PrintWriter(new BufferedWriter(new FileWriter(path.toAbsolutePath.toString, UTF_8)), true)
         // Just returns the Writer at the end
@@ -80,7 +81,6 @@ object Serializer {
           yamlFmtCursus(course),
           yamlMultiLineStr("objective", Utils.sanitize(course.objective)),
           yamlMultiLineStr("description", Utils.sanitize(course.description)),
-          
           yamlMultiLineStr("various", Utils.sanitize(course.various)),
           yamlMultiLineStr("comments", Utils.sanitize(course.comments))
         )

@@ -33,6 +33,7 @@ val scalaBaseDep = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1
 val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
 val jsonLib = "com.google.code.gson" % "gson" % "2.10.1"
 val spdf = "io.github.cloudify" %% "spdf" % "1.4.0"
+val parallelCollections =   "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
 
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
 
@@ -41,7 +42,7 @@ lazy val root = (project in file(".")).settings(
   version := "0.1",
   resourceDirectory := baseDirectory.value / resDir_String,
   assembly / assemblyJarName := jarName, // name + ".jar",
-  libraryDependencies ++= Seq(scalaBaseDep, prettyPrintJsonLib, jsonLib),
+  libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib),
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
   packageDescription := """MSI Installer for the application Course-Description-Automation""",
