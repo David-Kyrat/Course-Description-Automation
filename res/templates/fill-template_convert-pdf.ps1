@@ -40,7 +40,7 @@ if ($args.Length -gt $outProvidedCondition) {
 
 if ($verbose) { echo "Generating course description (html)" }
 
-
+if (Test-Path $outHtml) { rm $outHtml -ErrorAction SilentlyContinue}
 pandoc $in -t html --template=$template -o $outHtml # 2>> $logFile
 
 
