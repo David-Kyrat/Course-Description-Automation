@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function(e) {
+ document.addEventListener('DOMContentLoaded', function(e) {
   var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
   var i, h, a;
   for (i = 0; i < hs.length; i++) {

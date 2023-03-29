@@ -1,0 +1,53 @@
+---
+title: Introduction à la programmation des algorithmes 
+author: 11X001 | Frédérique LISACEK (MER), François Fleuret (PO), 
+params:
+  start_date: '2020-01-01'
+  end_date: '2020-06-01'
+  year: '2023'
+output:
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: true
+    gallery:  true
+    highlight: tango
+---
+
+
+## Some h2 title {#introduction .important .large}
+
+
+This is my introduction.
+
+
+## Gapminder Analysis for 'r params$year'
+
+
+### Document 
+
+
+from the $params_start_date to $params_end_date
+
+
+Some stuff
+
+1. first
+2. second
+3. third
+
+
+---
+
+
+
+| Heures (Hebdo)                                                                         | 6                         |
+|----------------------------------------------------------------------------------------|---------------------------|
+| Cours <br> &nbsp;&nbsp; Exercices <br> &nbsp;&nbsp;  Pratique <br>&nbsp; &nbsp;  Total | 4 <br> 2 <br> N/A <br> 84 |
+| Langue                                                                                 | Français                  |
+| Semestre                                                                               | automne                   |
+| Mode d'évaluation                                                                      | écrit                     |
+| Session                                                                                | Janvier / Août            |
+
+
+
+
