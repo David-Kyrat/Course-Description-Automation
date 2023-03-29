@@ -104,6 +104,10 @@ object Main {
         }
     }
 
+    def testSpdfLib() = {
+
+    }
+
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // writeCoursDecsToRes("14M252")
@@ -111,7 +115,7 @@ object Main {
         // testResolveCoursHours()
         // testCourseFactoryMethod()
         // testCourseToMarkdown()
-        testMultipleCourseToMarkdown()
+        // testMultipleCourseToMarkdown()
 
         println("\n\n")
     }
