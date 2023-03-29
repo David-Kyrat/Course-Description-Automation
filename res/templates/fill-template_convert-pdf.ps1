@@ -53,7 +53,7 @@ wkhtmltopdf --enable-local-file-access -T 2 -B 0 -L 3 -R 0  $outHtml $outPdf # 2
 if ($verbose) { echo "`nDone.`nPDF is present at `"$outPdf`"" }
 
 if ($outHtml -and (Test-Path $outHtml)) {
-    rm "$outHtml" -ErrorAction SilentlyContinue  # 2>> $logFile
+   # rm "$outHtml" -ErrorAction SilentlyContinue  # 2>> $logFile
 }
 
 
