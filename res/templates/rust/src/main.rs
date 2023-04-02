@@ -1,4 +1,5 @@
 use std::env;
+use std::path::PathBuf;
 use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
 
@@ -11,7 +12,7 @@ pub fn execvp(app_name: &str, command_line: &str) {
     let app_name_opt = Some(app_name);
     let command_line: &str = &format!("{app_name} {command_line}"); //append name of program
     let cmd_line_opt = Some(command_line);
-    // first word before space in command line should be app_name 
+    // first word before space in command line should be app_name
     // (I think its ignored either way if app_name is not None because its argv[0])
     let close_handle_res: SysResult<CloseHandlePiGuard> = HPROCESS::CreateProcess(
         app_name_opt,
@@ -42,18 +43,70 @@ pub fn create_fake_gcc() {
     execvp(app_name, cmd_line);
 }
 
-
-
-pub fn main() {
+pub fn test() {
     let args: Vec<String> = env::args().collect();
     //let app_name = &args[1];
-    let app_name = "C:\\zig-win-0.11.0-dev\\zig.exe";
-    let cmd_line = &args[1..].join(" ");
-    let cmd_line = &format!("cc {cmd_line}");
-    //let app_name = Some("C:/texlive/2022/bin/win32/pdftohtml.exe");
-    //let app_name = "C:\\zig-win-0.11.0-dev\\zig.exe";
-    //let cmd_line = "cc ";
+    let mut exe_path: PathBuf = env::current_exe().expect("Could not get executable path");
+    exe_path.pop();
+    exe_path.pop();
+    let pandoc_path: &_ = &exe_path;
+
+    let app_name: &str = pandoc_path.to_str().expect("cannot parse path");
+    let inp_md = &args[1];
+    let out_html: &str = "";
+    let template = "../../desc-template.html";
+    // let cmd_line = &args[1..].join(" ");
+    // let cmd_line = &format!("cc {cmd_line}");
+    let cmd_line: &str = &format!("{inp_md} -t html --template={template} -o {out_html}");
     dbg!(cmd_line);
+
     execvp(app_name, cmd_line);
-    //println!("\nDONE")
+}
+
+use path_clean::PathClean;
+use std::io;
+use std::path::Path;
+// use path_clean::clean;
+
+pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
+    let path = path.as_ref();
+
+    let absolute_path = if path.is_absolute() {
+        path.to_path_buf()
+    } else {
+        env::current_dir()?.join(path)
+    }
+    .clean();
+
+    Ok(absolute_path)
+}
+
+static WEIRD_PATTERN: &str = "\\\\?\\";
+
+fn get_pandoc_wk_paths() -> (String, String) {
+    let mut tmp: PathBuf = env::current_exe().unwrap();
+    for _ in 0..3 {
+        tmp.pop();
+    }
+    let exe_paths_borrowed: &String = &absolute_path(tmp)
+        .expect("to absolute failed")
+        .to_str()
+        .unwrap()
+        .replace(WEIRD_PATTERN, "");
+    (
+        exe_paths_borrowed.to_owned() + "\\pandoc.exe",
+        exe_paths_borrowed.to_owned() + "\\wkhtmltopdf.exe",
+    )
+}
+
+pub fn main() {
+    println!("--------------------\n\n");
+    let (pandoc_path, wk_path) = get_pandoc_wk_paths();
+    println!("pandoc_path:\n{:#?}", pandoc_path);
+
+    println!("--------------------\n");
+    println!("wk_path:\n{:#?}", wk_path);
+
+    let _msg = "could not resolve path";
+    println!("\n\n--------------------\nDONE")
 }
