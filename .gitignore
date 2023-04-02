@@ -1,4 +1,6 @@
 **/vendor
+
+
 **/node_modules
 **/rome.json
 
@@ -14,7 +16,7 @@ target/scala-2.13/*
 
 # ignoring windows build dir, because its in branch build
 target/windows
-
+res/templates/rust/pandoc.exe
 
 project/.bloop
 project/project/
