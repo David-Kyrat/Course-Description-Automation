@@ -1,0 +1,8 @@
+[package]
+name = "safe_execvp_win"
+version = "0.1.0"
+edition = "2021"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+winsafe = {version = "0.0.14", features = ["kernel", "shell", "user", "ole", "oleaut"] }
