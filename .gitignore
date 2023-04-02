@@ -12,7 +12,6 @@ null
 target/*
 target/scala-2.13/*
 !target/scala-2.13
-!target/scala-2.13/api
 
 # ignoring windows build dir, because its in branch build
 target/windows
@@ -27,6 +26,10 @@ project/metals.sbt
 howto-copy.md
 *.sc
 *.log
+
+
+# Ignoring scala-doc generated web-pages, as they are present in the other repo
+target/scala-2.13/api
 
 *err*.txt
 
