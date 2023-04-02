@@ -26,7 +26,8 @@ project/metals.sbt
 howto-copy.md
 *.sc
 *.log
-
+**/log
+res/templates/rmd
 
 # Ignoring scala-doc generated web-pages, as they are present in the other repo
 target/scala-2.13/api
