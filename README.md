@@ -9,18 +9,18 @@ Application to automatically generate printable 1-2 page PDF of course descripti
 
 Made with:  
 
-
+<div display="inline">
 <a href="https://unige.ch/"> ![unige](https://img.shields.io/badge/UNIGE-e11b67?style=for-the-badge)</a>
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Scala](https://img.shields.io/badge/Scala-DC322F?style=for-the-badge&logo=scala&logoColor=white)
-![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
+<!-- ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white) -->
 ![Neovim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white)
-and a (little) bit of ![Rust](https://img.shields.io/badge/Rust-DC322F?style=for-the-badge&logo=rust&logoColor=white)
+</div>
 
-
+![GitHub commits](https://img.shields.io/github/commits-since/David-Kyrat/Course-Description-Automation/e5da194?label=Commits&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/David-Kyrat/Course-Description-Automation?style=flat)
-<img src="https://raw.githubusercontent.com/wiki/ryanoasis/nerd-fonts/images/faux-shield-badge-os-logos.svg?sanitize=true" alt="Nerd Fonts - OS Support"></a>
-
+![GitHub repo size](https://img.shields.io/github/repo-size/David-Kyrat/Course-Description-Automation?color=blueviolet)
 
 
 ---
@@ -45,6 +45,7 @@ Exemple given:
 </div>
 <br>
 
+</div>
 
 ## Meeting Reports
 
@@ -68,4 +69,3 @@ to categorize the "major steps" this project went through and to give some infor
 "Published" documentation is available here: __[Scala-Documentation](https://raw.githack.com/David-Kyrat/Course-Description-Automation-Docs/master/ch/index.html)__
   
 
-</div>
