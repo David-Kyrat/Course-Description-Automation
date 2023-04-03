@@ -21,7 +21,6 @@ Made with:
 ![GitHub last commit](https://img.shields.io/github/last-commit/David-Kyrat/Course-Description-Automation?style=flat&logo=time)
 ![GitHub repo size](https://img.shields.io/github/repo-size/David-Kyrat/Course-Description-Automation?color=blueviolet&style=flat)
 
-Supported Platform:  ![GitHub commits](https://img.shields.io/badge/Windows-0078D6?logo=windows&style=flat)
 
 
 ---
@@ -68,5 +67,15 @@ to categorize the "major steps" this project went through and to give some infor
 
 
 "Published" documentation is available here: __[Scala-Documentation](https://raw.githack.com/David-Kyrat/Course-Description-Automation-Docs/master/ch/index.html)__
-  
 
+
+-----
+
+
+<br/>
+
+
+#### Supported Platforms
+
+
+- ![windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
