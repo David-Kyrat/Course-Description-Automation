@@ -1,4 +1,4 @@
-use std::result;
+
 use std::{env, io};
 use std::path::{PathBuf, Path};
 use path_clean::PathClean;
