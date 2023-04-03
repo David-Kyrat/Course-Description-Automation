@@ -108,8 +108,7 @@ fn get_resources_path() -> (String, String, String, String) {
     )
 }
 
-pub fn main() {
-    println!("--------------------\n\n");
+fn test_get_resources_path() {
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
     println!("pandoc_path:\n{:#?}, exists? {}", pandoc_path, Path::new(&pandoc_path).exists());
 
@@ -122,7 +121,11 @@ pub fn main() {
     println!("--------------------\n");
     println!("templates_path:\n{:#?}, exists? {}", templates_path, Path::new(&templates_path).exists());
 
+}
 
-    let _msg = "could not resolve path";
+pub fn main() {
+    println!("--------------------\n\n");
+    test_get_resources_path();
+
     println!("\n\n--------------------\nDONE")
 }
