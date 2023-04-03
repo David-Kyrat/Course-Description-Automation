@@ -1,4 +1,8 @@
+<div align="center">
+
+  
 # Unige - 12X015 | Course Description Automator
+
 
 
 Application to automatically generate printable 1-2 page PDF of course descriptions.
@@ -12,6 +16,11 @@ Made with:
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![Neovim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white)
 and a (little) bit of ![Rust](https://img.shields.io/badge/Rust-DC322F?style=for-the-badge&logo=rust&logoColor=white)
+
+
+![GitHub last commit](https://img.shields.io/github/last-commit/David-Kyrat/Course-Description-Automation?style=flat)
+<img src="https://raw.githubusercontent.com/wiki/ryanoasis/nerd-fonts/images/faux-shield-badge-os-logos.svg?sanitize=true" alt="Nerd Fonts - OS Support"></a>
+
 
 
 ---
@@ -57,3 +66,6 @@ to categorize the "major steps" this project went through and to give some infor
 
 
 "Published" documentation is available here: __[Scala-Documentation](https://raw.githack.com/David-Kyrat/Course-Description-Automation-Docs/master/ch/index.html)__
+  
+
+</div>
