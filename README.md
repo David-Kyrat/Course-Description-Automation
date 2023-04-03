@@ -17,9 +17,11 @@ Made with:
 
 <!-- ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white) -->
 
-![GitHub commits](https://img.shields.io/github/commits-since/David-Kyrat/Course-Description-Automation/e5da194?label=Commits&logo=github)
-![GitHub last commit](https://img.shields.io/github/last-commit/David-Kyrat/Course-Description-Automation?style=flat)
-![GitHub repo size](https://img.shields.io/github/repo-size/David-Kyrat/Course-Description-Automation?color=blueviolet)
+![GitHub commits](https://img.shields.io/github/commits-since/David-Kyrat/Course-Description-Automation/e5da194?label=Commits&logo=github&style=flat)
+![GitHub last commit](https://img.shields.io/github/last-commit/David-Kyrat/Course-Description-Automation?style=flat&logo=time)
+![GitHub repo size](https://img.shields.io/github/repo-size/David-Kyrat/Course-Description-Automation?color=blueviolet&style=flat)
+
+Supported Platform:  ![GitHub commits](https://img.shields.io/badge/Windows-0078D6?logo=windows&style=flat)
 
 
 ---
