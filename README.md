@@ -20,7 +20,7 @@ Exemple given:
 
 
 <p align="center">
-<img style="display: block; margin: 0 auto; margin-bottom: 3em" src="res/readme-example.png" width=650em>
+<img style="display: block; margin: 0 auto; margin-bottom: 3em" src="res/readme-example2.png" width=650em>
 </p>
 
 <br/>
