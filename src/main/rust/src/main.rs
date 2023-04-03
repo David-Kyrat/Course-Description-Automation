@@ -6,6 +6,7 @@ use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
 use winsafe::{SysResult, HPROCESS, STARTUPINFO, prelude::kernel_Hprocess};
 
+
 /// # Description
 /// Creates a process using winsafe api. (safe wrapper around windows sdk api).
 /// On Windows, Creating a new process always comes with the execution of some executable in a new
@@ -21,7 +22,6 @@ use winsafe::{SysResult, HPROCESS, STARTUPINFO, prelude::kernel_Hprocess};
 /// This functions returns after having waited on the "child" process. 
 /// (Although the wait is not mandatory to avoid zombies thanks to the winsafe api,
 /// here we just want to wait for the completion of the job.)
-///
 pub fn execvp(app_name: &str, command_line: &str) {
     let mut si: STARTUPINFO = STARTUPINFO::default();
     let app_name_opt = Some(app_name);
@@ -69,7 +69,6 @@ pub fn test() {
     execvp(app_name, cmd_line);
 }
 
-// use path_clean::clean;
 
 pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     let path = path.as_ref();
@@ -78,9 +77,7 @@ pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
         path.to_path_buf()
     } else {
         env::current_dir()?.join(path)
-    }
-    .clean();
-
+    }.clean();
     Ok(absolute_path)
 }
 
@@ -94,6 +91,7 @@ fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .unwrap()
         .replace(WEIRD_PATTERN, "")
 }
+
 
 /// # Description
 ///
@@ -134,7 +132,6 @@ fn test_get_resources_path() {
 
     println!("--------------------\n");
     println!("templates_path:\n{:#?}, exists? {}", templates_path, Path::new(&templates_path).exists());
-
 }
 
 
@@ -163,6 +160,7 @@ fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, 
     dbg!(md_name);
     execvp(pandoc_path, cmd_line);
 }
+
 
 pub fn main() {
     let args: Vec<String> = env::args().collect();
