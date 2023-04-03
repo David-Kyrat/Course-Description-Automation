@@ -223,7 +223,7 @@ pub fn fill_template_convert_pdf(md_filename: &String, pandoc_path: &str, wk_pat
 
 pub fn main() -> Result<(), String> {
     let args: Vec<String> = env::args().collect();
-    if args.len() != 1 { 
+    if args.len() != 2 { 
         return Err("Expecting 1 argument (name of markdown file in /res/md)".to_string());
     }
 
