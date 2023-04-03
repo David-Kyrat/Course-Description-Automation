@@ -1,11 +1,11 @@
-use std::env;
-use std::path::PathBuf;
+use std::{env, io};
+use std::path::{PathBuf, Path};
+use path_clean::PathClean;
+
 use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
+use winsafe::{SysResult, HPROCESS, STARTUPINFO, prelude::kernel_Hprocess};
 
-use winsafe::prelude::kernel_Hprocess;
-use winsafe::STARTUPINFO;
-use winsafe::{SysResult, HPROCESS};
 
 pub fn execvp(app_name: &str, command_line: &str) {
     let mut si: STARTUPINFO = STARTUPINFO::default();
@@ -35,14 +35,6 @@ pub fn execvp(app_name: &str, command_line: &str) {
     //println!("after wait");
 }
 
-pub fn create_fake_gcc() {
-    let args: Vec<String> = env::args().collect();
-    let app_name = "C:\\zig-win-0.11.0-dev\\zig.exe";
-    let cmd_line = &args[1..].join(" ");
-    let cmd_line = &format!("cc {cmd_line}");
-    execvp(app_name, cmd_line);
-}
-
 pub fn test() {
     let args: Vec<String> = env::args().collect();
     //let app_name = &args[1];
@@ -63,9 +55,6 @@ pub fn test() {
     execvp(app_name, cmd_line);
 }
 
-use path_clean::PathClean;
-use std::io;
-use std::path::Path;
 // use path_clean::clean;
 
 pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
@@ -81,31 +70,59 @@ pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     Ok(absolute_path)
 }
 
+
 static WEIRD_PATTERN: &str = "\\\\?\\";
 
-fn get_pandoc_wk_paths() -> (String, String) {
-    let mut tmp: PathBuf = env::current_exe().unwrap();
-    for _ in 0..3 {
-        tmp.pop();
-    }
-    let exe_paths_borrowed: &String = &absolute_path(tmp)
-        .expect("to absolute failed")
+fn abs_path_clean(path: impl AsRef<Path>) -> String {
+    let path = absolute_path(path);
+    path.expect(&format!("in abs_path_clean"))
         .to_str()
         .unwrap()
-        .replace(WEIRD_PATTERN, "");
+        .replace(WEIRD_PATTERN, "")
+}
+
+
+/// # Description
+///
+/// Return a 4-tuple containing the paths to the executables
+/// of pandoc and wkhtmltopdf, and the paths to the markdown 
+/// and templates resource directory ('res/md' and 'res/templates')
+/// 
+/// # Returns
+///
+/// (pandoc_path, wkhtmltopdf_path, md_path, templates_path)
+fn get_resources_path() -> (String, String, String, String) {
+    let mut rustdir_path: PathBuf = env::current_exe().unwrap();
+    for _ in 0..3 { rustdir_path.pop(); }
+
+    let mut res_path: PathBuf = rustdir_path.clone();
+    for _ in 0..3 { res_path.pop(); }
+    res_path.push("\\res");
+
+    let res_path_borrowed: &str = &abs_path_clean(res_path);
+    let exe_paths_borrowed: &str = &abs_path_clean(rustdir_path);
     (
         exe_paths_borrowed.to_owned() + "\\pandoc.exe",
         exe_paths_borrowed.to_owned() + "\\wkhtmltopdf.exe",
+        res_path_borrowed.to_owned() + "\\md" ,
+        res_path_borrowed.to_owned() + "\\templates"
     )
 }
 
 pub fn main() {
     println!("--------------------\n\n");
-    let (pandoc_path, wk_path) = get_pandoc_wk_paths();
+    let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
     println!("pandoc_path:\n{:#?}", pandoc_path);
 
     println!("--------------------\n");
     println!("wk_path:\n{:#?}", wk_path);
+
+    println!("--------------------\n");
+    println!("wk_path:\n{:#?}", md_path);
+
+    println!("--------------------\n");
+    println!("wk_path:\n{:#?}", pandoc_path);
+
 
     let _msg = "could not resolve path";
     println!("\n\n--------------------\nDONE")
