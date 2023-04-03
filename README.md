@@ -11,6 +11,7 @@ Made with:
 ![Scala](https://img.shields.io/badge/Scala-DC322F?style=for-the-badge&logo=scala&logoColor=white)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
 ![Neovim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white)
+and a (little) bit of ![Rust](https://img.shields.io/badge/Rust-DC322F?style=for-the-badge&logo=rust&logoColor=white)
 
 
 ---
