@@ -219,22 +219,22 @@ pub fn fill_template_convert_pdf(md_filename: &String, pandoc_path: &str, wk_pat
     wkhtmltopdf(out_html, &wk_path)
 }
 
+//use std::io::prelude::*;
 
-pub fn main() {
+pub fn main() -> Result<(), String> {
     let args: Vec<String> = env::args().collect();
+    if args.len() != 1 { 
+        return Err("Expecting 1 argument (name of markdown file in /res/md)".to_string());
+    }
+
     // FIX: md input should be only a filename (of a file in res/md/)
 
     println!("--------------------\n\n");
-    //test_get_resources_path();
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
-    //let (pandoc_path, _wk_path, md_path, templates_path) = (pandoc_path.as_str(), wk_path.as_str(), md_path.as_str(), templates_path); // constant strings
     let tmp = fill_template_convert_pdf(&args[1], &pandoc_path, &wk_path, &md_path, &templates_path).unwrap();
     let out_pdf: &Path = Path::new(&tmp);
 
-    println!("--------------------\n");
     println!("out_pdf:\n{:#?}, exists? {}", out_pdf, out_pdf.exists());
 
-    println!("--------------------\n");
-
-    println!("\n\n--------------------\nDONE")
+    println!("\n\n--------------------\nDONE"); Ok(())
 }
