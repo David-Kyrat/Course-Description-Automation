@@ -118,10 +118,10 @@ pub fn main() {
     println!("wk_path:\n{:#?}", wk_path);
 
     println!("--------------------\n");
-    println!("wk_path:\n{:#?}", md_path);
+    println!("md_path:\n{:#?}", md_path);
 
     println!("--------------------\n");
-    println!("wk_path:\n{:#?}", pandoc_path);
+    println!("templates_path:\n{:#?}", templates_path);
 
 
     let _msg = "could not resolve path";
