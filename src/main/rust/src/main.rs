@@ -81,7 +81,6 @@ fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .replace(WEIRD_PATTERN, "")
 }
 
-
 /// # Description
 ///
 /// Return a 4-tuple containing the paths to the executables
@@ -97,7 +96,7 @@ fn get_resources_path() -> (String, String, String, String) {
 
     let mut res_path: PathBuf = rustdir_path.clone();
     for _ in 0..3 { res_path.pop(); }
-    res_path.push("\\res");
+    res_path.push("res");
 
     let res_path_borrowed: &str = &abs_path_clean(res_path);
     let exe_paths_borrowed: &str = &abs_path_clean(rustdir_path);
@@ -112,16 +111,16 @@ fn get_resources_path() -> (String, String, String, String) {
 pub fn main() {
     println!("--------------------\n\n");
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
-    println!("pandoc_path:\n{:#?}", pandoc_path);
+    println!("pandoc_path:\n{:#?}, exists? {}", pandoc_path, Path::new(&pandoc_path).exists());
 
     println!("--------------------\n");
-    println!("wk_path:\n{:#?}", wk_path);
+    println!("wk_path:\n{:#?}, exists? {}", wk_path, Path::new(&wk_path).exists());
 
     println!("--------------------\n");
-    println!("md_path:\n{:#?}", md_path);
+    println!("md_path:\n{:#?}, exists? {}", md_path, Path::new(&md_path).exists());
 
     println!("--------------------\n");
-    println!("templates_path:\n{:#?}", templates_path);
+    println!("templates_path:\n{:#?}, exists? {}", templates_path, Path::new(&templates_path).exists());
 
 
     let _msg = "could not resolve path";
