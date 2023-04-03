@@ -9,16 +9,13 @@ Application to automatically generate printable 1-2 page PDF of course descripti
 
 Made with:  
 
-<div display="inline">
-<div style="display: inline;">
 <a href="https://unige.ch/"> ![unige](https://img.shields.io/badge/UNIGE-e11b67?style=for-the-badge)</a>
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Scala](https://img.shields.io/badge/Scala-DC322F?style=for-the-badge&logo=scala&logoColor=white)
 ![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
-<!-- ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white) -->
 ![Neovim](https://img.shields.io/badge/NeoVim-%2357A143.svg?&style=for-the-badge&logo=neovim&logoColor=white)
-</div>
-</div>
+
+<!-- ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white) -->
 
 ![GitHub commits](https://img.shields.io/github/commits-since/David-Kyrat/Course-Description-Automation/e5da194?label=Commits&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/David-Kyrat/Course-Description-Automation?style=flat)
