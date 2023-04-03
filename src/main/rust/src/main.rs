@@ -37,7 +37,6 @@ pub fn execvp(app_name: &str, command_line: &str) {
 
 pub fn test() {
     let args: Vec<String> = env::args().collect();
-    //let app_name = &args[1];
     let mut exe_path: PathBuf = env::current_exe().expect("Could not get executable path");
     exe_path.pop();
     exe_path.pop();
@@ -124,8 +123,22 @@ fn test_get_resources_path() {
 }
 
 pub fn main() {
+    let args: Vec<String> = env::args().collect();
+    // FIX: md input should be only a filename (of a file in res/md/)
+
     println!("--------------------\n\n");
-    test_get_resources_path();
+    //test_get_resources_path();
+    let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
+    let (pandoc_path, _wk_path, md_path, templates_path) = (pandoc_path.as_str(), wk_path.as_str(), md_path.as_str(), templates_path); // constant strings
+    let template: String = templates_path.clone() + "\\desc-template.html";
+    
+    let md_name: &str = &args[1];
+    let md_filepath: &String = &format!("{md_path}\\{md_name}");
+    dbg!(md_name);
+    let out_html = templates_path + "\\" + &md_name.replace(".md", ".html");
+
+    let cmd_line: &str = &format!("{pandoc_path} {md_filepath} -t html --template={template} -o {out_html}");
+    dbg!(cmd_line);
 
     println!("\n\n--------------------\nDONE")
 }
