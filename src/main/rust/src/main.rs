@@ -6,7 +6,22 @@ use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
 use winsafe::{SysResult, HPROCESS, STARTUPINFO, prelude::kernel_Hprocess};
 
-
+/// # Description
+/// Creates a process using winsafe api. (safe wrapper around windows sdk api).
+/// On Windows, Creating a new process always comes with the execution of some executable in a new
+/// thread / in that child process (there is no "just" fork.)
+/// That's why this function take an absolute_path to an executable
+/// and the the arguments to pass to it (argv)
+///
+/// # Params
+/// - `app_name`: Absolute path to an executable
+/// - `command_line`: Argument to program (equivalent of `argv`)
+///
+/// # NB
+/// This functions returns after having waited on the "child" process. 
+/// (Although the wait is not mandatory to avoid zombies thanks to the winsafe api,
+/// here we just want to wait for the completion of the job.)
+///
 pub fn execvp(app_name: &str, command_line: &str) {
     let mut si: STARTUPINFO = STARTUPINFO::default();
     let app_name_opt = Some(app_name);
@@ -122,6 +137,33 @@ fn test_get_resources_path() {
 
 }
 
+
+/// # Description
+/// Calls pandoc cmd with `execvp` to convert the given markdown file according
+/// to the predefined html template.
+/// # Params
+/// - `md_filename`: filename of a markdown document in `/res/md/` directory.
+/// i.e. `desc-2022-11X001.md` for `/res/md/desc-2022-11X001.md`
+/// - `pandoc_path`: Absolute path to the pandoc executable.
+/// - `md_path`: Absolute path to the `/res/md` directory.
+/// - `templates_path`: Absolute path to the `/res/templates` directory.
+///
+/// # NB
+/// The output file is saved in `/res/templates/<md_filename>.html` (without the '.md' extension)
+///
+fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, templates_path: &str) {
+    let template: String = templates_path.to_owned() + "\\desc-template.html";
+    
+    let md_name: &str = md_filename;
+    let md_filepath: &String = &format!("{md_path}\\{md_name}");
+    let out_html = templates_path.to_owned() + "\\" + &md_name.replace(".md", ".html");
+
+    let cmd_line: &str = &format!("{md_filepath} -t html --template={template} -o {out_html}");
+    dbg!(cmd_line);
+    dbg!(md_name);
+    execvp(pandoc_path, cmd_line);
+}
+
 pub fn main() {
     let args: Vec<String> = env::args().collect();
     // FIX: md input should be only a filename (of a file in res/md/)
@@ -129,16 +171,8 @@ pub fn main() {
     println!("--------------------\n\n");
     //test_get_resources_path();
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
-    let (pandoc_path, _wk_path, md_path, templates_path) = (pandoc_path.as_str(), wk_path.as_str(), md_path.as_str(), templates_path); // constant strings
-    let template: String = templates_path.clone() + "\\desc-template.html";
-    
-    let md_name: &str = &args[1];
-    let md_filepath: &String = &format!("{md_path}\\{md_name}");
-    dbg!(md_name);
-    let out_html = templates_path + "\\" + &md_name.replace(".md", ".html");
-
-    let cmd_line: &str = &format!("{pandoc_path} {md_filepath} -t html --template={template} -o {out_html}");
-    dbg!(cmd_line);
+    //let (pandoc_path, _wk_path, md_path, templates_path) = (pandoc_path.as_str(), wk_path.as_str(), md_path.as_str(), templates_path); // constant strings
+    pandoc_fill_template(&args[1], &pandoc_path, &md_path, &templates_path);
 
     println!("\n\n--------------------\nDONE")
 }
