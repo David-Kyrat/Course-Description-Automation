@@ -18,7 +18,7 @@ target/windows
 res/templates/rust/pandoc.exe
 **/pandoc.exe
 
-
+# sbt config dirs
 project/.bloop
 project/project/
 project/target
@@ -30,6 +30,13 @@ howto-copy.md
 *.log
 **/log
 res/templates/rmd
+
+!**/rust/target
+**/rust/target/*
+!**/rust/target/release
+**/rust/target/release/*
+!**/rust/target/release/*.exe
+
 
 # Ignoring scala-doc generated web-pages, as they are present in the other repo
 target/scala-2.13/api

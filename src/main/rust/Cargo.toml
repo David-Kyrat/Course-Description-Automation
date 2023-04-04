@@ -1,5 +1,5 @@
 [package]
-name = "safe_execvp_win"
+name = "par-convert-mdToPdf"
 version = "0.1.0"
 edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -8,3 +8,9 @@ edition = "2021"
 path-clean = "1.0.1"
 rayon = "1.7.0"
 winsafe = {version = "0.0.14", features = ["kernel", "shell", "user", "ole", "oleaut"] }
+
+[[bin]]
+name = "par-convert-mdToPdf"
+path = "src/main.rs"
+test = false
+bench = false
