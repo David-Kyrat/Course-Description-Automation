@@ -224,7 +224,22 @@ use rayon::iter::ParallelIterator;
 
 /// # Description
 /// Creates a pdf for each markdown course description document in "/res/md". (in parallel)
-/// i.e. calls `fill_template_convert_pdf` in a `par_iter().for_each()` for each file in the directory
+/// i.e. calls `fill_template_convert_pdf` in a `par_iter().for_each()` for each file in the directory  
+///
+/// --------  
+/// # Returns
+/// - Ok(()) if no error happened.
+/// - Err(_) where _ is an `std::io::Error()`.
+/// Its error message is a concatenation of each error message returned by 
+/// the parallel calls to `fill_template_convert_pdf`.
+/// i.e. if `err_messages` is a vector of each message (string) then error will be :
+/// ```Rust
+///     let err_messages:Vec<String> = md_files.par_iter(). [...] .filter_map(|x| x.err()).collect();
+///     
+///     return Err(std::io::Error::new(io::ErrorKind::Other, err_messages.join("\n")));
+///
+/// x.err() discards the value T from a Result<T, E> and extracts the E (type of error, here string).
+/// ```
 pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_path: &str) -> io::Result<()> {
     
     let dir_ent_it: io::Result<ReadDir> = fs::read_dir(md_path); // iterator over DirEntry
@@ -256,22 +271,26 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
     }
 }
 
-pub fn main() -> Result<(), String> {
+use std::io::Error as IoErr;
+
+pub fn main() -> io::Result<()> { //Result<(), String> {
     let args: Vec<String> = env::args().collect();
-    if args.len() != 2 { 
-        return Err("Expecting 1 argument (name of markdown file in /res/md)".to_string());
-    }
+    /* if args.len() != 2 { 
+        return Err(IoErr::new(io::ErrorKind::Other, "Expecting 1 argument (name of markdown file in /res/md)".to_string()));
+    } */
 
     // FIX: md input should be only a filename (of a file in res/md/)
 
     println!("--------------------\n\n");
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
-    let tmp = fill_template_convert_pdf(&args[1], &pandoc_path, &wk_path, &md_path, &templates_path).unwrap();
-    let out_pdf: &Path = Path::new(&tmp);
+    //let tmp = fill_template_convert_pdf(&args[1], &pandoc_path, &wk_path, &md_path, &templates_path).unwrap();
+    //let out_pdf: &Path = Path::new(&tmp);
 
-    println!("out_pdf:\n{:#?}, exists? {}", out_pdf, out_pdf.exists());
+    //println!("out_pdf:\n{:#?}, exists? {}", out_pdf, out_pdf.exists());
+    
+    let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
 
-    println!("\n\n--------------------\nDONE"); Ok(())
+    println!("\n\n--------------------\nDONE"); out
 }
 
 
