@@ -1,4 +1,5 @@
 
+use std::error::Error;
 use std::{env, io};
 use std::path::{PathBuf, Path};
 use path_clean::PathClean;
@@ -154,9 +155,8 @@ use std::fs::{self, ReadDir, DirEntry};
 fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, templates_path: &str) -> Result<PathBuf, String> {
     let template: String = templates_path.to_owned() + "\\desc-template.html";
     
-    let md_name: &str = md_filename;
-    let md_filepath: &String = &format!("{md_path}\\{md_name}");
-    let out_html = templates_path.to_owned() + "\\" + &md_name.replace(".md", ".html");
+    let md_filepath: &String = &format!("{md_path}\\{md_filename}");
+    let out_html = templates_path.to_owned() + "\\" + &md_filename.replace(".md", ".html");
     let out_html_path = Path::new(&out_html);
     if out_html_path.exists() { fs::remove_file(out_html_path).unwrap_or_default(); }
 
@@ -219,7 +219,7 @@ pub fn fill_template_convert_pdf(md_filename: &String, pandoc_path: &str, wk_pat
 }
 
 use rayon::prelude::*;
-use rayon::iter::*;
+
 use rayon::iter::ParallelIterator;
 
 /// # Description
@@ -231,15 +231,29 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
     if dir_ent_it.is_err() {
         return dir_ent_it.map(|_| ());
     }
-
-    let dir_ents: Vec<DirEntry> = dir_ent_it
+    let mdfiles_vec: Vec<DirEntry> = dir_ent_it
         .map(|read_dir| {
-            read_dir.filter_map(Result::ok).collect() // ignore dir entry errors and collect Ok ones in vector
-        }) 
-        .unwrap();
-    let x = (dir_ents).par_iter();
-       //.collect::<Vec<DirEntry>> 
-    Ok(())
+            read_dir.filter_map(Result::ok).filter(|dir_ent| { 
+                match dir_ent.file_name().to_str() {
+                    Some(name) => name.ends_with(".md"),
+                    None => false
+                }
+            }).collect() // ignore dir entry error and collect only Ok ones that refer to a markdown file in vector
+        }).unwrap();
+
+    let err_messages:Vec<String> =  mdfiles_vec
+        .par_iter()
+        .map_with((pandoc_path, wk_path, md_path, templates_path), |q, md_file| {
+            
+            // we can directly unwrap since the path on wich to_str() would return None have been filtered
+            let name = md_file.file_name().to_str().unwrap().to_owned();
+            fill_template_convert_pdf(&name, q.0, q.1, q.2, q.3)
+        }).filter_map(|x| x.err()).collect();
+
+    match &err_messages.len() {
+        0 => Ok(()),
+        _ => Err(std::io::Error::new(io::ErrorKind::Other, err_messages.join("\n")))
+    }
 }
 
 pub fn main() -> Result<(), String> {
