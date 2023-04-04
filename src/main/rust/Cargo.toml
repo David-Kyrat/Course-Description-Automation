@@ -1,5 +1,5 @@
 [package]
-name = "par-convert-mdToPdf"
+name = "par_convert_mdToPdf"
 version = "0.1.0"
 edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -10,7 +10,7 @@ rayon = "1.7.0"
 winsafe = {version = "0.0.14", features = ["kernel", "shell", "user", "ole", "oleaut"] }
 
 [[bin]]
-name = "par-convert-mdToPdf"
+name = "rust_para_convert-mdToPdf"
 path = "src/main.rs"
 test = false
 bench = false
