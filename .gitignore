@@ -31,11 +31,15 @@ howto-copy.md
 **/log
 res/templates/rmd
 
-!**/rust/target
+
+# Rust binaries & config files
+
 **/rust/target/*
 !**/rust/target/release
 **/rust/target/release/*
 !**/rust/target/release/*.exe
+!main/rust/target
+*.lock
 
 
 # Ignoring scala-doc generated web-pages, as they are present in the other repo
@@ -46,7 +50,7 @@ target/scala-2.13/api
 **/.vscode
 **/.idea
 .idea
-fatp-lnk.ps1
+
 
 # I don't know why this folder keep getting generated
 **/Powershell 7.3.3
