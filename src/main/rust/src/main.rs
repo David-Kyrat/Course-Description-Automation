@@ -1,4 +1,3 @@
-
 use std::{env, io};
 use std::path::{PathBuf, Path};
 use path_clean::PathClean;
@@ -274,7 +273,6 @@ fn test_ftcp() -> Result<(), String> {
         return Err("Expecting 1 argument (name of markdown file in /res/md)".to_string());
     }
     // FIX: md input should be only a filename (of a file in res/md/)
-    //
     println!("--------------------\n\n");
 
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
@@ -288,11 +286,8 @@ fn test_ftcp() -> Result<(), String> {
 
 
 pub fn main() -> io::Result<()> {
-    let args: Vec<String> = env::args().collect();
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
 
     let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    println!("\nDONE"); out
+    out
 }
-
-
