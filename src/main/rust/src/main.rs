@@ -135,6 +135,8 @@ fn test_get_resources_path() {
     println!("templates_path:\n{:#?}, exists? {}", templates_path, Path::new(&templates_path).exists());
 }
 
+use std::fs::{self, ReadDir, DirEntry};
+
 
 /// # Description
 /// Calls pandoc cmd with `execvp` to convert the given markdown file according
@@ -156,16 +158,15 @@ fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, 
     let md_filepath: &String = &format!("{md_path}\\{md_name}");
     let out_html = templates_path.to_owned() + "\\" + &md_name.replace(".md", ".html");
     let out_html_path = Path::new(&out_html);
-    if out_html_path.exists() { std::fs::remove_file(out_html_path).unwrap_or_default(); }
+    if out_html_path.exists() { fs::remove_file(out_html_path).unwrap_or_default(); }
 
     let cmd_line: &str = &format!("{md_filepath} -t html --template={template} -o {out_html}");
     execvp(pandoc_path, cmd_line);
 
     let out_html: &Path = Path::new(&out_html);
-    match out_html.exists() {
-        true => Ok(out_html.to_path_buf()),
-        false => Err(format!("pandoc_fill_template: Could not generate html file for {md_path}\\{md_filename}"))
-    }
+
+    if out_html.exists() { Ok(out_html.to_path_buf()) }
+    else { Err(format!("pandoc_fill_template: Could not generate html file for {md_path}\\{md_filename}")) }
 }
 
 
@@ -187,10 +188,8 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> Result<PathBuf, String> {
     execvp(wk_path, cmd_line);
    
     let out_pdf = out_pdf;  // removes mut? i.e. makes out_pdf immutable ?
-    match out_pdf.exists() {
-        true => Ok(out_pdf),
-        false => Err(format!("Could not convert html file to pdf, for {:#?}", out_html).to_string())
-    }
+    if out_pdf.exists() { Ok(out_pdf) }
+    else { Err(format!("Could not convert html file to pdf, for {:#?}", out_html).to_string())}
 }
 
 
@@ -219,7 +218,29 @@ pub fn fill_template_convert_pdf(md_filename: &String, pandoc_path: &str, wk_pat
     wkhtmltopdf(out_html, &wk_path)
 }
 
-//use std::io::prelude::*;
+use rayon::prelude::*;
+use rayon::iter::*;
+use rayon::iter::ParallelIterator;
+
+/// # Description
+/// Creates a pdf for each markdown course description document in "/res/md". (in parallel)
+/// i.e. calls `fill_template_convert_pdf` in a `par_iter().for_each()` for each file in the directory
+pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_path: &str) -> io::Result<()> {
+    
+    let dir_ent_it: io::Result<ReadDir> = fs::read_dir(md_path); // iterator over DirEntry
+    if dir_ent_it.is_err() {
+        return dir_ent_it.map(|_| ());
+    }
+
+    let dir_ents: Vec<DirEntry> = dir_ent_it
+        .map(|read_dir| {
+            read_dir.filter_map(Result::ok).collect() // ignore dir entry errors and collect Ok ones in vector
+        }) 
+        .unwrap();
+    let x = (dir_ents).par_iter();
+       //.collect::<Vec<DirEntry>> 
+    Ok(())
+}
 
 pub fn main() -> Result<(), String> {
     let args: Vec<String> = env::args().collect();
@@ -238,3 +259,5 @@ pub fn main() -> Result<(), String> {
 
     println!("\n\n--------------------\nDONE"); Ok(())
 }
+
+

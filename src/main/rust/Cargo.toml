@@ -6,4 +6,5 @@ edition = "2021"
 
 [dependencies]
 path-clean = "1.0.1"
+rayon = "1.7.0"
 winsafe = {version = "0.0.14", features = ["kernel", "shell", "user", "ole", "oleaut"] }
