@@ -106,20 +106,18 @@ fn abs_path_clean(path: impl AsRef<Path>) -> String {
 ///
 /// (pandoc_path, wkhtmltopdf_path, md_path, templates_path)
 fn get_resources_path() -> (String, String, String, String) {
-    let mut rustdir_path: PathBuf = env::current_exe().unwrap();
-    for _ in 0..3 { rustdir_path.pop(); }
+    let mut rust_exe_path: PathBuf = env::current_exe().unwrap();
+    rust_exe_path.pop(); // /res/bin-converters
+    let exes_path: String = abs_path_clean(rust_exe_path.clone());
 
-    let mut res_path: PathBuf = rustdir_path.clone();
-    for _ in 0..3 { res_path.pop(); }
-    res_path.push("res");
-
-    let res_path_borrowed: &str = &abs_path_clean(res_path);
-    let exe_paths_borrowed: &str = &abs_path_clean(rustdir_path);
+    rust_exe_path.pop(); // /res
+    let res_path: PathBuf = rust_exe_path;
+    let res_path: String = abs_path_clean(&res_path);
     (
-        exe_paths_borrowed.to_owned() + "\\pandoc.exe",
-        exe_paths_borrowed.to_owned() + "\\wkhtmltopdf.exe",
-        res_path_borrowed.to_owned() + "\\md" ,
-        res_path_borrowed.to_owned() + "\\templates"
+        exes_path.to_owned() + "\\pandoc.exe",
+        exes_path + "\\wkhtmltopdf.exe",
+        res_path.to_owned() + "\\md" ,
+        res_path + "\\templates"
     )
 }
 
@@ -285,7 +283,6 @@ fn test_ftcp() -> Result<(), String> {
     let out_pdf: &Path = Path::new(&tmp);
 
     println!("out_pdf:\n{:#?}, exists? {}", out_pdf, out_pdf.exists());
-    println!("\n\n--------------------\nDONE");
     Ok(())
 }
 
