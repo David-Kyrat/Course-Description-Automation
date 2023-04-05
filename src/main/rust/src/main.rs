@@ -7,9 +7,10 @@ pub mod test;
 
 use utils::abs_path_clean;
 
+use std::borrow::Borrow;
 use std::{env, io, fs};
 use std::path::{PathBuf, Path};
-use std::fs::{ReadDir, DirEntry};
+use std::fs::{ReadDir, DirEntry, File};
 use rayon::iter::*;
 
 use winsafe::co::CREATE;
@@ -219,11 +220,23 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
         _ => Err(std::io::Error::new(io::ErrorKind::Other, err_messages.join("\n")))
     }
 }
-
+pub mod test;
+use crate::test::test_write_to_log;
+use crate::utils::*;
 
 pub fn main() -> io::Result<()> {
-    let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
-
+    /* let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
     let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    out
+    out */
+
+    lul(); 
+    test_write_to_log(); Ok(())
+    //let mut _tmp: PathBuf = env::current_exe().unwrap(); // /res/bin-converter
+    //let mut tmp: PathBuf = Path::new("C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters").to_path_buf(); //path where the actual .exe will be
+    /* tmp.pop(); // /res
+    tmp.push("log"); // /res/log
+    tmp.push("rust-convert.log");
+    dbg!(&tmp);
+    let log_file_path: &PathBuf = tmp.borrow(); // immutable
+    File::create(log_file_path).map(|_| ()) */
 }

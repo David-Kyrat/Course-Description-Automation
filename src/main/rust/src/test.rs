@@ -6,6 +6,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use crate::utils::{write_to_log, write_vec_to_log};
 
 pub fn test_execvp() {
     let args: Vec<String> = env::args().collect();
@@ -27,7 +28,7 @@ pub fn test_execvp() {
 }
 
 
-fn test_get_resources_path() {
+pub fn test_get_resources_path() {
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
     println!(
         "pandoc_path:\n{:#?}, exists? {}",
@@ -58,7 +59,7 @@ fn test_get_resources_path() {
 }
 
 
-fn test_ftcp() -> Result<(), String> {
+pub fn test_ftcp() -> Result<(), String> {
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
         return Err("Expecting 1 argument (name of markdown file in /res/md)".to_string());
@@ -78,9 +79,14 @@ fn test_ftcp() -> Result<(), String> {
 }
 
 
-fn test_ftcp_parallel() -> io::Result<()> {
+pub fn test_ftcp_parallel() -> io::Result<()> {
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
 
     let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
     out
+}
+
+pub fn test_write_to_log() {
+     write_vec_to_log(vec!["test1", "test2", "test3"]).expect("vect_to_log");
+     write_to_log("a1 a2 a3 a4").expect("str to log");
 }
