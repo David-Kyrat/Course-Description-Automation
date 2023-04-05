@@ -1,6 +1,6 @@
 use std::path::{PathBuf, Path};
 use path_clean::PathClean;
-use 
+use std::{io, env};
 
 pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
     let path = path.as_ref();
@@ -16,7 +16,7 @@ pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
 
 static WEIRD_PATTERN: &str = "\\\\?\\";
 
-fn abs_path_clean(path: impl AsRef<Path>) -> String {
+pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
     let path = absolute_path(path);
     path.expect(&format!("in abs_path_clean"))
         .to_str()
