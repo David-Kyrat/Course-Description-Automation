@@ -1,16 +1,15 @@
 use std::{env, io, fs};
 use std::path::{PathBuf, Path};
 use std::fs::{ReadDir, DirEntry};
-use path_clean::PathClean;
-use rayon::prelude::*;
-use rayon::iter::ParallelIterator;
 
 use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
 use winsafe::{SysResult, HPROCESS, STARTUPINFO, prelude::kernel_Hprocess};
 
-//#[cfg(test)]
+#[cfg(test)]
 pub mod test;
+
+pub mod Utils;
 
 /// # Description
 /// Creates a process using winsafe api. (safe wrapper around windows sdk api).
@@ -53,30 +52,6 @@ pub fn execvp(app_name: &str, command_line: &str) {
     let _res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, Some(u32::MAX))
         .expect("could not wait on child");
     //println!("after wait");
-}
-
-
-
-pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
-    let path = path.as_ref();
-
-    let absolute_path = if path.is_absolute() {
-        path.to_path_buf()
-    } else {
-        env::current_dir()?.join(path)
-    }.clean();
-    Ok(absolute_path)
-}
-
-
-static WEIRD_PATTERN: &str = "\\\\?\\";
-
-fn abs_path_clean(path: impl AsRef<Path>) -> String {
-    let path = absolute_path(path);
-    path.expect(&format!("in abs_path_clean"))
-        .to_str()
-        .unwrap()
-        .replace(WEIRD_PATTERN, "")
 }
 
 

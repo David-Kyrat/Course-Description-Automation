@@ -6,7 +6,8 @@ use std::{
     path::{Path, PathBuf},
 };
 
-pub fn test() {
+
+pub fn test_execvp() {
     let args: Vec<String> = env::args().collect();
     let mut exe_path: PathBuf = env::current_exe().expect("Could not get executable path");
     exe_path.pop();
@@ -24,6 +25,7 @@ pub fn test() {
 
     execvp(app_name, cmd_line);
 }
+
 
 fn test_get_resources_path() {
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
@@ -55,6 +57,7 @@ fn test_get_resources_path() {
     );
 }
 
+
 fn test_ftcp() -> Result<(), String> {
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
@@ -73,6 +76,7 @@ fn test_ftcp() -> Result<(), String> {
     println!("out_pdf:\n{:#?}, exists? {}", out_pdf, out_pdf.exists());
     Ok(())
 }
+
 
 fn test_ftcp_parallel() -> io::Result<()> {
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
