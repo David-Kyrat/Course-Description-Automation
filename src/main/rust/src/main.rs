@@ -5,6 +5,7 @@ pub mod utils;
 #[cfg(test)]
 pub mod test;
 
+use once_cell::sync::Lazy;
 use utils::abs_path_clean;
 
 use std::borrow::Borrow;
@@ -229,8 +230,10 @@ pub fn main() -> io::Result<()> {
     let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
     out */
 
-    lul(); 
-    test_write_to_log(); Ok(())
+    //lul(); 
+
+    //test_write_to_log(); 
+    Ok(())
     //let mut _tmp: PathBuf = env::current_exe().unwrap(); // /res/bin-converter
     //let mut tmp: PathBuf = Path::new("C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters").to_path_buf(); //path where the actual .exe will be
     /* tmp.pop(); // /res

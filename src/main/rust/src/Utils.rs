@@ -1,12 +1,14 @@
 #![allow(unused_imports)]
 
+use lazy_static::lazy::*;
 use path_clean::PathClean;
 use std::borrow::Borrow;
+use std::f32::consts::LOG2_E;
 use std::io::{BufWriter, ErrorKind, IoSlice, Write};
 use std::path::{Path, PathBuf};
 use std::{env, fs, fs::*, io};
+use std::fs::File;
 
-use lazy_static::lazy::*;
 use lazy_static::*;
 use once_cell::sync;
 use once_cell::sync::Lazy;
@@ -18,9 +20,24 @@ use once_cell::sync::Lazy;
 } */
 //Path::new("");
 
+/// # Description
+/// Pops n times given path. and adds sequentially each one in `to_join`
+/// # Params
+/// - `path`: path to pop 
+/// - `n`: Number of time to apply `path.pop()` (i.e. go to parent)
+/// - `to_join`: slice of string to append to the path (i.e. `path.push(s) for each s in to_join`)
+/// # Return
+/// `path` after having applied
+/// `for _ in 0..n { path.pop() }` and `for s in to_join { path.push(s) } `
+pub fn pop_n_push_s(path: &PathBuf, n: u16, to_join : &[&str]) -> () {
+    for _ in 0..n { path.pop(); }
+    for s in to_join { path.push(s) }
+}
+
 
 pub fn lul() -> File {
-    let mut tmp: PathBuf = Path::new("C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters").to_path_buf(); //path where the actual .exe will be
+    let mut tmp: PathBuf = Path::new( "C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters",).to_path_buf(); 
+    //path where the actual .exe will be, replace by std:env::current_exe():
     tmp.pop(); // /res
     tmp.push("log"); // /res/log
     tmp.push("rust-convert.log");
@@ -28,10 +45,15 @@ pub fn lul() -> File {
     let log_file_path: &PathBuf = tmp.borrow(); // immutable
     return File::create(log_file_path).expect("aakjsdasd");
 }
+static LOG_FILE: File = {
+    let mut tmp: PathBuf = Path::new( "C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters",).to_path_buf(); 
+    //path where the actual .exe will be, replace by std:env::current_exe():
 
-static LOG_FILE: Lazy<File> = Lazy::new(|| 
-lul()
-);
+    // pop_n_push_s(tmp, 1, &["log", "rust-convert.log"]);
+
+    let path = tmp;
+    File::new("");
+};
 
 /* static LOG_FILE: Lazy<File> =
     Lazy::new(|| {
@@ -71,14 +93,20 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .replace(WEIRD_PATTERN, "")
 }
 
-fn get_log_file() -> &'static File {
-    /* match Lazy::get(&LOG_FILE) {
-        Some(log_file) => log_file,
-        None => Lazy::get(&LOG_FILE).unwrap(), // if lazy hasn't been evaluated yet, evaluates it
-                                               // and return its value
-    } */
-    &lul()
+/* pub fn get_log_file2() -> Option<&'static std::fs::File> {
+    match Lazy::get(&LOG_FILE) {
+        Some(log_file) => Some(&*log_file),
+        None => Lazy::get(&LOG_FILE), // if lazy hasn't been evaluated yet, evaluates it
+    }
 }
+
+pub fn get_log_file() -> &'static File {
+    //let x:Lazy<File> = (*LOG_FILE);
+    match Lazy::get(&LOG_FILE) {
+        Some(log_file) => &*log_file,
+        None => Lazy::get(&LOG_FILE).unwrap(), // if lazy hasn't been evaluated yet, evaluates it
+    }
+} */
 
 pub fn write_to_log(msg: &str) -> io::Result<()> {
     let mut bw = BufWriter::new(get_log_file());
