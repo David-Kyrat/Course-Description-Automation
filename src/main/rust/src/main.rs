@@ -227,10 +227,14 @@ use log4rs;
 
 
 pub fn main() -> io::Result<()> {
-    /* let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
-    let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    out */
     log4rs::init_file("logging_config.yaml", Default::default()).unwrap();
+
+    let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
+    let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
+    if out.is_err() {
+        error!(out.unwrap_err().join("\n").to_string());
+    }
+    // out
     trace!("detailed tracing info");
     debug!("debug info");
     info!("relevant general info");
