@@ -232,7 +232,7 @@ pub fn main() -> io::Result<()> {
 
     //lul(); 
 
-    //test_write_to_log(); 
+    test_write_to_log(); 
     Ok(())
     //let mut _tmp: PathBuf = env::current_exe().unwrap(); // /res/bin-converter
     //let mut tmp: PathBuf = Path::new("C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters").to_path_buf(); //path where the actual .exe will be
