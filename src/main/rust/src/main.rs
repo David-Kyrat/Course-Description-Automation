@@ -3,12 +3,11 @@
 pub mod utils;
 
 #[cfg(test)]
-pub mod test;
+//pub mod test;
 
 use once_cell::sync::Lazy;
 use utils::abs_path_clean;
 
-use std::borrow::Borrow;
 use std::{env, io, fs};
 use std::path::{PathBuf, Path};
 use std::fs::{ReadDir, DirEntry, File};
@@ -221,18 +220,24 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
         _ => Err(std::io::Error::new(io::ErrorKind::Other, err_messages.join("\n")))
     }
 }
-pub mod test;
-use crate::test::test_write_to_log;
-use crate::utils::*;
+//pub mod test;
+//use crate::utils::*;
+use log::{debug, error, info, trace, warn};
+use log4rs;
+
 
 pub fn main() -> io::Result<()> {
     /* let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
     let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
     out */
+    log4rs::init_file("logging_config.yaml", Default::default()).unwrap();
+    trace!("detailed tracing info");
+    debug!("debug info");
+    info!("relevant general info");
+    warn!("warning this program doesn't do much");
+    error!("error message here"); 
 
-    //lul(); 
-
-    test_write_to_log(); 
+    // test_write_to_log(); 
     Ok(())
     //let mut _tmp: PathBuf = env::current_exe().unwrap(); // /res/bin-converter
     //let mut tmp: PathBuf = Path::new("C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters").to_path_buf(); //path where the actual .exe will be

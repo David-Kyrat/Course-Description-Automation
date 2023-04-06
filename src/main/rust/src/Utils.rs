@@ -1,15 +1,10 @@
 use lazy_static::lazy_static;
-use once_cell::sync::{Lazy, OnceCell};
 use path_clean::PathClean;
-use std::ffi::{OsStr, OsString};
+use std::ffi::OsString;
 use std::fs::File;
-use std::io::{BufWriter, IoSlice, Write};
 use std::path::{Path, PathBuf};
-use std::{env, io};
+use std::{env, io::{self, Write}};
 
-lazy_static! {
-    static ref LOG_FILE: File = File::create(get_log_file()).unwrap();
-}
 
 //OnceCell::new().get_or_init(|| File::create(get_log_file()).expect("Could not create log file."));
 
@@ -63,13 +58,13 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .replace(WEIRD_PATTERN, "")
 }
 
-pub fn write_to_log(msg: &str) -> io::Result<()> {
+/* pub fn write_to_log(msg: &str) -> io::Result<()> {
     let res = LOG_FILE.try_clone().expect("msg").write_all(msg.as_bytes()); // BufWriter::new(LOG_FILE);
     if res.is_err() {
         return Err(res.unwrap_err());
     }
     Ok(())
-}
+} */
 
 /* pub fn write_vec_to_log(msgs: Vec<&str>) -> io::Result<()> {
     let res =  LOG_FILE.try_clone().expect("msg").write_vectored(
