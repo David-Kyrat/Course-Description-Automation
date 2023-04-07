@@ -98,10 +98,10 @@ fn try_execvp(app_name: &str, command_line: &str, retry: u8) -> io::Result<()> {
 /// otherwise do nothing.  
 /// Used to ensure that a call to `unwrap()` will never `panic`.
 macro_rules! unwrap_or_log{
-    ( $fun_res:expr $(, $msg:expr) ? ) => { 
+    ( $fun_res:expr  $(, $msg:expr) ? ) => { 
         if $fun_res.is_err() {
             let err = $fun_res.unwrap_err();
-            $( error!("{} {:#?}", $msg, err); )?
+            $( error!("{} \n\t {:?}", $msg, err); )?
 
             return Err(err);
         }
@@ -111,8 +111,9 @@ macro_rules! unwrap_or_log{
 fn test_macro() -> io::Result<()> {
     let x: io::Result<()> = Err(custom_io_err("test"));
     // return Err(x);
-    // unwrap_or_log!(x, "lul");
-    unwrap_or_log!(x);
+    unwrap_or_log!(x, "lul");
+    //error!("test2");
+    //unwrap_or_log!(x);
     Ok(())
 }
 
@@ -330,7 +331,9 @@ fn _main() -> io::Result<()> {
 //pub mod test;
 
 pub fn main() -> io::Result<()> {
-    println!("\n\n");
+    println!("\n\n"); init_log4rs(None);
+    // HK: DONT DELETE ABOVE THIS
+
 
     // use test::test_winsafe_error_description;
     // test_winsafe_error_description();
