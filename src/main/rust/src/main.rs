@@ -6,6 +6,7 @@ use utils::{abs_path_clean, init_log4rs};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
+use std::borrow::BorrowMut;
 use std::error::Error;
 use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
@@ -40,11 +41,11 @@ const RETRY_AMOUNT: u8 = 5;
 /// This functions returns after having waited on the "child" process.
 /// (Although the wait is not mandatory to avoid zombies thanks to the winsafe api,
 /// here we just want to wait for the completion of the job.)
-pub fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
-    try_execvp(app_name, command_line, 0)
+/* pub fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
+    try_execvp(app_name, command_line)
 }
-
-fn try_execvp(app_name: &str, command_line: &str, retry: u8) -> io::Result<()> {
+*/
+fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
     let mut si: STARTUPINFO = STARTUPINFO::default();
     let app_name_opt = Some(app_name);
     let command_line: &str = &format!("{app_name} {command_line}"); //append name of program
@@ -62,9 +63,16 @@ fn try_execvp(app_name: &str, command_line: &str, retry: u8) -> io::Result<()> {
         None, // inherits
         &mut si,
     );
+    if close_handle_res.is_err() {
+        return Err(custom_io_err(&format!(
+            "WinErr: could not start process {app_name} {command_line}\n\t{}",
+            close_handle_res.map(|_| ()).unwrap_err()
+        )));
+        // unwrap_retry_or_log!(x, try_execvp, app_name, command_line, 0);
+    }
 
     //TODO: CHECK IF ERROR! MACRO IS THREAD SAFE 
-    if close_handle_res.is_err() {
+    /* if close_handle_res.is_err() {
         if retry < RETRY_AMOUNT {
             return try_execvp(app_name, command_line, retry + 1);
         } else {
@@ -78,7 +86,11 @@ fn try_execvp(app_name: &str, command_line: &str, retry: u8) -> io::Result<()> {
                 err 
             )));
         }
-    }
+    } *///SysResult<_> -> winsafe::co::ERROR 
+    
+    //let err_mapper = |err: SysResult<CloseHandlePiGuard>| err.map(|_| ()).unwrap_err();
+    // unwrap_retry_or_log!(close_handle_res, try_execvp, app_name, command_line, retry);
+
     let close_handle = close_handle_res.unwrap();
     let wait_res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, Some(10_000)); // waits 10 sec at most
     // its ok to wait this long because the calls are often made in parallel so they're not actually blocking each other
@@ -108,12 +120,55 @@ macro_rules! unwrap_or_log{
     }
 }
 
+#[macro_export]
+/// Does the same as `unwrap_or_log` 
+/// but instead retries `RETRY_AMOUNT` times 
+/// before returning an error and logging it
+/// # Params
+/// - `$fun_res`: a `Result<_, _>` which is the return value of calling `$fun`
+/// - `$fun`: the function that returned `$fun_res`
+/// - `$msg`: (optional) message to give to the logger if `$fun_res`.`is_err() == true`
+macro_rules! unwrap_retry_or_log {
+    ( $fun_res:expr, $fun: ident, $($msg:block ,)?    $( $args:expr),*  /* $(, $err_mapper: ident )? */  ) => { 
+        let mut r = 1;
+        let mut tmp = ($fun_res);
+        while tmp.is_err() && r < RETRY_AMOUNT {
+            tmp = $fun( $($args),* );
+            r += 1;
+        }
+        if r >= RETRY_AMOUNT {
+            let err = tmp.unwrap_err();
+            $( error!("{} \n\t {:?}", $msg, err); )?
+           
+            // $( return Err($err_mapper(err)); )? //either return err modified by function $err_mapper
+            return Err(err); // or return actual err
+        }
+    }
+}
+
+fn fails() -> io::Result<()> {
+    Err(custom_io_err("failing multiple times"))
+}
+
 fn test_macro() -> io::Result<()> {
-    let x: io::Result<()> = Err(custom_io_err("test"));
+    // let x: io::Result<()> = Err(custom_io_err("test"));
+    let x: io::Result<()> = execvp("", "");
+    unwrap_retry_or_log!(x, execvp, "", "");
     // return Err(x);
-    unwrap_or_log!(x, "lul");
-    //error!("test2");
-    //unwrap_or_log!(x);
+    // unwrap_or_log!(x, "lul");
+    
+    /* let mut r = 1;
+    let mut tmp = (x);
+    while tmp.is_err() && r < RETRY_AMOUNT {
+        tmp = execvp("", "");
+        r += 1;
+    }
+    if r >= RETRY_AMOUNT {
+        let err = (tmp.unwrap_err());
+        return Err(err);
+    } */
+
+    //unwrap_retry_or_log!(x, fails, {"OmegaLul"});
     Ok(())
 }
 
