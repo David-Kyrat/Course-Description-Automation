@@ -6,9 +6,10 @@ pub mod utils;
 //pub mod test;
 
 use once_cell::sync::Lazy;
-use utils::abs_path_clean;
+use utils::{abs_path_clean, init_log4rs};
 
 use std::{env, io, fs};
+use io::ErrorKind::Other;
 use std::path::{PathBuf, Path};
 use std::fs::{ReadDir, DirEntry, File};
 use rayon::iter::*;
@@ -17,6 +18,8 @@ use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
 use winsafe::{SysResult, HPROCESS, STARTUPINFO, prelude::kernel_Hprocess};
 
+use log::{debug, error, info, trace, warn};
+use log4rs;
 
 /// # Description
 /// Creates a process using winsafe api. (safe wrapper around windows sdk api).
@@ -177,10 +180,10 @@ pub fn fill_template_convert_pdf(md_filename: &String, pandoc_path: &str, wk_pat
 /// i.e. calls `fill_template_convert_pdf` in a `par_iter().for_each()` for each file in the directory  
 ///
 /// --------  
-/// # Returns
+/// # Returns 
 /// - Ok(()) if no error happened.
-/// - Err(_) where _ is an `std::io::Error()`.
-/// Its error message is a concatenation of each error message returned by 
+/// - Err(_) where _ is an `std::io::Error<ErrorKind, String>`. Its actual content is a `String`.
+/// I.e. error message which is a concatenation of each error message returned by 
 /// the parallel calls to `fill_template_convert_pdf`.
 /// i.e. if `err_messages` is a vector of each message (string) then error will be :
 /// ```Rust
@@ -217,38 +220,19 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
 
     match &err_messages.len() {
         0 => Ok(()),
-        _ => Err(std::io::Error::new(io::ErrorKind::Other, err_messages.join("\n")))
+        _ => Err(io::Error::new(Other, err_messages.join("\n")))
     }
 }
 //pub mod test;
 //use crate::utils::*;
-use log::{debug, error, info, trace, warn};
-use log4rs;
 
 
 pub fn main() -> io::Result<()> {
-    log4rs::init_file("logging_config.yaml", Default::default()).unwrap();
-
+    init_log4rs(None);
     let (pandoc_path, wk_path, md_path, templates_path) = get_resources_path();
-    let out = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
+    let out: Result<(), io::Error> = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
     if out.is_err() {
-        error!(out.unwrap_err().join("\n").to_string());
+        error!("{}", &out.unwrap_err().to_string());
     }
-    // out
-    trace!("detailed tracing info");
-    debug!("debug info");
-    info!("relevant general info");
-    warn!("warning this program doesn't do much");
-    error!("error message here"); 
-
-    // test_write_to_log(); 
     Ok(())
-    //let mut _tmp: PathBuf = env::current_exe().unwrap(); // /res/bin-converter
-    //let mut tmp: PathBuf = Path::new("C:\\Users\\noahm\\DocumentsNb\\BA4\\Course-Description-Automation\\res\\bin-converters").to_path_buf(); //path where the actual .exe will be
-    /* tmp.pop(); // /res
-    tmp.push("log"); // /res/log
-    tmp.push("rust-convert.log");
-    dbg!(&tmp);
-    let log_file_path: &PathBuf = tmp.borrow(); // immutable
-    File::create(log_file_path).map(|_| ()) */
 }
