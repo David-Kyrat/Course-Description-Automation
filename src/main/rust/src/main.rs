@@ -128,7 +128,8 @@ macro_rules! unwrap_or_log{
     ( $fun_res:expr  $(, $msg:expr) ? ) => { 
         if $fun_res.is_err() {
             let err = $fun_res.unwrap_err();
-            $( error!("{} \n\t {:?}", $msg, err); )?
+
+            error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", err, fr!(""));
             return Err(err);
         }
     }
@@ -158,7 +159,7 @@ macro_rules! unwrap_retry_or_log {
             if r >= RETRY_AMOUNT {
                 let err = x.unwrap_err();
                 // let msg = format!("{}{:?}\n\t {}{}asd",  $($msg + "\n\t")? "", err, line!(), file!()); 
-                //error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
+                error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
                 // error!("{}\n\t{:?}.\t Line {}, file {}.\n",  $msg, err, line!(), file!());
                
                 return Err(err);
@@ -212,7 +213,7 @@ fn test_macro() -> Result<(), io::Error>{ //&io::Result<()> {
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
 fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
     //let rust_exe_path = env::current_exe();
-    let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters"));
+    let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"));
 
     if rust_exe_path.is_err() {
         let err = rust_exe_path.unwrap_err();
@@ -228,6 +229,8 @@ fn get_resources_path() -> Result<(String, String, String, String), std::io::Err
     rust_exe_path.pop(); // /res
     let res_path: PathBuf = rust_exe_path;
     let res_path: String = abs_path_clean(&res_path);
+
+    println!("lul1");
     Ok((
         exes_path.to_owned() + "\\pandoc.exe",
         exes_path + "\\wkhtmltopdf.exe",
@@ -251,7 +254,7 @@ fn get_resources_path() -> Result<(String, String, String, String), std::io::Err
 /// The output file is saved in `/res/templates/<md_filename>.html` (without the '.md' extension)
 //
 fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, templates_path: &str) -> io::Result<PathBuf> {
-//Result<PathBuf, String> {
+
     let template: String = templates_path.to_owned() + "\\desc-template.html";
 
     let md_filepath: &String = &format!("{md_path}\\{md_filename}");
@@ -260,7 +263,6 @@ fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, 
     if out_html_path.exists() {
         fs::remove_file(out_html_path).unwrap_or_default();
     }
-
     let cmd_line: &str = &format!("{md_filepath} -t html --template={template} -o {out_html}");
 
     let exec_res = execvp(pandoc_path, cmd_line);
@@ -388,30 +390,41 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
             (pandoc_path, wk_path, md_path, templates_path),
             |q, md_file| {
                 // we can directly unwrap since the path on wich to_str() would return None have been filtered
-                let name = md_file.file_name().to_str().unwrap().to_owned();
+                
+                let name = md_file.file_name();
+                let name = name.to_str();
+                if (name.is_none()) {
+                    let message = &format!("ftcp_parallel, getting file {md_path}\\{:?} line:{}", name, line!()); 
+                    error!("{}", message);
+                    return Err(custom_io_err(message));
+                }
+                let name = name.unwrap().to_owned();
+
                 fill_template_convert_pdf(&name, q.0, q.1, q.2, q.3)
             },
         )
         .filter_map(|x| x.err())
-        .map(|e| format!("{:?}", e))
+        .map(|e| format!("ftcp_parallel {:?}", e))
         .collect();
 
     match &err_messages.len() {
         0 => Ok(()),
-        _ => Err(io::Error::new(Other, err_messages.join("\n"))),
-    }
+        _ => Err(custom_io_err(&format!("ftcp_parallel {}", err_messages.join("\n"))))
+    } 
 }
 
 fn _main() -> io::Result<()> {
     let mut r = 0;
-    let tmp = get_resources_path();
-    let rp = if (tmp.is_err()) { 
+    let rp = get_resources_path();
+    let rp = if (rp.is_err()) { 
         unwrap_retry_or_log!(&x, get_resources_path, "get_resources_path")
-    } else { tmp };
+    } else { rp };
 
     let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap(); 
     let out: Result<(), io::Error> = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    unwrap_retry_or_log!(&out, ftcp_parallel, "ftcp_parallel", &pandoc_path, (&wk_path), &md_path, &templates_path);
+    let out = if out.is_err() {
+        unwrap_retry_or_log!(&out, ftcp_parallel, "ftcp_parallel", &pandoc_path, (&wk_path), &md_path, &templates_path)
+    } else { out };
     Ok(())
 }
 
@@ -424,7 +437,7 @@ pub fn main() -> io::Result<()> {
 
     // use test::test_winsafe_error_description;
     // test_winsafe_error_description();
-    test_macro()
-    // _main()
+    // test_macro()
+    _main()
     // Ok(())
 }
