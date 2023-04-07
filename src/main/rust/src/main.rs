@@ -158,7 +158,7 @@ macro_rules! unwrap_retry_or_log {
             if r >= RETRY_AMOUNT {
                 let err = x.unwrap_err();
                 // let msg = format!("{}{:?}\n\t {}{}asd",  $($msg + "\n\t")? "", err, line!(), file!()); 
-                error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
+                //error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
                 // error!("{}\n\t{:?}.\t Line {}, file {}.\n",  $msg, err, line!(), file!());
                
                 return Err(err);
@@ -177,8 +177,11 @@ fn test_macro() -> Result<(), io::Error>{ //&io::Result<()> {
     // let x: io::Result<()> = Err(custom_io_err("test"));
     let tmp = "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2210.5.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe";
     let x: io::Result<()> = execvp("notpad", "");
-    let y = if x.is_err() { unwrap_retry_or_log!(x, execvp, "execvp", "", "") } else { x };
-        
+    let x: io::Result<()> = if x.is_err() { unwrap_retry_or_log!(x, execvp, "execvp", "", "") } else { x };
+    let pandoc_path = "";
+    let cmd_line = "";
+    let x = execvp(pandoc_path, cmd_line);
+    let x: io::Result<()> = if x.is_err() { unwrap_retry_or_log!(x, execvp, "execvp", "", "") } else { x };
     println!("lul");
     // return Err(x);
     // unwrap_or_log!(x, "lul");
@@ -247,7 +250,8 @@ fn get_resources_path() -> Result<(String, String, String, String), std::io::Err
 /// # NB
 /// The output file is saved in `/res/templates/<md_filename>.html` (without the '.md' extension)
 //
-fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, templates_path: &str) -> Result<PathBuf, String> {
+fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, templates_path: &str) -> io::Result<PathBuf> {
+//Result<PathBuf, String> {
     let template: String = templates_path.to_owned() + "\\desc-template.html";
 
     let md_filepath: &String = &format!("{md_path}\\{md_filename}");
@@ -258,15 +262,17 @@ fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, 
     }
 
     let cmd_line: &str = &format!("{md_filepath} -t html --template={template} -o {out_html}");
-    execvp(pandoc_path, cmd_line);
+
+    let exec_res = execvp(pandoc_path, cmd_line);
+    let exec_res = if exec_res.is_err() { unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line) } else { exec_res };
 
     let out_html: &Path = Path::new(&out_html);
 
     if out_html.exists() {
         Ok(out_html.to_path_buf())
     } else {
-        Err(format!(
-            "pandoc_fill_template: Could not generate html file for {md_path}\\{md_filename}"
+        Err(custom_io_err(
+            &format!("pandoc_fill_template: Could not generate html file for {md_path}\\{md_filename}")
         ))
     }
 }
@@ -279,7 +285,7 @@ fn pandoc_fill_template(md_filename: &String, pandoc_path: &str, md_path: &str, 
 ///
 /// # Returns
 /// Path of the generated pdf (usually calling dir i.e. `env::current_dir()`)
-fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> Result<PathBuf, String> {
+fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
     let mut out_pdf = env::current_dir().expect("wkhtmltopdf: could not get current_dir");
     let new_name: &str = &out_html
         .file_name()
@@ -297,13 +303,15 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> Result<PathBuf, String> {
         out_pdf_s
     );
 
-    execvp(wk_path, cmd_line);
+
+    let exec_res = execvp(wk_path, cmd_line);
+    let exec_res = if exec_res.is_err() { unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line) } else { exec_res };
 
     let out_pdf = out_pdf; // removes mut? i.e. makes out_pdf immutable ?
     if out_pdf.exists() {
         Ok(out_pdf)
     } else {
-        Err(format!("Could not convert html file to pdf, for {:#?}", out_html).to_string())
+        Err(custom_io_err(&format!("Could not convert html file to pdf, for {:#?}", out_html).to_string()))
     }
 }
 
@@ -323,15 +331,19 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> Result<PathBuf, String> {
 ///
 /// # Returns
 /// Path of the generated pdf (usually  `<calling_directory/markdown_filename.pdf>` where `calling_directory` is `env::current_dir()`)
-pub fn fill_template_convert_pdf(md_filename: &String, pandoc_path: &str, wk_path: &str, md_path: &str, templates_path: &str) 
--> Result<PathBuf, String> {
+pub fn fill_template_convert_pdf(md_filename: &String, pandoc_path: &str, wk_path: &str, md_path: &str, templates_path: &str) -> io::Result<PathBuf> {
+
     let out_html = pandoc_fill_template(md_filename, pandoc_path, md_path, templates_path);
-    if out_html.is_err() {
-        return Err(out_html.unwrap_err().to_string());
-    }
+    let out_html = if (out_html.is_err()) { 
+        unwrap_retry_or_log!(out_html, pandoc_fill_template, "pandoc_fill_template", md_filename, pandoc_path, md_path, templates_path)  
+    }  else { out_html };
+
     let tmp = &out_html.unwrap();
     let out_html: &Path = Path::new(tmp);
-    wkhtmltopdf(out_html, &wk_path)
+
+    let exec_res = wkhtmltopdf(out_html, wk_path);
+
+    if exec_res.is_err() { unwrap_retry_or_log!(exec_res, wkhtmltopdf, "execvp(wkhtml)", out_html, wk_path) } else { exec_res }
 }
 
 
@@ -381,6 +393,7 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
             },
         )
         .filter_map(|x| x.err())
+        .map(|e| format!("{:?}", e))
         .collect();
 
     match &err_messages.len() {
@@ -396,22 +409,9 @@ fn _main() -> io::Result<()> {
         unwrap_retry_or_log!(&x, get_resources_path, "get_resources_path")
     } else { tmp };
 
-    /* while tmp.is_err() && r < RETRY_AMOUNT {
-        tmp = get_resources_path();
-        r += 1;
-    }
-    if r >= RETRY_AMOUNT {
-        return Err(tmp.unwrap_err());
-    }
-*/
     let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap(); 
-    let out: Result<(), io::Error> =
-        ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    //unwrap_or_log!(out,);
+    let out: Result<(), io::Error> = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
     unwrap_retry_or_log!(&out, ftcp_parallel, "ftcp_parallel", &pandoc_path, (&wk_path), &md_path, &templates_path);
-    /* if out.is_err() {
-        error!("{}", &out.unwrap_err().to_string());
-    } */
     Ok(())
 }
 
