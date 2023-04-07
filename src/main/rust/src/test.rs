@@ -1,13 +1,20 @@
-
 #![allow(dead_code)] // allowing dead code since this is a test file
 
+use crate::utils::init_log4rs;
 use crate::{execvp, fill_template_convert_pdf, ftcp_parallel, get_resources_path};
+
 use std::{
-    env, io,
+    env,
+    io::{
+        self,
+        ErrorKind::{self, Other},
+    },
     path::{Path, PathBuf},
 };
 
-use crate::utils::write_to_log;
+fn custom_io_err(message: &str) -> io::Error {
+    io::Error::new(Other, message)
+}
 
 pub fn test_execvp() {
     let args: Vec<String> = env::args().collect();
@@ -58,10 +65,13 @@ pub fn test_get_resources_path() {
     );
 }
 
-pub fn test_ftcp() -> Result<(), String> {
+pub fn test_ftcp() -> io::Result<()> {
     let args: Vec<String> = env::args().collect();
     if args.len() != 2 {
-        return Err("Expecting 1 argument (name of markdown file in /res/md)".to_string());
+        return Err(custom_io_err(
+            "Expecting 1 argument (name of markdown file in /res/md)",
+        ));
+        //io::Error::new(ErrorKind::Other, "Expecting 1 argument (name of markdown file in /res/md)".to_string()));
     }
     // WARN: md input should be only a filename (of a file in res/md/)
     println!("--------------------\n\n");
@@ -85,6 +95,31 @@ pub fn test_ftcp_parallel() -> io::Result<()> {
 }
 
 pub fn test_write_to_log() {
-    //write_vec_to_log(vec!["test1", "test2", "test3"]).expect("vect_to_log");
-    write_to_log("a1 a2 a3 a4").expect("str to log");
+    use log::{debug, error, info, trace, warn};
+    init_log4rs(None);
+    trace!("detailed tracing info");
+    debug!("debug info");
+    info!("relevant general info");
+    warn!("warning this program doesn't do much");
+    error!("error message here");
+}
+
+/// NB: each print exactly the same thing
+pub fn test_winsafe_error_description() {
+    use winsafe::co::ERROR;
+    use winsafe::prelude::*;
+    use winsafe::{co, AnyResult, SysResult};
+
+    let sys_result: SysResult<()> = Err(co::ERROR::SUCCESS);
+    dbg!(&sys_result);
+
+    let err_result: AnyResult<()> = sys_result.map_err(|err| err.into());
+    dbg!(&err_result);
+
+    /* println!("{}", ERROR-::LOCKED);
+    println!("---------------");
+    println!("{:?}", ERROR-::LOCKED);
+    println!("---------------");
+    println!("{:#?}", ERROR-::LOCKED);
+    println!("---------------"); */
 }

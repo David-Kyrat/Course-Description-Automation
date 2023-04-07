@@ -15,7 +15,7 @@ appenders:
     encoder:
       pattern: "{h({d(%Y-%m-%d %H:%M:%S)(utc)} - {l}: {m}{n})}"
 root:
-  level: error
+  level: warn
   appenders:
     - file_logger
     # - my_stdout
