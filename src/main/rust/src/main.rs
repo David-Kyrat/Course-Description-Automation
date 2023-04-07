@@ -6,6 +6,7 @@ use utils::{abs_path_clean, init_log4rs};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
+use std::error::Error;
 use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
 use std::{env, fs, io};
@@ -87,8 +88,32 @@ fn try_execvp(app_name: &str, command_line: &str, retry: u8) -> io::Result<()> {
     Ok(())
 }
 
-fn unwrap_or_log<T, E>(fun_res: Result<T, E>, msg: &str){
+/* fn unwrap_or_log<T, E>(fun_res: Result<T, E>, msg: &str){
 
+} */
+
+#[macro_export]
+/// If given `Result<_,_>` is an error. (`is_err() == true`) 
+/// `return` that error in the function where this macro is called, 
+/// otherwise do nothing.  
+/// Used to ensure that a call to `unwrap()` will never `panic`.
+macro_rules! unwrap_or_log{
+    ( $fun_res:expr $(, $msg:expr) ? ) => { 
+        if $fun_res.is_err() {
+            let err = $fun_res.unwrap_err();
+            $( error!("{} {:#?}", $msg, err); )?
+
+            return Err(err);
+        }
+    }
+}
+
+fn test_macro() -> io::Result<()> {
+    let x: io::Result<()> = Err(custom_io_err("test"));
+    // return Err(x);
+    // unwrap_or_log!(x, "lul");
+    unwrap_or_log!(x);
+    Ok(())
 }
 
 /// # Description
@@ -284,14 +309,15 @@ fn _main() -> io::Result<()> {
     init_log4rs(None);
     let mut r = 0;
     let mut tmp = get_resources_path();
-    if tmp.is_err() {
-        if r < RETRY_AMOUNT {
-            tmp = get_resources_path();
-            r += 1;
-        } else {
-            return Err(tmp.unwrap_err());
-        }
+    
+    while tmp.is_err() && r < RETRY_AMOUNT {
+        tmp = get_resources_path();
+        r += 1;
     }
+    if r >= RETRY_AMOUNT {
+        return Err(tmp.unwrap_err());
+    }
+
     let (pandoc_path, wk_path, md_path, templates_path) = tmp.unwrap(); 
     let out: Result<(), io::Error> =
         ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
@@ -301,12 +327,13 @@ fn _main() -> io::Result<()> {
     Ok(())
 }
 
-pub mod test;
+//pub mod test;
 
 pub fn main() -> io::Result<()> {
     println!("\n\n");
 
-    use test::test_winsafe_error_description;
-    test_winsafe_error_description();
-    Ok(())
+    // use test::test_winsafe_error_description;
+    // test_winsafe_error_description();
+    test_macro()
+    // Ok(())
 }
