@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+#![allow(unused)]
 
 pub mod utils;
 
@@ -6,8 +7,6 @@ use utils::{abs_path_clean, init_log4rs};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
-use std::borrow::BorrowMut;
-use std::error::Error;
 use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
 use std::{env, fs, io};
@@ -22,6 +21,12 @@ use log::{error, warn};
 /// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
 fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
+}
+/// Formats error, with line and file in msg
+macro_rules! fr {
+    ($msg: expr) => {
+        format!("{}.\t Line {}, File '{}'.\n",  $msg, line!(), file!())
+    };
 }
 
 const RETRY_AMOUNT: u8 = 5;
@@ -47,13 +52,23 @@ const RETRY_AMOUNT: u8 = 5;
 */
 fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
     let mut si: STARTUPINFO = STARTUPINFO::default();
-    let app_name_opt = Some(app_name);
+    let (app_name, command_line) = (app_name.trim(), command_line.trim());
+
+    // NOTE: If command has no arguments (i.e. `command_line == ""`) then
+    // command_line_opt should be Some(app_name) and 
+    // app_name_opt should be none (because in reality `command_line` is argv, )
+    let app_name_opt = match command_line {
+        "" => None,
+        _ => Some(app_name),
+    };
+    //Some(app_name);
     let command_line: &str = &format!("{app_name} {command_line}"); //append name of program
     let cmd_line_opt = Some(command_line);
     // first word before space in command line should be app_name
     // (I think its ignored either way if app_name is not None because its argv[0])
+
     let close_handle_res: SysResult<CloseHandlePiGuard> = HPROCESS::CreateProcess(
-        app_name_opt,
+        app_name_opt,//app_name_opt,
         cmd_line_opt,
         None,
         None,
@@ -65,13 +80,14 @@ fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
     );
     if close_handle_res.is_err() {
         return Err(custom_io_err(&format!(
-            "WinErr: could not start process {app_name} {command_line}\n\t{}",
-            close_handle_res.map(|_| ()).unwrap_err()
+            "WinErr: could not start process '{app_name} {command_line}', {}.   Line {}, File '{}'", 
+            close_handle_res.map(|_| ()).unwrap_err(), line!(), file!()
         )));
         // unwrap_retry_or_log!(x, try_execvp, app_name, command_line, 0);
     }
 
     //TODO: CHECK IF ERROR! MACRO IS THREAD SAFE 
+    
     /* if close_handle_res.is_err() {
         if retry < RETRY_AMOUNT {
             return try_execvp(app_name, command_line, retry + 1);
@@ -100,9 +116,8 @@ fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
     Ok(())
 }
 
-/* fn unwrap_or_log<T, E>(fun_res: Result<T, E>, msg: &str){
 
-} */
+
 
 #[macro_export]
 /// If given `Result<_,_>` is an error. (`is_err() == true`) 
@@ -114,11 +129,11 @@ macro_rules! unwrap_or_log{
         if $fun_res.is_err() {
             let err = $fun_res.unwrap_err();
             $( error!("{} \n\t {:?}", $msg, err); )?
-
             return Err(err);
         }
     }
 }
+
 
 #[macro_export]
 /// Does the same as `unwrap_or_log` 
@@ -127,22 +142,30 @@ macro_rules! unwrap_or_log{
 /// # Params
 /// - `$fun_res`: a `Result<_, _>` which is the return value of calling `$fun`
 /// - `$fun`: the function that returned `$fun_res`
-/// - `$msg`: (optional) message to give to the logger if `$fun_res`.`is_err() == true`
+/// - `$msg`: (optional) message to give to the logger if `$fun_res`.`is_err()`. `Must be wrapped in a block!` i.e. ` { "..." } `
+/// - `args`: (optionnal only if function doesn't require arguments) arguments of the function separated by a comma
 macro_rules! unwrap_retry_or_log {
-    ( $fun_res:expr, $fun: ident, $($msg:block ,)?    $( $args:expr),*  /* $(, $err_mapper: ident )? */  ) => { 
-        let mut r = 1;
-        let mut tmp = ($fun_res);
-        while tmp.is_err() && r < RETRY_AMOUNT {
-            tmp = $fun( $($args),* );
-            r += 1;
+    ( $fun_res:expr, $fun: ident, $msg:expr  $(, $args:expr)* ) => { 
+        // if $fun_res.is_err() {
+        { 
+            let mut r = 1;
+            // let tmp = ($fun_res);
+            let mut x =  $fun( $($args),* );
+            while x.is_err() && r < RETRY_AMOUNT {
+                let x = $fun( $($args),* );
+                r += 1;
+            }
+            if r >= RETRY_AMOUNT {
+                let err = x.unwrap_err();
+                // let msg = format!("{}{:?}\n\t {}{}asd",  $($msg + "\n\t")? "", err, line!(), file!()); 
+                error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
+                // error!("{}\n\t{:?}.\t Line {}, file {}.\n",  $msg, err, line!(), file!());
+               
+                return Err(err);
+            } 
+            x
         }
-        if r >= RETRY_AMOUNT {
-            let err = tmp.unwrap_err();
-            $( error!("{} \n\t {:?}", $msg, err); )?
-           
-            // $( return Err($err_mapper(err)); )? //either return err modified by function $err_mapper
-            return Err(err); // or return actual err
-        }
+        //}
     }
 }
 
@@ -150,10 +173,13 @@ fn fails() -> io::Result<()> {
     Err(custom_io_err("failing multiple times"))
 }
 
-fn test_macro() -> io::Result<()> {
+fn test_macro() -> Result<(), io::Error>{ //&io::Result<()> {
     // let x: io::Result<()> = Err(custom_io_err("test"));
-    let x: io::Result<()> = execvp("", "");
-    unwrap_retry_or_log!(x, execvp, "", "");
+    let tmp = "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2210.5.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe";
+    let x: io::Result<()> = execvp("notpad", "");
+    let y = if x.is_err() { unwrap_retry_or_log!(x, execvp, "execvp", "", "") } else { x };
+        
+    println!("lul");
     // return Err(x);
     // unwrap_or_log!(x, "lul");
     
@@ -182,7 +208,9 @@ fn test_macro() -> io::Result<()> {
 ///
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
 fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
-    let rust_exe_path = env::current_exe();
+    //let rust_exe_path = env::current_exe();
+    let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters"));
+
     if rust_exe_path.is_err() {
         let err = rust_exe_path.unwrap_err();
         error!("could not get_resources_path {:#?}", err);
@@ -362,24 +390,28 @@ pub fn ftcp_parallel(pandoc_path: &str, wk_path: &str, md_path: &str, templates_
 }
 
 fn _main() -> io::Result<()> {
-    init_log4rs(None);
     let mut r = 0;
-    let mut tmp = get_resources_path();
-    
-    while tmp.is_err() && r < RETRY_AMOUNT {
+    let tmp = get_resources_path();
+    let rp = if (tmp.is_err()) { 
+        unwrap_retry_or_log!(&x, get_resources_path, "get_resources_path")
+    } else { tmp };
+
+    /* while tmp.is_err() && r < RETRY_AMOUNT {
         tmp = get_resources_path();
         r += 1;
     }
     if r >= RETRY_AMOUNT {
         return Err(tmp.unwrap_err());
     }
-
-    let (pandoc_path, wk_path, md_path, templates_path) = tmp.unwrap(); 
+*/
+    let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap(); 
     let out: Result<(), io::Error> =
         ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    if out.is_err() {
+    //unwrap_or_log!(out,);
+    unwrap_retry_or_log!(&out, ftcp_parallel, "ftcp_parallel", &pandoc_path, (&wk_path), &md_path, &templates_path);
+    /* if out.is_err() {
         error!("{}", &out.unwrap_err().to_string());
-    }
+    } */
     Ok(())
 }
 
@@ -393,5 +425,6 @@ pub fn main() -> io::Result<()> {
     // use test::test_winsafe_error_description;
     // test_winsafe_error_description();
     test_macro()
+    // _main()
     // Ok(())
 }
