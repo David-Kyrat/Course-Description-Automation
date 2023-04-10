@@ -75,7 +75,7 @@ object Main {
         // testResolveCoursHours()
         // testCourseFactoryMethod()
         // testCourseToMarkdown()
-        // testMultipleCourseToMarkdown()
+        testMultipleCourseToMarkdown()
 
         println("\n\n")
     }
