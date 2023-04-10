@@ -1,14 +1,9 @@
-import sbt.IO
-import com.typesafe.sbt.packager.windows.WindowsFeature
-import com.typesafe.sbt.packager.windows._
 import com.typesafe.sbt.SbtNativePackager.Universal
+import com.typesafe.sbt.packager.Keys.{wixFeatures, wixFiles, wixProductId, wixProductUpgradeId}
 import com.typesafe.sbt.packager.universal.UniversalPlugin
-import com.typesafe.sbt.packager.Keys.wixFeatures
-import com.typesafe.sbt.packager.Keys.{wixProductId, wixProductUpgradeId}
 import com.typesafe.sbt.packager.windows.WixHelper.generateComponentsAndDirectoryXml
-import com.typesafe.sbt.packager.windows.WixHelper.{makeWixConfig, makeWixProductConfig, makeIdFromFile}
-import com.typesafe.sbt.packager.Keys.{wixFile, wixFiles}
-import Path.relativeTo
+import com.typesafe.sbt.packager.windows.{WindowsFeature, *}
+import sbt.IO
 
 ThisBuild / organization := "ch"
 
@@ -33,12 +28,10 @@ val batPath = "bin/" + batName
 val scalaBaseDep = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
 val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
 val jsonLib = "com.google.code.gson" % "gson" % "2.10.1"
-val parallelCollections =   "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
+val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
 val xml = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
 
-
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
-
 
 lazy val root = (project in file(".")).settings(
   name := pName,

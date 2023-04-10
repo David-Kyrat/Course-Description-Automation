@@ -1,7 +1,5 @@
 package ch.sealedconcept
 
-import ch.sealedconcept.ExaSession
-
 /**
  * Represents a period of time in which a course is given
  * i.e. Autumn, Spring, Yearly

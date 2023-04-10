@@ -1,11 +1,10 @@
 package ch
 
-import ch.ReqHdl
 import ch.ReqHdl.courseUrl
 import ch.Utils.tryOrElse
-import ch.sealedconcept.{SealedConceptObject, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice, SPType}
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
-import com.google.gson.{JsonArray, JsonElement, JsonObject}
+import ch.sealedconcept._
+import com.google.gson.JsonElement
 
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._

@@ -1,14 +1,10 @@
 package ch.io
 
-import ch.Course
+import ch.{Course, Utils}
 
-import ch.sealedconcept.{SealedConceptObject, CourseHours, Semester, CourseActivity, Lectures, Exercices, Practice}
+import java.io.{BufferedWriter, FileWriter, PrintWriter}
 import java.nio.charset.StandardCharsets.UTF_8
-import java.io.{PrintWriter, FileWriter}
 import java.nio.file.Path
-import java.io.BufferedWriter
-import scala.io.Source
-import ch.Utils
 
 object Serializer {
     // Begin and end symbol of yaml header in markdown file
@@ -28,7 +24,7 @@ object Serializer {
         val lines = value.strip().replace("\n", f"\n$indent")
         sbld ++= lines
         /* lines.map(line => f"$line\n$indent") */
-         
+
         sbld.toString // .stripTrailing()
     }
 

@@ -1,13 +1,10 @@
 <div align="center">
 
-  
 # Unige - 12X015 | Course Description Automator
-
-
 
 Application to automatically generate printable 1-2 page PDF of course descriptions.
 
-Made with:  
+Made with:
 
 <a href="https://unige.ch/">![unige](https://tinyurl.com/unige-logo)</a>
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
@@ -36,9 +33,7 @@ Exemple given:
 <br/>
 <div style=" margin: 0 auto; width: 70%; " align="center">
 
-
-
-|                                      Client                                      |                 Student / Developer                 |                                     Supervisor                                    |
+|                                      Client                                      |                 Student / Developer                 |                                    Supervisor                                     |
 |:--------------------------------------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------------------------------------:|
 | [Anne-Isabelle Giuntini](https://www.unige.ch/dinfo/contacts/contacts-francais/) | [Noah Munz](https://www.linkedin.com/in/noah-munz/) | [Dr. Guillaume Chanel](https://www.unige.ch/cisa/center/members/chanel-guillaume) |
 
@@ -49,24 +44,21 @@ Exemple given:
 
 ## Meeting Reports
 
-
 Meeting reports are available __[here](https://github.com/David-Kyrat/Course-Description-Automation/tree/master/PV)__.
 They are numbered and dated and contains a quick summary
-of what was discussed during the meeting as well as a list of all the participants. 
-
+of what was discussed during the meeting as well as a list of all the participants.
 
 ### Documentation
 
-
 The file __[howto.md](https://github.com/David-Kyrat/Course-Description-Automation/blob/master/howto.md)__
-contains a (very) quick summary of  which/how technology has been used as well as some brief commands.
-
+contains a (very) quick summary of which/how technology has been used as well as some brief commands.
 
 Its goal is not to be documentation on how to use the project but rather
-to categorize the "major steps" this project went through and to give some informations on how to reproduce some of these steps.
+to categorize the "major steps" this project went through and to give some informations on how to reproduce some of
+these steps.
 
-
-"Published" documentation is available here: __[Scala-Documentation](https://raw.githack.com/David-Kyrat/Course-Description-Automation-Docs/master/ch/index.html)__
+"Published" documentation is available here: _
+_[Scala-Documentation](https://raw.githack.com/David-Kyrat/Course-Description-Automation-Docs/master/ch/index.html)__
 
 
 -----
@@ -74,12 +66,9 @@ to categorize the "major steps" this project went through and to give some infor
 
 <br/>
 
-
 #### Supported Platforms
 
-
 - ![windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
-
 
 <!-- 
 https://img.shields.io/badge/UNIGE-e11b67?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbDpzcGFjZT0icHJlc2VydmUiIHZlcnNpb249IjEuMCIgdmlld0JveD0iMCAwIDE4NiAyMDAiPjxwYXRoIGQ9Im00NC4zIDQ1IDQuMyA1LjYgMy4yLTIuNS03LTkuMS0yLjYgMS45YzEgMS41LS40IDMuNC0yLjEgNC43bDEuMiAxLjcgMy0yLjNNNTUuOSAzOS43Yy4yLTEgLjgtMS41IDEuOC0yIDEuNC0uNyAyLjUtLjQgMyAuNi42IDEtLjEgMi4yLTEuNCAyLjktMSAuNS0yLjUuNi0zLS4yTDUzIDQyLjhjMS40IDIuMyA0LjMgMiA3LjMuNCAzLjMtMS43IDUtNC4yIDMuOC02LjctMS4xLTIuMi0zLjYtMi41LTYuNC0xLTEgLjUtMiAxLjMtMi40IDIuMWwtLjQtMiA2LjEtMy4zLTEtMi04LjkgNC40IDEuNyA2LjYgMy0xLjZNMTI5LjUgMzYuMWMtMS0uNS0yLjEtLjgtMy0uNmgtLjFsMS40LTEuN0wxMzQgMzdsMS4xLTIuMi04LjgtNC40LTQuMyA1LjEgMyAxLjZjMS0uNCAxLjctLjIgMi43LjMgMS40LjcgMS44IDEuOCAxLjMgMi44LS41IDEtMS44IDEuMi0zLjEuNS0xLS41LTItMS42LTEuNi0yLjRsLTMuNC0xLjdjLTEgMi42LjkgNC42IDQgNi4yIDMuMiAxLjYgNi4zIDEuNiA3LjYtMSAxLTIuMS0uMS00LjItMy01LjdNMTQzLjIgNDUuNWMtLjcuOC0yIC45LTMuMy0uMS0xLjItMS0xLjQtMi4yLS44LTMgLjYtLjkgMi0uOSAzLjEgMCAxLjMgMSAxLjYgMi4zIDEgM3ptLjQtNWMtMi42LTItNS44LTIuMy03LjMtLjMtMS40IDEuOC0uOCA0LjQgMS43IDYuMyAxIC44IDIuNCAxLjQgMy41IDEuMi0xIDEuMS0yLjQgMS44LTQgLjUtLjQtLjItLjctLjYtMS0xLS4xLS40LS4yLS44IDAtMS4xbC0yLjktMi4yYy0uOSAyIC4yIDQuMSAyLjQgNS44IDQgMy4xIDcuMiAyIDkuMi0uNyAyLTIuNCAyLTUuNy0xLjYtOC41TTE1LjUgODguMWMyIC43IDMuNS0xLjMgNC43LTMuMyAxLjItMi4xIDItNC4yIDMtNCAuNy4zLjUgMS40LjMgMi4zLS40IDEuMi0xLjIgMi40LTIuMiAyTDIwIDg5YzIuNS44IDQuNi0yIDUuNi01IDEtMi44IDEuMS02LjUtMS4zLTcuMy0yLjEtLjctMy42IDEuNC00LjggMy40LTEuMiAyLTIgNC4xLTMgMy44LS45LS4zLS44LTEuNi0uNC0yLjguNS0xLjcgMS4zLTIuNiAyLjctMi4zbDEuMy00Yy0yLjktLjktNSAxLjgtNi4yIDUuMy0xLjEgMy40LTEuMyA3IDEuNiA3LjlNMTQuMiAxMDhsLjMtNGMtMS40LS4zLTIuMS0xLjUtMi0zLjUuMy0yLjcgMi0zLjYgMy44LTMuNCAxLjguMSAzLjUgMS4zIDMuMyA0LS4yIDEuNy0uOSAzLTIuMSAzbC0uMyA0LjJjMi44LjEgNC44LTMuNSA1LTcgLjQtNC44LTIuMS04LjEtNS41LTguNC0zLjUtLjItNi40IDIuNy02LjggNy41LS4zIDQgMS4yIDcuMiA0LjMgNy43TTIzLjMgMTIxLjVsLTQuMy43LS45LTUuNCA0LjMtLjctLjctNC4xLTExLjcgMiAuNyA0IDQuOC0uNyAxIDUuNC00LjkuOC43IDQuMSAxMS43LTItLjctNC4xTTI0LjEgMTQxLjZjLTEuNi43LTMuNi41LTQuNy0yLTEuMS0yLjQgMC00IDEuNy00LjggMS42LS43IDMuNi0uNSA0LjcgMiAxLjEgMi40IDAgNC0xLjcgNC44em00LjItNmMtMi4xLTQuNS01LjgtNi05LTQuNi0zIDEuNC00LjQgNS4xLTIuMyA5LjcgMiA0LjYgNS43IDYuMSA4LjggNC43IDMuMi0xLjQgNC41LTUuMSAyLjUtOS43TTM1LjYgMTQ4LjhsLTIuNS0zLjMtOS41IDcuMiA3LjEgOS4zIDIuMS0xLjctNC41LTYgNy4zLTUuNU00My4zIDE2Ny42bC0yLjgtMi40IDQuMS0ydi4xbC0xLjMgNC4zem0tMTAuNC0zIDMuMiAyLjcgMi4yLTEgNC4yIDMuNy0uNiAyLjMgMy4zIDIuOCAzLjItMTMtMy4yLTIuNy0xMi4zIDUuMU03OC4zIDE3OWMxLjYuMyAyLjggMS4xIDIuNyAyLjJsNC4xLjhjLjMtMy0zLTUtNi4yLTUuNy00LjctMS04LjQgMS05IDQuNS0uOCAzLjMgMS43IDYuNyA2LjUgNy42IDEuNC4zIDMuNC4zIDQuNy0uNnYxLjRsMi42LjUgMS4zLTYuNC02LjYtMS4zLS40IDIuMiAyLjguNmMtLjQgMS0yIDEuNC00IDEtMi42LS41LTMuMi0yLjUtMi45LTQuMi40LTEuNyAxLjctMy4yIDQuNC0yLjdNOTUuNSAxODcuM2wtLjEtMi4zIDcuOC0uNHYtMi40bC04IC40di0ybDguNS0uNXYtMi41bC0xMi44LjcuNiAxMS44IDEzLS42LS4yLTIuNy04LjguNU0xMTcuNSAxNzRsMi4yIDctNy41LTUuNC00LjEgMS4zIDMuNSAxMS4zIDMuOC0xLjEtMi4yLTcuMSA3LjUgNS40IDQuMS0xLjMtMy41LTExLjMtMy44IDEuMU0xMzQgMTc2LjNsLTEuMS0xLjkgNi42LTQuMS0xLjItMi02LjcgNC0xLjEtMS43IDcuMy00LjUtMS4zLTIuMS0xMC45IDYuNyA2LjMgMTAuMSAxMS02LjgtMS4zLTIuMy03LjYgNC42TTE0Ni41IDE1NC42bDQgOC41LTguNS00LTMgMy4xIDEyIDQuOCAzLjMtMy40LTQuOC0xMi0zIDNNMTYxLjUgMTUwbC0yLTEuMSA0LjEtNi43LTItMS4zLTQuMSA2LjctMS44LTEgNC41LTcuNC0yLjEtMS4zLTYuNyAxMSAxMC4yIDYuMSA2LjctMTEuMS0yLjItMS40LTQuNiA3LjZNMTYyLjggMTI0LjNsNyAyLjEtOC42IDMuMy0xLjIgNCAxMS4zIDMuNSAxLjItMy44LTcuMS0yLjEgOC43LTMuMiAxLjItNC4xLTExLjMtMy41LTEuMiAzLjhNMTczLjQgMTAzYy0yLjIgMC0zIDIuMy0zLjcgNC41LS41IDIuNC0uOCA0LjctMS43IDQuNi0uOCAwLTEtMS4xLTEtMiAuMS0xLjMuNS0yLjcgMS42LTIuNmwuMi00LjFjLTIuNy0uMS00IDMtNC4xIDYuMi0uMiAzIC43IDYuNiAzLjMgNi43IDIuMi4xIDMtMi4zIDMuNi00LjUuNi0yLjMgMS00LjYgMi00LjYuOCAwIDEuMSAxLjQgMSAyLjcgMCAxLjctLjUgMi45LTIgMi45bC0uMSA0LjJjMyAwIDQuNC0zLjEgNC41LTYuOC4yLTMuNS0uNi03LTMuNi03LjJNMTY0LjYgOTguMmwxMS43LTEuNy0uNi00LjFMMTY0IDk0bC42IDQuMU0xNjYuNCA4OC4zYzItLjcgMi0zLjMgMS44LTUuNi0uMy0yLjMtLjktNC42IDAtNSAxLS4yIDEuNyAxIDIgMi4xLjYgMS43LjYgMy0uNyAzLjVsMS40IDRjMi44LTEgMy00LjUgMS43LTgtMS4xLTMuNC0zLjItNi4zLTYtNS4zLTIgLjctMiAzLjEtMS43IDUuNS4zIDIuMy45IDQuNiAwIDQuOS0uOC4yLTEuMy0uOC0xLjYtMS42LS40LTEuMi0uNi0yLjYuNS0zbC0xLjQtMy45Yy0yLjUgMS0yLjUgNC4zLTEuNSA3LjQgMSAyLjggMyA1LjggNS41IDVNNTUuOSAxNzVhMi44IDIuOCAwIDEgMCA0LjUgMy40IDIuOCAyLjggMCAwIDAtNC41LTMuNU0zMi43IDYxLjhhMi44IDIuOCAwIDEgMC00LjYtMy40IDIuOCAyLjggMCAwIDAgNC42IDMuNE0xNTMuMiA1OC40YTIuOCAyLjggMCAxIDAgNC42IDMuNCAyLjggMi44IDAgMCAwLTQuNi0zLjRNMTAwLjIgMjcuNWwtMi4zIDMuNmg1LjZ2LTEuN2gtMi4ybDEuMi0xLjktMS4yLTEuOGgyLjJ2LTEuOGgtNS42bDIuMyAzLjZNODggMjkuNGgtMS40di0zLjhIODhWMjRoLTQuNnYxLjhoMS4zdjMuN2gtMS40VjMxSDg4di0xLjdNOTQuNiAyNi41aC0zdi0yLjZoLTJWMzFoMnYtMi45aDN2M2gyLjF2LTcuM2gtMi4xdjIuNk05Mi4yIDE5LjZjMC0uNS40LS45IDEtLjkuNSAwIC45LjQuOSAxdjIuNWg0VjIwaC0yLjV2LS41YzAtMS42LS43LTIuOC0yLjQtMi44LTEuNCAwLTIuMy44LTIuNSAyVjIwaC0yLjV2Mi4yaDR2LTIuNk05My4yIDMyLjhhMS4zIDEuMyAwIDEgMCAwIDIuNiAxLjMgMS4zIDAgMCAwIDAtMi42IiBzdHlsZT0iZmlsbDojOWM5YTliO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIi8+PHBhdGggZD0iTTkzIDE5My45QTg3LjYgODcuNiAwIDAgMSA3Ni43IDIwLjVMNzggMjJsLTEwLjUgNEw3OCAzMGwtNyA4LjggMTEtMS44LS4zIDIuM0E2OC4yIDY4LjIgMCAwIDAgOTMgMTc0LjZhNjguMiA2OC4yIDAgMCAwIDExLjUtMTM1LjNsLS4zLTIuMiAxMC44IDEuNy02LjgtOC44IDEwLjItNC0xMC4zLTQuMiAxLTEuM0E4Ny42IDg3LjYgMCAwIDEgOTMgMTkzLjl6TTgwLjIgNTYuNWwxLjUtMi43aC02LjVMNzYgNTFhMi40IDIuNCAwIDAgMC0zLjMtMi4ydi0uN2ExLjYgMS42IDAgMSAwLTMuMSAwdi43bC0uOS0uMmMtMS4zIDAtMi40IDEuMS0yLjQgMi40bC44IDIuOGgtMS44Yy0xLjEgMC0yLjEuOS0yLjMgMmwtMS4yLS4yYTQgNCAwIDAgMC0zLjUgNS45IDQgNCAwIDAgMSA3IDBjLjMuNC40LjguNSAxLjJoLTguMWE0IDQgMCAwIDEtNC00djIuNmE0IDQgMCAwIDAgNCA0aDcuNmE0IDQgMCAwIDEtMy41IDJoLS4yYTQgNCAwIDAgMCA3LS44aDEwLjhhNCA0IDAgMCAxIDQgNGMwIDEgMCAyLjUtMSAzLjZsLTEgMS41TDc0LjYgODZhNCA0IDAgMCAxLTUuNSAxIDQgNCAwIDAgMS0xLjEtNS42YzEuNi0uOSAyLjItMi43IDItNC42LS41LTIuNC0yLjYtNC01LTMuN2gtMS4zYy04LjUgMC0xNC45LTUuOC0xNS44LTE0IDktOC42IDIwLjUtMTQuNiAzMy4yLTE3bC0xIDYgOC43LTcuMSAzIDcuNXYxMS42bC0xMS42LTMuN3ptLTM1IDkyLjhjMC0uNC4yLS43LjYtLjlsOC4zLTQuNyAyLjMgMi40LjYuNi40LjQgMyAyLjdhMS40IDEuNCAwIDAgMS0xIDIuNGgtMS43bDIuMiAyLjFoLjJhNS41IDUuNSAwIDAgMCA1LjYtNS41YzAtMy0yLjMtNS40LTUuMi01LjVsLTItMmMxLjItMSAyNC40LTE1LjYgMjYuNS0xNy0uNyA4LjEtNy43IDE3LjYtMTQuMyAyMy4zLTMgMy00LjEgNi40LTQuMSA5LjMgMCAyLjYuOSA0LjggMi4yIDYuMWE0IDQgMCAwIDAgNC40LjlsLjktLjQtLjctLjdjLTEuMi0xLjItMS42LTMuMi0xLjYtNC44YTggOCAwIDAgMSAyLjMtNi4xbDEuOCAxLjhjLS42IDEuNy0uOSAzLjQtLjkgNSAwIDMuMyAxLjIgNi4yIDMgOC4xLjUuNCA0LjcgNCA2LjUgMy4zbDEuMi0uNC0xLS44Yy0uNy0uNC0yLjctMi44LTMuMy00LjJhOS4yIDkuMiAwIDAgMS0xLTMuOWMwLTIuMyAxLTUgMy4xLTdsNy4xLTE3LjFhMjUxLjUgMjUxLjUgMCAwIDEgMCA0LjljMCA2LjYtLjQgMTIuNS0zLjMgMTUuNC0xLjggMS44LTUuMiAyLjgtNS4yIDIuOGwxIDFzMS40IDIuMiAzLjcgMi4zYy41IDAgMS0uMyAxLjQtLjUuMSA1LjEgMS4xIDcuMiAyLjggOS4xYTY1LjEgNjUuMSAwIDAgMS00NC41LTE5LjRsLTEuMi0yYTEuNCAxLjQgMCAwIDEtLjItMXptLTUuMS01LjhjMC0uNC4xLS45LjQtMS4yLjQtLjMuOC0uNSAxLjMtLjVoNGE3IDcgMCAwIDAtNC43IDMuNmMtLjUtLjctMS0xLjUtMS0xLjl6bS03LjYtNTEuNiAxNy0zLjF2MS40bC41LjgtMTYuNiA2LjRhNC42IDQuNiAwIDAgMC0xLjYgNi41IDQuNiA0LjYgMCAwIDAgNi4zIDEuNWwxNC42LTkgLjYgMS4yLjguNi0xMy4yIDEyYTQuNyA0LjcgMCAwIDAgLjggNi42YzIgMS41IDUgMS4xIDYuNS0uOUw1OC43IDEwMmMuMi40LjUuOCAxIDFsLjYuMmguMkw1My4yIDExOGMtLjcgMi41LjYgNSAzIDUuNyAyLjQuNyA0LjktLjcgNS42LTNsNC4yLTE0LjhhMTkuOSAxOS45IDAgMCAwIDkuOS4zdjUuNWwtMTMuNCAxNC41Yy0yLjMgMS45LTMuMiAyLTQuNy41bC0uNC0uNC00IDMuMi41LjVjMS41IDEuNiAzIDIuNiA1IDIuOGwtNS44IDMtMy42LTMuOGE1LjUgNS41IDAgMCAwLTExIC4zdi4zbDIgMi4xVjEzM2MwLS4zLjItLjcuNS0xIC41LS41IDEuNC0uNSAyIDBsMi43IDMgLjQuNS41LjUgMS4yIDEuM2gtMS41YTUuNSA1LjUgMCAwIDAtNy42LjVjLS44LjgtMS4yIDEuNy0xLjQgMi44YTY1IDY1IDAgMCAxLTcuOC00OS40Yy44LjcgMS44IDEgMyAuN3ptNi4xLTIxLjZjMi0yLjkgNC01LjYgNi40LTguMSAxLjIgNC4xIDMuNyA3LjggNy4xIDEwLjUtLjQuMy0uOC43LTEgMS4yLS4yLjQtLjIuNy0uMiAxbC0xMi4zLTQuNnpNNDkuMyA4MGMtLjQuNS0uNiAxLS42IDEuNiAwIC41LjEuOC4zIDEuMkgzMmwyLjYtNS42TDQ5LjMgODB6bTQ5LjQgNDguNGMwLTIuMyAxLjctNC4zIDQtNC43LjEgMi44IDIuNSA1IDUuMyA1SDExOWMyLjkgMCA1LjItMi4yIDUuNC01IDIuMi40IDQgMi40IDQgNC43IDAgOS4yLTYuNCAxNC43LTE0LjggMTYuOC04LjUtMi0xNC44LTcuNi0xNC44LTE2Ljh6bTkuNyAyMWE1IDUgMCAwIDAgMS45IDkuOGg2LjNhNSA1IDAgMCAwIDEuOS05LjhjOC42LTMgMTQuOS0xMS4zIDE0LjktMjEgMC01LTMuNy05LTguNi05LjhWMTE1bC03LjYtN1Y5My40aDQuNHY2LjFoNy40Vjk1aDUuNXY0LjZoNy40VjgzLjFoLTcuNHY0SDEyOXYtNEgxMjN2LTVoNi4xdi00aDUuNXY0aDcuNFY2M2E2NS40IDY1LjQgMCAwIDEtNDcuMyAxMDguNlYxMzVjMiA2LjcgNy4yIDEyIDEzLjggMTQuNHpNMTA1IDQyLjJhNjUuMyA2NS4zIDAgMCAxIDM1LjUgMTkuNGgtNlY2NkgxMjl2LTQuNGgtNy40djYuMWgtNC40di05LjRhMy44IDMuOCAwIDAgMC03LjYgMHY0OS42bC03LjUgN3YzLjdhMTAgMTAgMCAwIDAtNy42IDUuNlY0OC41bDIuNi03LjQgOC42IDctLjgtNS45ek05MyAxMy40YTEyLjggMTIuOCAwIDEgMSAwIDI1LjUgMTIuOCAxMi44IDAgMCAxIDAtMjUuNXptMjAgMi4yIDEuOS0yLjMtMTEgMS42IDEuNy0xMS04LjggNy4yTDkzIC42IDg5IDExIDgwLjIgNCA4MiAxNWwtMTEuMS0xLjcgMS45IDIuNEE5My4xIDkzLjEgMCAxIDAgMTg2IDEwNi41YTkzLjEgOTMuMSAwIDAgMC03My05MC45IiBzdHlsZT0iZmlsbDojOWM5YTliO2ZpbGwtb3BhY2l0eToxO2ZpbGwtcnVsZTpub256ZXJvO3N0cm9rZTpub25lIi8+PC9zdmc+&style=for-the-badge

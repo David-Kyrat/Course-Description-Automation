@@ -11,7 +11,7 @@ log4rs = "1.2.0"
 once_cell = "1.17.1"
 path-clean = "1.0.1"
 rayon = "1.7.0"
-winsafe = {version = "0.0.14", features = ["kernel", "shell", "user", "ole", "oleaut"] }
+winsafe = { version = "0.0.14", features = ["kernel", "shell", "user", "ole", "oleaut"] }
 
 [[bin]]
 name = "rust_para_convert-mdToPdf"

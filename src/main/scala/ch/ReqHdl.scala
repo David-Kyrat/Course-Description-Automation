@@ -1,10 +1,9 @@
 package ch
 
-import scala.io.{Source, BufferedSource}
-import scala.io.Codec.UTF8
-import scala.util.{Using, Success, Failure}
-
 import ch.Utils.prettifyJson
+
+import scala.io.Source
+import scala.util.{Failure, Success, Using}
 
 /**
  * Class representing an HTTP request, methods in the object `ReqHdl` returns

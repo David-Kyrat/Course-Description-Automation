@@ -1,8 +1,5 @@
 package ch
 
-import ch.ReqHdl.studyPlanUrl
-import ch.Utils.prettifyJson
-
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
  *
@@ -10,7 +7,7 @@ import ch.Utils.prettifyJson
  * @param year Int, year the course in this studyplan are given
  */
 final case class StudyPlan(val id: String, val year: Int) {
-    //val request = f"$studyPlanUrl/$year-$id"
+    // val request = f"$studyPlanUrl/$year-$id"
     val urlId = f"$year-$id"
     // TODO: implement retrieving fields from server response
 

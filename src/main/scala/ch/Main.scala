@@ -3,11 +3,8 @@ package ch
 // import ch.Resp._
 import ch.Utils.crtYear
 import ch.io.Serializer
-import ch.io.cloudify.spdf
-import ch.io.cloudify.spdf._
 
-import java.io.{ByteArrayOutputStream, File}
-import java.net.URL
+import java.io.File
 import java.nio.file.{Files, Path}
 import scala.collection.parallel.immutable.ParVector
 

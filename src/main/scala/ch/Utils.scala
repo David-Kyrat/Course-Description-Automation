@@ -1,19 +1,15 @@
 package ch
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
+import com.google.gson.{Gson, GsonBuilder}
 import spray.json._
 
-import java.time.LocalDate
 import java.nio.charset.StandardCharsets.UTF_8
-import java.nio.file.{Files, Path}
 import java.nio.file.StandardOpenOption._
+import java.nio.file.{Files, Path}
+import java.time.LocalDate
 import scala.language.postfixOps
-
-import scala.io.{Source, BufferedSource}
 //import DefaultJsonProtocol._
-import java.io.{PrintWriter, FileWriter, BufferedWriter}
+import java.io.{BufferedWriter, FileWriter, PrintWriter}
 
 final object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
@@ -29,9 +25,9 @@ final object Utils {
     }
 
     /**
-      * @return Lastest version for course & study plan information
-      * i.e. current year - 1
-      */
+     * @return Lastest version for course & study plan information
+     * i.e. current year - 1
+     */
     def crtYear: Int = LocalDate.now.getYear - 1
 
     /**
@@ -47,8 +43,9 @@ final object Utils {
      * @param str sring to sanitize
      * @return sanitized string
      */
-    def sanitize(str: String): String = str.replace("\r", "")
-      .replace("\'", "")
+    def sanitize(str: String): String = str
+        .replace("\r", "")
+        .replace("\'", "")
     // \n line endings are supported fine on a greater number of platform (including windows) than "\r\n"
 
     /**

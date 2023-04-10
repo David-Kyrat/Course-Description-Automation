@@ -1,7 +1,5 @@
 package ch.sealedconcept
 
-import ch.sealedconcept.SealedConceptObject
-
 /**
  * Study Plan Type, i.e. bachelor, master, phd
  */
