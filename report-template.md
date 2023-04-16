@@ -4,6 +4,20 @@ n'avez pas produit de code pour ce projet, indiquez pourquoi dans la
 section « 2.2 implémentation ».**
 
 
+<!-- vim-markdown-toc GFM -->
+
+* [Identification des besoins](#identification-des-besoins)
+* [Développement](#développement)
+    * [Conception](#conception)
+    * [Implémentation](#implémentation)
+    * [Tests et évaluation](#tests-et-évaluation)
+* [Organisation](#organisation)
+* [Formation](#formation)
+* [Feedback](#feedback)
+* [Annexes](#annexes)
+
+<!-- vim-markdown-toc -->
+
 # Identification des besoins
 
 Définir les besoins utilisateurs que vous avez identifiés en
