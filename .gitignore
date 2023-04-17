@@ -42,6 +42,10 @@ res/templates/rmd
 *.lock
 
 
+# Formatters config
+remarkrc.json
+
+
 # Ignoring scala-doc generated web-pages, as they are present in the other repo
 target/scala-2.13/api
 
