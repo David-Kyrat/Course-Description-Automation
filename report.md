@@ -5,7 +5,6 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Identification des besoins](#identification-des-besoins)
-    * [](#)
         * [Qui est la cliente ?](#qui-est-la-cliente-)
         * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
         * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
@@ -44,10 +43,32 @@ Principalement la cliente elle même.
 
 #### Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?
 
-Le principal problème client était la répétion d'une tâche fastidieuse et sujette à erreur.
-(Compression et résumé à la main de fiche de cours prise du site web vers un document word).
+es problèmes de la cliente ont commencé du au fait que le principal support utilisé
+par l'université pour décrire un cours et son contenu était :
 
-L'object du logiciel est de générer automatiquement des PDFs de fiches descriptives de cours de 1-2 pages qui contenaient cette compression et ce résumé de l'information présente dans la base de donnée de l'université.
+1. Confus et épars (problème d'UI/UX dans l'affichage des informations)
+2. Présents à plusieurs endroits du site de l'université sans avoir de cohérence
+ni de _contenu_ (i.e. données concrètes) ni de _forme_ (i.e. séléction et mise en forme)
+3. Les informations n'étaient pas affichées dans leur integralité
+4. La modification de ces données était longue et fastidieuse à entreprendre à entreprendre
+
+
+Sa solution (temporaire) était donc de reporter manuellement ces informations dans documents
+word dont les pdfs étaient accessibles par les étudiants.
+
+La création de ces pdfs est donc evidemment fastidieuse, répétitive et sujette à erreur.
+
+C'est la qu'entre en jeux la solution developpé: l'automatisation de ces fiches descriptives.  
+(Voir exemple ci-dessous)
+
+![image](res\readme-example.png)
+
+
+
+L'object du logiciel est de générer automatiquement des PDFs de fiches descriptives de cours
+de 1-2 pages qui contiennent cette compression et ce résumé
+
+
 
 #### Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?
 
@@ -58,7 +79,7 @@ l'esthétisme du nouveau format)
 
 #### sous quelle licence le code sera-t-il livré ?
 
-Sous la license MIT.\
+Sous la license MIT.
 Pour plus d'information voir [https://choosealicense.com/licenses/mit](https://choosealicense.com/licenses/mit/)
 
 ### Liste des besoins
