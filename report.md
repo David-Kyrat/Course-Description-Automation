@@ -32,7 +32,7 @@
 
 #### Qui est la cliente ?
 
-Anne-Isabelle Giuntini
+Anne-Isabelle Giuntini, administration et secrétariat des étudiants de Battelle (Batiment A).
 
 #### Qui seront les utilisateurs du logiciel ?
 
