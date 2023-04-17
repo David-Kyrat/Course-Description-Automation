@@ -4,31 +4,32 @@
 
 <!-- vim-markdown-toc GFM -->
 
-* [Identification des besoins](#identification-des-besoins)
-    * [](#)
-        * [Qui est le client ?](#qui-est-le-client-)
-        * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
-        * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
-        * [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
-        * [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
-        * [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
-    * [Liste des besoins](#liste-des-besoins)
-        * [explicités par la cliente](#explicités-par-la-cliente)
-        * [Mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
-* [Développement](#développement)
-    * [Conception](#conception)
-    * [Implémentation](#implémentation)
-    * [Tests et évaluation](#tests-et-évaluation)
-* [Organisation](#organisation)
-* [Formation](#formation)
-* [Feedback](#feedback)
-* [Annexes](#annexes)
+    * [Identification des besoins](#identification-des-besoins)
+            * [Qui est le client ?](#qui-est-le-client-)
+            * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
+            * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
+            * [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
+            * [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
+            * [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
+        * [Liste des besoins](#liste-des-besoins)
+            * [explicités par la cliente](#explicités-par-la-cliente)
+            * [mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
+    * [Développement](#développement)
+        * [Conception](#conception)
+            * [Scénario d'utilisation](#scénario-dutilisation)
+            * [Méthodes de conception & diagrammes](#méthodes-de-conception--diagrammes)
+        * [Implémentation](#implémentation)
+        * [Tests et évaluation](#tests-et-évaluation)
+    * [Organisation](#organisation)
+    * [Formation](#formation)
+    * [Feedback](#feedback)
+    * [Annexes](#annexes)
 
 <!-- vim-markdown-toc -->
 
 ## Identification des besoins
 
-### 
+###
 
 #### Qui est le client ?
 
@@ -69,7 +70,7 @@ Pour plus d'information voir [https://choosealicense.com/licenses/mit](https://c
 *   Information condensé dans un format pratique et concis (1 page A4)
 *   Généré automatiquement
 
-#### Mis en avant par le developpeur
+#### mis en avant par le developpeur
 
 *   Génération de descriptifs "à la vollée" ("batch generation")
     par plan d'étude (rentrer un nom du type "BA-Inf" pour générer les descriptifs des cours du bachelor en sciences informatiques)
@@ -82,23 +83,71 @@ Pour plus d'information voir [https://choosealicense.com/licenses/mit](https://c
     (voir [winsafe](https://docs.rs/winsafe/latest/winsafe/) et [winapi](https://docs.rs/winapi/latest/winapi/))
     pour lancer de manière "safe" les différents programmes externes ([pandoc](https://pandoc.org/) et [wkhtmltopdf](https://wkhtmltopdf.org/)) en parallèle afin de
 
-    1. Encore eviter l'utilisation de scripts powershell dont l'execution pourrait se faire bloquer sur la machine de la cliente.
-    2. Permettre un traitement "en masse" de fichiers markdown, effficient et optimisé grâce à la
-    librairie de traitement de donnése en parallèle de rust, [rayon](https://docs.rs/rayon/latest/rayon/).
+    1.  Encore eviter l'utilisation de scripts powershell dont l'execution pourrait se faire bloquer sur la machine de la cliente.
+    2.  Permettre un traitement "en masse" de fichiers markdown, effficient et optimisé grâce à la
+        librairie de traitement de donnése en parallèle de rust, [rayon](https://docs.rs/rayon/latest/rayon/).
 
+***
+
+<br/>
 
 ## Développement
 
 ### Conception
 
+#### Scénario d'utilisation
+
+Pour donner un exemple d'utilisation sous forme de scénario, prenons en considération
+le changement de batiment du cours de base de données qui a eu lieu il y a un ou deux ans.
+
+Le cours de base de donnée était originellement, il y a un ou deux ans, donné à Uni-Bastions (>30min de trajet en tram du batiment informatique).
+Cependant, au moment de l'écriture de ce rapport, il est toujours marqué dans la base de donnée de l'université que se cours se déroule à Bastion.
+
+Ce qui pose le problème évident d'avoir l'intégralité des 2èmes des années du département d'informatique, se déplacer à l'opposé de la où ils ont réellement cours pour aller dans une salle qui est surement attribué à un autre cours/enseignant.
+
+Ce problème n'aurait pas eu lieu si les descriptifs du cours présent à différents
+endroits du site de l'université avaient pu régulièrment se mettre à jour.
+
+#### Méthodes de conception & diagrammes
+
+*
+
+***
+
+<br/>
+
 ### Implémentation
+
+*
 
 ### Tests et évaluation
 
+*
+
+***
+
+<br/>
+
 ## Organisation
+
+*
+
+***
+
+<br/>
 
 ## Formation
 
+*
+
+***
+
+<br/>
+
 ## Feedback
 
+*
+
 ## Annexes
+
+*
