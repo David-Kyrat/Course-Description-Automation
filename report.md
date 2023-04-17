@@ -4,30 +4,31 @@
 
 <!-- vim-markdown-toc GFM -->
 
-    * [Identification des besoins](#identification-des-besoins)
-            * [Qui est le client ?](#qui-est-le-client-)
-            * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
-            * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
-            * [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
-            * [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
-            * [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
-        * [Liste des besoins](#liste-des-besoins)
-            * [explicités par la cliente](#explicités-par-la-cliente)
-            * [Mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
-    * [Développement](#développement)
-        * [Conception](#conception)
-        * [Implémentation](#implémentation)
-        * [Tests et évaluation](#tests-et-évaluation)
-    * [Organisation](#organisation)
-    * [Formation](#formation)
-    * [Feedback](#feedback)
-    * [Annexes](#annexes)
+* [Identification des besoins](#identification-des-besoins)
+    * [](#)
+        * [Qui est le client ?](#qui-est-le-client-)
+        * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
+        * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
+        * [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
+        * [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
+        * [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
+    * [Liste des besoins](#liste-des-besoins)
+        * [explicités par la cliente](#explicités-par-la-cliente)
+        * [Mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
+* [Développement](#développement)
+    * [Conception](#conception)
+    * [Implémentation](#implémentation)
+    * [Tests et évaluation](#tests-et-évaluation)
+* [Organisation](#organisation)
+* [Formation](#formation)
+* [Feedback](#feedback)
+* [Annexes](#annexes)
 
 <!-- vim-markdown-toc -->
 
 ## Identification des besoins
 
-###
+### 
 
 #### Qui est le client ?
 
