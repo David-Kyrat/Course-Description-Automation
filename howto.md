@@ -191,4 +191,4 @@ Not urgent:
 The actual wix configuration of the installer is present in the file `target/windows/Course-Description-Automation.wxs`
 file.
 It's just an xml file with a specific microsoft-defined syntax see
-here [Course-Description-Automation.wxs](target/windows/Course-Description-Automation.wxs)
+here [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wxs)
