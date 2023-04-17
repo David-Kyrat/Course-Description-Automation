@@ -6,7 +6,7 @@
 
 * [Identification des besoins](#identification-des-besoins)
     * [](#)
-        * [Qui est le client ?](#qui-est-le-client-)
+        * [Qui est le client ?](#qui-est-la-cliente-)
         * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
         * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
         * [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
