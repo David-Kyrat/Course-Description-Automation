@@ -5,7 +5,7 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Identification des besoins](#identification-des-besoins)
-    * [_](#)
+    * [](#)
         * [Qui est le client ?](#qui-est-le-client-)
         * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
         * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
@@ -29,8 +29,6 @@
 <!-- vim-markdown-toc -->
 
 ## Identification des besoins
-
-### _
 
 #### Qui est le client ?
 
