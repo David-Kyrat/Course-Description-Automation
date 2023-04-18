@@ -1,0 +1,25 @@
+type Executable[T] = ExecutionContext ?=> T
+
+class Table {
+    val rows = new ArrayBuffer[Row]
+    def add(r: Row): Unit = rows += r
+    override def toString = rows.mkString("Table(", ", ", ")")
+  }
+
+  class Row {
+    val cells = new ArrayBuffer[Cell]
+    def add(c: Cell): Unit = cells += c
+    override def toString = cells.mkString("Row(", ", ", ")")
+  }
+
+  case class Cell(elem: String)
+
+  def table(init: Table ?=> Unit) = {
+      init
+      t
+    }
+
+    def row(init: Row ?=> Unit)(using t: Table) = {
+      init
+      t.add(r)
+    }
