@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Specification-Title: scala2plantuml-example
+Specification-Version: 0.3.0
+Specification-Vendor: BotTech
+Implementation-Title: scala2plantuml-example
+Implementation-Version: 0.3.0
+Implementation-Vendor: BotTech
+Implementation-Vendor-Id: nz.co.bottech
+Implementation-URL: https://github.com/BotTech/scala2plantuml
+Main-Class: nz.co.bottech.scala2plantuml.example.Main
+
