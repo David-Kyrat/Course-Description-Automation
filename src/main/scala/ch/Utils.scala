@@ -30,7 +30,6 @@ final object Utils {
     private val errLogPrintWriter = if (canLog) new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true) else null
     if (canLog) errLogPrintWriter.println(String.format("[%s]: --------------------------------------- Run started %s"), LocalDateTime.now(), sep)
 
-
     private def getLogPath: Try[Path] = Try {
         val path = Path.of("res/log/err.log").toAbsolutePath
         val exists = Files.exists(path)
@@ -49,11 +48,11 @@ final object Utils {
     }
 
     /**
-      * Writes the given message to the log file located at `res/log/err.log`
-      * if there were no error getting/creating it.
-      * Otherwise, do nothing.
-      * @param msg Message to log
-      */
+     * Writes the given message to the log file located at `res/log/err.log`
+     * if there were no error getting/creating it.
+     * Otherwise, do nothing.
+     * @param msg Message to log
+     */
     def log(msg: String) = { if (canLog) errLogPrintWriter.println(msg + "\n") }
 
     /**
