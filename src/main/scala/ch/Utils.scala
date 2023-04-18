@@ -93,8 +93,7 @@ final object Utils {
             resolver()
         } catch {
             case e: Exception => {
-                e.printStackTrace(errLogPrintWriter)
-                errLogPrintWriter.println(sep)
+                log(e.printStackTrace.toString)
                 defaultVal
             }
         }
