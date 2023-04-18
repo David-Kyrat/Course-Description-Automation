@@ -1,0 +1,10 @@
+name = "Course-Description-Automation"
+owner = "David-Kyrat"
+directories = {
+  type="directories",
+  dir-entries=[
+    {type = "entry", path = "src/main/scala/ch"}
+    {type = "entry", path = "src/main/scala/ch/sealedconcept"}
+    {type = "entry", path = "src/main/scala/ch/io"}
+    ]
+}
