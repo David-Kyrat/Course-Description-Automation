@@ -30,8 +30,11 @@ val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
 val jsonLib = "com.google.code.gson" % "gson" % "2.10.1"
 val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
 val xml = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
+val scala2PlantUml = "nz.co.bottech" %% "scala2plantuml" % "0.3.0"
+
 
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
+semanticdbEnabled := true
 
 lazy val root = (project in file(".")).settings(
   name := pName,
@@ -39,7 +42,8 @@ lazy val root = (project in file(".")).settings(
   resourceDirectory := baseDirectory.value / resDir_String,
   assembly / assemblyJarName := jarName, // name + ".jar",
   //
-  libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib, xml),
+  /* libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib, ml), */
+  libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib, xml, scala2PlantUml), 
   //
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
