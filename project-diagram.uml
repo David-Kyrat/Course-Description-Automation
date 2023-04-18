@@ -1,0 +1,58 @@
+@startuml
+skinparam linetype ortho
+
+entity System << (O,#FF7700) Object>>
+
+# Remove all object and weirdly pasrsed stuff and keep only what was translated as classes and rename the SEALED interfaces
+# and add 1 small line saying "on voit pas les implementations des interfaces car elles ont ete faites avec des "case object" (qui ont 
+le meme noms donc quon peut vriament pas representer)
+
+class Aug
+class node30 as "Aug$"
+class Bachelor
+class node6 as "Bachelor$"
+interface CourseActivity << interface >>
+class node25 as "CourseActivity$"
+class node29 as "CourseActivity$class"
+class CourseHours
+class node11 as "CourseHours$"
+interface ExaSession << interface >>
+class node5 as "ExaSession$"
+class node3 as "ExaSession$class"
+class Exercices
+class node13 as "Exercices$"
+class Jan
+class node2 as "Jan$"
+class Jul
+class node18 as "Jul$"
+class Lectures
+class node33 as "Lectures$"
+class Master
+class node23 as "Master$"
+class Phd
+class node8 as "Phd$"
+class Practice
+class node14 as "Practice$"
+interface SPType << interface >>
+class node0 as "SPType$"
+class node21 as "SPType$class"
+class node17 as "SealedConceptObject$class"
+interface SealedConceptObject<T> << interface >>
+interface Semester << interface >>
+class node20 as "Semester$"
+class node26 as "Semester$class"
+
+node30               -[#008200,dashed]up->  ExaSession          
+node6                -[#008200,dashed]up->  SPType              
+node25               -[#008200,dashed]up->  SealedConceptObject 
+node5                -[#008200,dashed]up->  SealedConceptObject 
+node13               -[#008200,dashed]up->  CourseActivity      
+node2                -[#008200,dashed]up->  ExaSession          
+node18               -[#008200,dashed]up->  ExaSession          
+node33               -[#008200,dashed]up->  CourseActivity      
+node23               -[#008200,dashed]up->  SPType              
+node8                -[#008200,dashed]up->  SPType              
+node14               -[#008200,dashed]up->  CourseActivity      
+node0                -[#008200,dashed]up->  SealedConceptObject 
+node20               -[#008200,dashed]up->  SealedConceptObject
+@enduml
