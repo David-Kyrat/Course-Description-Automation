@@ -5,21 +5,20 @@ import com.typesafe.sbt.packager.windows.WixHelper.generateComponentsAndDirector
 import com.typesafe.sbt.packager.windows.{WindowsFeature, *}
 import sbt.IO
 
-// BUILD INFOS
+// NB:  ----------------------------- BUILD INFOS ---------------------------
 
 ThisBuild / scalaVersion := "2.12.2"
-ThisBuild / version      := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "ch"
 /* ThisBuild / scalaVersion := "2.13.10" */
 
-
+// build schemes required for scala-xml and scalapb-runtime to not have version conflicts
 addDependencyTreePlugin
 addSbtPlugin("nz.co.bottech" % "sbt-scala2plantuml" % "0.3.0")
-
 ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
 ThisBuild / libraryDependencySchemes += "com.thesamet.scalapb" %% "scalapb-runtime_2.12" % VersionScheme.Always
 
 
+// NB:  ----------------------------- PATHS --------------------------------
 
 val resDir_String = "res"
 val resDir_File = file(resDir_String) // File object that can be passed to functions that doesnt accept macros like `resourceDirectory`
@@ -37,8 +36,10 @@ val jarPath = "lib/" + jarName
 val batName = pNameLower + ".bat"
 val batPath = "bin/" + batName
 
+// NB:  ----------------------------- DEPENDENCIES  -------------------------
+
 /* val scalaBaseDep = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1" */
-val scalaMeta ="org.scalameta" %% "semanticdb" % "4.1.6"
+val scalaMeta ="org.scalameta" %% "semanticdb" % "4.1.6" 
 val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
 val jsonLib = "com.google.code.gson" % "gson" % "2.10.1"
 val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
@@ -49,27 +50,27 @@ val scala2PlantUml = "nz.co.bottech" %% "scala2plantuml" % "0.3.0"
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
 semanticdbEnabled := true
 
+// NB: ----------------------------- PROJECT DEF ----------------------------
+
 lazy val root = (project in file(".")).settings(
   name := pName,
   version := "0.1",
   resourceDirectory := baseDirectory.value / resDir_String,
   assembly / assemblyJarName := jarName, // name + ".jar",
   //
-  /* libraryDependencies ++= Seq(scalaBaseDep, parallelCollections, prettyPrintJsonLib, jsonLib, ml), */
-  libraryDependencies ++= Seq(
-    scalaBaseDep, 
-    parallelCollections, 
-    prettyPrintJsonLib, 
-    jsonLib, 
-    scala2PlantUml
-  ), 
+  //libraryDependencies ++= Seq(
+  //  scalaBaseDep, 
+  //  parallelCollections, 
+  //  prettyPrintJsonLib, 
+  //  jsonLib, 
+  //  scala2PlantUml
+  //), 
   libraryDependencies ++= Seq(
     scalaMeta,
     prettyPrintJsonLib,
     jsonLib,
     scala2PlantUml
-  )
-
+  ),
   //
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
@@ -78,6 +79,8 @@ lazy val root = (project in file(".")).settings(
   wixProductId := "ce07be71-510d-414a-92d4-dff47631848a",
   wixProductUpgradeId := "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"
 )
+
+// NB: --------------------- WINDOWS PACKAGING, WIX CONFIG ------------------
 
 Windows / mappings := (Universal / mappings).value
 //val resDirectory = resourceDirectory.value //file("/res")
@@ -109,6 +112,8 @@ writeWixConfig := {
     println("\n-----\n")
     // println(resources.value)
 }
+
+// NB: --------------------- DEBUGGING -------------------------------------
 
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
 
