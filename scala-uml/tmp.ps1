@@ -1,1 +1,0 @@
-scala2plantuml --url 'https://repo1.maven.org/maven2/nz/co/bottech/scala2plantuml-example_2.13/0.3.0/scala2plantuml-example_2.13-0.3.0.jar' --project example "nz/co/bottech/scala2plantuml/example/Main."
