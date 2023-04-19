@@ -1,24 +1,32 @@
 @startuml
 skinparam linetype ortho
 
-entity Aug <<(O,red) case object>>
-entity Bachelor <<(O,red) case object>>
-interface CourseActivity << sealed trait >>
-class CourseHours << Case Class >>
-interface ExaSession << sealed trait >>
-entity Exercices <<(O,red) case object>>
+package ch.sealedconcept {
+  entity Aug <<(O,red) case object>>
+  entity Bachelor <<(O,red) case object>>
+  interface CourseActivity << sealed trait >>
+  class CourseHours << Case Class >>
+  interface ExaSession << sealed trait >>
 
-entity Jan <<(O,red) case object>>
+  entity Exercices <<(O,red) case object>>
 
-entity Jul <<(O,red) case object>>
+  entity Jan <<(O,red) case object>>
+  entity Jul <<(O,red) case object>>
 
-entity Lectures <<(O,red) case object>>
-entity Master <<(O,red) case object>>
-entity Phd <<(O,red) case object>>
-entity Practice <<(O,red) case object>>
-interface SPType << sealed trait >>
-interface SealedConceptObject<T> << sealed trait >>
-interface Semester << sealed trait >>
+  entity Lectures <<(O,red) case object>>
+  entity Master <<(O,red) case object>>
+  entity Phd <<(O,red) case object>>
+  entity Practice <<(O,red) case object>>
+  interface SPType << sealed trait >>
+  interface SealedConceptObject<T> << sealed trait >>
+  interface Semester << sealed trait >>
+  entity Spring <<(O,red) case object>> 
+  entity Autumn <<(O,red) case object>>
+  entity Yearly <<(O,red) case object>>
+}
+
+class ch.stuff
+
 
 Jan               --[dashed]up>  ExaSession          
 Aug               --[dashed]up>  ExaSession          
