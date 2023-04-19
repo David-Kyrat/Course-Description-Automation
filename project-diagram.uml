@@ -5,7 +5,7 @@ package ch.sealedconcept {
   entity Aug <<(O,red) case object>>
   entity Bachelor <<(O,red) case object>>
   interface CourseActivity << sealed trait >>
-  class CourseHours << Case Class >>
+  class CourseHours << case class >>
   interface ExaSession << sealed trait >>
 
   entity Exercices <<(O,red) case object>>
@@ -25,7 +25,10 @@ package ch.sealedconcept {
   entity Yearly <<(O,red) case object>>
 }
 
-class ch.stuff
+class ch.Course    << case class >>
+class ch.ReqHdl    << case class >>
+class ch.Resp      << case class >>
+class ch.StudyPlan << case class >>
 
 
 Jan               --[dashed]up>  ExaSession          
