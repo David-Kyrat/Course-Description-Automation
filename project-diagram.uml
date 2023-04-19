@@ -2,20 +2,20 @@
 skinparam linetype ortho
 
 entity Aug <<(O,red) case object>>
-class Bachelor <<(O,red) case object>>
+entity Bachelor <<(O,red) case object>>
 interface CourseActivity << sealed trait >>
 class CourseHours << Case Class >>
 interface ExaSession << sealed trait >>
-class Exercices <<(O,red) case object>>
+entity Exercices <<(O,red) case object>>
 
-class Jan <<(O,red) case object>>
+entity Jan <<(O,red) case object>>
 
-class Jul <<(O,red) case object>>
+entity Jul <<(O,red) case object>>
 
-class Lectures <<(O,red) case object>>
-class Master <<(O,red) case object>>
-class Phd <<(O,red) case object>>
-class Practice <<(O,red) case object>>
+entity Lectures <<(O,red) case object>>
+entity Master <<(O,red) case object>>
+entity Phd <<(O,red) case object>>
+entity Practice <<(O,red) case object>>
 interface SPType << sealed trait >>
 interface SealedConceptObject<T> << sealed trait >>
 interface Semester << sealed trait >>
@@ -23,15 +23,18 @@ interface Semester << sealed trait >>
 Jan               --[dashed]up>  ExaSession          
 Aug               --[dashed]up>  ExaSession          
 Jul               --[dashed]up>  ExaSession          
-Bachelor                --[dashed]up>  SPType              
-Master                --[dashed]up>  SPType              
-Phd                --[dashed]up>  SPType              
+Bachelor          --[dashed]up>  SPType              
+Master            --[dashed]up>  SPType              
+Phd               --[dashed]up>  SPType              
 Semester          --[#008200,dashed]up->  SealedConceptObject 
-ExaSession         --[#008200,dashed]up-> SealedConceptObject 
-Lectures               --[#008200,dashed]up>  CourseActivity
-Exercices               --[#008200,dashed]up>  CourseActivity  
-Practice               --[#008200,dashed]up>  CourseActivity
-SPType               --[#008200,dashed]up->  SealedConceptObject 
-CourseHours        --[#008200,dashed]up->  SealedConceptObject
-CourseActivity        --[#008200,dashed]up->  SealedConceptObject
+Spring            --[dashed]up->  Semester
+Autumn            --[dashed]up->  Semester
+Yearly            --[dashed]up->  Semester
+ExaSession        --[#008200,dashed]up->  SealedConceptObject 
+Lectures          --[dashed]up>   CourseActivity
+Exercices         --[dashed]up>   CourseActivity  
+Practice          --[#008200,dashed]up>   CourseActivity
+SPType            --[#008200,dashed]up->  SealedConceptObject 
+CourseHours       --[#008200]up->  SealedConceptObject
+CourseActivity    --[#008200,dashed]up->  SealedConceptObject
 @enduml
