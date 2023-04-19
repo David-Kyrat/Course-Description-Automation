@@ -120,6 +120,4 @@ Course -up-o StudyPlan
 Course -> RequestHandler
 RequestHandler -* Response
 
-
-
 @enduml
