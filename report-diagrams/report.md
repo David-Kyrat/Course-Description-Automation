@@ -190,7 +190,7 @@ essayer de suivre les bonnes pratiques et les conseils de la documentation offic
 
 Cependant, j'ai lourdement besoin du cours d'OS du semestre
 passé et de toutes les bonnes pratiques que j'ai pu apprendre en C.
-Ceci afin d'essayer de comprendre pourquoi à tel moment, le compilateur rust imposait telle limitation, pourquoi tel ou tel autre opération n'était pas permises.  
+Ceci afin d'essayer de comprendre pourquoi à tel moment, le compilateur rust imposait telle limitation, pourquoi tel ou tel autre opération n'était pas permises.
 
 Malheursement, ce fût très loin d'être suffisant.
 J'eus pensé que ce langage ajouterait une couche d'abstraction "magique" rendant
@@ -206,7 +206,24 @@ la notion d'ownership d'une zone de mémoire virtuelle etc...
 
 ### Implémentation
 
-*
+#### Choix et outils à disposition pour la réalistion du projet
+
+Etant donnée que le fonctionnement du projet a déjà été partiellement expliqué et couvert dans les sections précédentes, un simple use case diagram sera inclus pour cette partie.
+
+Ce use case diagram explique basiquement comment les différentes parties
+expliquées ci-dessus interagissent entre elles.
+
+<!-- TODO: INSERT BASIC USE CASE DIAGRAM -->
+
+
+#### Quels outils informatiques avez-vous utilisés (IDE, langages, git, programme externes, etc.) ? Pourquoi votre choix c’est porté sur ces outils ?
+
+Comme IDE, Neovim a été choisit pour sa rapidité et sa légèreté.
+En effet, j'utilise vim/nvim depuis plus de 2 ans et la satisfaction de pouvoir 
+démarrer un éditeur n'importe où, si rapidement avec un fonctionnement et des raccourcis réélement optimisés pour la productivité est un réel plus.
+
+De plus étant donnée que contrairement à vim, neovim est programmé en lua (i.e. un vrai langage simple à apprendre) il est beaucoup plus aisé de configurer et programmer réellement, sur mesure, les fonctionnalités que l'on souhaite avoir sans  être ralenti par le côté *"one size fits all"* d'autres éditeurs.
+
 
 ### Tests et évaluation
 
