@@ -154,11 +154,12 @@ La structure du projet est consitué de 3 parties:
 design pattern (patrons de conception) de bases en Java/Scala  et pour la partie rust j'ai eu lourdement besoin du cours d'OS du semestre passé et de toutes les bonnes pratiques que j'ai pu en tirer.
 En effet, j'ai assez sous-estimé les compétences techniques nécessaires pour comprendre Rust, le borrow-checker, la notion d'ownership d'une zone de mémoire virtuelle etc...
 
+##### Diagrammes de classe
+
 Pour la partie en scala, les designs patterns de base en Java/Scala ont été utilisé, ce qui à donnée suite au diagramme de classe suivant:
 
 
-![class-diagram-whole.svg](./other/diagram-uml.svg)
-<!-- <img src="other/diagram-uml.svg"> -->
+![class-diagram-whole.svg](./svg/class-diagram.svg)
 
 
 Dû à sa taille il a été séparé en packages. Il y a en 2 pour la partie scala: `ch` le package principal et `sealedconcepts` qui représente les différents concepts qui forment un cours.
@@ -178,12 +179,11 @@ on peut considérer que c'est une sorte de classe statique qui est assimilé à 
 
 Comme dit précédemment, le diagramme a été séparé en 2 packages, `ch.sealedconcepts` et `ch` respectivement:
 
-
-![class-diagram-bottom.svg](./other/diagram-uml.svg)
+`ch.sealedconcept`:
 ![class-diagram-bottom.svg](./svg/diagram-bottom.svg)
 
 
-![class-diagram-up.svg](./svg/diagram-up.svg)
+`ch`:
 ![class-diagram-up.svg](./svg/diagram-up.svg)
 
 
