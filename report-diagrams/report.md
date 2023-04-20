@@ -4,7 +4,6 @@
 
 <br/>
 
-
 # Table des matières
 
 <!-- vim-markdown-toc GFM -->
@@ -34,11 +33,9 @@
 
 <!-- vim-markdown-toc -->
 
-*** 
+***
 
 <br/>
-
-
 
 ## Identification des besoins
 
@@ -61,29 +58,24 @@ Principalement la cliente elle même.
 es problèmes de la cliente ont commencé du au fait que le principal support utilisé
 par l'université pour décrire un cours et son contenu était :
 
-1. Confus et épars (problème d'UI/UX dans l'affichage des informations)
-2. Présents à plusieurs endroits du site de l'université sans avoir de cohérence
-ni de _contenu_ (i.e. données concrètes) ni de _forme_ (i.e. séléction et mise en forme)
-3. Les informations n'étaient pas affichées dans leur integralité
-4. La modification de ces données était longue et fastidieuse à entreprendre à entreprendre
-
+1.  Confus et épars (problème d'UI/UX dans l'affichage des informations)
+2.  Présents à plusieurs endroits du site de l'université sans avoir de cohérence
+    ni de *contenu* (i.e. données concrètes) ni de *forme* (i.e. séléction et mise en forme)
+3.  Les informations n'étaient pas affichées dans leur integralité
+4.  La modification de ces données était longue et fastidieuse à entreprendre à entreprendre
 
 Sa solution (temporaire) était donc de reporter manuellement ces informations dans documents
 word dont les pdfs étaient accessibles par les étudiants.
 
 La création de ces pdfs est donc evidemment fastidieuse, répétitive et sujette à erreur.
 
-C'est la qu'entre en jeux la solution developpé: l'automatisation de ces fiches descriptives.  
+C'est la qu'entre en jeux la solution developpé: l'automatisation de ces fiches descriptives.\
 (Voir exemple ci-dessous)
 
 ![image](..\res\readme-example.png)
 
-
-
 L'object du logiciel est de générer automatiquement des PDFs de fiches descriptives de cours
 de 1-2 pages qui contiennent cette compression et ce résumé
-
-
 
 #### Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?
 
@@ -151,18 +143,44 @@ endroits du site de l'université avaient pu régulièrment se mettre à jour.
 
 La structure du projet est consitué de 3 parties:
 
-  1. Une partie en Scala qui permet de parser le contenu de la base de donnée de l'université et de les convertir en fichier markdown.
-  Elle permet également grâce à [sbt](https://www.scala-sbt.org/) (le build tool de scala) et [Wix](https://wixtoolset.org/docs/intro/) 
-  de générer un fichier .msi  (installeur windows)
+1.  Une partie en Scala qui permet de parser le contenu de la base de donnée de l'université et de les convertir en fichier markdown.
+    Elle permet également grâce à [sbt](https://www.scala-sbt.org/) (le build tool de scala) et [Wix](https://wixtoolset.org/docs/intro/)
+    de générer un fichier .msi  (installeur windows)
 
-  2. Une partie en Rust qui effectue des appels systèmes en parallèle à l'API de Windows pour convertir ces fichiers markdown en fichiers html puis pdf (en utilisant pandoc et wkhtmltopdf)
-  3. Une partie en [Javafx](https://openjfx.io/) (libraire graphique de Java)  qui s'occupe de l'interface utilisateur (i.e. la gui)
+2.  Une partie en Rust qui effectue des appels systèmes en parallèle à l'API de Windows pour convertir ces fichiers markdown en fichiers html puis pdf (en utilisant pandoc et wkhtmltopdf)
+
+3.  Une partie en [Javafx](https://openjfx.io/) (libraire graphique de Java)  qui s'occupe de l'interface utilisateur (i.e. la gui)
 
 design pattern (patrons de conception) de bases en Java/Scala  et pour la partie rust j'ai eu lourdement besoin du cours d'OS du semestre passé et de toutes les bonnes pratiques que j'ai pu en tirer.
 En effet, j'ai assez sous-estimé les compétences techniques nécessaires pour comprendre Rust, le borrow-checker, la notion d'ownership d'une zone de mémoire virtuelle etc...
 
+Pour la partie en scala, les designs patterns de base en Java/Scala ont été utilisé, ce qui à donnée suite au diagramme de classe suivant:
 
 
+![Alt text](./other/diagram-uml.svg)
+<!-- <img src="other/diagram-uml.svg"> -->
+
+
+Dû à sa taille il a été séparé en packages. Il y a en 2 pour la partie scala: `ch` le package principal et `sealedconcepts` qui représente les différents concepts qui forment un cours.
+On a un `sealed trait` principal (`SealedConceptObject`), générique, duquel tous les autres découle.
+
+Chaque concept spécifique est représente par un autre trait scélé qui implémente `SealedConceptObject`
+mais pour le type spécifique qui représente ce concept. (e.g. la signature du trait `ExaSession` est :
+
+```scala
+sealed trait ExaSession
+object ExaSession extends SealedConceptObject[ExaSession] { ... }
+```
+
+(En scala un `object` qui a le même nom qu'une classe, trait/interface, est appelé son `CompanionObject` 
+on peut considérer que c'est une sorte de classe statique qui est assimilé à cette classe/trait, c'est pour ça qu'on ne voit que le trait sur le diagramme). 
+
+
+<br>
+
+stuff
+
+stuff
 
 ***
 
