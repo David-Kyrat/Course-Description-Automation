@@ -8,28 +8,28 @@
 
 <!-- novim-markdown-toc GFM -->
 
-* [Identification des besoins](#identification-des-besoins)
-    * [Informations générales](#informations-générales)
-        * [Qui est la cliente ?](#qui-est-la-cliente-)
-        * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
-        * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
-        * [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
-        * [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
-        * [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
-    * [Liste des besoins](#liste-des-besoins)
-        * [explicités par la cliente](#explicités-par-la-cliente)
-        * [mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
-* [Développement](#développement)
-    * [Conception](#conception)
-        * [Scénario d'utilisation](#scénario-dutilisation)
-        * [Méthodes de conception et diagrammes](#méthodes-de-conception-et-diagrammes)
-            * [Vue globale du projet](#vue-globale-du-projet)
-    * [Implémentation](#implémentation)
-    * [Tests et évaluation](#tests-et-évaluation)
-* [Organisation](#organisation)
-* [Formation](#formation)
-* [Feedback](#feedback)
-* [Annexes](#annexes)
+*   [Identification des besoins](#identification-des-besoins)
+    *   [Informations générales](#informations-générales)
+        *   [Qui est la cliente ?](#qui-est-la-cliente-)
+        *   [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
+        *   [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
+        *   [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
+        *   [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
+        *   [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
+    *   [Liste des besoins](#liste-des-besoins)
+        *   [explicités par la cliente](#explicités-par-la-cliente)
+        *   [mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
+*   [Développement](#développement)
+    *   [Conception](#conception)
+        *   [Scénario d'utilisation](#scénario-dutilisation)
+        *   [Méthodes de conception et diagrammes](#méthodes-de-conception-et-diagrammes)
+            *   [Vue globale du projet](#vue-globale-du-projet)
+    *   [Implémentation](#implémentation)
+    *   [Tests et évaluation](#tests-et-évaluation)
+*   [Organisation](#organisation)
+*   [Formation](#formation)
+*   [Feedback](#feedback)
+*   [Annexes](#annexes)
 
 <!-- vim-markdown-toc -->
 
@@ -151,16 +151,13 @@ La structure du projet est consitué de 3 parties:
 
 3.  Une partie en [Javafx](https://openjfx.io/) (libraire graphique de Java)  qui s'occupe de l'interface utilisateur (i.e. la gui)
 
-design pattern (patrons de conception) de bases en Java/Scala  et pour la partie rust j'ai eu lourdement besoin du cours d'OS du semestre passé et de toutes les bonnes pratiques que j'ai pu en tirer.
-En effet, j'ai assez sous-estimé les compétences techniques nécessaires pour comprendre Rust, le borrow-checker, la notion d'ownership d'une zone de mémoire virtuelle etc...
 
 ##### Diagrammes de classe
 
+*Partie 1:*  
 Pour la partie en scala, les designs patterns de base en Java/Scala ont été utilisé, ce qui à donnée suite au diagramme de classe suivant:
 
-
 ![class-diagram-whole.svg](./svg/class-diagram.svg)
-
 
 Dû à sa taille il a été séparé en packages. Il y a en 2 pour la partie scala: `ch` le package principal et `sealedconcepts` qui représente les différents concepts qui forment un cours.
 On a un `sealed trait` principal (`SealedConceptObject`), générique, duquel tous les autres découle.
@@ -173,29 +170,31 @@ sealed trait ExaSession
 object ExaSession extends SealedConceptObject[ExaSession] { ... }
 ```
 
-(En scala un `object` qui a le même nom qu'une classe, trait/interface, est appelé son `CompanionObject` 
-on peut considérer que c'est une sorte de classe statique qui est assimilé à cette classe/trait, c'est pour ça qu'on ne voit que le trait sur le diagramme). 
-
+(En scala un `object` qui a le même nom qu'une classe, trait/interface, est appelé son `CompanionObject`
+on peut considérer que c'est une sorte de classe statique qui est assimilé à cette classe/trait, c'est pour ça qu'on ne voit que le trait sur le diagramme).
 
 Comme dit précédemment, le diagramme a été séparé en 2 packages, `ch.sealedconcepts` et `ch` respectivement:
 
 `ch.sealedconcept`:
-![class-diagram-bottom.svg](./svg/diagram-bottom.svg)
-
+![class-diagram-bottom.svg](./svg/class-diagram-bottom.svg)
 
 `ch`:
-![class-diagram-up.svg](./svg/diagram-up.svg)
-
-
-
-
-
+![class-diagram-up.svg](./svg/class-diagram-up.svg)
 
 <br>
 
-stuff
+*Partie 2:  Rust*
 
-stuff
+Je n'avais jamais fait de rust avant ce projet, donc j'ai dû apprendre les bases de ce langage "sur le tas". Je n'ai donc pas utilisé de méthode de conception, ni de schéma particulier pour la partie rust, j'ai simplement 
+essayer de suivre les bonnes pratiques et les conseils de la documentation officielle.
+
+j'ai eu lourdement besoin du cours d'OS du semestre
+passé et de toutes les bonnes pratiques que j'ai pu en tirer.
+En effet, j'ai assez sous-estimé les compétences techniques 
+nécessaires pour comprendre Rust, le borrow-checker,
+la notion d'ownership d'une zone de mémoire virtuelle etc...
+
+
 
 ***
 
