@@ -24,6 +24,7 @@
         *   [Scénario d'utilisation](#scénario-dutilisation)
         *   [Méthodes de conception et diagrammes](#méthodes-de-conception-et-diagrammes)
             *   [Vue globale du projet](#vue-globale-du-projet)
+            *   [Diagrammes de classe](#diagrammes-de-classe)
     *   [Implémentation](#implémentation)
     *   [Tests et évaluation](#tests-et-évaluation)
 *   [Organisation](#organisation)
@@ -151,10 +152,9 @@ La structure du projet est consitué de 3 parties:
 
 3.  Une partie en [Javafx](https://openjfx.io/) (libraire graphique de Java)  qui s'occupe de l'interface utilisateur (i.e. la gui)
 
-
 ##### Diagrammes de classe
 
-*Partie 1:*  
+*Partie 1:*\
 Pour la partie en scala, les designs patterns de base en Java/Scala ont été utilisé, ce qui à donnée suite au diagramme de classe suivant:
 
 ![class-diagram-whole.svg](./svg/class-diagram.svg)
@@ -185,16 +185,20 @@ Comme dit précédemment, le diagramme a été séparé en 2 packages, `ch.seale
 
 *Partie 2:  Rust*
 
-Je n'avais jamais fait de rust avant ce projet, donc j'ai dû apprendre les bases de ce langage "sur le tas". Je n'ai donc pas utilisé de méthode de conception, ni de schéma particulier pour la partie rust, j'ai simplement 
+Je n'avais jamais fait de rust avant ce projet, donc j'ai dû apprendre les bases de ce langage "sur le tas". Je n'ai donc pas utilisé de méthode de conception, ni de schéma particulier pour la partie rust, j'ai simplement
 essayer de suivre les bonnes pratiques et les conseils de la documentation officielle.
 
-j'ai eu lourdement besoin du cours d'OS du semestre
-passé et de toutes les bonnes pratiques que j'ai pu en tirer.
-En effet, j'ai assez sous-estimé les compétences techniques 
+Cependant, j'ai lourdement besoin du cours d'OS du semestre
+passé et de toutes les bonnes pratiques que j'ai pu apprendre en C.
+Ceci afin d'essayer de comprendre pourquoi à tel moment, le compilateur rust imposait telle limitation, pourquoi tel ou tel autre opération n'était pas permises.  
+
+Malheursement, ce fût très loin d'être suffisant.
+J'eus pensé que ce langage ajouterait une couche d'abstraction "magique" rendant
+la rédaction de programmes safe et efficient significativement plus simple, mais encore une fois, ce fût très loin d'être le cas.
+
+En effet, j'ai assez sous-estimé les compétences techniques
 nécessaires pour comprendre Rust, le borrow-checker,
 la notion d'ownership d'une zone de mémoire virtuelle etc...
-
-
 
 ***
 
