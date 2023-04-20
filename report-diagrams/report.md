@@ -224,6 +224,10 @@ démarrer un éditeur n'importe où, si rapidement avec un fonctionnement et des
 
 De plus étant donnée que contrairement à vim, neovim est programmé en lua (i.e. un vrai langage simple à apprendre) il est beaucoup plus aisé de configurer et programmer réellement, sur mesure, les fonctionnalités que l'on souhaite avoir sans  être ralenti par le côté *"one size fits all"* d'autres éditeurs.
 
+quote: 
+> "Use a single editor well.  
+> The editor should be an extension of your hand; make sure your editor is configurable, extensible, and programmable."
+
 
 ### Tests et évaluation
 
