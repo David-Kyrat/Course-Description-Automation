@@ -6,7 +6,7 @@
 
 # Table des matières
 
-<!-- vim-markdown-toc GFM -->
+<!-- novim-markdown-toc GFM -->
 
 * [Identification des besoins](#identification-des-besoins)
     * [Informations générales](#informations-générales)
@@ -157,7 +157,7 @@ En effet, j'ai assez sous-estimé les compétences techniques nécessaires pour 
 Pour la partie en scala, les designs patterns de base en Java/Scala ont été utilisé, ce qui à donnée suite au diagramme de classe suivant:
 
 
-![Alt text](./other/diagram-uml.svg)
+![class-diagram-whole.svg](./other/diagram-uml.svg)
 <!-- <img src="other/diagram-uml.svg"> -->
 
 
@@ -174,6 +174,21 @@ object ExaSession extends SealedConceptObject[ExaSession] { ... }
 
 (En scala un `object` qui a le même nom qu'une classe, trait/interface, est appelé son `CompanionObject` 
 on peut considérer que c'est une sorte de classe statique qui est assimilé à cette classe/trait, c'est pour ça qu'on ne voit que le trait sur le diagramme). 
+
+
+Comme dit précédemment, le diagramme a été séparé en 2 packages, `ch.sealedconcepts` et `ch` respectivement:
+
+
+![class-diagram-bottom.svg](./other/diagram-uml.svg)
+![class-diagram-bottom.svg](./svg/diagram-bottom.svg)
+
+
+![class-diagram-up.svg](./svg/diagram-up.svg)
+![class-diagram-up.svg](./svg/diagram-up.svg)
+
+
+
+
 
 
 <br>
