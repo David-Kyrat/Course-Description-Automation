@@ -2,9 +2,15 @@
 
 #### *Noah Munz - 18 Avril 2023*
 
+<br/>
+
+
+# Table des matières
+
 <!-- vim-markdown-toc GFM -->
 
 * [Identification des besoins](#identification-des-besoins)
+    * [Informations générales](#informations-générales)
         * [Qui est la cliente ?](#qui-est-la-cliente-)
         * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
         * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
@@ -17,7 +23,8 @@
 * [Développement](#développement)
     * [Conception](#conception)
         * [Scénario d'utilisation](#scénario-dutilisation)
-        * [Méthodes de conception & diagrammes](#méthodes-de-conception--diagrammes)
+        * [Méthodes de conception et diagrammes](#méthodes-de-conception-et-diagrammes)
+            * [Vue globale du projet](#vue-globale-du-projet)
     * [Implémentation](#implémentation)
     * [Tests et évaluation](#tests-et-évaluation)
 * [Organisation](#organisation)
@@ -27,7 +34,15 @@
 
 <!-- vim-markdown-toc -->
 
+*** 
+
+<br/>
+
+
+
 ## Identification des besoins
+
+### Informations générales
 
 #### Qui est la cliente ?
 
@@ -61,7 +76,7 @@ La création de ces pdfs est donc evidemment fastidieuse, répétitive et sujett
 C'est la qu'entre en jeux la solution developpé: l'automatisation de ces fiches descriptives.  
 (Voir exemple ci-dessous)
 
-![image](res\readme-example.png)
+![image](..\res\readme-example.png)
 
 
 
@@ -81,6 +96,8 @@ l'esthétisme du nouveau format)
 
 Sous la license MIT.
 Pour plus d'information voir [https://choosealicense.com/licenses/mit](https://choosealicense.com/licenses/mit/)
+
+<br/>
 
 ### Liste des besoins
 
@@ -128,9 +145,21 @@ Ce qui pose le problème évident d'avoir l'intégralité des 2èmes des années
 Ce problème n'aurait pas eu lieu si les descriptifs du cours présent à différents
 endroits du site de l'université avaient pu régulièrment se mettre à jour.
 
-#### Méthodes de conception & diagrammes
+#### Méthodes de conception et diagrammes
 
-*
+##### Vue globale du projet
+
+La structure du projet est consitué de 3 parties:
+
+  1. Une partie en Scala qui permet de parser le contenu de la base de donnée de l'université et de les convertir en fichier markdown.
+  Elle permet également grâce à [sbt](https://www.scala-sbt.org/) (le build tool de scala) et [Wix](https://wixtoolset.org/docs/intro/) 
+  de générer un fichier .msi  (installeur windows)
+
+  2. Une partie en Rust qui effectue des appels systèmes en parallèle à l'API de Windows pour convertir ces fichiers markdown en fichiers html puis pdf (en utilisant pandoc et wkhtmltopdf)
+  3. Une partie en [Javafx](https://openjfx.io/) (libraire graphique de Java)  qui s'occupe de l'interface utilisateur (i.e. la gui)
+
+design pattern (patrons de conception) de bases en Java/Scala  et pour la partie rust j'ai eu lourdement besoin du cours d'OS du semestre passé et de toutes les bonnes pratiques que j'ai pu en tirer.
+En effet, j'ai assez sous-estimé les compétences techniques nécessaires pour comprendre Rust, le borrow-checker, la notion d'ownership d'une zone de mémoire virtuelle etc...
 
 
 

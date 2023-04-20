@@ -3,7 +3,6 @@ avez pu rencontrer et les solutions mises en place. Par exemple, si vous
 n'avez pas produit de code pour ce projet, indiquez pourquoi dans la
 section « 2.2 implémentation ».**
 
-
 <!-- vim-markdown-toc GFM -->
 
 * [Identification des besoins](#identification-des-besoins)
@@ -23,26 +22,23 @@ section « 2.2 implémentation ».**
 Définir les besoins utilisateurs que vous avez identifiés en
 mentionnant :
 
--   qui est le client ?
--   qui seront les utilisateurs du logiciel ?
--   quels sont les problèmes rencontrés ?
--   quel est l'objectif principal du logiciel, en quoi ce logiciel
+*   qui est le client ?
+*   qui seront les utilisateurs du logiciel ?
+*   quels sont les problèmes rencontrés ?
+*   quel est l'objectif principal du logiciel, en quoi ce logiciel
     résoudra les problèmes ?
--   quelles sont les solutions existantes et en quoi la solution que
+*   quelles sont les solutions existantes et en quoi la solution que
     vous proposez est différente ?
--   sous quelle licence le code sera-t-il livré ?
+*   sous quelle licence le code sera-t-il livré ?
 
 Effectuer une liste des besoins identifiés tout au long du projet.
 Indiquer les besoins explicités par le client de ceux que vous avez
 vous-même mis en avant (e.g. par exemple en proposant de nouvelles
 fonctionnalités).
 
-
 # Développement
 
-
 ## Conception
-
 
 Donner un exemple d'utilisation de votre programme sous forme de
 scénario.
@@ -56,7 +52,6 @@ relationnelles, use-cases identifiés, etc.).
 
 Si vous programme possède une interface, joindre les schémas /
 prototypes que vous avez conçus.
-
 
 ## Implémentation
 
@@ -121,7 +116,7 @@ seront prises en compte pour améliorer le cours.
 
 Il faudra livrer au client et à l'enseignant chargé de votre suivi :
 
--   une documentation utilisateur indiquant comment utiliser votre
+*   une documentation utilisateur indiquant comment utiliser votre
     programme / application ;
--   **votre code **et éventuellement un exécutable suivant ce qui a été
+*   **votre code **et éventuellement un exécutable suivant ce qui a été
     défini avec le client**.**
