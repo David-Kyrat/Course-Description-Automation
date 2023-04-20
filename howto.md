@@ -1,6 +1,29 @@
-# Markdown Parsing and html / pdf generation
+# Table of Contents
 
-### Parsing & Rendering Markdown
+<!-- vim-markdown-toc GFM -->
+
+* [Content](#content)
+    * [Markdown Parsing and html / pdf generation](#markdown-parsing-and-html--pdf-generation)
+        * [Parsing and Rendering Markdown](#parsing-and-rendering-markdown)
+        * [Generating html with markdown based on pandoc templates](#generating-html-with-markdown-based-on-pandoc-templates)
+* [DB access and Requests](#db-access-and-requests)
+    * [Parsing](#parsing)
+        * [Which field from the database is relevant ?](#which-field-from-the-database-is-relevant-)
+            * [Course:](#course)
+        * [Example of markdown structure used to generate  htmls and pdfs](#example-of-markdown-structure-used-to-generate--htmls-and-pdfs)
+    * [Packaging](#packaging)
+
+<!-- vim-markdown-toc -->
+---
+
+
+<br/>
+
+# Content
+
+## Markdown Parsing and html / pdf generation
+
+### Parsing and Rendering Markdown
 
 - mdgen.php is used to parse a markdown file in [php markdown extra](https://michelf.ca/projects/php-markdown/extra/)
   into html. it's used like so:
@@ -37,7 +60,7 @@ _Hence the only dependency for this part is pandoc._
 
 <br/>
 
-# DB access & Requests
+# DB access and Requests
 
 **base url:** `https://pgc.unige.ch/main/api/`
 
@@ -113,7 +136,7 @@ it is extremely unlikely that the bachelor actually contains > 30 courses for th
 
 ----
 
-### Example of markdown structure used to generate  htmls & pdfs
+### Example of markdown structure used to generate  htmls and pdfs
 
 ```YAML
 ---
