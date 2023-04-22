@@ -7,15 +7,14 @@ import sbt.IO
 
 // NB:  ----------------------------- BUILD INFOS ---------------------------
 
-ThisBuild / scalaVersion := "2.12.2"
+ThisBuild / scalaVersion := "2.13.10"
 ThisBuild / organization := "ch"
-/* ThisBuild / scalaVersion := "2.13.10" */
 
 // build schemes required for scala-xml and scalapb-runtime to not have version conflicts
-addDependencyTreePlugin
-addSbtPlugin("nz.co.bottech" % "sbt-scala2plantuml" % "0.3.0")
-ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
-ThisBuild / libraryDependencySchemes += "com.thesamet.scalapb" %% "scalapb-runtime_2.12" % VersionScheme.Always
+// addDependencyTreePlugin
+// addSbtPlugin("nz.co.bottech" % "sbt-scala2plantuml" % "0.3.0")
+// ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+// ThisBuild / libraryDependencySchemes += "com.thesamet.scalapb" %% "scalapb-runtime_2.12" % VersionScheme.Always
 
 
 // NB:  ----------------------------- PATHS --------------------------------
@@ -23,7 +22,7 @@ ThisBuild / libraryDependencySchemes += "com.thesamet.scalapb" %% "scalapb-runti
 val resDir_String = "res"
 val resDir_File = file(resDir_String) // File object that can be passed to functions that doesnt accept macros like `resourceDirectory`
 resourceDirectory := baseDirectory.value / resDir_String
-/* unmanagedBase := baseDirectory.value / "lib" */
+// unmanagedBase := baseDirectory.value / "lib"
 
 Compile / resourceDirectory := resourceDirectory.value
 
@@ -38,12 +37,10 @@ val batPath = "bin/" + batName
 
 // NB:  ----------------------------- DEPENDENCIES  -------------------------
 
-/* val scalaBaseDep = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1" */
-val scalaMeta ="org.scalameta" %% "semanticdb" % "4.1.6" 
+val scalaBaseDep = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
 val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
 val jsonLib = "com.google.code.gson" % "gson" % "2.10.1"
 val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
-/* val xml = "org.scala-lang.modules" %% "scala-xml" % "2.1.0" */
 val scala2PlantUml = "nz.co.bottech" %% "scala2plantuml" % "0.3.0"
 
 
@@ -57,20 +54,12 @@ lazy val root = (project in file(".")).settings(
   version := "0.1",
   resourceDirectory := baseDirectory.value / resDir_String,
   assembly / assemblyJarName := jarName, // name + ".jar",
-  //
-  //libraryDependencies ++= Seq(
-  //  scalaBaseDep, 
-  //  parallelCollections, 
-  //  prettyPrintJsonLib, 
-  //  jsonLib, 
-  //  scala2PlantUml
-  //), 
   libraryDependencies ++= Seq(
-    scalaMeta,
-    prettyPrintJsonLib,
-    jsonLib,
-    scala2PlantUml
-  ),
+   scalaBaseDep, 
+   parallelCollections, 
+   prettyPrintJsonLib, 
+   jsonLib, 
+  ), 
   //
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
@@ -87,7 +76,7 @@ Windows / mappings := (Universal / mappings).value
 
 Windows / mappings ++= {
     val jar = (Compile / packageBin).value
-    /* val dir = (Windows / sourceDirectory).value */
+    // val dir = (Windows / sourceDirectory).value
     Seq(jar -> jarPath) // , (Compile / resourceDirectory).value ->  // , (dir / batName) -> batPath)
 }
 
@@ -106,7 +95,7 @@ wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
     println("-----")
-    /* println(comp) */
+    // println(comp)
     println("\n-----\n")
     IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
     println("\n-----\n")
@@ -128,6 +117,6 @@ getResPath := {
 
 // HINT: TO GENERATE MSI INSTALLER RUN `sbt 'Windows / packageBin'` (or windows:packageBin but sbt says its deprecated)
 
-/* ComponentFile(batPath), */
-/* ComponentFile(jarPath) */
+// ComponentFile(batPath),
+// ComponentFile(jarPath) 
 // , AddDirectoryToPath("bin"))
