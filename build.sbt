@@ -1,4 +1,3 @@
-import Dependencies._
 import com.typesafe.sbt.SbtNativePackager.Universal
 
 import com.typesafe.sbt.packager.Keys.{wixFeatures, wixFiles, wixProductId, wixProductUpgradeId}

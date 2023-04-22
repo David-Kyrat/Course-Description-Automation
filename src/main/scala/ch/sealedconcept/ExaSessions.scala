@@ -25,7 +25,6 @@ case object Aug extends ExaSession {
 
 object ExaSession extends SealedConceptObject[ExaSession] {
 
-    /** not needed because infered from `Semester` */
-    override def jsonKey = ""  
+    override def jsonKey = "" // TODO:
     override def ALL = Vector(Jan, Jul, Aug)
 }

@@ -12,6 +12,6 @@ case object Phd extends SPType
 object SPType extends SealedConceptObject[SPType] {
 
     case object Other extends SPType // NOTE: Placeholder for other types that may have been forgotten at time of writing
-    override def jsonKey = "studyLevel" // NOTE: field only available in GET Request for studyPlan
+    override def jsonKey = ???
     override def ALL = Vector(Bachelor, Master, Phd, Other)
 }

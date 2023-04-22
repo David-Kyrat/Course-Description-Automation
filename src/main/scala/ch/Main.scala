@@ -4,7 +4,8 @@ package ch
 import ch.Utils.crtYear
 import ch.io.Serializer
 
-import java.nio.file.Path
+import java.io.File
+import java.nio.file.{Files, Path}
 import scala.collection.parallel.immutable.ParVector
 
 object Main {
@@ -51,7 +52,7 @@ object Main {
         })
     }
 
-    /*def testSpdfLib() = {
+    /* def testSpdfLib() = {
         // Create a new Pdf converter with a custom configuration
         // run `wkhtmltopdf --extended-help` for a full list of options
         val pdf = spdf.Pdf(new PdfConfig {
@@ -66,7 +67,7 @@ object Main {
         val path = Path.of("res/templates/desc-2022-11X001.html")
         val cntn = Files.readString(path)
         pdf.run(cntn, new File("ipa.pdf"))
-    }*/
+    } */
 
     def main(args: Array[String]): Unit = {
         println("\n\n")

@@ -46,10 +46,10 @@ final case class Course(
     val usefulFor: Option[Vector[String]] = None
 }
 
-object Course extends ((String, Int) => Course) {
+object Course extends Function2[String, Int, Course] {
     import com.google.gson.JsonObject
 
-    // TODO: extract Extractor method here
+    // TODO: exract Extractor method here
 
     /**
      * @param id String, i.e. course code, if `year` is not given => id must be the exact
@@ -64,14 +64,14 @@ object Course extends ((String, Int) => Course) {
     }
 
     /**
-     * Shortcut method for very simple data to extract (i.e. the jsonKey isn't something nested like activities.<something>)
+     * Shortcut method for very simple data to extract (i.e. the jsonKey isn't something nested like activities.<somehting>)
      * @param jsObj JsonObject, response to get request wrapped in JsonObject
      * @param sco SealedConceptObject[T], trait representing data to extract
-     * @tparam U, case object, i.e. realisation of trait of type T (e.g. `Semester` => `Autumn`, `Semester` is a sealed Trait and `Autumn` is a case object)
+     * @param U, case object, i.e. realisation of trait of type T (e.g. `Semester` => `Autumn`, `Semester` is a sealed Trait and `Autumn` is a case object)
      */
     private def simpleResolveSealedConceptObject[T, U >: T](jsObj: JsonObject, sco: SealedConceptObject[T], customJsonKey: String = null): U = {
         val jsonKey = if (customJsonKey == null) sco.jsonKey else customJsonKey
-        sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
+        return sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
     }
 
     /**
@@ -102,18 +102,18 @@ object Course extends ((String, Int) => Course) {
         def extractor(key: String, obj: JsonObject = activitiesObj): String = obj.get(key).getAsString
         val stringBufr = new ArrayBuffer[String]()
         for (teacher <- activityTeachers) {
-            val fn: String = extractor("displayFirstName", teacher.asInstanceOf[JsonObject])
+            var fn: String = extractor("displayFirstName", teacher.asInstanceOf[JsonObject])
             val ln = extractor("displayLastName", teacher.asInstanceOf[JsonObject])
             stringBufr += (f"$fn $ln")
         }
-        stringBufr.toVector
+        stringBufr.to(Vector)
     }
 
     private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, String)] = {
         val tmp = jsObj.get("listStudyPlan").getAsJsonArray.asScala // .toIndexedSeq
         def extractor(key: String, obj: JsonObject) = obj.get(key).getAsString
         val studyPlans: IndexedSeq[JsonObject] = tmp.map(_.asInstanceOf[JsonObject]).toIndexedSeq // .asInstanceOf[IndexedSeq[JsonObject]]
-        // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this course in that plan and whether the course is mandatory or optional
+        // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
         // val y: Map[String, (Int, String)]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
 
         studyPlans
@@ -149,8 +149,8 @@ object Course extends ((String, Int) => Course) {
         def tryExtract(key: String, default: String = "", jsObj: JsonObject = lectures) =
             tryOrElse(() => jsObj.get(key).getAsString, default)
 
-        val title = tryExtract("title")
-        val language = tryExtract("language")
+        val title = tryExtract("title", "")
+        val language = tryExtract("language", "")
 
         val spType: SPType = tryOrElse(() => resolveSpType(jsObj), SPType.Other)
         val spYear: String = tryOrElse(() => resolveSpYear(jsObj, id), "N/A")
@@ -158,27 +158,27 @@ object Course extends ((String, Int) => Course) {
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
         // TODO: FIND DEFAULT VALUES FOR ALL SealedConceptObject
 
-        val description = tryExtract("description")
-        val objective = tryExtract("objective")
+        val description = tryExtract("description", "")
+        val objective = tryExtract("objective", "")
         val faculty = tryExtract("facultyLabel", "", jsObj)
         // val section = ???
 
-        val evalMode = tryExtract("evaluation")
+        val evalMode = tryExtract("evaluation", "")
         val hoursNb = tryOrElse(() => resolveCourseHours(activities), CourseHours(0, 0, 0)) // default value is 0 everywhere
-        val studyPlanNames = tryExtract("intended")
-        val documentation = tryExtract("bibliography")
-        val various = tryExtract("variousInformation")
-        val comments = tryExtract("comment")
-        val coursType = tryExtract("type")
+        val studyPlanNames = tryExtract("intended", "")
+        val documentation = tryExtract("bibliography", "")
+        val various = tryExtract("variousInformation", "")
+        val comments = tryExtract("comment", "")
+        val coursType = tryExtract("type", "")
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), Vector.empty)
         val noSp = Map("Pas de cursus" -> (0, "-"))
-        val studPlan: Map[String, (Int, String)] = tryOrElse(
-            () => {
-                val sp = resolveStudyPlan(jsObj)
-                if (sp.isEmpty) noSp else sp
-            },
-            noSp
+        var studPlan: Map[String, (Int, String)] = tryOrElse(
+          () => {
+              val sp = resolveStudyPlan(jsObj)
+              if (sp.isEmpty) noSp else sp
+          },
+          noSp
         )
         new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan, various, comments)
     }
