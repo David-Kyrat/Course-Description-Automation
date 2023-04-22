@@ -1,8 +1,5 @@
-**/vendor
-
-
-**/node_modules
-**/rome.json
+# Example for startup debugging 
+src/main/scala/example/
 
 
 # Scala config folders
@@ -64,3 +61,11 @@ target/scala-2.13/api
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+
+
+# Others
+**/vendor
+
+
+**/node_modules
+**/rome.json
