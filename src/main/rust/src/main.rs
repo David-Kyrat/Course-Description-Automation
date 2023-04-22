@@ -230,7 +230,6 @@ fn get_resources_path() -> Result<(String, String, String, String), std::io::Err
     let res_path: PathBuf = rust_exe_path;
     let res_path: String = abs_path_clean(&res_path);
 
-    println!("lul1");
     Ok((
         exes_path.to_owned() + "\\pandoc.exe",
         exes_path + "\\wkhtmltopdf.exe",
