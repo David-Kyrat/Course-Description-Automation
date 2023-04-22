@@ -9,12 +9,7 @@ import sbt.IO
 
 ThisBuild / scalaVersion := "2.13.10"
 ThisBuild / organization := "ch"
-
-// build schemes required for scala-xml and scalapb-runtime to not have version conflicts
-// addDependencyTreePlugin
-// addSbtPlugin("nz.co.bottech" % "sbt-scala2plantuml" % "0.3.0")
-// ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
-// ThisBuild / libraryDependencySchemes += "com.thesamet.scalapb" %% "scalapb-runtime_2.12" % VersionScheme.Always
+ThisBuild / logLevel := Level.Error
 
 
 // NB:  ----------------------------- PATHS --------------------------------
@@ -53,7 +48,7 @@ lazy val root = (project in file(".")).settings(
   name := pName,
   version := "0.1",
   resourceDirectory := baseDirectory.value / resDir_String,
-  assembly / assemblyJarName := jarName, // name + ".jar",
+  assembly / assemblyJarName := jarName,
   libraryDependencies ++= Seq(
    scalaBaseDep, 
    parallelCollections, 
@@ -63,7 +58,7 @@ lazy val root = (project in file(".")).settings(
   //
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
-  packageDescription := """MSI Installer for the application Course-Description-Automation""",
+  packageDescription := """Application to automatically generate printable 1-2 page PDF of course descriptions.""",
   // wix build information
   wixProductId := "ce07be71-510d-414a-92d4-dff47631848a",
   wixProductUpgradeId := "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"

@@ -3,6 +3,8 @@ package ch
 import com.google.gson.{Gson, GsonBuilder}
 import spray.json._
 
+import scala.util.{Failure, Success => Succsess, Try}
+
 import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.StandardOpenOption._
 import java.nio.file.{Files, Path}
@@ -30,11 +32,15 @@ final object Utils {
     private val errLogPrintWriter = if (canLog) new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true) else null
     if (canLog) errLogPrintWriter.println(String.format("[%s]: --------------------------------------- Run started %s"), LocalDateTime.now(), sep)
 
-    private def getLogPath: Try[Path] = Try {
+    def toInt(s: String): Try[Int] = Try {
+        Integer.parseInt(s.trim)
+    }
+
+    private def getLogPath(): Try[Path] = Try {
         val path = Path.of("res/log/err.log").toAbsolutePath
         val exists = Files.exists(path)
         if (!exists || Files.size(path) > LOG_MAX_SIZE) {
-            if (exsists) Files.delete(path) // delete logs if the'yre too big
+            if (exists) Files.delete(path) // delete logs if the'yre too big
             Files.createDirectories(path.getParent)
             Files.createFile(path)
         }
