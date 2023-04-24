@@ -9562,9 +9562,12 @@ body {
     margin-left: 0 !important;*/
 }
 .smallimg {
+    top: 13px;
     position: absolute;
-    bottom: 91%;
-    left: 81%;
+    top: 1.5% ;
+    /* bottom: 1230px; */
+    right: 10%;
+    width: 9%;
     text-align: right;
 }
 
