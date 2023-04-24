@@ -216,9 +216,12 @@ fn pandoc_fill_template(
     if out_html.exists() {
         Ok(out_html.to_path_buf())
     } else {
-        Err(custom_io_err(&format!(
-            "pandoc_fill_template: Could not generate html file for {md_path}\\{md_filename}"
-        )))
+        let msg = &format!(
+            "pandoc_fill_template: Could not generate html file {md_path}\\{md_filename} \n
+            ||  template: {templates_path}    ||  md_path: {md_path}       ||   templates_path: {templates_path}        
+            ||  pandoc_path: {pandoc_path}"
+        );
+        Err(custom_io_err(msg))
     }
 }
 
