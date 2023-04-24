@@ -12,6 +12,7 @@
             * [Course:](#course)
         * [Example of markdown structure used to generate  htmls and pdfs](#example-of-markdown-structure-used-to-generate--htmls-and-pdfs)
     * [Packaging](#packaging)
+    * [Pandoc quick commands](#pandoc-quick-commands)
 
 <!-- vim-markdown-toc -->
 ---
@@ -202,8 +203,8 @@ Left to do:
   from windows seach
 - [ ] Small GUI
 
-- [ ] Find a way to generate an executable instead of `.bat`
-    - [ ] If that's not possible just hide the `.bat` and make a C wrapper that calls it.
+- [x] Find a way to generate an executable instead of `.bat`
+    - [x] If that's not possible just hide the `.bat` and make a ~~C~~ **Rust** wrapper that calls it.
       The wrapper will then be compiled as `.exe`
 
 Not urgent:
@@ -215,3 +216,19 @@ The actual wix configuration of the installer is present in the file `target/win
 file.
 It's just an xml file with a specific microsoft-defined syntax see
 here [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wxs)
+
+
+***
+
+<br/>
+
+## Pandoc quick commands
+
+Selection of pandoc example to keep track what arguments to use
+since its usage can sometime be a bit obscure.
+
+```Powershell
+pandoc input.md -t html --template=res/templates/desc-template.html -o output.html
+pandoc desc-2022-12M040.html  --from=html --pdf-engine=wkhtmltopdf -o desc-2022-12M040.pdf -t html --css=res/templates/desc-template.css
+```
+
