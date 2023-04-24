@@ -194,7 +194,7 @@ fn pandoc_fill_template(
     md_path: &str,
     templates_path: &str,
 ) -> io::Result<PathBuf> {
-    let template: String = templates_path.to_owned() + "\\desc-template.html";
+    let template: String = templates_path.to_owned() + "\\template.html";
 
     let md_filepath: &String = &format!("{md_path}\\{md_filename}");
     let out_html = templates_path.to_owned() + "\\" + &md_filename.replace(".md", ".html");
