@@ -26,6 +26,10 @@ howto-copy.md
 *.sc
 *.log
 **/log
+# necessary
+!res/log 
+res/log/*
+!res/log/.gitkeep
 res/templates/rmd
 
 
