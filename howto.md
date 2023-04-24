@@ -229,6 +229,6 @@ since its usage can sometime be a bit obscure.
 
 ```Powershell
 pandoc input.md -t html --template=res/templates/desc-template.html -o output.html
-pandoc desc-2022-12M040.html  --from=html --pdf-engine=wkhtmltopdf -o desc-2022-12M040.pdf -t html --css=res/templates/desc-template.css
+pandoc desc-2022-12M040.html  --from=html --pdf-engine=wkhtmltopdf -o desc-2022-12M040.pdf -t html --css=res/templates/course-desc.css
 ```
 
