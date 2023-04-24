@@ -1,6 +1,6 @@
 # Table of Contents
 
-<!-- vim-markdown-toc GFM -->
+<!-- vvim-markdown-toc GFM -->
 
 * [Content](#content)
     * [Markdown Parsing and html / pdf generation](#markdown-parsing-and-html--pdf-generation)
@@ -227,12 +227,16 @@ here [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-D
 Selection of pandoc and wkhtmltopdf examples to keep track what arguments to use
 since their usage can sometime be a bit obscure.
 
-```sh
-pandoc input.md -t html --template=res/templates/desc-template.html -o output.html
-pandoc desc-2022-12M040.html  --from=html --pdf-engine=wkhtmltopdf -o desc-2022-12M040.pdf -t html --css=res/templates/course-desc.css # doesn't give the right output
-```
+1. **Pandoc**
 
-```sh
-wkhtmltopdf --enable-local-file-access -T 2 -B 0 -L 3 -R 0 input.html output.pdf
-```
+    ```sh
+    pandoc input.md -t html --template=res/templates/desc-template.html -o output.html
+    pandoc desc-2022-12M040.html  --from=html --pdf-engine=wkhtmltopdf -o desc-2022-12M040.pdf -t html --css=res/templates/course-desc.css # doesn't give the right output
+    ```
+
+
+2. **wkhtmltopdf**
+    ```sh
+    wkhtmltopdf --enable-local-file-access -T 2 -B 0 -L 3 -R 0 input.html output.pdf
+    ```
 
