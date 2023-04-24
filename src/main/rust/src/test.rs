@@ -123,3 +123,43 @@ pub fn test_winsafe_error_description() {
     println!("{:#?}", ERROR-::LOCKED);
     println!("---------------"); */
 }
+
+
+fn fails() -> io::Result<()> {
+    Err(custom_io_err("failing multiple times"))
+}
+
+fn test_macro() -> Result<(), io::Error> {
+    let tmp = "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2210.5.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe";
+    let x: io::Result<()> = execvp("notpad", "");
+    let x: io::Result<()> = if x.is_err() {
+        unwrap_retry_or_log!(x, execvp, "execvp", "", "")
+    } else {
+        x
+    };
+    let pandoc_path = "";
+    let cmd_line = "";
+    let x = execvp(pandoc_path, cmd_line);
+    let x: io::Result<()> = if x.is_err() {
+        unwrap_retry_or_log!(x, execvp, "execvp", "", "")
+    } else {
+        x
+    };
+    println!("lul");
+    // return Err(x);
+    // unwrap_or_log!(x, "lul");
+
+    /* let mut r = 1;
+    let mut tmp = (x);
+    while tmp.is_err() && r < RETRY_AMOUNT {
+        tmp = execvp("", "");
+        r += 1;
+    }
+    if r >= RETRY_AMOUNT {
+        let err = (tmp.unwrap_err());
+        return Err(err);
+    } */
+
+    //unwrap_retry_or_log!(x, fails, {"OmegaLul"});
+    Ok(())
+}

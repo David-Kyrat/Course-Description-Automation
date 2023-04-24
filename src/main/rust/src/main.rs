@@ -46,10 +46,6 @@ const RETRY_AMOUNT: u8 = 5;
 /// This functions returns after having waited on the "child" process.
 /// (Although the wait is not mandatory to avoid zombies thanks to the winsafe api,
 /// here we just want to wait for the completion of the job.)
-/* pub fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
-    try_execvp(app_name, command_line)
-}
-*/
 fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
     let mut si: STARTUPINFO = STARTUPINFO::default();
     let (app_name, command_line) = (app_name.trim(), command_line.trim());
@@ -61,14 +57,13 @@ fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
         "" => None,
         _ => Some(app_name),
     };
-    //Some(app_name);
     let command_line: &str = &format!("{app_name} {command_line}"); //append name of program
     let cmd_line_opt = Some(command_line);
     // first word before space in command line should be app_name
-    // (I think its ignored either way if app_name is not None because its argv[0])
+    // (it is ignored either way if app_name is not None because its argv[0])
 
     let close_handle_res: SysResult<CloseHandlePiGuard> = HPROCESS::CreateProcess(
-        app_name_opt, //app_name_opt,
+        app_name_opt,
         cmd_line_opt,
         None,
         None,
@@ -85,29 +80,7 @@ fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
             line!(),
             file!()
         )));
-        // unwrap_retry_or_log!(x, try_execvp, app_name, command_line, 0);
     }
-
-    //TODO: CHECK IF ERROR! MACRO IS THREAD SAFE
-
-    /* if close_handle_res.is_err() {
-        if retry < RETRY_AMOUNT {
-            return try_execvp(app_name, command_line, retry + 1);
-        } else {
-            let err: winsafe::co::ERROR = close_handle_res.map(|_| ()).unwrap_err(); // discards results to match io::Result<()> type
-            error!(
-                "Windows Error: could not start process {app_name} {command_line}\n\t{}",
-                err
-            );
-            return Err(custom_io_err(&format!(
-                "WinErr: could not start process {app_name} {command_line}\n\t{}",
-                err
-            )));
-        }
-    } *///SysResult<_> -> winsafe::co::ERROR
-
-    //let err_mapper = |err: SysResult<CloseHandlePiGuard>| err.map(|_| ()).unwrap_err();
-    // unwrap_retry_or_log!(close_handle_res, try_execvp, app_name, command_line, retry);
 
     let close_handle = close_handle_res.unwrap();
     let wait_res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, Some(10_000)); // waits 10 sec at most
@@ -148,10 +121,8 @@ macro_rules! unwrap_or_log{
 /// - `args`: (optionnal only if function doesn't require arguments) arguments of the function separated by a comma
 macro_rules! unwrap_retry_or_log {
     ( $fun_res:expr, $fun: ident, $msg:expr  $(, $args:expr)* ) => {
-        // if $fun_res.is_err() {
         {
             let mut r = 1;
-            // let tmp = ($fun_res);
             let mut x =  $fun( $($args),* );
             while x.is_err() && r < RETRY_AMOUNT {
                 let x = $fun( $($args),* );
@@ -159,57 +130,12 @@ macro_rules! unwrap_retry_or_log {
             }
             if r >= RETRY_AMOUNT {
                 let err = x.unwrap_err();
-                // let msg = format!("{}{:?}\n\t {}{}asd",  $($msg + "\n\t")? "", err, line!(), file!());
                 error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
-                // error!("{}\n\t{:?}.\t Line {}, file {}.\n",  $msg, err, line!(), file!());
-
                 return Err(err);
             }
             x
         }
-        //}
     }
-}
-
-fn fails() -> io::Result<()> {
-    Err(custom_io_err("failing multiple times"))
-}
-
-fn test_macro() -> Result<(), io::Error> {
-    //&io::Result<()> {
-    // let x: io::Result<()> = Err(custom_io_err("test"));
-    let tmp = "C:\\Program Files\\WindowsApps\\Microsoft.WindowsNotepad_11.2210.5.0_x64__8wekyb3d8bbwe\\Notepad\\Notepad.exe";
-    let x: io::Result<()> = execvp("notpad", "");
-    let x: io::Result<()> = if x.is_err() {
-        unwrap_retry_or_log!(x, execvp, "execvp", "", "")
-    } else {
-        x
-    };
-    let pandoc_path = "";
-    let cmd_line = "";
-    let x = execvp(pandoc_path, cmd_line);
-    let x: io::Result<()> = if x.is_err() {
-        unwrap_retry_or_log!(x, execvp, "execvp", "", "")
-    } else {
-        x
-    };
-    println!("lul");
-    // return Err(x);
-    // unwrap_or_log!(x, "lul");
-
-    /* let mut r = 1;
-    let mut tmp = (x);
-    while tmp.is_err() && r < RETRY_AMOUNT {
-        tmp = execvp("", "");
-        r += 1;
-    }
-    if r >= RETRY_AMOUNT {
-        let err = (tmp.unwrap_err());
-        return Err(err);
-    } */
-
-    //unwrap_retry_or_log!(x, fails, {"OmegaLul"});
-    Ok(())
 }
 
 /// # Description
@@ -222,17 +148,15 @@ fn test_macro() -> Result<(), io::Error> {
 ///
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
 fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
-    //let rust_exe_path = env::current_exe();
-    let rust_exe_path = Ok(PathBuf::from(
-        r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe",
-    ));
+    let rust_exe_path = env::current_exe();
+    // FIX simulating relative path where the executable will be :
+    // let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"));
 
     if rust_exe_path.is_err() {
         let err = rust_exe_path.unwrap_err();
         error!("could not get_resources_path {:#?}", err);
         return Err(err);
     }
-
     let mut rust_exe_path: PathBuf = rust_exe_path.unwrap();
 
     rust_exe_path.pop(); // /res/bin-converters
@@ -308,9 +232,9 @@ fn pandoc_fill_template(
 /// Path of the generated pdf (usually dir of executable i.e. `env::current_exe()`)
 fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
     let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
-    // simulating relative path where the executable will be :
+    // FIX simulating relative path where the executable will be :
     // let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
-    out_pdf = pop_n_push_s(&mut out_pdf, 2, &["pdf"]); 
+    out_pdf = pop_n_push_s(&mut out_pdf, 2, &["pdf"]);
 
     let new_name: &str = &out_html
         .file_name()
@@ -329,13 +253,19 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
     let exec_res = execvp(wk_path, cmd_line);
     let exec_res = if exec_res.is_err() {
         unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line)
-    } else { exec_res };
+    } else {
+        exec_res
+    };
 
     let out_pdf = out_pdf; // removes mut? i.e. makes out_pdf immutable ?
     if out_pdf.exists() {
         Ok(out_pdf)
     } else {
-        let msg = &format!("Could not convert html file to pdf: {} {}", wk_path, cmd_line).to_string();
+        let msg = &format!(
+            "Could not convert html file to pdf: {} {}",
+            wk_path, cmd_line
+        )
+        .to_string();
         Err(custom_io_err(msg))
     }
 }
@@ -364,18 +294,23 @@ pub fn fill_template_convert_pdf(
 ) -> io::Result<PathBuf> {
     let out_html = pandoc_fill_template(md_filename, pandoc_path, md_path, templates_path);
     let out_html = if (out_html.is_err()) {
-        let msg = format!("pandoc_fill_template: pandoc_path = {:?},  md_filename ={:?},  md_path={:?}", pandoc_path, md_filename, md_path);
+        let msg = format!(
+            "pandoc_fill_template: pandoc_path = {:?},  md_filename ={:?},  md_path={:?}",
+            pandoc_path, md_filename, md_path
+        );
 
         unwrap_retry_or_log!(
             out_html,
             pandoc_fill_template,
-            {msg},
+            { msg },
             md_filename,
             pandoc_path,
             md_path,
             templates_path
         )
-    } else { out_html };
+    } else {
+        out_html
+    };
 
     let tmp = &out_html.unwrap();
     let out_html: &Path = Path::new(tmp);
@@ -383,8 +318,11 @@ pub fn fill_template_convert_pdf(
     let exec_res = wkhtmltopdf(out_html, wk_path);
 
     if exec_res.is_err() {
-        let msg = format!("wkhtmltopdf: wk_path = {:?},  out_hmtl ={:?}", wk_path, out_html);
-        unwrap_retry_or_log!(exec_res, wkhtmltopdf, {msg}, out_html, wk_path)
+        let msg = format!(
+            "wkhtmltopdf: wk_path = {:?},  out_hmtl ={:?}",
+            wk_path, out_html
+        );
+        unwrap_retry_or_log!(exec_res, wkhtmltopdf, { msg }, out_html, wk_path)
     } else {
         exec_res
     }
@@ -494,16 +432,9 @@ fn _main() -> io::Result<()> {
     Ok(())
 }
 
-//pub mod test;
-
 pub fn main() -> io::Result<()> {
-    println!("\n\n");
+    // println!("\n\n");
     init_log4rs(None);
     // HK: DONT DELETE ABOVE THIS
-
-    // use test::test_winsafe_error_description;
-    // test_winsafe_error_description();
-    // test_macro()
     _main()
-    // Ok(())
 }
