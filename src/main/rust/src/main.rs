@@ -307,9 +307,10 @@ fn pandoc_fill_template(
 /// # Returns
 /// Path of the generated pdf (usually dir of executable i.e. `env::current_exe()`)
 fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
-    // let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
-    let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");//.expect("wkhtmltopdf: could not get current_dir");
-    out_pdf = pop_n_push_s(&mut out_pdf, 2, &["pdf"]); //.to_str().unwrap();
+    let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
+    // simulating relative path where the executable will be :
+    // let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
+    out_pdf = pop_n_push_s(&mut out_pdf, 2, &["pdf"]); 
 
     let new_name: &str = &out_html
         .file_name()
