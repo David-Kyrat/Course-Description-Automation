@@ -233,6 +233,7 @@ since their usage can sometime be a bit obscure.
     pandoc input.md -t html --template=res/templates/template.html -o output.html
     pandoc desc-2022-12M040.html  --from=html --pdf-engine=wkhtmltopdf -o desc-2022-12M040.pdf -t html --css=res/templates/course-desc.css # doesn't give the right output
     pandoc desc-2022-12M040.html  -t html5 --metadata pagetitle="test.md" --css course-desc.css -o  .\desc-2022-12M040.pdf
+    pandoc input.md -t html5 --template=template.html  --pdf-engine wkhtmltopdf  -V margin-top=2 -V margin-left=3 -V margin-right=0 -V margin-bottom=0 --css course-desc.css -o output.pdf
     ```
 
 
@@ -241,3 +242,4 @@ since their usage can sometime be a bit obscure.
     wkhtmltopdf --enable-local-file-access -T 2 -B 0 -L 3 -R 0 input.html output.pdf
     ```
 
+**NB**: 1.4 (4th pandoc command) works almost like wkhtmltopdf "standalone" and allows to perform the conversion from `.md` to `.pdf` in one go.
