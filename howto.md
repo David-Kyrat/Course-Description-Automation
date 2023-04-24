@@ -232,6 +232,7 @@ since their usage can sometime be a bit obscure.
     ```sh
     pandoc input.md -t html --template=res/templates/template.html -o output.html
     pandoc desc-2022-12M040.html  --from=html --pdf-engine=wkhtmltopdf -o desc-2022-12M040.pdf -t html --css=res/templates/course-desc.css # doesn't give the right output
+    pandoc desc-2022-12M040.html  -t html5 --metadata pagetitle="test.md" --css course-desc.css -o  .\desc-2022-12M040.pdf
     ```
 
 
