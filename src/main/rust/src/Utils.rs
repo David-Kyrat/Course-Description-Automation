@@ -13,7 +13,8 @@ use std::{env, io};
 /// # Return
 /// `path` after having applied
 /// `for _ in 0..n { path.pop() }` and `for s in to_join { path.push(s) } `
-pub fn pop_n_push_s(path: &mut PathBuf, n: u16, to_join: &[&str]) -> PathBuf {
+pub fn pop_n_push_s(path: &PathBuf, n: u16, to_join: &[&str]) -> PathBuf {
+    let mut path = path.clone(); // copy to avoid modifying argument
     for _ in 0..n {
         path.pop();
     }
