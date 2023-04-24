@@ -57,26 +57,59 @@ Les problèmes rencontrés ont été les suivants:
 
 1.  Redondance et incomplétudedes données de la base de donnée de l'université
 2.  Packager le projet et sortir une version "standalone"
-3. L'apprentissage de la création d'installeurs windows (`.msi`)
+3. L'apprentissage de la création d'installeurs windows (`.msi`) avec  [Wix](https://wixtoolset.org/) et le packager du build tool de scala [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/index.html).
 4. L'apprentissage de Rust
 
 <br />
 
 Plus précisment:
 
-1. Chaque réponse de requête à la BD de l'université, est **significativement** longue. Il y a **beaucoup** de duplication de donnée.  
+1. **Redondance BD**
+
+Chaque réponse de requête à la BD de l'université, est **significativement** longue. Il y a **beaucoup** de duplication de donnée.  
 Naviguer dans des fichiers de JSON de parfois presque un millier de ligne dont l'entropie approche dangereusement zero, n'a pas toujours été simple.  
 
-    Pour donner un exemple concret, chaque plan d'étude (e.g. bachelor en informatique) à 3 noms et
-    3 identifiants parfois identique parfois pas, parfois il y a juste le mot "sciences" rajouté ou enlevé 
-    quelque part.  
-    Et parmis ces 3, aucun n'est celui utilisé sur l'interface web décrivant les différents bachelor à laquelle on a tous accès.  
-    Cela veut dire, qu'il existe quelque part, un autre "stock" de donnée avec encore plus de duplication.  
-    Voir le [plan des attributs utilsés](https://github.com/David-Kyrat/Course-Description-Automation/blob/master/howto.md#which-field-from-the-database-is-relevant-)
-    dans ``howto.md`` pour plus d'informations.
+Pour donner un exemple concret, chaque plan d'étude (e.g. bachelor en informatique) à 3 noms et
+3 identifiants parfois identique parfois pas, parfois il y a juste le mot "sciences" rajouté ou enlevé 
+quelque part.  
+Et parmis ces 3, aucun n'est celui utilisé sur l'interface web décrivant les différents bachelor à laquelle on a tous accès.  
+Cela veut dire, qu'il existe quelque part, un autre "stock" de donnée avec encore plus de duplication.  
+Voir le [plan des attributs utilsés](https://github.com/David-Kyrat/Course-Description-Automation/blob/master/howto.md#which-field-from-the-database-is-relevant-)
+dans ``howto.md`` pour plus d'informations.
 
 
-2.  Devoir faire marcher le projet, avec de toutes ses dépendances, de manière standalone sur un ordinateur "vierge" (celui de la cliente) i.e. sans JDK, sans la possibilité de lancer des scripts powershell (à moins de le faire signer)...  
+2.  **Packaging**
+
+Par défaut sur Windows, l'execution de la quasi totalité des scripts PowerShell est désactivé par défaut.  
+Le paramètre gérant à quel moment un script PowerShell est autorisé à s'executer (i.e. les permissions d'executions "user") s'appelle `ExecutionPolicy`.
+
+Par défaut ce paramètre vaut `Restricted` i.e.
+
+> - The default execution policy for Windows client computers.  
+> - Permits individual commands, but does not allow scripts.
+> - Prevents running of all script files, including formatting and configuration files (.ps1xml), module script files (.psm1), and PowerShell profiles (.ps1).
+>
+> -- _https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.3_
+
+Le maximum que l'on puisse faire est d'activer le "mode développeur" qui lui va passer de `Restricted` à `RemoteSigned` (i.e. approximativement tout autant reistreignant et incapacitant). Car
+1. l'activation de ce mode, qui nécessite les droits administrateur, provoque plusieurs warning indiquant que le procédé n'est pas safe
+2. Tous scripts "étrangers" (e.g. les miens) doivent être digitallement signé par une entité reconnu par microsoft.
+
+<br >
+
+Pour remédier à ces problèmes il a été décidé d'utiliser **Rust** pour générer, de manière safe et efficiente, pour créer:  
+ 1. Une application gérant tous les appeles à des dépendances externes, i.e. pandoc et wkhtmltopdf (plus d'informations sur ces outils dans la partie implémentation) ainsi que de gérer les dossiers de resources dans lesquels générer les differents outputs générés par le projet (markdown, html, pdf).
+
+
+2. Un launcher qui s'occupe de localiser la version de java "bundled" et lancer la GUI javafx, puis récuperer son input et le donner au programme "principal" (scala) puis d'appeler l'application du point 1. pour terminer la conversion du markdown en pdf.
+
+ En utilisant directement l'api windows (Win32), ou plutôt 
+
+
+
+Pour plus d'information voir la partie [Packaging]() du `howto.md` à la râcine du répo.
+
+Devoir faire marcher le projet, avec de toutes ses dépendances, de manière standalone sur un ordinateur "vierge" (celui de la cliente) i.e. sans JDK, sans la possibilité de lancer des scripts powershell (à moins de le faire signer)...  
 
 
 De ce problème, découle 2 sous-problèmes:

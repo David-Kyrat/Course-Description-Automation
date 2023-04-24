@@ -195,7 +195,11 @@ Unfortunately, this require a **heavily** configurated `build.sbt` config file.
 Actually the heaviness isn't really the issue here, but rather the "outdatedness" and scarcity of actually usefull the
 informations. That's what makes the packaging / installer generation *really* time consuming.
 
-Left to do:
+***
+
+<br > 
+
+## Left to do:
 
 - [x] Find a way to bundle `res/` directory with the installer
 - [x] Find a way to force project installation in document directory and add symlink the "pdf" folder next to the .exe
@@ -204,8 +208,10 @@ Left to do:
 - [ ] Small GUI
 
 - [x] Find a way to generate an executable instead of `.bat`
-    - [x] If that's not possible just hide the `.bat` and make a ~~C~~ **Rust** wrapper that calls it.
+    - [x] If that's not possible just hide the `.bat` and make a ~~C~~ Rust wrapper that calls it.
       The wrapper will then be compiled as `.exe`
+- [x] Rust parallelized pandoc convert application
+- [ ] Rust launcher
 
 Not urgent:
 
