@@ -225,6 +225,19 @@ fn pandoc_fill_template(
     }
 }
 
+/// # Description
+/// Calls 'pandoc' cmd with `execvp` that will convert the given markdown file according
+/// to the predefined html template and then convert it to a pdf with 'wkhtmltopdf' as a pdf-engine.
+///
+/// # Params
+/// - `md_filename`: filename of a markdown document in `/res/md/` directory.
+/// i.e. `desc-2022-11X001.md` for `/res/md/desc-2022-11X001.md`
+/// - `pandoc_path`: Absolute path to the pandoc executable.
+/// - `md_path`: Absolute path to the `/res/md` directory.
+/// - `templates_path`: Absolute path to the `/res/templates` directory.
+///
+/// # Returns
+/// Path of the generated pdf (usually  `res/pdf/<markdown_filename.pdf>`.
 fn pandoc_md_to_pdf(
     md_filename: &String,
     pandoc_path: &str,
