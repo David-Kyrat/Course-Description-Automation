@@ -6,31 +6,32 @@
 
 <!-- # Table des matières -->
 
-<!-- novim-markdown-toc GFM -->
+<!-- vim-markdown-toc GFM -->
 
-*   [Identification des besoins](#identification-des-besoins)
-    *   [Informations générales](#informations-générales)
-        *   [Qui est la cliente ?](#qui-est-la-cliente-)
-        *   [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
-        *   [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
-        *   [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
-        *   [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
-        *   [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
-    *   [Liste des besoins](#liste-des-besoins)
-        *   [explicités par la cliente](#explicités-par-la-cliente)
-        *   [mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
-*   [Developpement](#developpement)
-    *   [Conception](#conception)
-        *   [Scenario d'utilisation](#scenario-dutilisation)
-        *   [Methodes de conception et diagrammes](#methodes-de-conception-et-diagrammes)
-            *   [Vue globale du projet](#vue-globale-du-projet)
-            *   [Diagrammes de classe](#diagrammes-de-classe)
-    *   [Implémentation](#implémentation)
-    *   [Tests et évaluation](#tests-et-évaluation)
-*   [Organisation](#organisation)
-*   [Formation](#formation)
-*   [Feedback](#feedback)
-*   [Annexes](#annexes)
+* [Identification des besoins](#identification-des-besoins)
+    * [Informations générales](#informations-générales)
+        * [Qui est la cliente ?](#qui-est-la-cliente-)
+        * [Qui seront les utilisateurs du logiciel ?](#qui-seront-les-utilisateurs-du-logiciel-)
+        * [Quels sont les problèmes rencontrés ?](#quels-sont-les-problèmes-rencontrés-)
+        * [Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?](#quel-est-lobjectif-principal-du-logiciel-en-quoi-ce-logiciel-résoudra-les-problèmes-)
+        * [Quelles sont les solutions existantes et en quoi la solution que vous proposez est différente ?](#quelles-sont-les-solutions-existantes-et-en-quoi-la-solution-que-vous-proposez-est-différente-)
+        * [sous quelle licence le code sera-t-il livré ?](#sous-quelle-licence-le-code-sera-t-il-livré-)
+    * [Liste des besoins](#liste-des-besoins)
+        * [explicités par la cliente](#explicités-par-la-cliente)
+        * [mis en avant par le developpeur](#mis-en-avant-par-le-developpeur)
+* [Developpement](#developpement)
+    * [Conception](#conception)
+        * [Scenario d'utilisation](#scenario-dutilisation)
+        * [Methodes de conception et diagrammes](#methodes-de-conception-et-diagrammes)
+            * [Vue globale du projet](#vue-globale-du-projet)
+            * [Diagrammes de classe](#diagrammes-de-classe)
+    * [Implémentation](#implémentation)
+        * [Choix et outils à disposition pour la réalistion du projet](#choix-et-outils-à-disposition-pour-la-réalistion-du-projet)
+        * [Quels outils informatiques avez-vous utilisés (IDE, langages, git, programme externes, etc.) ? Pourquoi votre choix c’est porté sur ces outils ?](#quels-outils-informatiques-avez-vous-utilisés-ide-langages-git-programme-externes-etc--pourquoi-votre-choix-cest-porté-sur-ces-outils-)
+    * [Tests et évaluation](#tests-et-évaluation)
+* [Organisation](#organisation)
+* [Formation](#formation)
+* [Feedback](#feedback)
 
 <!-- vim-markdown-toc -->
 
@@ -51,6 +52,50 @@ Anne-Isabelle Giuntini, administration et secrétariat des étudiants de Battell
 Principalement la cliente elle même.
 
 #### Quels sont les problèmes rencontrés ?
+
+Les problèmes rencontrés ont été les suivants:
+
+1.  Redondance et incomplétudedes données de la base de donnée de l'université
+2.  Packager le projet et sortir une version "standalone"
+3. L'apprentissage de la création d'installeurs windows (`.msi`)
+4. L'apprentissage de Rust
+
+<br />
+
+Plus précisment:
+
+1. Chaque réponse de requête à la BD de l'université, est **significativement** longue. Il y a **beaucoup** de duplication de donnée.  
+Naviguer dans des fichiers de JSON de parfois presque un millier de ligne dont l'entropie approche dangereusement zero, n'a pas toujours été simple.  
+
+    Pour donner un exemple concret, chaque plan d'étude (e.g. bachelor en informatique) à 3 noms et
+    3 identifiants parfois identique parfois pas, parfois il y a juste le mot "sciences" rajouté ou enlevé 
+    quelque part.  
+    Et parmis ces 3, aucun n'est celui utilisé sur l'interface web décrivant les différents bachelor à laquelle on a tous accès.  
+    Cela veut dire, qu'il existe quelque part, un autre "stock" de donnée avec encore plus de duplication.  
+    Voir le [plan des attributs utilsés](https://github.com/David-Kyrat/Course-Description-Automation/blob/master/howto.md#which-field-from-the-database-is-relevant-)
+    dans ``howto.md`` pour plus d'informations.
+
+
+2.  Devoir faire marcher le projet, avec de toutes ses dépendances, de manière standalone sur un ordinateur "vierge" (celui de la cliente) i.e. sans JDK, sans la possibilité de lancer des scripts powershell (à moins de le faire signer)...  
+
+
+De ce problème, découle 2 sous-problèmes:
+
+3. L'apprentissage de la création d'installeurs windows (`.msi`)
+    - Processus long et fastidieux
+    - consitué principalement de configuration de fichiers xml avec une syntaxe spécifique à microsoft [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wx 
+    - La documentation sur ce sujet est abondante mais soit elle documente la création d'un installateur bien trop complexe pour le projets avec des GUI propriétaires de microsoft assez obscure (en plus de Wix). Soit elle documente la création de l'installeur le plus minimaliste possible.  
+    Assez étonnament il n'est jamais clair dans laquel des 2 situation l'on ce situe en lisant cette dernière.
+
+Puis
+
+4. L'apprentissage de Rust
+   - Processus  bien plus enrichissant et honnêtement passionnant, 
+   - Grandement sous-estimé, bien trop complexe pour être appris "sur le tas"
+
+
+
+
 
 <!-- TODO: -->
 
