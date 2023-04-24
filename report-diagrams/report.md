@@ -103,34 +103,29 @@ Pour remédier à ces problèmes il a été décidé d'utiliser **Rust** pour g�
 
 2. Un launcher qui s'occupe de localiser la version de java "bundled" et lancer la GUI javafx, puis récuperer son input et le donner au programme "principal" (scala) puis d'appeler l'application du point 1. pour terminer la conversion du markdown en pdf.
 
- En utilisant directement l'api windows (Win32), ou plutôt 
+Le tout, en utilisant directement l'api windows (Win32), ou plutôt le "rust safe wrapper" donné par la librairie
+[Winsafe](https://docs.rs/winsafe/latest/winsafe/).
 
-
-
-Pour plus d'information voir la partie [Packaging]() du `howto.md` à la râcine du répo.
-
-Devoir faire marcher le projet, avec de toutes ses dépendances, de manière standalone sur un ordinateur "vierge" (celui de la cliente) i.e. sans JDK, sans la possibilité de lancer des scripts powershell (à moins de le faire signer)...  
-
-
-De ce problème, découle 2 sous-problèmes:
+Pour l'installeur windows:
 
 3. L'apprentissage de la création d'installeurs windows (`.msi`)
     - Processus long et fastidieux
-    - consitué principalement de configuration de fichiers xml avec une syntaxe spécifique à microsoft [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wx 
+    - consitué principalement de configuration de fichiers xml avec une syntaxe spécifique à microsoft 
+    [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wx)
     - La documentation sur ce sujet est abondante mais soit elle documente la création d'un installateur bien trop complexe pour le projets avec des GUI propriétaires de microsoft assez obscure (en plus de Wix). Soit elle documente la création de l'installeur le plus minimaliste possible.  
     Assez étonnament il n'est jamais clair dans laquel des 2 situation l'on ce situe en lisant cette dernière.
 
-Puis
+Cependant le build tool de scala 
+Cependant le build tool de scala [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/index.html)
+à permis de grandement accéler ce processus.
+Le seul problème résultant est qu'il faut tout de même configurer le "build configuration file" (build.sbt)
+pour pouvoir profiter de ce dernier.  
+Même si sa création était accelérée, elle n'en restait pas moins lourdement chronophage du au manque de documentaiton à jour sur la création d'installeur windows via scala.
 
-4. L'apprentissage de Rust
-   - Processus  bien plus enrichissant et honnêtement passionnant, 
-   - Grandement sous-estimé, bien trop complexe pour être appris "sur le tas"
+Pour plus d'information voir la section [Packaging]() du `howto.md` à la râcine du répo.
 
+<br />
 
-
-
-
-<!-- TODO: -->
 
 #### Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?
 
