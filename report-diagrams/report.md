@@ -128,7 +128,7 @@ Par défaut ce paramètre vaut `Restricted` i.e.
 
 Le maximum que l'on puisse faire est d'activer le "mode développeur" qui lui va passer de `Restricted` à `RemoteSigned` (i.e. approximativement tout autant reistreignant et incapacitant). Car
 1. l'activation de ce mode, qui nécessite les droits administrateur, provoque plusieurs warning indiquant que le procédé n'est pas safe
-2. Tous scripts "étrangers" (e.g. les miens) doivent être digitallement signé par une entité reconnu par microsoft.
+2. Tous scripts "étrangers" (e.g. les miens) doivent être digitallement signés par une entité reconnue par microsoft.
 
 <br >
 
