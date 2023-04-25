@@ -1,0 +1,72 @@
+@startuml
+skinparam linetype ortho
+
+package ch{
+
+  interface sealedconcept.SealedConceptObject<T> {
+    + {abstract} jsonKey(): String
+    + {abstract} ALL(): Vector<T>
+    + {abstract} ALL_MAP(): Map<String, T> 
+  }
+
+class RequestHandler    << case class >> {
+- RequestHandler(req: String, page: Int)
+---
++ {static} baseUrl: String
++ {static} studPlanUrl
++ {static} courseUrl
+--
+- request(url: String): String
++ apply(): Resp
++ next(nextPage: Int): RequestHandler
+--
++ {static} get(): RequestHandler
++ {static} course(id:Int): RequestHandler)
++ {static} studyPlan(id:Int): RequestHandler
+}
+class Response      << case class >> {
++ Response(res: string, val: page:Int)
+--
++ jsonObj(): JsonObject
++ hasNext(): Boolean
+--
+- {static} gson: com.google.gson.Gson
+}
+class Course    << case class >> {
++ Course(id: String, year: Int, title:String, spType: SPType, spYear: String,
+   semester: Semester, objective: String, description: String, language: String,
+   faculty: String, evalMode: String, hoursNb: CourseHours, documentation: String,
+   authors: Vector<String>, studyPlan: Map<String, (Int, Int)>, various: String,
+   comments: String)
+--
+(// other field not in constructor:)
++ format: Option<String>
++ preRequisites: Option<String>
++ usefulFor: Option<String>
+--
++ get(id: String, year: Int) : JsonObject
+- simpleResolveSealedConcept<T, U >: T>(jo: JsonObject,
+sco: SealedConceptObject<T>): U
+- resolveCourseHours()
+- resolveAuthors()
+- resolveStudyPlan()
+...
++ factory(id: String, year: Int): Course // calls get() and works on JsonObject
+}
+
+
+class StudyPlan << case class >> {
++ StudyPlan(id: String, year: Int)
+--
++ faculty: String
++ section: String
++ courses: Vector[Course
+}
+}
+
+SealedConceptObject --up-* Course
+Course -up-o StudyPlan
+Course -> RequestHandler
+RequestHandler -* Response
+
+@enduml

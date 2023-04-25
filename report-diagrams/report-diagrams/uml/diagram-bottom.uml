@@ -1,0 +1,61 @@
+@startuml
+skinparam linetype ortho
+
+package ch.sealedconcept {
+  entity Aug <<(O,red) case object>>
+  entity Bachelor <<(O,red) case object>>
+  interface CourseActivity << sealed trait >>
+  class CourseHours << case class >>
+  interface ExaSession << sealed trait >>
+
+  entity Exercices <<(O,red) case object>>
+
+  entity Jan <<(O,red) case object>>
+  entity Jul <<(O,red) case object>>
+
+  entity Lectures <<(O,red) case object>>
+  entity Master <<(O,red) case object>>
+  entity Phd <<(O,red) case object>>
+  entity Practice <<(O,red) case object>>
+  interface SPType << sealed trait >>
+  interface SealedConceptObject<T> << sealed trait >>
+  interface Semester << sealed trait >>
+  entity Spring <<(O,red) case object>> 
+  entity Autumn <<(O,red) case object>>
+  entity Yearly <<(O,red) case object>>
+
+  interface SealedConceptObject<T> {
+    + {abstract} jsonKey(): String
+    + {abstract} ALL(): Vector<T>
+    + {abstract} ALL_MAP(): Map<String, T>
+  }
+
+  interface Semester {
+    + makeupSession: ExaSession
+    + session(): ExaSession
+  }
+
+}
+
+
+Jan               --[dashed]up>  ExaSession          
+Aug               --[dashed]up>  ExaSession          
+Jul               --[dashed]up>  ExaSession          
+ExaSession        -up*  Semester
+Bachelor          --[dashed]up>  SPType              
+Master            --[dashed]up>  SPType              
+Phd               --[dashed]up>  SPType              
+Semester          --[#008200]up-|>  SealedConceptObject 
+Spring            --[dashed]up->  Semester
+Autumn            --[dashed]up->  Semester
+Yearly            --[dashed]up->  Semester
+ExaSession        --[#008200]up-|>  SealedConceptObject 
+Lectures          --[dashed]up>   CourseActivity
+Exercices         --[dashed]up>   CourseActivity  
+Practice          --[dashed]up>   CourseActivity
+SPType            --[#008200]up-|>  SealedConceptObject 
+CourseHours       --[#008200]up-|>  SealedConceptObject
+CourseActivity    --[#008200]up-|>  SealedConceptObject
+
+
+@enduml
