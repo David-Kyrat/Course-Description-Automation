@@ -19,7 +19,7 @@ fn get_java_paths() -> (String, String, String) {
     // simulate "files" path
     //let pathbuf = env::current_exe().unwrap();
     // FIX: IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
-    let files_path = "Course-Description-Automation"; // should actually be "files"
+    let files_path = "Course-Description-Automation"; // FIX: should actually be "files"
 
     let javadir = pop_n_push_s(&pathbuf, 1, &[files_path, "res", "java"]);
     let (javafx_lib_path, java_exe_path, jar_path) = (
