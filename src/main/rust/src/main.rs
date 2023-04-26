@@ -44,7 +44,6 @@ macro_rules! unwrap_or_log{
     ( $fun_res:expr  $(, $msg:expr) ? ) => {
         if $fun_res.is_err() {
             let err = $fun_res.unwrap_err();
-
             error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", err, fr!(""));
             return Err(err);
         }
@@ -461,5 +460,7 @@ pub fn main() -> io::Result<()> {
     log4rs::init_file("logging_config.yaml", Default::default());
 
 
+    // _main()
+    
     test_exevp_out::test_main()
 }

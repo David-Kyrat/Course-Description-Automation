@@ -9,9 +9,11 @@ use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
 use std::{env, fs, io};
 
-use winsafe::co::CREATE;
+use winsafe::prelude::{kernel_Hpipe, kernel_Hstd};
+use winsafe::{prelude::*, SECURITY_DESCRIPTOR};
+use winsafe::{co::*, HFILE};
 use winsafe::guard::CloseHandlePiGuard;
-use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO, SECURITY_ATTRIBUTES};
+use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO, SECURITY_ATTRIBUTES, PROCESS_INFORMATION};
 
 use log::{error, warn};
 
@@ -31,11 +33,77 @@ const RETRY_AMOUNT: u8 = 5;
 
 /// # Description
 /// Private wrapper around `HPROCESS::CreateProcess`
-/// TODO:  handle passing mut StartUpInfo
 ///
-/* fn exec(app_name: &str, command_line: &str, ) -> SysResult<CloseHandlePiGuard> {
+/// # Return
+/// `SysResult<CloseHandlePiGuard>` (the result of `HPROCESS::CreateProcess` this function is
+/// really just a wrapper around that function.)
+fn exec(app_name: &str, command_line: &str, mut si: Option<STARTUPINFO>) -> SysResult<CloseHandlePiGuard> {
+    let (app_name, command_line) = (app_name.trim(), command_line.trim());
+    // NOTE: If command has no arguments (i.e. `command_line == ""`) then
+    // command_line_opt should be Some(app_name) and
+    // app_name_opt should be none (because in reality `command_line` is argv, )
+    let app_name_opt = match command_line {
+        "" => None,
+        _ => Some(app_name),
+    };
+    let command_line: &str = &format!("{app_name} {command_line}");
+    let command_line = command_line.trim();
+    let cmd_line_opt = Some(command_line);
+    // first word before space in command line should be app_name
+    // (it is ignored either way if app_name is not None because its argv[0])
+    // let mut si = si.unwrap_or_default();
+    /* let mut si = STARTUPINFO::default();
+    let mut sa = SECURITY_ATTRIBUTES::default();
+    let mut y = SECURITY_DESCRIPTOR::default();
+    y.Control = SE::OWNER_DEFAULTED | SE::GROUP_DEFAULTED | SE::DACL_PRESENT | SE::RM_CONTROL_VALID | SE::SELF_RELATIVE;
+    sa.set_lpSecurityDescriptor(Some(&mut y));
+    si.hStdOutput = HPIPE::CreatePipe(Some(&mut sa), 40_000).unwrap().1.leak(); */
+    // `leak` is not as bad as it sounds. It just means that we, now, have the responsability to close the pipe.
+    let x = HPROCESS::CreateProcess(
+        app_name_opt,
+        cmd_line_opt,
+        None,
+        None,
+        true,
+        CREATE::NO_WINDOW | CREATE::INHERIT_PARENT_AFFINITY,
+        None, //inherits
+        None, // inherits
+        &mut STARTUPINFO::default(),
+    );
+    /* dbg!(&si.hStdOutput);
 
-} */
+    let mut contentBuffer: [u8; 100] = [0; 100]; //Creating 4kb buffer
+    let mut content_total: Vec<u8> = Vec::new();
+    let (mut byte_read, mut attempt) = (1, 0);
+
+    let res = si.hStdOutput.ReadFile(&mut contentBuffer, None);
+
+    content_total.extend_from_slice(&contentBuffer);
+    
+    dbg!(&content_total);
+
+    while (byte_read > 0) {
+        let res = si.hStdOutput.ReadFile(&mut contentBuffer, None);
+
+        byte_read = if res.is_err() {
+            error!("{}\t{:?}", fr!(&format!( "Could not read output from : {app_name} {command_line}")), &res);
+            if attempt < RETRY_AMOUNT {
+                attempt += 1;
+                1
+            } else { 0 }
+        } else {
+            content_total.extend_from_slice(&contentBuffer);
+            contentBuffer = [0; 100];
+            res.unwrap()
+        };
+    }
+
+    let content_total = String::from_utf8(content_total).unwrap();*/
+
+    x 
+}
+
+
 
 /// # Description
 /// "Overload" of `execvp` but that returns the output of the started process.
@@ -58,11 +126,9 @@ const RETRY_AMOUNT: u8 = 5;
 /// here we just want to wait for the completion of the job.)
 pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) -> io::Result<String> {
     let mut si: STARTUPINFO = STARTUPINFO::default();
-    si.hStdOutput = HPIPE::CreatePipe(Some(&mut SECURITY_ATTRIBUTES::default()), 40_000).unwrap().1.leak();
+    // si.hStdOutput = HPIPE::CreatePipe(Some(&mut SECURITY_ATTRIBUTES::default()), 40_000).unwrap().1.leak();
 
-
-
-    let (app_name, command_line) = (app_name.trim(), command_line.trim());
+    /* let (app_name, command_line) = (app_name.trim(), command_line.trim());
     let wait_time = match wait_time {
         Some(amount) => Some(amount),
         None => Some(10_000), //10 sec by default
@@ -76,7 +142,7 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
         _ => Some(app_name),
     };
     let command_line: &str = &format!("{app_name} {command_line}");
-    let command_line = command_line.trim().trim_start_matches(" ");
+    let command_line = command_line.trim();
     let cmd_line_opt = Some(command_line);
     // first word before space in command line should be app_name
     // (it is ignored either way if app_name is not None because its argv[0])
@@ -91,7 +157,8 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
         None, //inherits
         None, // inherits
         &mut si,
-    );
+    ); */
+    let close_handle_res = exec(app_name, command_line, Some(si));
     if close_handle_res.is_err() {
         return Err(custom_io_err(&format!(
             "WinErr: could not start process '{app_name}' '{command_line}', {}.   Line {}, File '{}'",
@@ -100,8 +167,21 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
             file!()
         )));
     }
+    let mut close_handle: CloseHandlePiGuard = close_handle_res.unwrap(); //handle on process info and other useful things. Is auto closed only when object goes out of scope
+    let pi: PROCESS_INFORMATION = close_handle.leak(); // no autoclose anymore
+    let x = pi.dwProcessId;
+    let std_handle = STD_HANDLE::from(close_handle.dwProcessId);
+    // let x : HPIPE = close_handle.leak().hThread.into();
+    println!();
+    let mut outpPipe = HPIPE::CreatePipe(Some(&mut SECURITY_ATTRIBUTES::default()), 40_000).unwrap().1;
+    // outpPipe.ReadFile(buffer, overlapped)
 
-    let outpPipe: HPIPE = si.hStdOutput;
+    // let outpPipe = HPIPE::CreatePipe(Some(&mut SECURITY_ATTRIBUTES::default()), 40_000).unwrap().1;
+
+    
+
+
+    println!("close_handle");
     /* let close_handle = close_handle_res.unwrap();
     let wait_res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, wait_time);
     // waits 10 sec at most. Its ok to wait this long because the calls are often made in parallel so they're not actually blocking each other
@@ -115,7 +195,7 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
     let mut content_total: Vec<u8> = Vec::new();
     let (mut byte_read, mut attempt) = (1, 0);
 
-    while (byte_read > 0) {
+    /* while (byte_read > 0) {
         let res = outpPipe.ReadFile(&mut contentBuffer, None);
 
         byte_read = if res.is_err() {
@@ -130,7 +210,7 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
             res.unwrap()
         };
     }
-
+*/
     let content_total = String::from_utf8(content_total).unwrap();
     Ok(content_total)
 }
