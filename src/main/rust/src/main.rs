@@ -2,9 +2,9 @@
 
 pub mod utils;
 pub mod win_exec;
+pub mod para_convert;
 
 use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
-
 use std::io;
 
 pub mod test_exevp_out;
@@ -15,8 +15,7 @@ pub fn main() -> io::Result<()> {
     // HK: DONT DELETE ABOVE THIS
 
     log4rs::init_file("logging_config.yaml", Default::default()).expect("Cannot find log file");
+    // para_convert::main();
 
-    // _main()
-
-    test_exevp_out::test_main()
+    test_exevp_out::main()
 }

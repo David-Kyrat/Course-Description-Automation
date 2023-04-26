@@ -1,10 +1,6 @@
 #![allow(non_snake_case)]
 
-pub mod utils;
-pub mod win_exec;
-
-use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
-use win_exec::execvp;
+use crate::{abs_path_clean, pop_n_push_s, win_exec::execvp};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
@@ -12,11 +8,7 @@ use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
 use std::{env, fs, io};
 
-use winsafe::co::CREATE;
-use winsafe::guard::CloseHandlePiGuard;
-use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO};
-
-use log::{error, warn};
+use log::error;
 /// # Returns
 /// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
 fn custom_io_err(message: &str) -> io::Error {
@@ -31,7 +23,6 @@ macro_rules! fr {
 }
 
 pub const RETRY_AMOUNT: u8 = 5;
-
 
 #[macro_export]
 /// If given `Result<_,_>` is an error. (`is_err() == true`)
@@ -61,9 +52,9 @@ macro_rules! unwrap_retry_or_log {
     ( $fun_res:expr, $fun: ident, $msg:expr  $(, $args:expr)* ) => {
         {
             let mut r = 1;
-            let mut x =  $fun( $($args),* );
+            let x =  $fun( $($args),* );
             while x.is_err() && r < RETRY_AMOUNT {
-                let x = $fun( $($args),* );
+                let _x = $fun( $($args),* );
                 r += 1;
             }
             if r >= RETRY_AMOUNT {
@@ -143,7 +134,7 @@ fn pandoc_fill_template(
     let cmd_line: &str = &format!("{md_filepath} -t html --template={template} -o {out_html}");
 
     let exec_res = execvp(pandoc_path, cmd_line, None);
-    let exec_res = if exec_res.is_err() {
+    let _exec_res = if exec_res.is_err() {
         unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line, None)
     } else {
         exec_res
@@ -192,7 +183,7 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
     );
 
     let exec_res = execvp(wk_path, cmd_line, None);
-    let exec_res = if exec_res.is_err() {
+    let _exec_res = if exec_res.is_err() {
         unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line, None)
     } else {
         exec_res
@@ -226,7 +217,7 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
 ///
 /// # Returns
 /// Path of the generated pdf (usually  `<calling_directory/markdown_filename.pdf>` where `calling_directory` is `env::current_dir()`)
-pub fn fill_template_convert_pdf(
+fn fill_template_convert_pdf(
     md_filename: &String,
     pandoc_path: &str,
     wk_path: &str,
@@ -234,7 +225,7 @@ pub fn fill_template_convert_pdf(
     templates_path: &str,
 ) -> io::Result<PathBuf> {
     let out_html = pandoc_fill_template(md_filename, pandoc_path, md_path, templates_path);
-    let out_html = if (out_html.is_err()) {
+    let out_html = if out_html.is_err() {
         let msg = format!(
             "pandoc_fill_template: pandoc_path = {:?},  md_filename ={:?},  md_path={:?}",
             pandoc_path, md_filename, md_path
@@ -393,7 +384,7 @@ pub fn ftcp_parallel(
 
                 let name = md_file.file_name();
                 let name = name.to_str();
-                if (name.is_none()) {
+                if name.is_none() {
                     let message = &format!(
                         "ftcp_parallel, getting file {md_path}\\{:?} line:{}",
                         name,
@@ -420,10 +411,10 @@ pub fn ftcp_parallel(
     }
 }
 
-fn _main() -> io::Result<()> {
-    let mut r = 0;
+pub fn main() -> io::Result<()> {
+    let _r = 0;
     let rp = get_resources_path();
-    let rp = if (rp.is_err()) {
+    let rp = if rp.is_err() {
         unwrap_retry_or_log!(&x, get_resources_path, "get_resources_path")
     } else {
         rp
@@ -432,13 +423,13 @@ fn _main() -> io::Result<()> {
     let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap();
     let out: Result<(), io::Error> =
         ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    let out = if out.is_err() {
+    let _out = if out.is_err() {
         unwrap_retry_or_log!(
             &out,
             ftcp_parallel,
             "ftcp_parallel",
             &pandoc_path,
-            (&wk_path),
+            &wk_path,
             &md_path,
             &templates_path
         )

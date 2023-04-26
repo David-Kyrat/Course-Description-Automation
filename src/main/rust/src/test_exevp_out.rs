@@ -15,7 +15,7 @@ use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO};
 
 use log::{error, warn};
 
-pub fn test_main() -> io::Result<()> {
+pub fn main() -> io::Result<()> {
     /* let executable = "C:\\Users\\noahm\\bin\\wkhtmltopdf.exe";
     let command_line = "-h";
     let out = execvp(executable, command_line, Some(u32::MAX));
