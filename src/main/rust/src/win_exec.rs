@@ -42,9 +42,6 @@ fn exec(app_name: &str, command_line: &str) -> SysResult<CloseHandlePiGuard> {
     let command_line: &str = &format!("{app_name} {command_line}");
     let command_line = command_line.trim();
     let cmd_line_opt = Some(command_line);
-    error!("{}", command_line);
-
-    println!("\n");
     // first word before space in command line should be app_name
     // (it is ignored either way if app_name is not None because its argv[0])
     HPROCESS::CreateProcess(
