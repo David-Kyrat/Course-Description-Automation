@@ -4,6 +4,8 @@ use log4rs;
 use std::path::{Path, PathBuf};
 use std::{env, io};
 
+pub const RETRY_AMOUNT: u8 = 5;
+
 /// # Description
 /// Pops n times given path. and adds sequentially each one in `to_join`
 /// # Params
@@ -59,4 +61,58 @@ pub fn init_log4rs(log_config_file: Option<String>) {
         config_path.to_str().unwrap().to_owned()
     });
     log4rs::init_file(log_config_file, Default::default()).unwrap();
+}
+
+
+// NOTE: ------------- MACROS ------------
+
+/// Formats error, with line and file in msg
+#[macro_export]
+macro_rules! fr {
+    ($msg: expr) => {
+        format!("{}.\n\t Line {}, File '{}'.\n", $msg, line!(), file!())
+    };
+}
+
+#[macro_export]
+/// If given `Result<_,_>` is an error. (`is_err() == true`)
+/// `return` that error in the function where this macro is called,
+/// otherwise do nothing.  
+/// Used to ensure that a call to `unwrap()` will never `panic`.
+macro_rules! unwrap_or_log{
+    ( $fun_res:expr  $(, $msg:expr) ? ) => {
+        if $fun_res.is_err() {
+            let err = $fun_res.unwrap_err();
+            error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", err, fr!(""));
+            return Err(err);
+        }
+    }
+}
+
+#[macro_export]
+/// Does the same as `unwrap_or_log`
+/// but instead retries `RETRY_AMOUNT` times
+/// before returning an error and logging it
+/// # Params
+/// - `$fun_res`: a `Result<_, _>` which is the return value of calling `$fun`
+/// - `$fun`: the function that returned `$fun_res`
+/// - `$msg`: (optional) message to give to the logger if `$fun_res`.`is_err()`. `Must be wrapped in a block!` i.e. ` { "..." } `
+/// - `args`: (optionnal only if function doesn't require arguments) arguments of the function separated by a comma
+macro_rules! unwrap_retry_or_log {
+    ( $fun_res:expr, $fun: ident, $msg:expr  $(, $args:expr)* ) => {
+        {
+            let mut r = 1;
+            let x =  $fun( $($args),* );
+            while x.is_err() && r < RETRY_AMOUNT {
+                let _x = $fun( $($args),* );
+                r += 1;
+            }
+            if r >= RETRY_AMOUNT {
+                let err = x.unwrap_err();
+                error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
+                return Err(err);
+            }
+            x
+        }
+    }
 }

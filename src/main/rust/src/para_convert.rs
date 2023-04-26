@@ -1,6 +1,8 @@
 #![allow(non_snake_case)]
+#![allow(dead_code)]
 
-use crate::{abs_path_clean, pop_n_push_s, win_exec::execvp};
+use crate::{abs_path_clean, pop_n_push_s, win_exec::execvp, fr, unwrap_retry_or_log};
+use crate::utils::RETRY_AMOUNT;
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
@@ -14,67 +16,13 @@ use log::error;
 fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
 }
-/// Formats error, with line and file in msg
-#[macro_export]
-macro_rules! fr {
-    ($msg: expr) => {
-        format!("{}.\n\t Line {}, File '{}'.\n", $msg, line!(), file!())
-    };
-}
-
-pub const RETRY_AMOUNT: u8 = 5;
-
-#[macro_export]
-/// If given `Result<_,_>` is an error. (`is_err() == true`)
-/// `return` that error in the function where this macro is called,
-/// otherwise do nothing.  
-/// Used to ensure that a call to `unwrap()` will never `panic`.
-macro_rules! unwrap_or_log{
-    ( $fun_res:expr  $(, $msg:expr) ? ) => {
-        if $fun_res.is_err() {
-            let err = $fun_res.unwrap_err();
-            error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", err, fr!(""));
-            return Err(err);
-        }
-    }
-}
-
-#[macro_export]
-/// Does the same as `unwrap_or_log`
-/// but instead retries `RETRY_AMOUNT` times
-/// before returning an error and logging it
-/// # Params
-/// - `$fun_res`: a `Result<_, _>` which is the return value of calling `$fun`
-/// - `$fun`: the function that returned `$fun_res`
-/// - `$msg`: (optional) message to give to the logger if `$fun_res`.`is_err()`. `Must be wrapped in a block!` i.e. ` { "..." } `
-/// - `args`: (optionnal only if function doesn't require arguments) arguments of the function separated by a comma
-macro_rules! unwrap_retry_or_log {
-    ( $fun_res:expr, $fun: ident, $msg:expr  $(, $args:expr)* ) => {
-        {
-            let mut r = 1;
-            let x =  $fun( $($args),* );
-            while x.is_err() && r < RETRY_AMOUNT {
-                let _x = $fun( $($args),* );
-                r += 1;
-            }
-            if r >= RETRY_AMOUNT {
-                let err = x.unwrap_err();
-                error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
-                return Err(err);
-            }
-            x
-        }
-    }
-}
 
 /// # Description
-///
 /// Return a (`Result` of) 4-tuple containing the paths to the executables
 /// of pandoc and wkhtmltopdf, and the paths to the markdown
 /// and templates resource directory ('res/md' and 'res/templates')
 ///
 /// # Returns
-///
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
 fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
     let rust_exe_path = env::current_exe();

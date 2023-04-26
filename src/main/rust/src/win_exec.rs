@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 #![allow(unused)]
 
-use crate::{abs_path_clean, init_log4rs, pop_n_push_s};
+use crate::{abs_path_clean, init_log4rs, pop_n_push_s, fr};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
@@ -22,14 +22,7 @@ use log::{error, warn};
 fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
 }
-/// Formats error, with line and file in msg
-macro_rules! fr {
-    ($msg: expr) => {
-        format!("{}.\n\t Line {}, File '{}'.\n", $msg, line!(), file!())
-    };
-}
 
-const RETRY_AMOUNT: u8 = 5;
 
 /// # Description
 /// Private wrapper around `HPROCESS::CreateProcess`
