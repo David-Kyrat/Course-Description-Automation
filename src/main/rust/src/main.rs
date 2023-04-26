@@ -11,11 +11,11 @@ use std::io;
 
 pub fn main() -> io::Result<()> {
     // FIX:: ADD BACK BELOW WHEN DONE TESTING
-    // init_log4rs(None);
+    init_log4rs(None);
     // HK: DONT DELETE ABOVE THIS
 
-    init_log4rs_debug();
+    // init_log4rs_debug();
 
-    // para_convert::main()
-    launcher::main()
+    para_convert::main()
+    // launcher::main()
 }
