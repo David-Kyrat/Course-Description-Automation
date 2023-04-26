@@ -16,6 +16,6 @@ pub fn main() -> io::Result<()> {
 
     init_log4rs_debug();
 
-    para_convert::main()
-    // launcher::main()
+    // para_convert::main()
+    launcher::main()
 }
