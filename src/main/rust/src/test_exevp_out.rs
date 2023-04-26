@@ -1,5 +1,4 @@
 #![allow(unused)]
-#![feature(windows_process_extensions_async_pipes)]
 // use crate::{abs_path_clean, execvp, get_resources_path, init_log4rs, pop_n_push_s, RETRY_AMOUNT};
 
 use io::ErrorKind::Other;

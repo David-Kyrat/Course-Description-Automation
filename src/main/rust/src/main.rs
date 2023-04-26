@@ -2,20 +2,20 @@
 
 pub mod utils;
 pub mod win_exec;
-pub mod para_convert;
+pub mod para_convert; 
+pub mod launcher;
 
-use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
+use utils::{abs_path_clean, init_log4rs, pop_n_push_s, init_log4rs_debug};
 use std::io;
 
-pub mod test_exevp_out;
 
 pub fn main() -> io::Result<()> {
     // FIX:: ADD BACK BELOW WHEN DONE TESTING
-    //init_log4rs(None);
+    // init_log4rs(None);
     // HK: DONT DELETE ABOVE THIS
 
-    log4rs::init_file("logging_config.yaml", Default::default()).expect("Cannot find log file");
-    // para_convert::main();
+    init_log4rs_debug();
 
-    test_exevp_out::main()
+    // para_convert::main()
+    launcher::main()
 }

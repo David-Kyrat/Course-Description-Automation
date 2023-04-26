@@ -63,6 +63,12 @@ pub fn init_log4rs(log_config_file: Option<String>) {
     log4rs::init_file(log_config_file, Default::default()).unwrap();
 }
 
+/// # Description
+/// Same as `init_log4rs` but use the log file located at `src/main/rust/` (i.e. in develepment dir) instead of the actual one
+pub fn init_log4rs_debug() {
+    log4rs::init_file("logging_config.yaml", Default::default()).expect("Cannot find log file");
+}
+
 
 // NOTE: ------------- MACROS ------------
 
