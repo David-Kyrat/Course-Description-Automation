@@ -25,9 +25,9 @@ fn custom_io_err(message: &str) -> io::Error {
 /// # Returns
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
 fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
-    let rust_exe_path = env::current_exe();
-    // FIX simulating relative path where the executable will be :
-    // let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"));
+    // let rust_exe_path = env::current_exe();
+    // FIX: simulating relative path where the executable will be :
+    let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"));
 
     if rust_exe_path.is_err() {
         let err = rust_exe_path.unwrap_err();
@@ -111,9 +111,9 @@ fn pandoc_fill_template(
 /// # Returns
 /// Path of the generated pdf (usually dir of executable i.e. `env::current_exe()`)
 fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
-    let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
-    // FIX simulating relative path where the executable will be :
-    // let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
+    // let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
+    // FIX: simulating relative path where the executable will be :
+    let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
     out_pdf = pop_n_push_s(&mut out_pdf, 2, &["pdf"]);
 
     let new_name: &str = &out_html
@@ -257,7 +257,7 @@ fn pandoc_md_to_pdf(
     );
 
     let cmd_line: &str = &format!(
-    "{md_filepath_s} -t html5 --template={template_s} --pdf-engine wkhtmltopdf -V margin-top=2 -V margin-left=3 -V margin-right=0 -V margin-bottom=0 --css {css_path_s} -o {out_pdf_s}");
+    "{md_filepath_s} -t html5 --template={template_s} --pdf-engine wkhtmltopdf -V margin-top=2 -V margin-left=3 -V margin-right=0 -V margin-bottom=0 --css {css_path_s} -o {out_pdf_s}"); 
 
     let exec_res = execvp(pandoc_path, cmd_line, None);
     let exec_res = if exec_res.is_err() {

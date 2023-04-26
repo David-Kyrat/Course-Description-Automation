@@ -42,6 +42,9 @@ fn exec(app_name: &str, command_line: &str) -> SysResult<CloseHandlePiGuard> {
     let command_line: &str = &format!("{app_name} {command_line}");
     let command_line = command_line.trim();
     let cmd_line_opt = Some(command_line);
+    error!("{}", command_line);
+
+    println!("\n");
     // first word before space in command line should be app_name
     // (it is ignored either way if app_name is not None because its argv[0])
     HPROCESS::CreateProcess(
@@ -140,13 +143,8 @@ fn exec(app_name: &str, command_line: &str) -> SysResult<CloseHandlePiGuard> {
 /// (Although the wait is not mandatory to avoid zombies thanks to the winsafe api,
 /// here we just want to wait for the completion of the job.)
 pub fn execvp(app_name: &str, command_line: &str, wait_time: Option<u32>) -> io::Result<()> {
-    let mut si: STARTUPINFO = STARTUPINFO::default();
+    /* let mut si: STARTUPINFO = STARTUPINFO::default();
     
-    let wait_time = match wait_time {
-        Some(amount) => Some(amount),
-        None => Some(10_000), //10 sec by default
-    };
-
     let (app_name, command_line) = (app_name.trim(), command_line.trim());
 
     // NOTE: If command has no arguments (i.e. `command_line == ""`) then
@@ -171,7 +169,9 @@ pub fn execvp(app_name: &str, command_line: &str, wait_time: Option<u32>) -> io:
         None, //inherits
         None, // inherits
         &mut si,
-    );
+    ); */
+    let close_handle_res = exec(app_name, command_line);
+    
     if close_handle_res.is_err() {
         return Err(custom_io_err(&format!(
             "WinErr: could not start process '{app_name} {command_line}', {}.   Line {}, File '{}'",
@@ -180,6 +180,11 @@ pub fn execvp(app_name: &str, command_line: &str, wait_time: Option<u32>) -> io:
             file!()
         )));
     }
+
+    let wait_time = match wait_time {
+        Some(amount) => Some(amount),
+        None => Some(10_000), //10 sec by default
+    };
 
     let close_handle = close_handle_res.unwrap();
     let wait_res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, wait_time); // waits 10 sec at most
