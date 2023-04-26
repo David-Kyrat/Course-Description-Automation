@@ -2,8 +2,10 @@
 #![allow(unused)]
 
 pub mod utils;
+pub mod win_exec;
 
 use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
+use win_exec::execvp;
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
@@ -13,7 +15,7 @@ use std::{env, fs, io};
 
 use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
-use winsafe::{prelude::kernel_Hprocess, SysResult, HPROCESS, STARTUPINFO};
+use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO};
 
 use log::{error, warn};
 
@@ -23,94 +25,15 @@ fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
 }
 /// Formats error, with line and file in msg
+#[macro_export]
 macro_rules! fr {
     ($msg: expr) => {
-        format!("{}.\t Line {}, File '{}'.\n", $msg, line!(), file!())
+        format!("{}.\n\t Line {}, File '{}'.\n", $msg, line!(), file!())
     };
 }
 
 const RETRY_AMOUNT: u8 = 5;
 
-/// # Description
-/// Creates a process using winsafe api. (safe wrapper around windows sdk api).
-/// On Windows, Creating a new process always comes with the execution of some executable in a new
-/// thread / in that child process (there is no "just" fork.)
-/// That's why this function take an absolute_path to an executable
-/// and the the arguments to pass to it (argv)
-///
-/// # Params
-/// - `app_name`: Absolute path to an executable
-/// - `command_line`: Argument to program (equivalent of `argv`)
-///
-/// # NB
-/// This functions returns after having waited on the "child" process.
-/// (Although the wait is not mandatory to avoid zombies thanks to the winsafe api,
-/// here we just want to wait for the completion of the job.)
-fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
-    let mut si: STARTUPINFO = STARTUPINFO::default();
-    let outpPipe: HPipe = si.hStdOutput;
-    let (app_name, command_line) = (app_name.trim(), command_line.trim());
-
-    // NOTE: If command has no arguments (i.e. `command_line == ""`) then
-    // command_line_opt should be Some(app_name) and
-    // app_name_opt should be none (because in reality `command_line` is argv, )
-    let app_name_opt = match command_line {
-        "" => None,
-        _ => Some(app_name),
-    };
-    let command_line: &str = &format!("{app_name} {command_line}"); //append name of program
-    let cmd_line_opt = Some(command_line);
-    // first word before space in command line should be app_name
-    // (it is ignored either way if app_name is not None because its argv[0])
-
-    let close_handle_res: SysResult<CloseHandlePiGuard> = HPROCESS::CreateProcess(
-        app_name_opt,
-        cmd_line_opt,
-        None,
-        None,
-        true,
-        CREATE::NO_WINDOW | CREATE::INHERIT_PARENT_AFFINITY,
-        None, //inherits
-        None, // inherits
-        &mut si,
-    );
-    if close_handle_res.is_err() {
-        return Err(custom_io_err(&format!(
-            "WinErr: could not start process '{app_name} {command_line}', {}.   Line {}, File '{}'",
-            close_handle_res.map(|_| ()).unwrap_err(),
-            line!(),
-            file!()
-        )));
-    }
-
-    let close_handle = close_handle_res.unwrap();
-    let wait_res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, Some(10_000)); // waits 10 sec at most
-                                                                                        // its ok to wait this long because the calls are often made in parallel so they're not actually blocking each other
-    if wait_res.is_err() {
-        warn!(
-            "Could not wait on child process: {app_name} {command_line}\n\t{}",
-            wait_res.unwrap_err()
-        );
-    }
-    let mut contentBuffer: [u8; 4000] = [0; 4000]
-
-//Creating 4kb buffer
-
-let mut Vec<u8> content_total = Vec::new();
-
-let mut byte_read = 1;
-
-while (byte_read > 0) {
-
-    byte_read = outpPipe.ReadFile(contentBuffer, None);
-
-    content_total.extend_from_slice(&contentBuffer)
-
-    contentBuffer = [0; 4000];
-
-}
-    Ok(())
-}
 
 #[macro_export]
 /// If given `Result<_,_>` is an error. (`is_err() == true`)
@@ -222,9 +145,9 @@ fn pandoc_fill_template(
     }
     let cmd_line: &str = &format!("{md_filepath} -t html --template={template} -o {out_html}");
 
-    let exec_res = execvp(pandoc_path, cmd_line);
+    let exec_res = execvp(pandoc_path, cmd_line, None);
     let exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
+        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line, None)
     } else {
         exec_res
     };
@@ -271,9 +194,9 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
         &out_pdf.to_str().unwrap()
     );
 
-    let exec_res = execvp(wk_path, cmd_line);
+    let exec_res = execvp(wk_path, cmd_line, None);
     let exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line)
+        unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line, None)
     } else {
         exec_res
     };
@@ -333,6 +256,10 @@ pub fn fill_template_convert_pdf(
         out_html
     };
 
+    if out_html.is_err() {
+        return out_html;
+    } // do not try conversion of html to pdf if md to html failed
+
     let tmp = &out_html.unwrap();
     let out_html: &Path = Path::new(tmp);
 
@@ -353,7 +280,7 @@ pub fn fill_template_convert_pdf(
 /// Calls 'pandoc' cmd with `execvp` that will convert the given markdown file according
 /// to the predefined html template and then convert it to a pdf with 'wkhtmltopdf' as a pdf-engine.
 ///
-/// Do so in one command 
+/// Do so in one command
 ///
 /// # Params
 /// - `md_filename`: filename of a markdown document in `/res/md/` directory.
@@ -396,9 +323,9 @@ fn pandoc_md_to_pdf(
     let cmd_line: &str = &format!(
     "{md_filepath_s} -t html5 --template={template_s} --pdf-engine wkhtmltopdf -V margin-top=2 -V margin-left=3 -V margin-right=0 -V margin-bottom=0 --css {css_path_s} -o {out_pdf_s}");
 
-    let exec_res = execvp(pandoc_path, cmd_line);
+    let exec_res = execvp(pandoc_path, cmd_line, None);
     let exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
+        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line, None)
     } else {
         exec_res
     };
