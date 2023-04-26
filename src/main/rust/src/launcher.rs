@@ -5,7 +5,9 @@ use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::exe
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
-use std::fs::{DirEntry, ReadDir};
+use std::env::temp_dir;
+use std::fs::{DirEntry, ReadDir, File};
+use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::{env, fs, io};
@@ -29,13 +31,13 @@ fn launch_gui() -> io::Result<()> {
     dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     let cmd_line_args = format!(
-        "-jar  --module-path {} --add-modules 'javafx.controls,javafx.fxml,javafx.graphics,javafx.web,javafx.media' {}", 
+        "-jar  --module-path {} --add-modules javafx.controls,javafx.fxml,javafx.graphics {}", 
         javafx_lib_path, jar_path
     );
 
     println!("\n {} {}", &java_exe_path, &cmd_line_args);
 
-    let cmd_line_args = cmd_line_args.split(" ");
+    /* let cmd_line_args = cmd_line_args.split(" ");
     let vec = cmd_line_args.clone().collect::<Vec<&str>>();
 
     println!("");
@@ -44,14 +46,47 @@ fn launch_gui() -> io::Result<()> {
     let program = java_exe_path;
     let output = Command::new(program)
         .args(cmd_line_args)
-        .output()
+        .spawn()
+        // .output()
         .expect("failed to execute process");
 
-    let out_str = &String::from_utf8(output.stdout).unwrap();
-    println!("\n\noutput: {}", out_str);
+    let child_std_out = output.stdout;
+    // let out_str = &String::from_utf8(output.stdout.unwrap()).unwrap();
+    println!("\n\noutput: {:#?}", child_std_out); */
+
+
+    let driver_path = extract_driver(abs_path_clean(javadir));
+
+    if cfg!(target_os = "windows") {
+        let mut command = String::from("%JAVA_HOME%\\bin\\java -cp ");
+        command.push_str(driver_path.as_str());
+        command.push_str("%JVM_OPTS% jfxuserform.Main %*");
+        let command = format!("{java_exe_path} {cmd_line_args}");
+        println!("\n\n{}", command);
+        
+        Command::new("cmd")
+            .args(&["/C", command.as_str()])
+            .output()
+            .expect("Error spawning Aeron driver process");
+    }
 
     Ok(())
 }
+
+fn _main() -> io::Result<()> {
+    launch_gui()
+}
+
+fn extract_driver(java_dir: String) -> String {
+    // let bytes = include_bytes!("aeron-all-1.32.0-SNAPSHOT.jar");
+    let bytes = include_bytes!("fancyform.jar");
+    let mut driver_path = PathBuf::from(java_dir);
+    driver_path.push("fancy2form.jar");
+    let mut file = File::create(driver_path.to_owned()).expect("Error extracting Aeron driver jar");
+    file.write_all(bytes).unwrap();
+    String::from(driver_path.to_str().unwrap())
+}
+
 
 pub fn main() -> io::Result<()> {
     launch_gui()
