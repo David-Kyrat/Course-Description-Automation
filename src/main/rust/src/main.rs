@@ -32,7 +32,7 @@ macro_rules! fr {
     };
 }
 
-const RETRY_AMOUNT: u8 = 5;
+pub const RETRY_AMOUNT: u8 = 5;
 
 
 #[macro_export]
@@ -451,8 +451,15 @@ fn _main() -> io::Result<()> {
     Ok(())
 }
 
+pub mod test_exevp_out;
+
 pub fn main() -> io::Result<()> {
-    init_log4rs(None);
+    // FIX:: ADD BACK BELOW WHEN DONE TESTING
+    //init_log4rs(None);
     // HK: DONT DELETE ABOVE THIS
-    _main()
+
+    log4rs::init_file("logging_config.yaml", Default::default());
+
+
+    test_exevp_out::test_main()
 }

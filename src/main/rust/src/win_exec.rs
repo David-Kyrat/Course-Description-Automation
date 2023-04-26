@@ -11,7 +11,7 @@ use std::{env, fs, io};
 
 use winsafe::co::CREATE;
 use winsafe::guard::CloseHandlePiGuard;
-use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO};
+use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO, SECURITY_ATTRIBUTES};
 
 use log::{error, warn};
 
@@ -28,6 +28,14 @@ macro_rules! fr {
 }
 
 const RETRY_AMOUNT: u8 = 5;
+
+/// # Description
+/// Private wrapper around `HPROCESS::CreateProcess`
+/// TODO:  handle passing mut StartUpInfo
+///
+/* fn exec(app_name: &str, command_line: &str, ) -> SysResult<CloseHandlePiGuard> {
+
+} */
 
 /// # Description
 /// "Overload" of `execvp` but that returns the output of the started process.
@@ -50,6 +58,10 @@ const RETRY_AMOUNT: u8 = 5;
 /// here we just want to wait for the completion of the job.)
 pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) -> io::Result<String> {
     let mut si: STARTUPINFO = STARTUPINFO::default();
+    si.hStdOutput = HPIPE::CreatePipe(Some(&mut SECURITY_ATTRIBUTES::default()), 40_000).unwrap().1.leak();
+
+
+
     let (app_name, command_line) = (app_name.trim(), command_line.trim());
     let wait_time = match wait_time {
         Some(amount) => Some(amount),
@@ -63,7 +75,8 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
         "" => None,
         _ => Some(app_name),
     };
-    let command_line: &str = &format!("{app_name} {command_line}"); //append name of program
+    let command_line: &str = &format!("{app_name} {command_line}");
+    let command_line = command_line.trim().trim_start_matches(" ");
     let cmd_line_opt = Some(command_line);
     // first word before space in command line should be app_name
     // (it is ignored either way if app_name is not None because its argv[0])
@@ -81,7 +94,7 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
     );
     if close_handle_res.is_err() {
         return Err(custom_io_err(&format!(
-            "WinErr: could not start process '{app_name} {command_line}', {}.   Line {}, File '{}'",
+            "WinErr: could not start process '{app_name}' '{command_line}', {}.   Line {}, File '{}'",
             close_handle_res.map(|_| ()).unwrap_err(),
             line!(),
             file!()
@@ -106,7 +119,7 @@ pub fn execvp_out(app_name: &str, command_line: &str, wait_time: Option<u32>) ->
         let res = outpPipe.ReadFile(&mut contentBuffer, None);
 
         byte_read = if res.is_err() {
-            error!("{}\n\t{:?}", fr!(&format!( "Could not read output from : {app_name} {command_line}")), &res);
+            error!("{}\t{:?}", fr!(&format!( "Could not read output from : {app_name} {command_line}")), &res);
             if attempt < RETRY_AMOUNT {
                 attempt += 1;
                 1
