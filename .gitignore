@@ -2,7 +2,8 @@
 src/main/scala/example/
 
 # bundle jdk and javafx
-res/java
+res/java/jdk-17
+
 
 # Scala config folders
 null
