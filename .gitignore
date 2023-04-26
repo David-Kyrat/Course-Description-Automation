@@ -1,6 +1,8 @@
 # Example for startup debugging 
 src/main/scala/example/
 
+# bundle jdk and javafx
+res/java
 
 # Scala config folders
 null
