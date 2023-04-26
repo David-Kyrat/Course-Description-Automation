@@ -48,6 +48,7 @@ const RETRY_AMOUNT: u8 = 5;
 /// here we just want to wait for the completion of the job.)
 fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
     let mut si: STARTUPINFO = STARTUPINFO::default();
+    let outpPipe: HPipe = si.hStdOutput;
     let (app_name, command_line) = (app_name.trim(), command_line.trim());
 
     // NOTE: If command has no arguments (i.e. `command_line == ""`) then
@@ -91,6 +92,23 @@ fn execvp(app_name: &str, command_line: &str) -> io::Result<()> {
             wait_res.unwrap_err()
         );
     }
+    let mut contentBuffer: [u8; 4000] = [0; 4000]
+
+//Creating 4kb buffer
+
+let mut Vec<u8> content_total = Vec::new();
+
+let mut byte_read = 1;
+
+while (byte_read > 0) {
+
+    byte_read = outpPipe.ReadFile(contentBuffer, None);
+
+    content_total.extend_from_slice(&contentBuffer)
+
+    contentBuffer = [0; 4000];
+
+}
     Ok(())
 }
 
