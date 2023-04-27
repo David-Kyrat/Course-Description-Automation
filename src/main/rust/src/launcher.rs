@@ -63,6 +63,7 @@ fn launch_gui() {
         .expect("failed to execute process");
     let stdout = extract_std(output.stdout);
     println!("GUI parsed user input:\t\"{stdout}\"");
+    println!("GUI stderr:\t\"{}\"", extract_std(output.stderr));
 }
 
 
