@@ -21,11 +21,11 @@ use log::error;
 /// #  Returns
 /// Triple `(java_exe_path, javafx_lib_path, jar_path)`
 fn get_java_paths() -> (String, String, String) {
-    let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\launcher.exe");
+    let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\launcher.exe");
     // simulate "files" path
     //let pathbuf = env::current_exe().unwrap();
     // FIX: IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
-    let files_path = "Course-Description-Automation"; // FIX: should actually be "files"
+    let files_path = "files"; // FIX: should actually be "files"
 
     let javadir = pop_n_push_s(&pathbuf, 1, &[files_path, "res", "java"]);
     let (javafx_lib_path, java_exe_path, jar_path) = (
