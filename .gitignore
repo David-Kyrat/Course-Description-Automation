@@ -3,7 +3,7 @@ src/main/scala/example/
 
 # bundle jdk and javafx
 res/java/jdk-17
-
+res/java/tmep
 # Scala config folders
 null
 .bsp
