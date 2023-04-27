@@ -8,6 +8,7 @@ import com.google.gson.JsonElement
 
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._
+import ch.io.Serializer
 
 /**
  * Represents a course for a given year.
@@ -44,6 +45,18 @@ final case class Course(
     val format: Option[String] = None
     val preRequisites: Option[Vector[String]] = None
     val usefulFor: Option[Vector[String]] = None
+
+
+
+    /**
+     * Serialize `this` into a markdown file that can be used to fill
+     * the html course-description template.
+     *
+     * The syntax of those specific markdown file is :
+     *  - a yaml header
+     *  - empty "body"
+     */
+    def saveToMarkdown() = Serializer.courseToMarkdown(this)
 }
 
 object Course extends Function2[String, Int, Course] {
@@ -52,16 +65,18 @@ object Course extends Function2[String, Int, Course] {
     // TODO: exract Extractor method here
 
     /**
-     * @param id String, i.e. course code, if `year` is not given => id must be the exact
-     * urlId (i.e. be of the form `year-code`, e.g. `2022-11X001`)
+     * Here is some scaladocs taht you probably want to see in your hover
+     *
+     * @param id String, i.e. course code, if `year` is not given => id must be the exact urlId (i.e. be of the form `year-code`, e.g. `2022-11X001`)
      * @param year Int, year this course was given (optional)
      * @return `JsonObject` that can be traversed like a Map with a `get()` method
      */
-    def get(id: String, year: Int = 0): JsonObject = {
+    def get[T](id: String, year: Int = 0)(implicit f: Int => T): JsonObject = {
         val reqUrl = if (year == 0) id else f"$year-$id"
         val request: ReqHdl = ReqHdl.course(reqUrl)
         request().jsonObj
     }
+    
 
     /**
      * Shortcut method for very simple data to extract (i.e. the jsonKey isn't something nested like activities.<somehting>)
@@ -73,6 +88,8 @@ object Course extends Function2[String, Int, Course] {
         val jsonKey = if (customJsonKey == null) sco.jsonKey else customJsonKey
         return sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
     }
+
+
 
     /**
      * Takes the sequence of jsonObject representing the jsonArray of "activities" of each course
@@ -156,7 +173,6 @@ object Course extends Function2[String, Int, Course] {
         val spYear: String = tryOrElse(() => resolveSpYear(jsObj, id), "N/A")
 
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
-        // TODO: FIND DEFAULT VALUES FOR ALL SealedConceptObject
 
         val description = tryExtract("description", "")
         val objective = tryExtract("objective", "")
