@@ -11,8 +11,11 @@ import scala.collection.parallel.immutable.ParVector
 import test.TestCourse
 import test.TestCourse._
 import test.TestStudyPlan
+import scala.collection.mutable.Stack
 
 object Main {
+    val abbrevFilePath: Path = Path.of("res/abbrev.tsv")
+
     def writeCoursDecsToRes(id: String, year: Int = crtYear) = Utils.write(Path.of(f"res/$id-desc.json"), ReqHdl.course(f"$year-$id").get())
 
     /**
@@ -23,14 +26,26 @@ object Main {
      * @param args entrypoint input (stdin) of this program. i.e. what was passed on command line (should normally be a single string)
      * @ return Pair of vectors `(Courses, StudyPlans)`
      */
-    def parseGuiInput(args: Array[String]) : (Vector[String], Vector[String]) = {
-        if (args.length <= 0) { throw new IllegalArgumentException("Usage: <programName> <gui_input>") }        
+    private def parseGuiInput(args: Array[String]): (Vector[String], Vector[String]) = {
+        if (args.length <= 0) { throw new IllegalArgumentException("Usage: course_description_automation.jar <gui_input>") }
         val gui_input: String = args(0);
         val tmp = gui_input.split("#")
         val courses = tmp(0).split(",").toVector
         val studyPlans = tmp(1).split(",").toVector
         (courses, studyPlans)
     }
+
+    /**
+     * Reads file at `res/abbrev.tsv` i.e. list of assocations ("study plan", "abbreviation")
+     * and parses it into a map.
+     * @return abbreviations studplan mapping
+     */
+    private def getAbbrevMap(): Map[String, String] = Utils
+        .readLines(abbrevFilePath)
+        .map(_.split("\t"))
+        .map(s => (s(0), s(1)))
+        .toSet
+        .toMap
 
     def main(args: Array[String]): Unit = {
         println("\n\n")

@@ -8,8 +8,10 @@ import java.nio.file.StandardOpenOption._
 import java.nio.file.{Files, Path}
 import java.time.LocalDate
 import scala.language.postfixOps
+import scala.collection.immutable
 //import DefaultJsonProtocol._
 import java.io.{BufferedWriter, FileWriter, PrintWriter}
+import scala.jdk.CollectionConverters._
 
 final object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
@@ -18,7 +20,23 @@ final object Utils {
     private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
     private val sep = "---------------------------------------\n\n"
 
+    /**
+      * Shorthand for `Files.readAllLines(path, UTF_8).asScala.toIndexedSeq`
+      * i.e. opens, read each line into list, closes 
+      * @param path path to file to read
+      * @return content as `IndexedSeq` (immutable)
+      */
+    def readLines(path: Path): immutable.IndexedSeq[String] = Files.readAllLines(path, UTF_8).asScala.toIndexedSeq
+
+    /**
+      * Shorthand for `String.join("\n", Files.readAllLines(path, UTF_8))`
+      * i.e. opens, read each line into string, closes, then convert to string
+      * @param path path to file to read
+      * @return content as string
+      */
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
+
+
     def write(path: Path, content: String, append: Boolean = false) = {
         val opt = if (append) APPEND else TRUNCATE_EXISTING
         Files.writeString(path, content, UTF_8, CREATE, opt)
