@@ -51,7 +51,7 @@ of what was discussed during the meeting as well as a list of all the participan
 ### Documentation
 
 The file __[howto.md](https://github.com/David-Kyrat/Course-Description-Automation/blob/master/howto.md)__
-contains a (very) quick summary of which/how technology has been used as well as some brief commands.
+contains a quick summary of which/how technology has been used as well as some brief commands.
 
 Its goal is not to be documentation on how to use the project but rather
 to categorize the "major steps" this project went through and to give some information on how to reproduce some of
