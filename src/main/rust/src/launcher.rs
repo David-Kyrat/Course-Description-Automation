@@ -1,5 +1,6 @@
 #![allow(unused)]
 
+
 use crate::utils::RETRY_AMOUNT;
 use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::execvp};
 
@@ -14,6 +15,11 @@ use std::{env, fs, io};
 
 use log::error;
 
+/// # Descriptionn
+/// Get the absolute path to the bundled version of java and javafx as well as the path
+/// to the jar executable
+/// #  Returns
+/// Triple `(java_exe_path, javafx_lib_path, jar_path)`
 fn get_java_paths() -> (String, String, String) {
     let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\launcher.exe");
     // simulate "files" path
@@ -33,23 +39,35 @@ fn get_java_paths() -> (String, String, String) {
     (java_exe_path, javafx_lib_path, jar_path)
 }
 
+/// # Descriptionn
+/// Takes in a byte vector and return the underlying represented utf8 string.
+/// `Vec<u8>` is the type returned by `outuput.stdout` or `output.stderr`
+/// # Param
+/// - out: byte vector to convert 
+/// # Returns
+/// Underlying string
+/// # Panics
+/// If the given byte vector is not a valid utf8 strings
+fn extract_std(out: Vec<u8>) -> String { String::from_utf8(out).expect("output didn't return a valid utf8 string") }
 
-fn launch_gui() -> io::Result<Output> {
+fn launch_gui() {
     let (java_exe_path, javafx_lib_path, jar_path) = get_java_paths();
  
-    Command::new(java_exe_path)
+    let output = Command::new(java_exe_path)
         .args(format!(
             "-jar --module-path {} --add-modules javafx.controls,javafx.fxml,javafx.graphics {}",
             javafx_lib_path, jar_path
         )
             .split(" "))
         .output()
-        // .expect("failed to execute process");
+        .expect("failed to execute process");
+    let stdout = extract_std(output.stdout);
+    println!("GUI parsed user input:\t\"{stdout}\"");
 }
 
 
 pub fn main() -> io::Result<()> {
-    launch_gui();
+    let output = launch_gui();
     Ok(())
 }
 
