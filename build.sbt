@@ -1,12 +1,5 @@
-import com.typesafe.sbt.SbtNativePackager.Universal
 
-import com.typesafe.sbt.packager.Keys.{wixFeatures, wixFiles, wixProductId, wixProductUpgradeId}
-import com.typesafe.sbt.packager.universal.UniversalPlugin
-import com.typesafe.sbt.packager.windows.WixHelper.generateComponentsAndDirectoryXml
-import com.typesafe.sbt.packager.windows.{WindowsFeature, *}
-import sbt.IO
-
-Global / onChangedBuildSource := ReloadOnSourceChanges
+// Global / onChangedBuildSource := ReloadOnSourceChanges
 
 // NB:  ----------------------------- BUILD INFOS ---------------------------
 
@@ -46,9 +39,8 @@ lazy val root = (project in file(".")).settings(
   name := pName,
   version := "0.1",
   resourceDirectory := baseDirectory.value / resDir_String,
-  assembly / assemblyJarName := jarName,
   libraryDependencies ++= Seq(
-   scalaBaseDep, 
+   // scalaBaseDep, 
    prettyPrintJsonLib, 
    jsonLib, 
    parallelCollections, 
@@ -57,56 +49,4 @@ lazy val root = (project in file(".")).settings(
   maintainer := "Noah Munz <munz.no@gmail.com>",
   packageSummary := "Course-Description-Automation Installer",
   packageDescription := """Application to automatically generate printable 1-2 page PDF of course descriptions.""",
-  // wix build information
-  wixProductId := "ce07be71-510d-414a-92d4-dff47631848a",
-  wixProductUpgradeId := "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"
 )
-
-
-// NB: --------------------- WINDOWS PACKAGING, WIX CONFIG ------------------
-
-Windows / mappings := (Universal / mappings).value
-//val resDirectory = resourceDirectory.value //file("/res")
-
-Windows / mappings ++= {
-    val jar = (Compile / packageBin).value
-    // val dir = (Windows / sourceDirectory).value
-    Seq(jar -> jarPath) // , (Compile / resourceDirectory).value ->  // , (dir / batName) -> batPath)
-}
-
-val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
-
-wixFeatures += WindowsFeature(
-  id = "BinaryAndPath",
-  // title = "My Project's Binaries and updated PATH settings",
-  title = "Project Resources",
-  desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-  components = Seq()
-)
-
-wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
-
-lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
-writeWixConfig := {
-    println("-----")
-    // println(comp)
-    println("\n-----\n")
-    IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
-    println("\n-----\n")
-    // println(resources.value)
-}
-
-// NB: --------------------- DEBUGGING -------------------------------------
-
-lazy val getResPath = taskKey[Unit]("A task that gets the res path")
-
-getResPath := {
-    println(resourceDirectory.value)
-    println("-----")
-    println((Compile / resourceDirectory).value)
-    println("-----")
-    println(resDir_File)
-    println("-----")
-}
-
-// HINT: TO GENERATE MSI INSTALLER RUN `sbt 'Windows / packageBin'` (or windows:packageBin but sbt says its deprecated)
