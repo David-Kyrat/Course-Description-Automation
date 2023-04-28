@@ -1,6 +1,7 @@
 package ch
 
-import ch.ReqHdl.courseUrl
+import ch.net.{ReqHdl, Resp}
+import ch.net.ReqHdl.courseUrl
 import ch.Utils.tryOrElse
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
 import ch.sealedconcept._

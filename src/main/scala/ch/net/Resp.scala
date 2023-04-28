@@ -1,4 +1,4 @@
-package ch
+package ch.net
 
 import ch.Utils.prettifyJson
 import com.google.gson._

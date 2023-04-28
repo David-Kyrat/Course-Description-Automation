@@ -1,5 +1,8 @@
 package ch
 
+import ch.net.{ReqHdl, Resp}
+
+
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
  *

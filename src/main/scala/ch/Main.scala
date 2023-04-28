@@ -1,6 +1,7 @@
 package ch
 
-// import ch.Resp._
+// import ch.Resp.
+import ch.net.{ReqHdl, Resp}
 import ch.Utils.crtYear
 import ch.io.Serializer
 
@@ -14,7 +15,8 @@ import test.TestStudyPlan
 import scala.collection.mutable.Stack
 
 object Main {
-    val abbrevFilePath: Path = Path.of("res/abbrev.tsv")
+    private val abbrevFilePath: Path = Path.of("res/abbrev.tsv")
+    val abbrevMap: Map[String, String] = getAbbrevMap()
 
     def writeCoursDecsToRes(id: String, year: Int = crtYear) = Utils.write(Path.of(f"res/$id-desc.json"), ReqHdl.course(f"$year-$id").get())
 
@@ -38,23 +40,36 @@ object Main {
     /**
      * Reads file at `res/abbrev.tsv` i.e. list of assocations ("study plan", "abbreviation")
      * and parses it into a map.
-     * @return abbreviations studplan mapping
+     * @return (`study_plan -> abbreviation`) mapping
      */
     private def getAbbrevMap(): Map[String, String] = Utils
         .readLines(abbrevFilePath)
         .map(_.split("\t"))
-        .map(s => (s(0), s(1)))
+        .map(s => (s(1), s(0))) // WARNING: In file key is 2nd and value is 1st !
         .toSet
-        .toMap
+        .toMap;
+
+    def _main(courseCodes: Vector[String], sps: Vector[String]) = {
+        val courses: Vector[Course] = courseCodes.map(Course(_))
+        val spNames: Vector[String] = sps.map(abbrevMap)
+
+        courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
+    }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
+        var tmp = parseGuiInput(args)
+        val course: Vector[String] = tmp._1
+        val sps: Vector[String] = tmp._2
+        _main(course, sps)
+
         // writeCoursDecsToRes("14M252")
         // testJsonLib()
         // testResolveCoursHours()
         // testCourseFactoryMethod()
         // testCourseToMarkdown()
-        testMultipleCourseToMarkdown()
+        // testMultipleCourseToMarkdown()
+        println(abbrevMap)
 
         println("\n\n")
     }

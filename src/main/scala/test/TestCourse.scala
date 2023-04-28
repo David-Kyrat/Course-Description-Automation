@@ -2,7 +2,8 @@ package test
 
 import ch.Utils.crtYear
 import ch.io.Serializer
-import ch.{Course, ReqHdl, Utils, StudyPlan}
+import ch.net.{ReqHdl, Resp}
+import ch.{Course, Utils, StudyPlan}
 import ch.Course._
 
 import java.io.File
