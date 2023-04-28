@@ -205,13 +205,14 @@ informations. That's what makes the packaging / installer generation *really* ti
 - [x] Find a way to force project installation in document directory and add symlink the "pdf" folder next to the .exe
 - [ ] Find a way to put it in smth like `C:\ProgramData\Microsoft\Windows\Start Menu\Programs` to make it searchable
   from windows seach
-- [ ] Small GUI
+- [x] Small GUI
 
 - [x] Find a way to generate an executable instead of `.bat`
     - [x] If that's not possible just hide the `.bat` and make a ~~C~~ Rust wrapper that calls it.
       The wrapper will then be compiled as `.exe`
 - [x] Rust parallelized pandoc convert application
 - [ ] Rust launcher
+
 
 Not urgent:
 
