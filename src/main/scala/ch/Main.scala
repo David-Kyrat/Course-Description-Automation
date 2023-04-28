@@ -1,18 +1,19 @@
 package ch
 
 // import ch.Resp.
-import ch.net.{ReqHdl, Resp}
 import ch.Utils.crtYear
 import ch.io.Serializer
+import ch.net.{ReqHdl, Resp}
+import ch.net.exception.ResourceNotFoundException
+import ch.net.exception._
+import test.{TestCourse, TestStudyPlan}
+import test.TestCourse._
 
 import java.io.File
-import java.nio.file.{Files, Path}
+import java.nio.file.Files
+import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
-
-import test.TestCourse
-import test.TestCourse._
-import test.TestStudyPlan
-import scala.collection.mutable.Stack
+import java.io.IOException
 
 object Main {
     private val abbrevFilePath: Path = Path.of("res/abbrev.tsv")
@@ -49,6 +50,12 @@ object Main {
         .toSet
         .toMap;
 
+    def __main(args: Array[String]) = {
+        var tmp = parseGuiInput(args)
+        val course: Vector[String] = tmp._1
+        val sps: Vector[String] = tmp._2
+        _main(course, sps)
+    }
     def _main(courseCodes: Vector[String], sps: Vector[String]) = {
         val courses: Vector[Course] = courseCodes.map(Course(_))
         val spNames: Vector[String] = sps.map(abbrevMap)
@@ -58,10 +65,12 @@ object Main {
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-        var tmp = parseGuiInput(args)
-        val course: Vector[String] = tmp._1
-        val sps: Vector[String] = tmp._2
-        _main(course, sps)
+        // __main(args)
+        val x = new CourseNotFoundException("test_in_main-c")
+        val y = new IOException("test")
+        println(x)
+        println(x.getMessage())
+        println(y)
 
         // writeCoursDecsToRes("14M252")
         // testJsonLib()
@@ -69,8 +78,8 @@ object Main {
         // testCourseFactoryMethod()
         // testCourseToMarkdown()
         // testMultipleCourseToMarkdown()
-        println(abbrevMap)
 
         println("\n\n")
+
     }
 }
