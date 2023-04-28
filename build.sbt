@@ -18,11 +18,13 @@ Compile / resourceDirectory := resourceDirectory.value
 val pName = "Course-Description-Automation" // project Name
 val pNameLower = pName.toLowerCase
 
-val jarName = pNameLower + ".jar"
-val jarPath = "lib/" + jarName
+// val jarName = pNameLower + ".jar"
+// val jarPath = "lib/" + jarName
 
 val batName = pNameLower + ".bat"
 val batPath = "bin/" + batName
+
+publishArtifact := false
 
 // NB:  ----------------------------- DEPENDENCIES  -------------------------
 
@@ -31,7 +33,7 @@ val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
 val jsonLib = "com.google.code.gson" % "gson" % "2.10.1"
 val parallelCollections = "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
 
-enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
+// enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
 
 // NB: ----------------------------- PROJECT DEF ----------------------------
 
@@ -39,14 +41,9 @@ lazy val root = (project in file(".")).settings(
   name := pName,
   version := "0.1",
   resourceDirectory := baseDirectory.value / resDir_String,
-  libraryDependencies ++= Seq(
-   // scalaBaseDep, 
-   prettyPrintJsonLib, 
-   jsonLib, 
-   parallelCollections, 
-  ), 
-  //
-  maintainer := "Noah Munz <munz.no@gmail.com>",
-  packageSummary := "Course-Description-Automation Installer",
-  packageDescription := """Application to automatically generate printable 1-2 page PDF of course descriptions.""",
+  libraryDependencies ++= Seq( scalaBaseDep, prettyPrintJsonLib, jsonLib, parallelCollections),
+  publish := {}
 )
+// maintainer := "Noah Munz <munz.no@gmail.com>",
+// packageSummary := "Course-Description-Automation Installer",
+// packageDescription := """Application to automatically generate printable 1-2 page PDF of course descriptions.""",
