@@ -8,23 +8,11 @@ trait ResourceNotFoundException {
 
 object ResourceNotFoundException {
 
-    private[exception] def fmtErr(courseYear: String) = {
-        val tmp = courseYear.split("-")
+    def fmtErr(resName: String) = {
+        /* val tmp = courseYear.split("-")
         val year = tmp(0)
-        val code = tmp(1)
-        f"code \"$code\" was not found. Please check spelling and retry."
+        val code = tmp(1) */
+        f"$resName was not found. Please check spelling and retry."
     }
 }
-
-case class CourseNotFoundException(private val message: String) extends Exception(ResourceNotFoundException.fmtErr(message)) with ResourceNotFoundException {
-
-    }
-/* object CourseNotFoundException {
-    private[exception] def fmtErr(courseYear: String) = {
-        val tmp = courseYear.split("-")
-        val year = tmp(0)
-        val code = tmp(1)
-        f"code \"$code\" was not found. Please check spelling and retry."
-    }
-} */
 

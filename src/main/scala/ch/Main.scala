@@ -4,7 +4,7 @@ package ch
 import ch.Utils.{crtYear, r, pathOf}
 import ch.io.Serializer
 import ch.net.{ReqHdl, Resp}
-import ch.net.exception.ResourceNotFoundException
+import ch.net.exception.{ResourceNotFoundException, StudyPlanNotFoundException}
 import ch.net.exception._
 import test.{TestCourse, TestStudyPlan}
 import test.TestCourse._
@@ -66,11 +66,11 @@ object Main {
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // __main(args)
-        val x = new CourseNotFoundException("test_in_main-c")
-        val y = new IOException("test")
+        val x = new CourseNotFoundException("20223-12X000")
         println(x)
-        println(x.getMessage())
+        val y = new StudyPlanNotFoundException("BMI")
         println(y)
+
 
         // writeCoursDecsToRes("14M252")
         // testJsonLib()
