@@ -1,7 +1,7 @@
 package ch
 
 import com.google.gson.{Gson, GsonBuilder}
-import spray.json._
+// import spray.json._
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.StandardOpenOption._
@@ -15,10 +15,30 @@ import scala.jdk.CollectionConverters._
 
 final object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
-    private val logPath = Path.of("res/log/err.log").toAbsolutePath
+    private val logPath = Path.of(r("log/err.log")).toAbsolutePath
     write(logPath, "") // prevents logfile content from getting to big by cleaning it
     private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
     private val sep = "---------------------------------------\n\n"
+
+    //TODO:
+    //FIX:  ADD REAL PATH RESOLVING SIMULATING WHERE THE COMPILED JAR WILL BE
+    /**
+      * Resolve given 'against' resource path
+      * e.g. if we want to acces `/files/res/md/test.md`
+      * just enter `md/test.md`. 
+      * And this function will return the corresponding relative path
+      * @param path resource to locate
+      * @return valid relative to resource (relative w.r.t the runnable i.e. jar or else)
+      */
+    def r(path: String): String = f"/files/res/$path"
+   
+    /**
+      * Wraps `Path.of(r(path))` see `Utils.r` for more info
+      *
+      * @param path resource to locate
+      * @return valid relative to resource (relative w.r.t the runnable i.e. jar or else)
+      */
+    def pathOf(path: String): Path = Path.of(r(path))
 
     /**
       * Shorthand for `Files.readAllLines(path, UTF_8).asScala.toIndexedSeq`
@@ -48,11 +68,11 @@ final object Utils {
      */
     def crtYear: Int = LocalDate.now.getYear - 1
 
-    /**
-     * @param rawJson String
-     * @return prettify json string, i.e. indented ...
+    /*
+      @param rawJson String
+      @return prettify json string, i.e. indented ...
      */
-    def prettifyJson(rawJson: String) = rawJson.parseJson.prettyPrint
+    //def prettifyJson(rawJson: String) = "" //rawJson.parseJson.prettyPrint
 
     /**
      * Removes special characters and other that can

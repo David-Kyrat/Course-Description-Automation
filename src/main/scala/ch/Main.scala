@@ -1,7 +1,7 @@
 package ch
 
 // import ch.Resp.
-import ch.Utils.crtYear
+import ch.Utils.{crtYear, r, pathOf}
 import ch.io.Serializer
 import ch.net.{ReqHdl, Resp}
 import ch.net.exception.ResourceNotFoundException
@@ -16,13 +16,13 @@ import scala.collection.parallel.immutable.ParVector
 import java.io.IOException
 
 object Main {
-    private val abbrevFilePath: Path = Path.of("res/abbrev.tsv")
+    private val abbrevFilePath: Path = pathOf("abbrev.tsv")
     val abbrevMap: Map[String, String] = getAbbrevMap()
 
-    def writeCoursDecsToRes(id: String, year: Int = crtYear) = Utils.write(Path.of(f"res/$id-desc.json"), ReqHdl.course(f"$year-$id").get())
+    def writeCoursDecsToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), ReqHdl.course(f"$year-$id").get())
 
     /**
-     * Parses the java GUI input which looks something like `<code_1>,...,<code_n>#<sp_1>,...,<sp_m>`
+     * Parses the java GUI input which looks something like `[code_1],...,[code_n]#[sp_1],...,[sp_m]`
      * where `code_i` is the i-th course code and `sp_j` the j-th study plan abbreviation.
      * see `/res/abbrev.tsv` for a list of abbreviations and what they correspond to.
      *

@@ -1,6 +1,5 @@
 package ch.net
 
-import ch.Utils.prettifyJson
 import com.google.gson._
 
 /**
@@ -10,7 +9,7 @@ import com.google.gson._
 final case class Resp(val resp: String, val page: Int = 0) {
     import Resp.gson
 
-    override def toString: String = prettifyJson(this.resp)
+    override def toString: String = jsonObj.toString()
 
     // search for next page link {"next": ""} ... in result
     def hasNext: Boolean = ???

@@ -1,7 +1,5 @@
 package ch.net
 
-import ch.Utils.prettifyJson
-
 import scala.io.Source
 import scala.util.{Failure, Success, Using}
 
@@ -37,9 +35,9 @@ case class ReqHdl private (val req: String, val page: Int = 0) extends Function0
     /**
      * Execute the `GET` request and directly formats the json instead of
      * creating a `Resp` instance.
-     * @return prettified Server JSON Response
+     * @return Server JSON Response
      */
-    def get(): String = prettifyJson(request(req))
+    def get(): String = request(req)
 
     /**
      * Return next page of current request. (faster than looking through the
