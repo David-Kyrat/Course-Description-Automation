@@ -1,8 +1,12 @@
 [package]
 name = "par_convert_md_to_pdf"
 version = "0.1.0"
+authors = ["Noah Munz <munz.no@gmail.com>"]
 edition = "2021"
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+description = "A rust javafx & jar launcher + interface to windows api to convert markdown document to pdf in parallel"
+repository = "https://github.com/David-Kyrat/Course-Description-Automation"
+license = "MIT"
 
 [dependencies]
 lazy_static = "1.4.0"
@@ -18,3 +22,9 @@ name = "rust_para_convert-mdToPdf"
 path = "src/main.rs"
 test = false
 bench = false
+
+#[[bin]]
+#name = "launcher"
+#path = "src/main.rs" #TODO: CHANGE
+#test = false
+#bench = false
