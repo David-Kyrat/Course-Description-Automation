@@ -66,18 +66,18 @@ object Main {
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // __main(args)
-        val x = new CourseNotFoundException("test_in_main-c")
+        /* val x = new CourseNotFoundException("test_in_main-c")
         val y = new IOException("test")
         println(x)
         println(x.getMessage())
-        println(y)
+        println(y) */
 
         // writeCoursDecsToRes("14M252")
         // testJsonLib()
         // testResolveCoursHours()
         // testCourseFactoryMethod()
         // testCourseToMarkdown()
-        // testMultipleCourseToMarkdown()
+        testMultipleCourseToMarkdown()
 
         println("\n\n")
 
