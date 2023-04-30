@@ -1,4 +1,6 @@
 #![allow(non_snake_case)]
+extern crate native_windows_derive as nwd;
+extern crate native_windows_gui as nwg;
 
 pub mod utils;
 pub mod win_exec;

@@ -12,6 +12,9 @@ use std::path::{Path, PathBuf};
 use std::process::{exit, Command, Output};
 use std::{env, fs, io};
 
+extern crate native_windows_derive as nwd;
+extern crate native_windows_gui as nwg;
+
 use log::error;
 
 fn get_java_paths() -> (String, String, String) {
@@ -88,7 +91,8 @@ use crate::{para_convert, win_popup};
 pub fn main() -> io::Result<()> {
     // gui input
     let gui_out = launch_gui().expect("cannot launch gui");
-    let main_in: String = extract_std(gui_out.stdout);
+    // let main_in: String = extract_std(gui_out.stdout);
+    let main_in: String = "".to_owned();
     println!("main_in: {}", &main_in);
 
     // generate markdown
@@ -101,7 +105,6 @@ pub fn main() -> io::Result<()> {
 
     // if user input incorrect
     let success = err_msg.is_none();
-    dbg!(&success);
     if (!success) {
         println!("launching popup");
         let retry = win_popup::main(success, err_msg);
@@ -121,6 +124,7 @@ pub fn main() -> io::Result<()> {
 
     // asks user to retry
     let retry = win_popup::main(success, err_msg);
+    println!("lul2");
     if retry {
         println!("retry");
         return main();
