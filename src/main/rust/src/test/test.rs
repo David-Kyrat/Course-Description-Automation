@@ -145,7 +145,6 @@ fn test_macro() -> Result<(), io::Error> {
     } else {
         x
     };
-    println!("lul");
     // return Err(x);
     // unwrap_or_log!(x, "lul");
 

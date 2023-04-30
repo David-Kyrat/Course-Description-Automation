@@ -109,7 +109,6 @@ impl EmbedApp {
 }
 
 pub fn main(success: bool, err_msg: Option<String>) -> bool {
-    println!("lul");
     nwg::init().expect("Failed to init Native Windows GUI");
     let app = EmbedApp::build_ui(Default::default()).expect("Failed to build UI");
     let response = app.main_win(success, err_msg);
