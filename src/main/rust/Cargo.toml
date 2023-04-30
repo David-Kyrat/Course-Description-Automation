@@ -2,6 +2,10 @@
 name = "par_convert_md_to_pdf"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+authors = ["Noah Munz <munz.no@gmail.com>"]
+repository = "https://github.com/David-Kyrat/Course-Description-Automation"
+description = "Application to automatically generate pdfs of course description from the database of the University of Geneva"
 
 
 [dependencies]
@@ -13,19 +17,16 @@ path-clean = "1.0.1"
 rayon = "1.7.0"
 winsafe = { version = "0.0.15", features = ["kernel", "shell", "user", "ole", "oleaut"] }
 
-# native-windows-gui = {path = "../../", features=["no-styling", "embed-resource", "list-view", "cursor"]}
-# native-windows-derive = {path = "../../../native-windows-derive"}
-
 [build-dependencies]
 embed-resource = "1.3"
 
 [[bin]]
-name = "rust_para_convert-mdToPdf"
+name = "Course-Descritpion-Automation"
 path = "src/main.rs"
 test = false
 bench = false
 
-#
+
 #[[bin]]
 #name = "launcher"
 #path = "src/launcher.rs"
