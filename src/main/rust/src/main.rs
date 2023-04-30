@@ -7,10 +7,9 @@ pub mod launcher;
 pub mod win_popup;
 
 use utils::{abs_path_clean, init_log4rs, pop_n_push_s, init_log4rs_debug};
-use std::io;
 
 
-pub fn main() -> io::Result<()> {
+pub fn main() {
     // FIX:: ADD BACK BELOW WHEN DONE TESTING
     // init_log4rs(None);
     // HK: DONT DELETE ABOVE THIS
@@ -18,5 +17,5 @@ pub fn main() -> io::Result<()> {
     init_log4rs_debug();
 
     // para_convert::main()
-    launcher::main()
+    launcher::main().unwrap();
 }

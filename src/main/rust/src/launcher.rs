@@ -15,7 +15,7 @@ use std::{env, fs, io};
 use log::error;
 
 fn get_java_paths() -> (String, String, String) {
-    let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\launcher.exe");
+    let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\launcher.exe");
     // FIX: IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
     // let pathbuf = env::current_exe().unwrap();
     let files_path = "files"; // FIX: should actually be "files"
@@ -26,9 +26,10 @@ fn get_java_paths() -> (String, String, String) {
         abs_path_clean(pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java.exe"])),
         abs_path_clean(pop_n_push_s(&javadir, 0, &["fancyform.jar"])),
     );
-    /* dbg!(&javafx_lib_path);
+    dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
-    println!(""); */
+    dbg!(&jar_path);
+    println!("");
     (java_exe_path, javafx_lib_path, jar_path)
 }
 
@@ -86,7 +87,7 @@ use crate::{para_convert, win_popup};
 /// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
 pub fn main() -> io::Result<()> {
     // gui input
-    let gui_out = launch_gui()?;
+    let gui_out = launch_gui().expect("cannot launch gui");
     let main_in: String = extract_std(gui_out.stdout);
     dbg!(&main_in);
 

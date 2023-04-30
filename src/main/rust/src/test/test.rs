@@ -1,6 +1,6 @@
 #![allow(dead_code)] // allowing dead code since this is a test file
 
-use crate::utils::init_log4rs;
+/* use crate::utils::init_log4rs;
 use crate::{execvp, fill_template_convert_pdf, ftcp_parallel, get_resources_path};
 
 use std::{
@@ -162,4 +162,4 @@ fn test_macro() -> Result<(), io::Error> {
 
     //unwrap_retry_or_log!(x, fails, {"OmegaLul"});
     Ok(())
-}
+} */

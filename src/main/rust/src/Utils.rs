@@ -48,16 +48,28 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .replace(WEIRD_PATTERN, "")
 }
 
+/// # Description 
+/// Wrapper around `std::env::current_exe().expect(...)`
+/// particularly useful when debugging and we have to simulate a relative file path to have
+/// we can just modify the return by this function instead of doing in 10 diffferent file each
+/// time.
+///
+/// # Return
+/// `std::env::current_exe().expect(...)` i.e. `PathBuf` to the full filesystem path of the current running executable.
+pub fn current_exe_path() -> PathBuf {
+    let path = std::env::current_exe().expect("could not get path of current executable");
+    // FIX: comment below for release
+    let path = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
+    path 
+}
+
 /// # Description
 /// function to call initiliaze logging lib, and tell it
 /// to log the config file call `log_config_file`
 /// defaults to the static variable of the same name if given a `None`
 pub fn init_log4rs(log_config_file: Option<String>) {
     let log_config_file = log_config_file.unwrap_or_else(|| {
-        let mut tmp = std::env::current_exe().unwrap();
-        // FIX simulating relative path where the executable will be :
-        // let mut tmp= PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
-        let config_path = pop_n_push_s(&mut tmp, 2, &[LOG_CONFIG_FILE_NAME]);
+        let config_path = pop_n_push_s(&current_exe_path(), 2, &[LOG_CONFIG_FILE_NAME]);
         config_path.to_str().unwrap().to_owned()
     });
     log4rs::init_file(log_config_file, Default::default()).unwrap();

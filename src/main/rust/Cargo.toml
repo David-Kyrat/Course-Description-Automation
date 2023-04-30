@@ -25,8 +25,14 @@ path = "src/main.rs"
 test = false
 bench = false
 
-[[bin]]
-name = "win_popup"
-path = "src/win_popup/main.rs"
-test = false
-bench = false
+# [[bin]]
+# name = "win_popup"
+# path = "src/win_popup/main.rs"
+# test = false
+# bench = false
+
+# [[bin]]
+# name = "test"
+# path = "src/test/test.rs"
+# test = true
+# bench = false

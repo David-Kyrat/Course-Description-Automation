@@ -2,13 +2,13 @@
 #![allow(dead_code)]
 
 use crate::{abs_path_clean, pop_n_push_s, win_exec::execvp, fr, unwrap_retry_or_log};
-use crate::utils::RETRY_AMOUNT;
+use crate::utils::{RETRY_AMOUNT, current_exe_path};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
 use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
-use std::{env, fs, io};
+use std::{fs, io};
 
 use log::error;
 /// # Returns
@@ -25,16 +25,16 @@ fn custom_io_err(message: &str) -> io::Error {
 /// # Returns
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
 fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
-    let rust_exe_path = env::current_exe();
-    // FIX: simulating relative path where the executable will be :
-    let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"));
+    let mut rust_exe_path = current_exe_path();
+    /* // FIX: simulating relative path where the executable will be :
+    let mut rust_exe_path = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"); */
 
-    if rust_exe_path.is_err() {
+    /* if rust_exe_path.is_err() {
         let err = rust_exe_path.unwrap_err();
         error!("could not get_resources_path {:#?}", err);
         return Err(err);
-    }
-    let mut rust_exe_path: PathBuf = rust_exe_path.unwrap();
+    } */
+    // let mut rust_exe_path: PathBuf = rust_exe_path.unwrap();
 
     rust_exe_path.pop(); // /res/bin-converters
     let exes_path: String = abs_path_clean(rust_exe_path.clone());
@@ -111,10 +111,9 @@ fn pandoc_fill_template(
 /// # Returns
 /// Path of the generated pdf (usually dir of executable i.e. `env::current_exe()`)
 fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
-    let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
-    // FIX simulating relative path where the executable will be :
-    // let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
-    out_pdf = pop_n_push_s(&mut out_pdf, 2, &["pdf"]);
+    /* let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
+    let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"); */
+    let mut out_pdf = pop_n_push_s(&current_exe_path(), 2, &["pdf"]);
 
     let new_name: &str = &out_html
         .file_name()

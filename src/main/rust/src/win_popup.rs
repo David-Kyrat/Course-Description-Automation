@@ -50,7 +50,7 @@ impl EmbedApp {
     pub const FONT: &str = "Microsoft Sans Serif";
 
     pub fn message_err(error: String) -> String {
-        format!("{}, Do you want to retry?", error)
+        format!("{}. \nDo you want to retry?", error)
     }
 
     fn main_win(&self, success: bool, err_msg: Option<String>) -> bool {
@@ -71,7 +71,6 @@ impl EmbedApp {
         restart
     }
 
-    ///
     /// # Returns
     /// Retry (restart app) or cancel (just quits)
     pub fn success_window(&self) -> bool {
@@ -86,7 +85,6 @@ impl EmbedApp {
         restart
     }
 
-    ///
     /// # Returns
     /// Retry (restart app) or cancel (just quits)
     pub fn error_window(&self, error_msg: String) -> bool {
@@ -107,7 +105,6 @@ impl EmbedApp {
     }
 
     fn exit(&self) {
-        // nwg::simple_message("Goodbye", &format!("Goodbye"));
         nwg::stop_thread_dispatch();
     }
 }
