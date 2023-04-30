@@ -17,7 +17,7 @@ Made with:
 ![GitHub commits](https://img.shields.io/github/commits-since/David-Kyrat/Course-Description-Automation/e5da194?label=Commits&logo=github&style=flat)
 ![GitHub last commit](https://img.shields.io/github/last-commit/David-Kyrat/Course-Description-Automation?style=flat&logo=time)
 ![GitHub repo size](https://img.shields.io/github/repo-size/David-Kyrat/Course-Description-Automation?color=blueviolet&style=flat)
-
+[![wakatime](https://wakatime.com/badge/user/4c0f5fbb-26be-4446-be74-49aa7d6a693c/project/324a5a77-93f1-4e9f-8d7f-0dbb577686ce.svg)](https://wakatime.com/badge/user/4c0f5fbb-26be-4446-be74-49aa7d6a693c/project/324a5a77-93f1-4e9f-8d7f-0dbb577686ce)
 
 
 ---
