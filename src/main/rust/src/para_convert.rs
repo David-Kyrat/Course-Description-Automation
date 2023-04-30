@@ -370,7 +370,7 @@ pub fn main() -> io::Result<()> {
     let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap();
     let out: Result<(), io::Error> =
         ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    let _out = if out.is_err() {
+    if out.is_err() {
         unwrap_retry_or_log!(
             &out,
             ftcp_parallel,
@@ -382,6 +382,6 @@ pub fn main() -> io::Result<()> {
         )
     } else {
         out
-    };
-    Ok(())
+    }
+    // Ok(())
 }

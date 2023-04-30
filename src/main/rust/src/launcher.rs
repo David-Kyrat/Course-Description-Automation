@@ -6,6 +6,7 @@ use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::exe
 use io::ErrorKind::Other;
 use rayon::iter::*;
 use std::env::temp_dir;
+use std::error::Error;
 use std::fs::{DirEntry, File, ReadDir};
 use std::io::Write;
 use std::path::{Path, PathBuf};
@@ -91,9 +92,9 @@ use crate::{para_convert, win_popup};
 pub fn main() -> io::Result<()> {
     // gui input
     let gui_out = launch_gui().expect("cannot launch gui");
-    // let main_in: String = extract_std(gui_out.stdout);
-    let main_in: String = "".to_owned();
-    println!("main_in: {}", &main_in);
+    let main_in: String = extract_std(gui_out.stdout);
+    // let main_in: String = "".to_owned();
+    println!("main_in: \"{}\"", &main_in);
 
     // generate markdown
     let main_out = launch_main_scalapp(main_in);
@@ -109,22 +110,23 @@ pub fn main() -> io::Result<()> {
         println!("launching popup");
         let retry = win_popup::main(success, err_msg);
         if retry {
-            println!("retry");
+            println!("retry\n");
             return main();
         } else {
+            println!("exit");
             exit(0);
         }
     }
-    // let para_convert_res = para_convert::main();
-    let err_msg: Option<String> = None;
+    let err_msg: Option<String> = para_convert::main().err().map(|e| format!("The following error happened.\n  \"{}\"", e));
+    dbg!(&err_msg);
+    // let err_msg: Option<String> = None;
 
     // convert to pdf
-    // let success = para_convert_res.is_err();
-    let success = true;
+    let success = err_msg.is_none();
+    // let success = true;
 
     // asks user to retry
     let retry = win_popup::main(success, err_msg);
-    println!("lul2");
     if retry {
         println!("retry");
         return main();

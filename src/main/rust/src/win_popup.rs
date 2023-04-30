@@ -7,7 +7,7 @@ use nwg::{ControlHandle,  MessageChoice, NativeUi};
 
 #[derive(Default, NwgUi)]
 pub struct EmbedApp {
-    #[nwg_control(size: (300, 145), position: (300, 300), flags: "DISABLED")]
+    #[nwg_control(size: (0, 0), position: (300, 300), flags: "VISIBLE|POPUP", topmost: true, center: true)]
     #[nwg_events( OnWindowClose: [EmbedApp::exit], OnInit: [EmbedApp::init] )]
     window: nwg::Window,
     #[nwg_resource]
@@ -47,7 +47,7 @@ impl EmbedApp {
     pub const FONT: &str = "Microsoft Sans Serif";
 
     pub fn message_err(error: String) -> String {
-        format!("{}. \nDo you want to retry?", error)
+        format!("{} \nDo you want to retry?", error)
     }
 
     fn main_win(&self, success: bool, err_msg: Option<String>) -> bool {
@@ -62,6 +62,7 @@ impl EmbedApp {
             (EmbedApp::TITLE_ERR.to_owned(), EmbedApp::message_err(err_msg.to_owned()))
         };
 
+        self.window.set_text(title.as_str());
         let choice = modal(self.window.handle, title.as_str(), message.as_str(), success);
         let restart = handle_match(choice);
         self.exit();
@@ -97,8 +98,9 @@ impl EmbedApp {
     }
 
     pub fn init(&self) {
-        self.window.set_text(EmbedApp::TITLE_SUCC);
+        // self.window.set_text(EmbedApp::TITLE_SUCC);
         set_window_icon(self);
+        self.window.set_focus();
     }
 
     fn exit(&self) {
