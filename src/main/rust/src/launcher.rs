@@ -19,9 +19,10 @@ extern crate native_windows_gui as nwg;
 use log::error;
 
 fn get_java_paths() -> (String, String, String) {
-    let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\launcher.exe");
-    // FIX: IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
-    // let pathbuf = env::current_exe().unwrap();
+    let pathbuf = env::current_exe().unwrap();
+
+    // FIX IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
+    // let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\launcher.exe");
     let files_path = "files"; // FIX: should actually be "files"
 
     let javadir = pop_n_push_s(&pathbuf, 1, &[files_path, "res", "java"]);
@@ -73,25 +74,40 @@ fn launch_main_scalapp(args: String) -> Result<(), String> {
     Ok(())
 }
 
-use crate::{para_convert, win_popup};
+use crate::{log_err, log_if_err, para_convert, win_popup};
 
 /// # Desc
 /// Launcher for the whole project. There are several steps.
-/// 
+///
 /// 1. Launch gui to ask for user input
-/// 2) If user input is correct launch the "main" part (scala app that 
+/// 2) If user input is correct launch the "main" part (scala app that
 /// will generate the markdown documents)
-///     2. if its not, asks user if he wants to retry 
+///     2. if its not, asks user if he wants to retry
 /// 3. Launch conversion of markdown files to pdf
 /// 4) Display message to inform of success / error of conversion to pdf
 /// and asks to user whether he wants to retry
-/// 
 ///
-/// # Returns 
+///
+/// # Returns
 /// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
 pub fn main() -> io::Result<()> {
     // gui input
-    let gui_out = launch_gui().expect("cannot launch gui");
+
+    let gui_out = launch_gui();
+    let gui_out = if let Ok(output) = gui_out {
+        output
+    } else {
+        log_err!(gui_out.err().unwrap(), "cannot launch gui");
+        panic!()
+    };
+
+    // let err: Result<(), String> = log_if_err!(gui_out, "cannot launch gui2");
+
+    // let gui_out = if let Err(e) = err { panic!(); } else { gui_out.unwrap() };
+
+    // gui_out = if let err.is_ok() == true { gui_out.unwrap() } ;
+    //else { panic!("")};
+
     let main_in: String = extract_std(gui_out.stdout);
     // let main_in: String = "".to_owned();
     println!("main_in: \"{}\"", &main_in);
@@ -117,7 +133,9 @@ pub fn main() -> io::Result<()> {
             exit(0);
         }
     }
-    let err_msg: Option<String> = para_convert::main().err().map(|e| format!("The following error happened.\n  \"{}\"", e));
+    let err_msg: Option<String> = para_convert::main()
+        .err()
+        .map(|e| format!("The following error happened.\n  \"{}\"", e));
     dbg!(&err_msg);
     // let err_msg: Option<String> = None;
 

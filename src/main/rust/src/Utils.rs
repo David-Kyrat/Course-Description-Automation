@@ -59,7 +59,7 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
 pub fn current_exe_path() -> PathBuf {
     let path = std::env::current_exe().expect("could not get path of current executable");
     // FIX: comment below for release
-    let path = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
+    // let path = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
     path 
 }
 
@@ -93,17 +93,32 @@ macro_rules! fr {
 }
 
 #[macro_export]
+macro_rules! log_err {
+    ( $err:expr  $(, $msg:expr) ? ) => {
+        error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", $err, fr!(""));
+    }
+}
+
+#[macro_export]
+/// # Description
 /// If given `Result<_,_>` is an error. (`is_err() == true`)
-/// `return` that error in the function where this macro is called,
+/// `return` that error and logs it with the `error!` macro from `log4rs`
 /// otherwise do nothing.  
 /// Used to ensure that a call to `unwrap()` will never `panic`.
-macro_rules! unwrap_or_log{
+///
+/// # Params
+/// - `fun_res` : a `Result<_,_>` to check
+/// - `msg` : an optional error messag to add while logging
+///
+/// # Returns
+/// `Err(fun_res.unwrap_err)` if given `Result` is an error otherwise nothing. 
+macro_rules! log_if_err{
     ( $fun_res:expr  $(, $msg:expr) ? ) => {
         if $fun_res.is_err() {
             let err = $fun_res.unwrap_err();
             error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", err, fr!(""));
             return Err(err);
-        }
+        } else { return Ok(()) }
     }
 }
 
