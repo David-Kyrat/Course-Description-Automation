@@ -1,5 +1,6 @@
 #![allow(unused)]
 
+
 use crate::utils::RETRY_AMOUNT;
 use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::execvp};
 
@@ -18,7 +19,7 @@ extern crate native_windows_gui as nwg;
 
 use log::error;
 
-fn get_java_paths() -> (String, String, String) {
+fn get_java_paths() -> io::Result<(String, String, String)> {
     let pathbuf = env::current_exe().unwrap();
 
     // FIX IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
@@ -26,16 +27,33 @@ fn get_java_paths() -> (String, String, String) {
     let files_path = "files"; // FIX: should actually be "files"
 
     let javadir = pop_n_push_s(&pathbuf, 1, &[files_path, "res", "java"]);
+
+    let (javafx_lib_path, java_exe_path, jar_path) = (
+        pop_n_push_s(&javadir, 0, &["javafx-sdk-19", "lib"]),
+        pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java.exe"]),
+        pop_n_push_s(&javadir, 0, &["fancyform.jar"]),
+    );
+    if !javafx_lib_path.exists() {
+        println!("{}", abs_path_clean(&javafx_lib_path));
+        return Err(io::Error::new(io::ErrorKind::NotFound, format!("javafx_lib_path {} not found", (javafx_lib_path.display()))));
+    } 
+    if !java_exe_path.exists() {
+        return Err(io::Error::new(io::ErrorKind::NotFound, format!("java_exe_path {:#?} not found", (java_exe_path).display())));
+    }
+    if !jar_path.exists() {
+        return Err(io::Error::new(io::ErrorKind::NotFound, format!("jar_path {:#?} not found", (jar_path).display())));
+    }
     let (javafx_lib_path, java_exe_path, jar_path) = (
         abs_path_clean(pop_n_push_s(&javadir, 0, &["javafx-sdk-19", "lib"])),
         abs_path_clean(pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java.exe"])),
         abs_path_clean(pop_n_push_s(&javadir, 0, &["fancyform.jar"])),
     );
-    /* dbg!(&javafx_lib_path);
+
+    dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
-    println!(""); */
-    (java_exe_path, javafx_lib_path, jar_path)
+    println!("");
+    Ok((java_exe_path, javafx_lib_path, jar_path))
 }
 
 /// # Descriptionn
@@ -52,7 +70,7 @@ fn extract_std(out: Vec<u8>) -> String {
 }
 
 fn launch_gui() -> io::Result<Output> {
-    let (java_exe_path, javafx_lib_path, jar_path) = get_java_paths();
+    let (java_exe_path, javafx_lib_path, jar_path) = get_java_paths()?;
 
     Command::new(java_exe_path)
         .args(
@@ -92,21 +110,7 @@ use crate::{log_err, log_if_err, para_convert, win_popup, unwrap_or_log};
 /// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
 pub fn main() -> io::Result<()> {
     // gui input
-
-    let gui_out = launch_gui();
-    let gui_out: Output = unwrap_or_log!(gui_out, "launch gui, cannot launch gui"); /* if let Ok(output) = gui_out {
-        output
-    } else {
-        log_err!(gui_out.err().unwrap(), "cannot launch gui");
-        panic!()
-    }; */
-
-    // let err: Result<(), String> = log_if_err!(gui_out, "cannot launch gui2");
-
-    // let gui_out = if let Err(e) = err { panic!(); } else { gui_out.unwrap() };
-
-    // gui_out = if let err.is_ok() == true { gui_out.unwrap() } ;
-    //else { panic!("")};
+    let gui_out: Output = unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"); 
 
     let main_in: String = extract_std(gui_out.stdout);
     // let main_in: String = "".to_owned();

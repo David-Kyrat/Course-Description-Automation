@@ -1,8 +1,8 @@
 #![allow(non_snake_case)]
 #![allow(dead_code)]
 
-use crate::{abs_path_clean, pop_n_push_s, win_exec::execvp, fr, unwrap_retry_or_log};
-use crate::utils::{RETRY_AMOUNT, current_exe_path};
+use crate::utils::{current_exe_path, RETRY_AMOUNT};
+use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::execvp};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
@@ -24,31 +24,45 @@ fn custom_io_err(message: &str) -> io::Error {
 ///
 /// # Returns
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
-fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
-    let mut rust_exe_path = current_exe_path();
-    /* // FIX: simulating relative path where the executable will be :
-    let mut rust_exe_path = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"); */
-
-    /* if rust_exe_path.is_err() {
-        let err = rust_exe_path.unwrap_err();
-        error!("could not get_resources_path {:#?}", err);
-        return Err(err);
-    } */
-    // let mut rust_exe_path: PathBuf = rust_exe_path.unwrap();
-
-    rust_exe_path.pop(); // /res/bin-converters
-    let exes_path: String = abs_path_clean(rust_exe_path.clone());
-
-    rust_exe_path.pop(); // /res
-    let res_path: PathBuf = rust_exe_path;
-    let res_path: String = abs_path_clean(&res_path);
-
+fn get_resources_path() -> io::Result<(String, String, String, String)> {
+    let res_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res"]);
+    let exes_path = pop_n_push_s(&res_path, 0, &["bin-converters"]);
+    let (pandoc, wkhtml, md, templates) = (
+        pop_n_push_s(&exes_path, 0, &["pandoc.exe"]),
+        pop_n_push_s(&exes_path, 0, &["wkhtmltopdf.exe"]),
+        pop_n_push_s(&res_path, 0, &["md"]),
+        pop_n_push_s(&res_path, 0, &["templates"]),
+    );
+    if !pandoc.exists() {
+        return Err(io::Error::new(io::ErrorKind::NotFound, format!("pandoc path {:#?} not found", pandoc.display()))); 
+    }
+    if !md.exists() {
+        return Err(io::Error::new(io::ErrorKind::NotFound, format!("md path {:#?} not found", md.display()))); 
+    }
+    if !templates.exists() {
+        return Err(io::Error::new(io::ErrorKind::NotFound, format!("templates path {:#?} not found", templates.display())));
+    }
     Ok((
-        exes_path.to_owned() + "\\pandoc.exe",
-        exes_path + "\\wkhtmltopdf.exe",
-        res_path.to_owned() + "\\md",
-        res_path + "\\templates",
+        abs_path_clean(pandoc),
+        abs_path_clean(wkhtml),
+        abs_path_clean(md),
+        abs_path_clean(templates),
     ))
+
+    // let mut rust_exe_path = current_exe_path();
+    // rust_exe_path.pop(); // /res/bin-converters
+    // let exes_path: String = abs_path_clean(rust_exe_path.clone());
+    //
+    // rust_exe_path.pop(); // /res
+    // let res_path: PathBuf = rust_exe_path;
+    // let res_path: String = abs_path_clean(&res_path);
+    //
+    // Ok((
+    //     exes_path.to_owned() + "\\pandoc.exe",
+    //     exes_path + "\\wkhtmltopdf.exe",
+    //     res_path.to_owned() + "\\md",
+    //     res_path + "\\templates",
+    // ))
 }
 
 /// # Description
@@ -246,7 +260,7 @@ fn pandoc_md_to_pdf(
     );
     let out_pdf_path = out_pdf.as_path();
     if out_pdf_path.exists() {
-        fs::remove_file(out_pdf_path).unwrap_or_default();
+        fs::remove_file(out_pdf_path).unwrap();
     }
     let (template_s, css_path_s, out_pdf_s, md_filepath_s) = (
         template.to_str().unwrap(),

@@ -69,7 +69,7 @@ pub fn current_exe_path() -> PathBuf {
 /// defaults to the static variable of the same name if given a `None`
 pub fn init_log4rs(log_config_file: Option<String>) {
     let log_config_file = log_config_file.unwrap_or_else(|| {
-        let config_path = pop_n_push_s(&current_exe_path(), 2, &[LOG_CONFIG_FILE_NAME]);
+        let config_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res", LOG_CONFIG_FILE_NAME]);
         config_path.to_str().unwrap().to_owned()
     });
     log4rs::init_file(log_config_file, Default::default()).unwrap();

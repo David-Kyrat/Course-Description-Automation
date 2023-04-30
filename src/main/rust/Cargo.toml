@@ -25,6 +25,13 @@ path = "src/main.rs"
 test = false
 bench = false
 
+#
+#[[bin]]
+#name = "launcher"
+#path = "src/launcher.rs"
+#test = false
+#bench = false
+
 # [[bin]]
 # name = "test"
 # path = "src/test/test.rs"
