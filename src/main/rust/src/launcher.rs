@@ -26,10 +26,10 @@ fn get_java_paths() -> (String, String, String) {
         abs_path_clean(pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java.exe"])),
         abs_path_clean(pop_n_push_s(&javadir, 0, &["fancyform.jar"])),
     );
-    dbg!(&javafx_lib_path);
+    /* dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
-    println!("");
+    println!(""); */
     (java_exe_path, javafx_lib_path, jar_path)
 }
 
@@ -89,7 +89,7 @@ pub fn main() -> io::Result<()> {
     // gui input
     let gui_out = launch_gui().expect("cannot launch gui");
     let main_in: String = extract_std(gui_out.stdout);
-    dbg!(&main_in);
+    println!("main_in: {}", &main_in);
 
     // generate markdown
     let main_out = launch_main_scalapp(main_in);
@@ -101,7 +101,9 @@ pub fn main() -> io::Result<()> {
 
     // if user input incorrect
     let success = err_msg.is_none();
+    dbg!(&success);
     if (!success) {
+        println!("launching popup");
         let retry = win_popup::main(success, err_msg);
         if retry {
             println!("retry");
