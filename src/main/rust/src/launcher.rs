@@ -15,11 +15,10 @@ use std::{env, fs, io};
 use log::error;
 
 fn get_java_paths() -> (String, String, String) {
-    let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\launcher.exe");
-    // simulate "files" path
-    //let pathbuf = env::current_exe().unwrap();
+    let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\launcher.exe");
     // FIX: IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
-    let files_path = "Course-Description-Automation"; // FIX: should actually be "files"
+    // let pathbuf = env::current_exe().unwrap();
+    let files_path = "files"; // FIX: should actually be "files"
 
     let javadir = pop_n_push_s(&pathbuf, 1, &[files_path, "res", "java"]);
     let (javafx_lib_path, java_exe_path, jar_path) = (
@@ -71,17 +70,35 @@ fn launch_main_scalapp(args: String) -> Result<(), String> {
 
 use crate::{para_convert, win_popup};
 
+/// # Desc
+/// Launcher for the whole project. There are several steps.
+/// 
+/// 1. Launch gui to ask for user input
+/// 2) If user input is correct launch the "main" part (scala app that 
+/// will generate the markdown documents)
+///     2. if its not, asks user if he wants to retry 
+/// 3. Launch conversion of markdown files to pdf
+/// 4) Display message to inform of success / error of conversion to pdf
+/// and asks to user whether he wants to retry
+/// 
+///
+/// # Returns 
+/// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
 pub fn main() -> io::Result<()> {
+    // gui input
     let gui_out = launch_gui()?;
     let main_in: String = extract_std(gui_out.stdout);
     dbg!(&main_in);
 
+    // generate markdown
     let main_out = launch_main_scalapp(main_in);
     let err_msg: Option<String> = match main_out {
         Ok(()) => None,
         Err(msg) => Some(msg),
     };
     dbg!(&err_msg);
+
+    // if user input incorrect
     let success = err_msg.is_none();
     if (!success) {
         let retry = win_popup::main(success, err_msg);
@@ -93,10 +110,13 @@ pub fn main() -> io::Result<()> {
         }
     }
     // let para_convert_res = para_convert::main();
-    // TODO: create meaningfull message for user if error
     let err_msg: Option<String> = None;
+
+    // convert to pdf
     // let success = para_convert_res.is_err();
     let success = true;
+
+    // asks user to retry
     let retry = win_popup::main(success, err_msg);
     if retry {
         println!("retry");

@@ -26,8 +26,8 @@ fn custom_io_err(message: &str) -> io::Error {
 /// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
 fn get_resources_path() -> Result<(String, String, String, String), std::io::Error> {
     let rust_exe_path = env::current_exe();
-    // FIX simulating relative path where the executable will be :
-    // let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"));
+    // FIX: simulating relative path where the executable will be :
+    let rust_exe_path = Ok(PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"));
 
     if rust_exe_path.is_err() {
         let err = rust_exe_path.unwrap_err();

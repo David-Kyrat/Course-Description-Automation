@@ -56,7 +56,7 @@ impl EmbedApp {
     fn main_win(&self, success: bool, err_msg: Option<String>) -> bool {
         let err_msg = match err_msg {
             Some(expr) => expr,
-            None => { if success { "".to_owned() } else { "unexpected error happened".to_owned() } }
+            None => { if success { "".to_owned() } else { "An unexpected error happened".to_owned() } }
         };
 
         let (title, message) = if success {
