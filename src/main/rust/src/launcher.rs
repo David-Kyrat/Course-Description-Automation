@@ -74,7 +74,7 @@ fn launch_main_scalapp(args: String) -> Result<(), String> {
     Ok(())
 }
 
-use crate::{log_err, log_if_err, para_convert, win_popup};
+use crate::{log_err, log_if_err, para_convert, win_popup, unwrap_or_log};
 
 /// # Desc
 /// Launcher for the whole project. There are several steps.
@@ -94,12 +94,12 @@ pub fn main() -> io::Result<()> {
     // gui input
 
     let gui_out = launch_gui();
-    let gui_out = if let Ok(output) = gui_out {
+    let gui_out: Output = unwrap_or_log!(gui_out, "launch gui, cannot launch gui"); /* if let Ok(output) = gui_out {
         output
     } else {
         log_err!(gui_out.err().unwrap(), "cannot launch gui");
         panic!()
-    };
+    }; */
 
     // let err: Result<(), String> = log_if_err!(gui_out, "cannot launch gui2");
 

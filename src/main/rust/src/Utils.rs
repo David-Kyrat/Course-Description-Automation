@@ -102,6 +102,28 @@ macro_rules! log_err {
 #[macro_export]
 /// # Description
 /// If given `Result<_,_>` is an error. (`is_err() == true`)
+/// panics and logs it with the `error!` macro from `log4rs`
+/// otherwise return unwrwapped value.  
+///
+/// # Params
+/// - `fun_res` : a `Result<_,_>` to check
+/// - `msg` : an optional error messag to add while logging
+///
+/// # Returns
+/// Panics if given `Result` is an error otherwise return unwrapped value. 
+macro_rules! unwrap_or_log {
+    ( $fun_res:expr  $(, $msg:expr) ? ) => {
+        if let Ok(res) = $fun_res { res }
+        else {
+            log_err!($fun_res.err().unwrap(), $( $msg.to_owned() )?);
+            panic!()
+        }
+    }
+}
+
+#[macro_export]
+/// # Description
+/// If given `Result<_,_>` is an error. (`is_err() == true`)
 /// `return` that error and logs it with the `error!` macro from `log4rs`
 /// otherwise do nothing.  
 /// Used to ensure that a call to `unwrap()` will never `panic`.
