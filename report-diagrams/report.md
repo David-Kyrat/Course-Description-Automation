@@ -36,7 +36,7 @@ Example given:
 
 
 
-# Rapport Intermédiaire - Application Informatique (12X015)
+# Rapport - Application Informatique (12X015)
 
 #### *Noah Munz - 18 Avril 2023*
 
