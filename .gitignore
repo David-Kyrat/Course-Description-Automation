@@ -1,5 +1,6 @@
 # Example for startup debugging 
 src/main/scala/example/
+other_res
 
 # bundle jdk and javafx
 res/java/jdk-17
