@@ -3,8 +3,14 @@ src/main/scala/example/
 other_res
 
 # bundle jdk and javafx
-res/java/jdk-17
+**/jdk-17
 res/java/tmep
+
+# utility scripts
+**/tmp.ps1
+**/shortcut-res.ps1
+
+
 # Scala config folders
 null
 .bsp
