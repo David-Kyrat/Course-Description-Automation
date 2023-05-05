@@ -242,6 +242,7 @@ Not urgent:
 
 2. Finish
 
+- [ ] Fix scala logging
 - [ ] Parsing de plan d'études
 - [ ] link GUI javafx / Rust + markdown generation with scala
 - [ ] Fix bug abbreviation screen list
