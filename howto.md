@@ -1,6 +1,6 @@
 # Table of Contents
 
-<!-- vvim-markdown-toc GFM -->
+<!-- vim-markdown-toc GFM -->
 
 * [Content](#content)
     * [Markdown Parsing and html / pdf generation](#markdown-parsing-and-html--pdf-generation)
@@ -12,6 +12,8 @@
             * [Course:](#course)
         * [Example of markdown structure used to generate  htmls and pdfs](#example-of-markdown-structure-used-to-generate--htmls-and-pdfs)
     * [Packaging](#packaging)
+    * [Left to do (25.04.23):](#left-to-do-250423)
+    * [To Do (by 02.06.23)](#to-do-by-020623)
     * [Pandoc quick commands](#pandoc-quick-commands)
 
 <!-- vim-markdown-toc -->
@@ -195,34 +197,55 @@ Unfortunately, this require a **heavily** configurated `build.sbt` config file.
 Actually the heaviness isn't really the issue here, but rather the "outdatedness" and scarcity of actually usefull the
 informations. That's what makes the packaging / installer generation *really* time consuming.
 
+
+The actual wix configuration of the installer is present in the file `target/windows/Course-Description-Automation.wxs`
+file.
+It's just an xml file with a specific microsoft-defined syntax see
+here [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wxs)
+
 ***
 
 <br > 
 
-## Left to do:
+## Left to do (25.04.23):
 
 - [x] Find a way to bundle `res/` directory with the installer
 - [x] Find a way to force project installation in document directory and add symlink the "pdf" folder next to the .exe
-- [ ] Find a way to put it in smth like `C:\ProgramData\Microsoft\Windows\Start Menu\Programs` to make it searchable
-  from windows seach
 - [x] Small GUI
 
 - [x] Find a way to generate an executable instead of `.bat`
     - [x] If that's not possible just hide the `.bat` and make a ~~C~~ Rust wrapper that calls it.
       The wrapper will then be compiled as `.exe`
 - [x] Rust parallelized pandoc convert application
-- [ ] Rust launcher
+- [x] Rust launcher
 
 
 Not urgent:
 
 - [x] Remove empty (0 Kb) / useless wix features (from "features to be installed" screen)
 - [ ] Replace the lorem ipsum in the license screen by an actual license
+- [ ] Find a way to put it in something like `C:\ProgramData\Microsoft\Windows\Start Menu\Programs` to make it searchable
+  from windows seach
 
-The actual wix configuration of the installer is present in the file `target/windows/Course-Description-Automation.wxs`
-file.
-It's just an xml file with a specific microsoft-defined syntax see
-here [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wxs)
+
+
+## To Do (by 02.06.23)
+
+
+- [ ] Man / user documentation.
+
+1. Add
+
+- [ ] 1. Add button to add course to selection
+- [ ] 2. Replace 'ok' button with 'generate' button
+- [ ] 3. Show actual user selection
+
+2. Finish
+
+- [ ] Parsing de plan d'études
+- [ ] link GUI javafx / Rust + markdown generation with scala
+- [ ] Fix bug abbreviation screen list
+
 
 
 ***
