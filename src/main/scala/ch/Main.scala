@@ -22,7 +22,8 @@ import scala.collection.parallel.immutable.ParVector
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
-    val abbrevMap: Map[String, String] = getAbbrevMap()
+    /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
+    val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
 
     def writeCoursDecsToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), ReqHdl.course(f"$year-$id").get())
 
@@ -44,14 +45,14 @@ object Main {
     }
 
     /**
-     * Reads file at `res/abbrev.tsv` i.e. list of assocations ("study plan", "abbreviation")
+     * Reads file at `res/abbrev.tsv` i.e. list of assocations ("study plan", ("abbreviation", "studyplan id"))
      * and parses it into a map.
-     * @return (`study_plan -> abbreviation`) mapping
+     * @return (`studyPlan_abbreviation -> (studyPlan_fullName, studyPlan_id)`) mapping
      */
-    private def getAbbrevMap(): Map[String, String] = Utils
+    private def getAbbrevMap(): Map[String, (String, String)] = Utils
         .readLines(abbrevFilePath)
         .map(_.split("\t"))
-        .map(s => (s(1), s(0))) // WARNING: In file key is 2nd and value is 1st !
+        .map(s => (s(1), (s(0), s(2)))) // WARNING: In file key is 2nd and value is 1st !
         .toSet
         .toMap;
 
@@ -64,7 +65,7 @@ object Main {
 
     def _main(courseCodes: Vector[String], sps: Vector[String]) = {
         val courses: Vector[Course] = courseCodes.map(Course(_))
-        val spNames: Vector[String] = sps.map(abbrevMap)
+        val spIds: Vector[String] = sps.map(s => abbrevMap(s)._2)
 
         courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
     }
