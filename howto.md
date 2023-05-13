@@ -236,16 +236,17 @@ Not urgent:
 
 1. Add
 
-- [ ] 1. Add button to add course to selection
-- [ ] 2. Replace 'ok' button with 'generate' button
-- [ ] 3. Show actual user selection
+- [x] 1. Add button to add course to selection
+- [x] 2. Replace 'ok' button with 'generate' button
+- [x] 3. Show actual user selection
 
 2. Finish
 
 - [ ] Fix scala logging
+- [ ] Handle exception on wrong user input or course not found
 - [ ] Parsing de plan d'études
 - [ ] link GUI javafx / Rust + markdown generation with scala
-- [ ] Fix bug abbreviation screen list
+- [x] Fix bug abbreviation screen list
 
 
 
