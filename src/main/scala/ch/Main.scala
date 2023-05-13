@@ -19,6 +19,7 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
+import com.google.gson.JsonArray
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -74,21 +75,26 @@ object Main {
     }
 
     def getSps() = {
-        val x = Utils.getAsJsonObjIter(StudyPlan.all).filter(sp => sp.get("academicalYear").getAsInt == crtYear).head
+        val x = Utils.getAsJsonObjIter(StudyPlan.all).filter(sp => sp.get("academicalYear").getAsInt == crtYear)
+        //.mkString("[\n", ",\n", "\n]")
         Utils.write(pathOf(f"sp1.json"), Resp.gson.toJson(x))
+    }
 
+    def spAlls() = {
+        Utils.write(pathOf(f"sp_all.json"), Resp.gson.toJson(ReqHdl.studyPlan(size = Int.MaxValue)().jsonObj))
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // __main(args)
-        getSps()
+        // getSps()
+        // spAlls()
         // writeCoursDecsToRes("14M252")
         // testJsonLib()
         // testResolveCoursHours()
         // testCourseFactoryMethod()
         // testCourseToMarkdown()
-        // testMultipleCourseToMarkdown()
+        testMultipleCourseToMarkdown()
 
         println("\n\n")
 

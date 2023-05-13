@@ -1,30 +1,1843 @@
 {
-  "creation": {},
-  "lastUpdate": {},
-  "resId": "73710",
-  "entityId": "73710",
-  "academicalYear": "2022",
-  "formationCode": "15INFO",
-  "formationId": 1272,
-  "studyLevel": "Bachelor",
-  "studyLevelId": "195",
-  "facultyId": "547",
-  "facultyCode": "S",
-  "facultyLabel": "Faculté des sciences",
-  "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
-  "formationLabel": "Baccalauréat universitaire en sciences informatiques",
-  "label": "Baccalauréat universitaire en informatique",
-  "studyPlanSortColumn": "152",
-  "credits": 180,
-  "_links": {
-    "self": {
-      "href": "https://pgc.unige.ch/main/api/study-plans/73710"
+  "array": [
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73710",
+      "entityId": "73710",
+      "academicalYear": "2022",
+      "formationCode": "15INFO",
+      "formationId": 1272,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+      "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+      "label": "Baccalauréat universitaire en informatique",
+      "studyPlanSortColumn": "152",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73710"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
     },
-    "list": {
-      "href": "https://pgc.unige.ch/main/api/study-plans"
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73722",
+      "entityId": "73722",
+      "academicalYear": "2022",
+      "formationCode": "15MATH",
+      "formationId": 1270,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en mathématiques",
+      "formationLabel": "Baccalauréat universitaire en mathématiques",
+      "label": "Baccalauréat universitaire en mathématique",
+      "studyPlanSortColumn": "202",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73722"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
     },
-    "module": {
-      "href": "https://pgc.unige.ch/main/api"
-    }
-  }
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73726",
+      "entityId": "73726",
+      "academicalYear": "2022",
+      "formationCode": "15MATNUM",
+      "formationId": 1890,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques",
+      "formationLabel": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques",
+      "label": "Baccalauréat universitaire en mathématiques, informatique et sciences numériques (en cours de saisie)",
+      "studyPlanSortColumn": "225",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73726"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73737",
+      "entityId": "73737",
+      "academicalYear": "2022",
+      "formationCode": "15CHIM",
+      "formationId": 1274,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en chimie",
+      "formationLabel": "Baccalauréat universitaire en chimie",
+      "label": "Baccalauréats universitaires en chimie et en biochimie",
+      "studyPlanSortColumn": "251",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73737"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73751",
+      "entityId": "73751",
+      "academicalYear": "2022",
+      "formationCode": "15TERENV",
+      "formationId": 1554,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en sciences de la Terre et de l\u0027environnement",
+      "formationLabel": "Baccalauréat universitaire en sciences de la Terre et de l\u0027environnement",
+      "label": "Bachelor en sciences de la Terre et de l\u0027environnement",
+      "studyPlanSortColumn": "301",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73751"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73758",
+      "entityId": "73758",
+      "academicalYear": "2022",
+      "formationCode": "15BIOL",
+      "formationId": 1276,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en biologie",
+      "formationLabel": "Baccalauréat universitaire en biologie",
+      "label": "Baccalauréat universitaire en biologie",
+      "studyPlanSortColumn": "402",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73758"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73759",
+      "entityId": "73759",
+      "academicalYear": "2022",
+      "formationCode": "15ARKEO",
+      "formationId": 1889,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en archéologie préhistorique",
+      "formationLabel": "Baccalauréat universitaire en archéologie préhistorique",
+      "label": "Baccalauréat universitaire en archéologie préhistorique",
+      "studyPlanSortColumn": "420",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73759"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73812",
+      "entityId": "73812",
+      "academicalYear": "2022",
+      "formationCode": "15PHY",
+      "formationId": 1273,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en physique",
+      "formationLabel": "Baccalauréat universitaire en physique",
+      "label": "Baccalauréat universitaire en physique",
+      "studyPlanSortColumn": "502",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73812"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73837",
+      "entityId": "73837",
+      "academicalYear": "2022",
+      "formationCode": "15SPHARM",
+      "formationId": 1267,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Baccalauréat universitaire en sciences pharmaceutiques",
+      "formationLabel": "Baccalauréat universitaire en sciences pharmaceutiques",
+      "label": "Baccalauréat universitaire en sciences pharmaceutiques",
+      "studyPlanSortColumn": "751",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73837"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73695",
+      "entityId": "73695",
+      "academicalYear": "2022",
+      "formationCode": "16ASTRO",
+      "formationId": 1882,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en astrophysique",
+      "formationLabel": "Maîtrise universitaire en astrophysique",
+      "label": "Master in astrophysics",
+      "studyPlanSortColumn": "101",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73695"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73711",
+      "entityId": "73711",
+      "academicalYear": "2022",
+      "formationCode": "16INFOR",
+      "formationId": 1281,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en sciences informatiques",
+      "formationLabel": "Maîtrise universitaire en sciences informatiques",
+      "label": "Maîtrise universitaire en sciences informatiques",
+      "studyPlanSortColumn": "172",
+      "credits": 90,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73711"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73712",
+      "entityId": "73712",
+      "academicalYear": "2022",
+      "formationCode": "16INFOR120",
+      "formationId": 1905,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en sciences informatiques",
+      "formationLabel": "Maîtrise universitaire en sciences informatiques",
+      "label": "Maîtrise universitaire en sciences informatiques 120",
+      "studyPlanSortColumn": "180",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73712"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73727",
+      "entityId": "73727",
+      "academicalYear": "2022",
+      "formationCode": "16MATH",
+      "formationId": 1283,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en mathématiques",
+      "formationLabel": "Maîtrise universitaire en mathématiques",
+      "label": "Maîtrise universitaire en mathématique",
+      "studyPlanSortColumn": "234",
+      "credits": 90,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73727"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73728",
+      "entityId": "73728",
+      "academicalYear": "2022",
+      "formationCode": "16MATINFO120",
+      "formationId": 1918,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en mathématiques, informatique et sciences numériques",
+      "formationLabel": "Maîtrise universitaire en mathématiques, informatique et sciences numériques",
+      "label": "Maîtrise universitaire en mathématiques, informatique et sciences numériques",
+      "studyPlanSortColumn": "235",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73728"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73738",
+      "entityId": "73738",
+      "academicalYear": "2022",
+      "formationCode": "16CHIM120",
+      "formationId": 1760,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en chimie",
+      "formationLabel": "Maîtrise universitaire en chimie",
+      "label": "Maîtrise universitaire en chimie (MSc chimie)",
+      "studyPlanSortColumn": "265",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73738"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73739",
+      "entityId": "73739",
+      "academicalYear": "2022",
+      "formationCode": "16BIOCH120",
+      "formationId": 1785,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en biochimie",
+      "formationLabel": "Maîtrise universitaire en biochimie",
+      "label": "Maîtrise universitaire en biochimie (MSc biochimie)",
+      "studyPlanSortColumn": "270",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73739"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73740",
+      "entityId": "73740",
+      "academicalYear": "2022",
+      "formationCode": "16BIOLMIQUE",
+      "formationId": 1645,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en biologie chimique",
+      "formationLabel": "Maîtrise universitaire en biologie chimique",
+      "label": "Master in Chemical Biology",
+      "studyPlanSortColumn": "271",
+      "credits": 90,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73740"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73752",
+      "entityId": "73752",
+      "academicalYear": "2022",
+      "formationCode": "16STER",
+      "formationId": 1850,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire ès Sciences en sciences de la Terre",
+      "formationLabel": "Maîtrise universitaire ès Sciences en sciences de la Terre",
+      "label": "Maîtrise universitaire ès Sciences en sciences de la Terre",
+      "studyPlanSortColumn": "350",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73752"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73760",
+      "entityId": "73760",
+      "academicalYear": "2022",
+      "formationCode": "16BIOL",
+      "formationId": 1287,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en biologie",
+      "formationLabel": "Maîtrise universitaire en biologie",
+      "label": "Master en biologie 90 crédits (Aucune nouvelle admission, 2022)",
+      "studyPlanSortColumn": "449",
+      "credits": 90,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73760"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73689",
+      "entityId": "73689",
+      "academicalYear": "2022",
+      "formationCode": "16PHY120",
+      "formationId": 1723,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en physique",
+      "formationLabel": "Maîtrise universitaire en physique",
+      "label": "Master in Physics with Specialization  120 ECTS",
+      "studyPlanSortColumn": "520",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73689"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73838",
+      "entityId": "73838",
+      "academicalYear": "2022",
+      "formationCode": "16PHARM",
+      "formationId": 1268,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en pharmacie",
+      "formationLabel": "Maîtrise universitaire en pharmacie",
+      "label": "Maîtrise universitaire en pharmacie",
+      "studyPlanSortColumn": "759",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73838"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73839",
+      "entityId": "73839",
+      "academicalYear": "2022",
+      "formationCode": "16BIOMED",
+      "formationId": 1903,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en sciences biomédicales",
+      "formationLabel": "Maîtrise universitaire en sciences biomédicales",
+      "label": "Maîtrise universitaire en sciences biomédicales",
+      "studyPlanSortColumn": "780",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73839"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73691",
+      "entityId": "73691",
+      "academicalYear": "2022",
+      "formationCode": "16MSE",
+      "formationId": 1483,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en sciences de l\u0027environnement",
+      "formationLabel": "Maîtrise universitaire en sciences de l\u0027environnement",
+      "label": "Maîtrise universitaire en sciences de l\u0027environnement",
+      "studyPlanSortColumn": "800",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73691"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73693",
+      "entityId": "73693",
+      "academicalYear": "2022",
+      "formationCode": "16ARKEO",
+      "formationId": 1490,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en archéologie préhistorique",
+      "formationLabel": "Maîtrise universitaire en archéologie préhistorique",
+      "label": "Master en archéologie préhistorique",
+      "studyPlanSortColumn": "1475",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73693"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "77661",
+      "entityId": "77661",
+      "academicalYear": "2022",
+      "formationCode": "16BIOL120",
+      "formationId": 1929,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Maîtrise universitaire en biologie",
+      "formationLabel": "Maîtrise universitaire en biologie",
+      "label": "Master of Science in Biology 120 crédits",
+      "studyPlanSortColumn": "1600",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/77661"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73754",
+      "entityId": "73754",
+      "academicalYear": "2022",
+      "formationCode": "16CSCERGC",
+      "formationId": 1844,
+      "studyLevel": "Specialisation Certificate",
+      "studyLevelId": "203",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Certificat de spécialisation en évaluation et gestion des risques géologiques et risques liés au climat",
+      "formationLabel": "Certificat de spécialisation en évaluation et gestion des risques géologiques et risques liés au climat",
+      "label": "Certificat de spécialisation en risques géologiques et risques liés au climat",
+      "studyPlanSortColumn": "390",
+      "credits": 30,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73754"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73840",
+      "entityId": "73840",
+      "academicalYear": "2022",
+      "formationCode": "14CSILS",
+      "formationId": 1793,
+      "studyLevel": "Specialisation Certificate",
+      "studyLevelId": "203",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Certificat de spécialisation en sciences de la vie dans l\u0027industrie",
+      "formationLabel": "Certificat de spécialisation en sciences de la vie dans l\u0027industrie",
+      "label": "Certificate in Industrial Life Sciences (CILS)",
+      "studyPlanSortColumn": "791",
+      "credits": 30,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73840"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73729",
+      "entityId": "73729",
+      "academicalYear": "2022",
+      "formationCode": "14TMATH",
+      "formationId": 15,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès Sciences Mention mathématiques",
+      "formationLabel": "Doctorat ès Sciences Mention mathématiques",
+      "label": "Master class",
+      "studyPlanSortColumn": "248",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73729"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73741",
+      "entityId": "73741",
+      "academicalYear": "2022",
+      "formationCode": "14TCHIM",
+      "formationId": 20,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès Sciences Mention chimie",
+      "formationLabel": "Doctorat ès Sciences Mention chimie",
+      "label": "Doctorat en chimie (PhD chimie)",
+      "studyPlanSortColumn": "275",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73741"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73742",
+      "entityId": "73742",
+      "academicalYear": "2022",
+      "formationCode": "14TBIOCH",
+      "formationId": 29,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès Sciences Mention biochimie",
+      "formationLabel": "Doctorat ès Sciences Mention biochimie",
+      "label": "Doctorat en biochimie (PhD biochimie)",
+      "studyPlanSortColumn": "280",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73742"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73762",
+      "entityId": "73762",
+      "academicalYear": "2022",
+      "formationCode": "14TBIOL",
+      "formationId": 24,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès Sciences Mention biologie",
+      "formationLabel": "Doctorat ès Sciences Mention biologie",
+      "label": "Ecoles doctorales",
+      "studyPlanSortColumn": "490",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73762"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73808",
+      "entityId": "73808",
+      "academicalYear": "2022",
+      "formationCode": "14SVBIOMO",
+      "formationId": 1851,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès sciences en Sciences de la vie mention Biosciences moléculaires",
+      "formationLabel": "Doctorat ès sciences en Sciences de la vie mention Biosciences moléculaires",
+      "label": "Doctorat ès sciences en Sciences de la vie mention Biosciences moléculaires (PhD in Life Sciences, Specialization in Molecular Biosciences)",
+      "studyPlanSortColumn": "496",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73808"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73809",
+      "entityId": "73809",
+      "academicalYear": "2022",
+      "formationCode": "14SVECOVO",
+      "formationId": 1853,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès sciences en Sciences de la vie mention Ecologie et évolution",
+      "formationLabel": "Doctorat ès sciences en Sciences de la vie mention Ecologie et évolution",
+      "label": "Doctorat ès sciences en Sciences de la vie mention Écologie et évolution (PhD in Life Sciences, Specialization in Ecology and Evolution)",
+      "studyPlanSortColumn": "497",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73809"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73810",
+      "entityId": "73810",
+      "academicalYear": "2022",
+      "formationCode": "14SVPHARM",
+      "formationId": 1861,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès sciences en Sciences de la vie mention Sciences pharmaceutiques",
+      "formationLabel": "Doctorat ès sciences en Sciences de la vie mention Sciences pharmaceutiques",
+      "label": "Doctorat ès sciences en Sciences de la vie mention Sciences pharmaceutiques (PhD in Life Sciences, Specialization in Pharmaceutical Sciences)",
+      "studyPlanSortColumn": "498",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73810"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73811",
+      "entityId": "73811",
+      "academicalYear": "2022",
+      "formationCode": "14SVPHYVI",
+      "formationId": 1857,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès sciences en Sciences de la vie mention Physique du vivant",
+      "formationLabel": "Doctorat ès sciences en Sciences de la vie mention Physique du vivant",
+      "label": "Doctorat ès sciences en Sciences de la vie mention Physique du vivant (PhD in Life Sciences, Specialization in Physics of Biology)",
+      "studyPlanSortColumn": "499",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73811"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73813",
+      "entityId": "73813",
+      "academicalYear": "2022",
+      "formationCode": "14TPHYS",
+      "formationId": 18,
+      "studyLevel": "Ph D",
+      "studyLevelId": "12",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Doctorat ès Sciences Mention physique",
+      "formationLabel": "Doctorat ès Sciences Mention physique",
+      "label": "PhD Courses in physics",
+      "studyPlanSortColumn": "585",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73813"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73694",
+      "entityId": "73694",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Enseignements dispensés par le Département d\u0027astronomie",
+      "studyPlanSortColumn": "90",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73694"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73723",
+      "entityId": "73723",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Cours donnés par la Section de mathématiques pour d\u0027autres sections",
+      "studyPlanSortColumn": "217",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73723"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73724",
+      "entityId": "73724",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Cours donnés pour la Section de mathématiques par d\u0027autres sections",
+      "studyPlanSortColumn": "218",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73724"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73725",
+      "entityId": "73725",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Séminaires avancés de la Section de mathématiques",
+      "studyPlanSortColumn": "219",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73725"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73743",
+      "entityId": "73743",
+      "academicalYear": "2022",
+      "formationCode": "10LIB0",
+      "formationId": 72,
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "fullFormationLabel": "Etudiant libre sans limitation de semestres",
+      "formationLabel": "Etudiant libre sans limitation de semestres",
+      "label": "Cours hors plan dispensés par la Section de chimie",
+      "studyPlanSortColumn": "285",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73743"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73753",
+      "entityId": "73753",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Cours hors plan de la Section des sciences de la Terre et de l\u0027environnement",
+      "studyPlanSortColumn": "380",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73753"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73814",
+      "entityId": "73814",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Colloques et séminaires de la Section de physique",
+      "studyPlanSortColumn": "590",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73814"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73815",
+      "entityId": "73815",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Cours donnés par la Section de physique pour étudiants d\u0027autres orientations",
+      "studyPlanSortColumn": "595",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73815"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73862",
+      "entityId": "73862",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Histoire et philosophie des sciences",
+      "studyPlanSortColumn": "950",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73862"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73863",
+      "entityId": "73863",
+      "academicalYear": "2022",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences",
+      "label": "Cristallographie",
+      "studyPlanSortColumn": "990",
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73863"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73873",
+      "entityId": "73873",
+      "academicalYear": "2022",
+      "formationCode": "25MED",
+      "formationId": 1455,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "143",
+      "facultyCode": "M",
+      "facultyLabel": "Faculté de médecine",
+      "fullFormationLabel": "Baccalauréat universitaire en médecine humaine",
+      "formationLabel": "Baccalauréat universitaire en médecine humaine",
+      "label": "Baccalauréat universitaire en médecine",
+      "studyPlanSortColumn": "20",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73873"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73886",
+      "entityId": "73886",
+      "academicalYear": "2022",
+      "formationCode": "25DMED",
+      "formationId": 1456,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "143",
+      "facultyCode": "M",
+      "facultyLabel": "Faculté de médecine",
+      "fullFormationLabel": "Baccalauréat universitaire en médecine dentaire",
+      "formationLabel": "Baccalauréat universitaire en médecine dentaire",
+      "label": "Baccalauréat universitaire en médecine dentaire",
+      "studyPlanSortColumn": "310",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73886"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73871",
+      "entityId": "73871",
+      "academicalYear": "2022",
+      "formationCode": "25BIOMED",
+      "formationId": 1805,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "143",
+      "facultyCode": "M",
+      "facultyLabel": "Faculté de médecine",
+      "fullFormationLabel": "Baccalauréat universitaire en sciences biomédicales",
+      "formationLabel": "Baccalauréat universitaire en sciences biomédicales",
+      "label": "Baccalauréat universitaire en Sciences Biomédicales",
+      "studyPlanSortColumn": "360",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73871"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73874",
+      "entityId": "73874",
+      "academicalYear": "2022",
+      "formationCode": "26MED",
+      "formationId": 1469,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "143",
+      "facultyCode": "M",
+      "facultyLabel": "Faculté de médecine",
+      "fullFormationLabel": "Maîtrise universitaire en médecine humaine",
+      "formationLabel": "Maîtrise universitaire en médecine humaine",
+      "label": "Maîtrise universitaire en médecine",
+      "studyPlanSortColumn": "200",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73874"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73887",
+      "entityId": "73887",
+      "academicalYear": "2022",
+      "formationCode": "26DMED",
+      "formationId": 1470,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "143",
+      "facultyCode": "M",
+      "facultyLabel": "Faculté de médecine",
+      "fullFormationLabel": "Maîtrise universitaire en médecine dentaire",
+      "formationLabel": "Maîtrise universitaire en médecine dentaire",
+      "label": "Maîtrise universitaire en médecine dentaire",
+      "studyPlanSortColumn": "400",
+      "credits": 120,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73887"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73872",
+      "entityId": "73872",
+      "academicalYear": "2022",
+      "formationCode": "26NEURO",
+      "formationId": 1485,
+      "studyLevel": "Master",
+      "studyLevelId": "196",
+      "facultyId": "143",
+      "facultyCode": "M",
+      "facultyLabel": "Faculté de médecine",
+      "fullFormationLabel": "Maîtrise universitaire interdisciplinaire en neurosciences",
+      "formationLabel": "Maîtrise universitaire interdisciplinaire en neurosciences",
+      "label": "Maîtrise universitaire interfacultaire en neurosciences (titre délivré par la faculté de médecine)",
+      "studyPlanSortColumn": "510",
+      "credits": 90,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73872"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "73924",
+      "entityId": "73924",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langue et littérature françaises",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3FRAMO",
+      "optionLabel": "Langue et littérature françaises",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Français moderne",
+      "studyPlanSortColumn": "1010",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/73924"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74003",
+      "entityId": "74003",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langues et littératures françaises et latines médiévales",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3MELA",
+      "optionLabel": "Langues et littératures françaises et latines médiévales",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Français médiéval",
+      "studyPlanSortColumn": "2010",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74003"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74034",
+      "entityId": "74034",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Linguistique",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3LINGE",
+      "optionLabel": "Linguistique",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Linguistique",
+      "studyPlanSortColumn": "3020",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74034"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74084",
+      "entityId": "74084",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Informatique pour les sciences humaines",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3INFO",
+      "optionLabel": "Informatique pour les sciences humaines",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Informatique",
+      "studyPlanSortColumn": "4010",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74084"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74146",
+      "entityId": "74146",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langue, littérature et civilisation allemandes",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3ALMAN",
+      "optionLabel": "Langue, littérature et civilisation allemandes",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Allemand",
+      "studyPlanSortColumn": "20010",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74146"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74275",
+      "entityId": "74275",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langue et littérature anglaises",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3ANGLE",
+      "optionLabel": "Langue et littérature anglaises",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Anglais",
+      "studyPlanSortColumn": "25010",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74275"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74326",
+      "entityId": "74326",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langue, littérature et culture hispaniques",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3ESPAN",
+      "optionLabel": "Langue, littérature et culture hispaniques",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Espagnol",
+      "studyPlanSortColumn": "30020",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74326"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74371",
+      "entityId": "74371",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langue et littérature italiennes",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3ITALI",
+      "optionLabel": "Langue et littérature italiennes",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Italien",
+      "studyPlanSortColumn": "34010",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74371"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74463",
+      "entityId": "74463",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langue, littérature et civilisation arabes",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3ARABE",
+      "optionLabel": "Langue, littérature et civilisation arabes",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Arabe",
+      "studyPlanSortColumn": "40020",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74463"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74515",
+      "entityId": "74515",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Langue, littérature et civilisation grecques modernes",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3GREMO",
+      "optionLabel": "Langue, littérature et civilisation grecques modernes",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Grec moderne",
+      "studyPlanSortColumn": "40420",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74515"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "74540",
+      "entityId": "74540",
+      "academicalYear": "2022",
+      "formationCode": "35BA",
+      "formationId": 1325,
+      "studyLevel": "Bachelor",
+      "studyLevelId": "195",
+      "facultyId": "23",
+      "facultyCode": "L",
+      "facultyLabel": "Faculté des lettres",
+      "fullFormationLabel": "Baccalauréat universitaire ès lettres/Études russes",
+      "formationLabel": "Baccalauréat universitaire ès lettres",
+      "optionCode": "3ETURUSSE",
+      "optionLabel": "Études russes",
+      "label": "Baccalauréat universitaire (Bachelor of Arts, BA) - Etudes russes",
+      "studyPlanSortColumn": "40610",
+      "credits": 180,
+      "_links": {
+        "self": {
+          "href": "https://pgc.unige.ch/main/api/study-plans/74540"
+        },
+        "list": {
+          "href": "https://pgc.unige.ch/main/api/study-plans"
+        },
+        "module": {
+          "href": "https://pgc.unige.ch/main/api"
+        }
+      }
+    },
+    null
+  ],
+  "size0": 63
 }

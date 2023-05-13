@@ -101,10 +101,11 @@ object ReqHdl {
 
     /**
      * @param id String, exact url-id of the form `studyPlanYear-studyPlanUrlId`. (Optional) if not given, defaults to aksing for the list of studyPlans
-     * @param size Int, number of results (optional, defaults to 1000)
+     * @param size Int, number of results (optional, defaults to 2000) NB: MAXIMUM (accepted by api) IS 2000
+     *
      * @return new Request i.e. `ReqHdl` instance, requesting a list of study-plans if id was not given and details about study-plan with given `id` if it was
      */
-    def studyPlan(id: String = null, size: Int = 1000) : ReqHdl =
+    def studyPlan(id: String = null, size: Int = 2000) : ReqHdl =
         if (id == null) g(f"$spPart?size=$size") else g(f"$spPart/$id?size=$size")
 
     /**

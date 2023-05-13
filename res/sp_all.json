@@ -1,0 +1,113 @@
+  {
+    "_links": {
+      "self": {
+        "href": "https://pgc.unige.ch/main/api/study-plans"
+      },
+      "module": {
+        "href": "https://pgc.unige.ch/main/api"
+      },
+      "lastCreated": {
+        "href": "https://pgc.unige.ch/main/api/study-plans?sort=creation.when,desc"
+      },
+      "lastUpdated": {
+        "href": "https://pgc.unige.ch/main/api/study-plans?sort=lastUpdate.when,desc"
+      },
+      "next": {
+        "href": "https://pgc.unige.ch/main/api/study-plans?size=2&page=1"
+      }
+    },
+    "_data": [
+      {
+        "searchCriterias": null,
+        "creation": {
+          "when": null,
+          "who": null,
+          "fullName": null
+        },
+        "lastUpdate": {
+          "when": null,
+          "who": null,
+          "fullName": null
+        },
+        "resId": "22799",
+        "entityId": "22799",
+        "academicalYear": "2017",
+        "formationCode": "15INFO",
+        "formationId": 1272,
+        "studyLevel": "Bachelor",
+        "studyLevelId": "195",
+        "facultyId": "547",
+        "facultyCode": "S",
+        "facultyLabel": "Facult� des sciences",
+        "fullFormationLabel": "Baccalaur�at universitaire en sciences informatiques",
+        "formationLabel": "Baccalaur�at universitaire en sciences informatiques",
+        "optionCode": null,
+        "optionLabel": null,
+        "label": "Baccalaur�at universitaire en informatique",
+        "studyPlanSortColumn": "152",
+        "credits": 180,
+        "searchTerm": null,
+        "departmentId": null,
+        "_links": {
+          "self": {
+            "href": "https://pgc.unige.ch/main/api/study-plans/22799"
+          },
+          "list": {
+            "href": "https://pgc.unige.ch/main/api/study-plans"
+          },
+          "module": {
+            "href": "https://pgc.unige.ch/main/api"
+          }
+        }
+      },
+      {
+        "searchCriterias": null,
+        "creation": {
+          "when": null,
+          "who": null,
+          "fullName": null
+        },
+        "lastUpdate": {
+          "when": null,
+          "who": null,
+          "fullName": null
+        },
+        "resId": "19779",
+        "entityId": "19779",
+        "academicalYear": "2015",
+        "formationCode": "15INFO",
+        "formationId": 1272,
+        "studyLevel": "Bachelor",
+        "studyLevelId": "195",
+        "facultyId": "547",
+        "facultyCode": "S",
+        "facultyLabel": "Facult� des sciences",
+        "fullFormationLabel": "Baccalaur�at universitaire en sciences informatiques",
+        "formationLabel": "Baccalaur�at universitaire en sciences informatiques",
+        "optionCode": null,
+        "optionLabel": null,
+        "label": "Baccalaur�at universitaire en informatique",
+        "studyPlanSortColumn": "152",
+        "credits": 180,
+        "searchTerm": null,
+        "departmentId": null,
+        "_links": {
+          "self": {
+            "href": "https://pgc.unige.ch/main/api/study-plans/19779"
+          },
+          "list": {
+            "href": "https://pgc.unige.ch/main/api/study-plans"
+          },
+          "module": {
+            "href": "https://pgc.unige.ch/main/api"
+          }
+        }
+      }
+    ],
+    "_page": {
+      "currentPage": 0,
+      "sizePage": 2,
+      "totalItems": 3219,
+      "totalPages": 1610
+    }
+  }

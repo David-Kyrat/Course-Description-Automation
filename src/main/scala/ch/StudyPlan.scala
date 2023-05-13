@@ -38,7 +38,7 @@ object StudyPlan {
     /**
      * @return All StudyPlans as A `JsonArray`
      */
-    def all: JsonArray = ReqHdl.studyPlan()().jsonObj.get("_data").getAsJsonArray()
+    def all: JsonArray = ReqHdl.studyPlan(size = Integer.MAX_VALUE)().jsonObj.get("_data").getAsJsonArray()
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact

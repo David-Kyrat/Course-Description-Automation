@@ -5,7 +5,9 @@ import ch.net.ReqHdl.courseUrl
 import ch.Utils.tryOrElse
 import ch.sealedconcept.CourseHours.CourseHoursBuilder
 import ch.sealedconcept._
+import ch.Helpers.{JsonObjOps, JsonElementOps}
 import com.google.gson.JsonElement
+
 
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._
@@ -87,7 +89,8 @@ object Course extends Function2[String, Int, Course] {
      */
     private def simpleResolveSealedConceptObject[T, U >: T](jsObj: JsonObject, sco: SealedConceptObject[T], customJsonKey: String = null): U = {
         val jsonKey = if (customJsonKey == null) sco.jsonKey else customJsonKey
-        return sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
+        // return sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
+        return sco.ALL_MAP(jsObj.getAsStr(jsonKey))
     }
 
 
@@ -102,7 +105,8 @@ object Course extends Function2[String, Int, Course] {
     private def resolveCourseHours(activities: IndexedSeq[JsonObject]): CourseHours = {
         // val activities = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
         val chBld = new CourseHoursBuilder()
-        def extractor(activity: JsonObject) = activity.get(CourseHours.jsonKey2).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
+        // def extractor(activity: JsonObject) = activity.get(CourseHours.jsonKey2).getAsString.dropRight(1).toInt // removing the 'h' for hours at the end
+        def extractor(activity: JsonObject) = activity.getAsStr(CourseHours.jsonKey2).dropRight(1).toInt // removing the 'h' for hours at the end
 
         for (activity <- activities) {
             val ca: CourseActivity = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
@@ -116,27 +120,26 @@ object Course extends Function2[String, Int, Course] {
      * @return Vector of teachers names
      */
     private def resolveTeacherNames(activitiesObj: JsonObject): Vector[String] = {
-        val activityTeachers: IndexedSeq[JsonElement] = activitiesObj.get("activityTeachers").getAsJsonArray.asScala.toIndexedSeq
-        def extractor(key: String, obj: JsonObject = activitiesObj): String = obj.get(key).getAsString
+        val activityTeachers: IndexedSeq[JsonObject] = activitiesObj.getAsScalaJsObjIter("activityTeachers").toIndexedSeq
+
+        def extractor(key: String, obj: JsonObject = activitiesObj): String = obj.getAsStr(key)
         val stringBufr = new ArrayBuffer[String]()
         for (teacher <- activityTeachers) {
-            var fn: String = extractor("displayFirstName", teacher.asInstanceOf[JsonObject])
-            val ln = extractor("displayLastName", teacher.asInstanceOf[JsonObject])
+            var fn: String = teacher.getAsStr("displayFirstName")
+            val ln = teacher.getAsStr("displayLastName")
             stringBufr += (f"$fn $ln")
         }
         stringBufr.to(Vector)
     }
 
     private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, String)] = {
-        val tmp = jsObj.get("listStudyPlan").getAsJsonArray.asScala // .toIndexedSeq
-        def extractor(key: String, obj: JsonObject) = obj.get(key).getAsString
-        val studyPlans: IndexedSeq[JsonObject] = tmp.map(_.asInstanceOf[JsonObject]).toIndexedSeq // .asInstanceOf[IndexedSeq[JsonObject]]
-        // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
-        // val y: Map[String, (Int, String)]  = studyPlans.map(obj => (extractor("studyPlanLabel", obj), (obj.get("planCredits").getAsInt, None))).toMap
+        val studyPlans: Iterable[JsonObject] = jsObj.getAsScalaJsObjIter("listStudyPlan")
 
+        // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
         studyPlans
             .map(obj => {
-                val studyPlanLabel: String = extractor("studyPlanLabel", obj)
+                // val studyPlanLabel: String = extractor("studyPlanLabel", obj)
+                val studyPlanLabel: String = obj.getAsStr("studyPlanLabel")
                 val isOptional = studyPlanLabel.contains("à option")
                 // if false => does not mean the course is mandatory, we just dont know (lack the info in the database)
                 (studyPlanLabel, (obj.get("planCredits").getAsInt, if (isOptional) "Optionnel" else "N/A"))
