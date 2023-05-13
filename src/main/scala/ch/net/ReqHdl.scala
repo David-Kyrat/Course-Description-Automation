@@ -104,7 +104,7 @@ object ReqHdl {
      * @param size Int, number of results (optional, defaults to 1000)
      * @return new Request i.e. `ReqHdl` instance, requesting a list of study-plans if id was not given and details about study-plan with given `id` if it was
      */
-    def studyPlan(id: String = null, size: Int = 1000) =
+    def studyPlan(id: String = null, size: Int = 1000) : ReqHdl =
         if (id == null) g(f"$spPart?size=$size") else g(f"$spPart/$id?size=$size")
 
     /**

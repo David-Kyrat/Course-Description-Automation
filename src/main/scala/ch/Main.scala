@@ -1,19 +1,24 @@
 package ch
 
 // import ch.Resp.
-import ch.Utils.{crtYear, r, pathOf}
+import ch.Utils.crtYear
+import ch.Utils.pathOf
+import ch.Utils.r
 import ch.io.Serializer
-import ch.net.{ReqHdl, Resp}
-import ch.net.exception.{ResourceNotFoundException, StudyPlanNotFoundException}
+import ch.net.ReqHdl
+import ch.net.Resp
+import ch.net.exception.ResourceNotFoundException
+import ch.net.exception.StudyPlanNotFoundException
 import ch.net.exception._
-import test.{TestCourse, TestStudyPlan}
+import test.TestCourse
 import test.TestCourse._
+import test.TestStudyPlan
 
 import java.io.File
+import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
-import java.io.IOException
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -56,6 +61,7 @@ object Main {
         val sps: Vector[String] = tmp._2
         _main(course, sps)
     }
+
     def _main(courseCodes: Vector[String], sps: Vector[String]) = {
         val courses: Vector[Course] = courseCodes.map(Course(_))
         val spNames: Vector[String] = sps.map(abbrevMap)
@@ -66,11 +72,6 @@ object Main {
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // __main(args)
-        val x = new CourseNotFoundException("20223-12X000")
-        println(x)
-        val y = new StudyPlanNotFoundException("BMI")
-        println(y)
-
 
         // writeCoursDecsToRes("14M252")
         // testJsonLib()

@@ -1,6 +1,8 @@
 package ch
 
 import ch.net.{ReqHdl, Resp}
+import com.google.gson.JsonObject
+import Utils.crtYear
 
 
 /**
@@ -20,7 +22,12 @@ final case class StudyPlan(val id: String, val year: Int) {
 }
 
 object StudyPlan {
-    def all: String = ReqHdl.studyPlan().get()
+    // def all: String = ReqHdl.studyPlan().get()
+
+    /**
+     * @return All StudyPlans as A `JsonObject`
+     */
+    def all: JsonObject = ReqHdl.studyPlan()().jsonObj
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
@@ -28,7 +35,13 @@ object StudyPlan {
      * @param year Int, year / version of this study plan (optional)
      * @return formatted Json response from server for details about given study plan
      */
-    def get(id: String, year: Int = 0) =
-        if (year == 0) ReqHdl.studyPlan(id).get() else ReqHdl.studyPlan(f"$year-$id")
+    def get(id: String, year: Int = 0) = if (year == 0) ReqHdl.studyPlan(id).get() else ReqHdl.studyPlan(f"$year-$id")
+
+    private def getYear(jsonObj: JsonObject): Int = jsonObj.get("academicalYear").getAsInt
+
+    def getAbbreviations() = {
+        val allCrtYear = Utils.getAsIter(all).filter(sp => getYear(sp.getAsJsonObject()) == crtYear)
+
+    }
 
 }
