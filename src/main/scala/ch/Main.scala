@@ -7,9 +7,9 @@ import ch.Utils.r
 import ch.io.Serializer
 import ch.net.ReqHdl
 import ch.net.Resp
-import ch.net.exception.ResourceNotFoundException
-import ch.net.exception.StudyPlanNotFoundException
 import ch.net.exception._
+import ch.Helpers._
+
 import test.TestCourse
 import test.TestCourse._
 import test.TestStudyPlan
@@ -75,7 +75,7 @@ object Main {
     }
 
     def getSps() = {
-        val x = Utils.getAsJsonObjIter(StudyPlan.all).filter(sp => sp.get("academicalYear").getAsInt == crtYear)
+        val x = StudyPlan.all.getAsScalaJsObjIter().filter(sp => sp.get("academicalYear").getAsInt == crtYear)
         //.mkString("[\n", ",\n", "\n]")
         Utils.write(pathOf(f"sp1.json"), Resp.gson.toJson(x))
     }

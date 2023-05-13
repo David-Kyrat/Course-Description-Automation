@@ -82,36 +82,12 @@ final object Utils {
     def crtYear: Int = LocalDate.now.getYear - 1
 
     /**
-     * Shorthand for `el.getAsJsonArray.asScala.to(ParVector)`
-     *
-     * @param el `JsonElement` to convert to scala iterable
-     * @return converted collection
-     */
-    // def getAsParVec(el: JsonElement) = el.getAsJsonArray.asScala.to(ParVector)
-
-    /**
-     * Shorthand for `el.getAsJsonArray.asScala`
-     *
-     * @param el `JsonElement` to convert to scala iterable
-     * @return iterable of JsonElement
-     */
-    // def getAsIter(el: JsonElement): Iterable[JsonElement] = el.getAsJsonArray.asScala
-
-    /**
-     * Shorthand for `el.getAsJsonArray.asScala.map(_.getAsJsonObject())`
-     *
-     * @param el `JsonElement` to convert to scala iterable
-     * @return iterable of JsonObject
-     */
-    // def getAsJsonObjIter(el: JsonElement): Iterable[JsonObject] = el.getAsJsonArray.asScala.map(_.getAsJsonObject)
-
-    /**
      * Shorthand for `el.asScala.map(_.getAsJsonObject())`
      *
      * @param el `JsonElement` to convert to scala iterable
      * @return iterable of JsonObject
      */
-    def getAsJsonObjIter(el: JsonArray): Iterable[JsonObject] = el.asScala.map(_.getAsJsonObject)
+    // def getAsJsonObjIter(el: JsonArray): Iterable[JsonObject] = el.asScala.map(_.getAsJsonObject)
 
     /*
       @param rawJson String

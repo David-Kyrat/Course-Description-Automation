@@ -7,14 +7,28 @@ import com.google.gson.JsonArray
 import scala.collection.parallel.immutable.ParVector
 
 object Helpers {
+
+    implicit class JsonArrayOps(el: JsonArray) {
+
+        /**
+         * Shorthand for `this.asScala.map(_.getAsJsonObject())`
+         * @return JsonArray to convert to scala `Iterable[JsonObject]`
+         */
+        def getAsScalaJsObjIter(): Iterable[JsonObject] = el.asScala.map(_.getAsJsonObject)
+    }
+
     implicit class JsonElementOps(el: JsonElement) {
 
-        /** @return the member with the specified name as a String
-         * NB: `this` must be a `jsonObject`! */
+        /**
+         * @return the member with the specified name as a String
+         * NB: `this` must be a `jsonObject`!
+         */
         def getAsStr(memberName: String): String = el.getAsJsonObject().get(memberName).getAsString
 
-        /** @return the member with the specified name as an Int
-         * NB: `this` must be a `jsonObject`! */
+        /**
+         * @return the member with the specified name as an Int
+         * NB: `this` must be a `jsonObject`!
+         */
         def getAsInt(memberName: String): Int = el.getAsJsonObject().get(memberName).getAsInt
 
         /**

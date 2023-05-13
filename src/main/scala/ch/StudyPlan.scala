@@ -2,6 +2,8 @@ package ch
 
 import ch.net.ReqHdl
 import ch.net.Resp
+import ch.Helpers.JsonArrayOps
+
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 
@@ -83,7 +85,8 @@ object StudyPlan {
      * @return ParVector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
      */
     private def getAbbreviations(): ParVector[(String, (String, String))] = {
-        val allCrtYear: Iterable[JsonObject] = Utils.getAsJsonObjIter(all).filter(sp => getYear(sp) == crtYear)
+        // val allCrtYear: Iterable[JsonObject] = Utils.getAsJsonObjIter(all).filter(sp => getYear(sp) == crtYear)
+        val allCrtYear: Iterable[JsonObject] = all.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear)
         allCrtYear
             .to(ParVector)
             .map(sp => 
