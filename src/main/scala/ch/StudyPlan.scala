@@ -48,7 +48,12 @@ object StudyPlan {
      * url-id (i.e. be of the form `studyPlanYear-studyPlanUrlId`)
      * @param year Int, year / version of this study plan (optional)
      * @return formatted Json response from server for details about given study plan
+     *
+     * If StudyPlanNotFound: 
+     *
+     * @throws StudyPlanNotFoundException
      */
+    @throws(classOf[StudyPlanNotFoundException])
     def get(id: String, year: Int = 0): JsonObject = {
         val reqUrl = if (year == 0) id else f"$year-$id"
         val request: ReqHdl = ReqHdl.studyPlan(reqUrl)
@@ -56,9 +61,7 @@ object StudyPlan {
         val resp: Resp = request()
         if (resp.isError) throw new StudyPlanNotFoundException(f"$year-$id")
         else resp.jsonObj
-
-
-    }//if (year == 0) ReqHdl.studyPlan(id) else ReqHdl.studyPlan(f"$year-$id")
+    }
 
     private def getYear(jsonObj: JsonObject): Int = jsonObj.get("academicalYear").getAsInt
 
