@@ -42,12 +42,12 @@ object TestCourse {
     def testNext() = {
         val ipa22Id = f"${crtYear}-11X001"
         val ipa22Req = ReqHdl.course(f"$ipa22Id?size=1000")
-        val ipa22Resp = ipa22Req.get()
-        val next = ipa22Req.next(26)
+        val ipa22Resp = ipa22Req()
+        val next = ipa22Resp.next(26)
         // Utils.write(Path.of("res/out.json"), ipa22Resp)
         // println(ipa22Req.get())
         // println(ipa22Req.next().get())
-        println(next.get())
+        println(next)
         println(f"\n$next")
     }
 
@@ -71,6 +71,7 @@ object TestCourse {
 
     def testMultipleCourseToMarkdown() = {
         val codes = ParVector("12M040", "11X001", "13M016A", "14M252", "12X050", "14P017")
+        // val codes = ParVector("12M04", "11X01", "13016A", "14M52", "12X50", "14017")
         codes.foreach(code => {
             println(f"Building course $code")
             val course = Course(code)

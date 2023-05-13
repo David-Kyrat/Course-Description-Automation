@@ -53,7 +53,7 @@ final case class Resp(val resp: String, val page: Int = 0, val errMsg: Option[St
         }
     }
 
-    def isError: Boolean = errMsg.isEmpty
+    def isError: Boolean = !errMsg.isEmpty
 
     /** @return Prettified json response */
     def prettify: String = Resp.prettify(jsonObj)

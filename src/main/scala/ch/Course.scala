@@ -18,6 +18,10 @@ import ch.net.exception.CourseNotFoundException
  *
  * @param id String, immutable id of this Course (i.e. the part without the year, that will never change. At least not supposed to)
  * @param year String, year this course is given
+ *
+ * If course not found:
+ *
+ * @throws CourseNotFoundException
  */
 final case class Course(
   id: String,
@@ -162,6 +166,8 @@ object Course extends Function2[String, Int, Course] {
      * @param id  course code
      * @param year year this course was given (optional defaults to Utils.crtYear)
      * @return new instance of `Course`
+     *
+     * @throws CourseNotFoundException
      */
     private def factory(id: String, year: Int = Utils.crtYear): Course = {
         val jsObj = get(id, year)
@@ -206,5 +212,6 @@ object Course extends Function2[String, Int, Course] {
         new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan, various, comments)
     }
 
+    @throws(classOf[CourseNotFoundException])
     override def apply(id: String, year: Int = Utils.crtYear): Course = factory(id, year)
 }

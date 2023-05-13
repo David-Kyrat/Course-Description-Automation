@@ -19,6 +19,7 @@ import ch.net.ReqHdl
 import scala.collection.parallel.immutable.ParVector
 import com.google.gson.JsonObject
 import com.google.gson.JsonArray
+import java.time.LocalDateTime
 
 final object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
@@ -81,20 +82,9 @@ final object Utils {
      */
     def crtYear: Int = LocalDate.now.getYear - 1
 
-    /**
-     * Shorthand for `el.asScala.map(_.getAsJsonObject())`
-     *
-     * @param el `JsonElement` to convert to scala iterable
-     * @return iterable of JsonObject
-     */
-    // def getAsJsonObjIter(el: JsonArray): Iterable[JsonObject] = el.asScala.map(_.getAsJsonObject)
-
-    /*
-      @param rawJson String
-      @return prettify json string, i.e. indented ...
-     */
-    // def prettifyJson(rawJson: String) = "" //rawJson.parseJson.prettyPrint
-
+    /* def log(msg: String) = {
+        errLogPrintWriter.println(String.format("[%s ]: ", LocalDateTime.now.toString ))
+    } */
     /**
      * Removes special characters and other that can
      * prevent text from displaying / being read/written properly

@@ -24,7 +24,7 @@ import com.google.gson.JsonArray
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
 
-    // NB: lazy so value only get computed when needed 
+    // NB: lazy so value only get computed when needed
 
     /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
     lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
@@ -76,7 +76,7 @@ object Main {
 
     def getSps() = {
         val x = StudyPlan.all.getAsScalaJsObjIter().filter(sp => sp.get("academicalYear").getAsInt == crtYear)
-        //.mkString("[\n", ",\n", "\n]")
+        // .mkString("[\n", ",\n", "\n]")
         Utils.write(pathOf(f"sp1.json"), Resp.gson.toJson(x))
     }
 
@@ -86,15 +86,29 @@ object Main {
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-        // __main(args)
-        // getSps()
-        // spAlls()
-        // writeCoursDecsToRes("14M252")
-        // testJsonLib()
-        // testResolveCoursHours()
-        // testCourseFactoryMethod()
-        // testCourseToMarkdown()
-        testMultipleCourseToMarkdown()
+
+        // TODO: print error message to stderr so that rust app can extract it into an error window
+        // TODO: GET BACK LOGGING FUNCTIONS FROM MASTER
+        try {
+            // __main(args)
+            // getSps()
+            // spAlls()
+            // writeCoursDecsToRes("14M252")
+            // testJsonLib()
+            // testResolveCoursHours()
+            // testCourseFactoryMethod()
+            // testCourseToMarkdown()
+            // testMultipleCourseToMarkdown()
+        } catch {
+            case re: ResourceNotFoundException => {
+                System.err.println(re.getMessage())
+                // System.exit(1)
+            }
+            case err: Exception => {
+                System.err.println("An unexpected Error happened. Please try again.")
+                // System.exit(1)
+            }
+        }
 
         println("\n\n")
 
