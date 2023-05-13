@@ -17,6 +17,7 @@ import java.util.Collection
 import scala.collection.Factory
 import ch.net.ReqHdl
 import scala.collection.parallel.immutable.ParVector
+import com.google.gson.JsonObject
 
 final object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
@@ -62,6 +63,12 @@ final object Utils {
      */
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
 
+    /**
+      * Write string using `Files.writeString` method (i.e. to write multiple strings do not use this method multiple times)
+      * @param path Path of file to write to
+      * @param content content to write to file 
+      * @param append whether to add to previous content or overwrite the file
+      */
     def write(path: Path, content: String, append: Boolean = false) = {
         val opt = if (append) APPEND else TRUNCATE_EXISTING
         Files.writeString(path, content, UTF_8, CREATE, opt)
@@ -74,24 +81,29 @@ final object Utils {
     def crtYear: Int = LocalDate.now.getYear - 1
 
     /**
-      * Shorthand for `el.getAsJsonArray.asScala.to(ParVector)`
-      *
-      * @param el `JsonElement` to convert to scala iterable
-      * @return converted collection
-      */
-    def getAsParVec(el: JsonElement)  = el.getAsJsonArray.asScala.to(ParVector)
+     * Shorthand for `el.getAsJsonArray.asScala.to(ParVector)`
+     *
+     * @param el `JsonElement` to convert to scala iterable
+     * @return converted collection
+     */
+    def getAsParVec(el: JsonElement) = el.getAsJsonArray.asScala.to(ParVector)
 
     /**
-      * Shorthand for `el.getAsJsonArray.asScala`
-      *
-      * @param el `JsonElement` to convert to scala iterable
-      * @return iterable of JsonElement
-      */
-    def getAsIter(el:JsonElement): Iterable[JsonElement] = el.getAsJsonArray.asScala
+     * Shorthand for `el.getAsJsonArray.asScala`
+     *
+     * @param el `JsonElement` to convert to scala iterable
+     * @return iterable of JsonElement
+     */
+    def getAsIter(el: JsonElement): Iterable[JsonElement] = el.getAsJsonArray.asScala
 
-    def test() {
-        val x = ReqHdl.course("abc").apply().jsonObj
-    }
+    /**
+     * Shorthand for `el.getAsJsonArray.asScala.map(_.getAsJsonObject())`
+     *
+     * @param el `JsonElement` to convert to scala iterable
+     * @return iterable of JsonObject
+     */
+    def getAsJsonObjIter(el: JsonElement): Iterable[JsonObject] = el.getAsJsonArray.asScala.map(_.getAsJsonObject)
+
     /*
       @param rawJson String
       @return prettify json string, i.e. indented ...

@@ -1,9 +1,14 @@
 package ch
 
-import ch.net.{ReqHdl, Resp}
+import ch.net.ReqHdl
+import ch.net.Resp
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import Utils.crtYear
 
+import java.nio.file.Path
+import scala.collection.parallel.immutable.ParVector
+
+import Utils.{crtYear, r}
 
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
@@ -22,6 +27,7 @@ final case class StudyPlan(val id: String, val year: Int) {
 }
 
 object StudyPlan {
+    val abbrevFilePath: Path = Path.of(r("abbrev.tsv"))
     // def all: String = ReqHdl.studyPlan().get()
 
     /**
@@ -39,9 +45,57 @@ object StudyPlan {
 
     private def getYear(jsonObj: JsonObject): Int = jsonObj.get("academicalYear").getAsInt
 
-    def getAbbreviations() = {
-        val allCrtYear = Utils.getAsIter(all).filter(sp => getYear(sp.getAsJsonObject()) == crtYear)
+    private def cleanSpName(fullFormationLabel: String): String = ???
 
+    /**
+     * Extract Pair of information to be added to a Map
+     * @param cleanSpName Cleaned name for the study plan to get the abbreviated name from
+     * @param id study plan id to allow faster access later on
+     * @return Pair `(Abbreviation, Id, Clean_SudyPlan_Name)`
+     */
+    private def extractAbbrev(cleanSpName: String, id: String): (String, (String, String)) = ???
+
+    // NOTE: This method will only be called to create `abbrev.tsv` later on the map will be created by just reading that file
+
+    /**
+     * The name of each Study Plan is far from being consistant so a unique abbreviation has been assigned to each to
+     * suppress all kind ambiguity from user input or else. (e.g. "Bachelor en Sciences Informatiques" => "BSI").
+     * Each study plan id has been added to this map to not have to refetch it all the time.
+     *
+     * Content of this Map will be written to a file named `abbrev.tsv`
+     *
+     * @return ParVector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
+     */
+    private def getAbbreviations(): ParVector[(String, (String, String))] = {
+        val allCrtYear: Iterable[JsonObject] = Utils.getAsJsonObjIter(all).filter(sp => getYear(sp) == crtYear)
+        allCrtYear
+            .to(ParVector)
+            .map(sp => 
+                    extractAbbrev(
+                        cleanSpName(sp.get("fullFormationLabel").getAsString),
+                        sp.get("entityId").getAsString
+                    )
+                )
+    }
+
+    /**
+     * Create content of `abbrev.tsv`.
+     *
+     * Reason why this file is needed:
+     * 
+     * The name of each Study Plan is far from being consistant so a unique abbreviation has been assigned to each to
+     * suppress all kind ambiguity from user input or else. (e.g. "Bachelor en Sciences Informatiques" => "BSI").
+     * Each study plan id has been added as well to not have to refetch it all the time.
+     */
+    def createAbbrevFile() = {
+        val content: String = getAbbreviations().map(ppair => {
+            val abbrev = ppair._1
+            val pair = ppair._2
+            val id = pair._1
+            val cleanSpName = pair._2
+            f"${cleanSpName}\t${abbrev}\t${id}"  // DONT CHANGE ORDER
+        }).mkString("\n")
+        val _ = Utils.write(abbrevFilePath, content, false)
     }
 
 }
