@@ -7,8 +7,6 @@ import java.io.IOException
 import com.google.gson.JsonObject
 import scala.collection.parallel.immutable.ParVector
 
-import scala.collection.parallel.CollectionConverters._
-
 /**
  * Class representing an HTTP request, methods in the object `ReqHdl` returns
  * instance of this class to be able to do other useful things with a request
@@ -162,10 +160,6 @@ object ReqHdl {
         val r1 = studyPlan(size = size).apply().jsonObj
         val totPage = r1.getAsJsObj("_page").getAsInt("totalPages")
         val reqAmount = Math.ceil(totPage / size).toInt
-        val list = (1 to 10000).toList
-        list.par.map(_ + 42)
-        val parVec = (0 until reqAmount).toList
-
         null
     }
 }

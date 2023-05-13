@@ -10,6 +10,7 @@ import com.google.gson.JsonObject
 
 import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
+import scala.collection.parallel.CollectionConverters._
 
 import Utils.{crtYear, r}
 import com.google.gson.JsonArray
@@ -40,9 +41,9 @@ object StudyPlan {
     /**
      * @return All StudyPlans as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
      */
-    def all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll.flatMap(jo => jo.getAsScalaJsObjIter("_data"))
+    def all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll().flatMap(jo => jo.getAsScalaJsObjIter("_data"))
 
-    def _all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll
+    def _all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll()
     //ReqHdl.studyPlan().apply.jsonObj.getAsJsonArray("_data")
 
     /**
