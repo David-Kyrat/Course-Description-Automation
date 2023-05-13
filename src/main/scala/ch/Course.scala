@@ -142,7 +142,7 @@ object Course extends Function2[String, Int, Course] {
                 val studyPlanLabel: String = obj.getAsStr("studyPlanLabel")
                 val isOptional = studyPlanLabel.contains("à option")
                 // if false => does not mean the course is mandatory, we just dont know (lack the info in the database)
-                (studyPlanLabel, (obj.get("planCredits").getAsInt, if (isOptional) "Optionnel" else "N/A"))
+                (studyPlanLabel, (obj.getAsInt("planCredits"), if (isOptional) "Optionnel" else "N/A"))
             })
             .toMap
     }
@@ -164,7 +164,8 @@ object Course extends Function2[String, Int, Course] {
     private def factory(id: String, year: Int = Utils.crtYear): Course = {
         val jsObj = get(id, year)
         val v2 = "activities"
-        val activities: IndexedSeq[JsonObject] = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
+        // val activities: IndexedSeq[JsonObject] = jsObj.getAsJsonArray(CourseHours.jsonKey).asScala.map(_.asInstanceOf[JsonObject]).toIndexedSeq
+        val activities: IndexedSeq[JsonObject] = jsObj.getAsScalaJsObjIter(CourseHours.jsonKey).toIndexedSeq
         val lectures: JsonObject = activities.head
 
         def tryExtract(key: String, default: String = "", jsObj: JsonObject = lectures) =
