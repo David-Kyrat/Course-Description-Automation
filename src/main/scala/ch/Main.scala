@@ -75,6 +75,10 @@ object Main {
         courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
     }
 
+    //WARN: next method doesnt seem to work so what will be done is:
+    //1. get total of page for slice of 10
+    //2. then do that much parallel request
+
     def getSps() = {
         val x = StudyPlan.all// .filter(sp => sp.getAsInt("academicalYear") == crtYear).asJava
         println(x.length)

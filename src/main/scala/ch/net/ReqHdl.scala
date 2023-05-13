@@ -1,8 +1,13 @@
 package ch.net
 
+import ch.Helpers._
 import scala.io.Source
 import scala.util.{Failure, Success, Using}
 import java.io.IOException
+import com.google.gson.JsonObject
+import scala.collection.parallel.immutable.ParVector
+
+import scala.collection.parallel.CollectionConverters._
 
 /**
  * Class representing an HTTP request, methods in the object `ReqHdl` returns
@@ -23,11 +28,10 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
     override def apply(): Resp = {
         try {
             Resp(request(req), page)
-        }
-        catch {
+        } catch {
             case e: Exception => Resp("", page, Some(e.getMessage()))
         }
-    }//Resp(request(req), page)
+    } // Resp(request(req), page)
 
     /**
      * Simple http GET request for given url
@@ -37,7 +41,7 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
      * @throws IllegalArgumentException
      */
     @throws(classOf[IllegalArgumentException])
-    private def request(url: String): String =
+    private[net] def request(url: String): String =
         Using(Source.fromURL(req))(_.mkString) match {
             case Success(response: String) => response
             case Failure(reason) =>
@@ -50,9 +54,9 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
      * @return Server JSON Response
      *
      * If request failed:
-     * @throws IOException 
+     * @throws IOException
      */
-    private[net] def get(): String = request(req)
+    private def get(): String = request(req)
 
     /**
      * Return next page of current request. (faster than looking through the
@@ -73,10 +77,10 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
                 val idx = this.req.lastIndexOf(patternPair._1) + patternPair._2 // idx of pageNb
                 this.req.substring(0, idx + 1) + f"$resolvedNewPage"
             } */
-        // if were in else: then url is of the form "$baseUrl/...&page=x" where x is this.page => hence replacing it
-        /* TODO: Check if there are url for page != 0, that do not end in "page=XX"
-         * if there aren't => we can just replace the everything from "page=..." to the end and append the new pageNb */
-/*
+    // if were in else: then url is of the form "$baseUrl/...&page=x" where x is this.page => hence replacing it
+    /* TODO: Check if there are url for page != 0, that do not end in "page=XX"
+     * if there aren't => we can just replace the everything from "page=..." to the end and append the new pageNb */
+    /*
         ReqHdl(newReq, newPage)
     } */
 
@@ -120,7 +124,7 @@ object ReqHdl {
      *
      * @return new Request i.e. `ReqHdl` instance, requesting a list of study-plans if id was not given and details about study-plan with given `id` if it was
      */
-    def studyPlan(id: String = null, size: Int = 2000) : ReqHdl =
+    def studyPlan(id: String = null, size: Int = 2000): ReqHdl =
         if (id == null) g(f"$spPart?size=$size") else g(f"$spPart/$id?size=$size")
 
     /**
@@ -130,9 +134,38 @@ object ReqHdl {
      * @param size Int, number of results (optional, defaults to 1000)
      * @return new Request i.e. `ReqHdl` instance, requesting a list of courses if id was not given and details about course with given `id` if it was
      */
-    def course(id: String = null, size: Int = 1000) : ReqHdl =
+    def course(id: String = null, size: Int = 1000): ReqHdl =
         if (id == null) g(f"$coursePart/find?size=$size") else g(f"$coursePart/$id")
 
     // BUG: Request 'https://pgc.unige.ch/main/api/teachings/find' does not work (error 400)
 
+    /**
+     * Follows each `next` link, extracting the underlying `JsonObject` until there is no more result to get
+     *
+     * NOTE: This method needs only to be called when retrieving study plans
+     *
+     * @param size amount of element to get for each parallel request
+     * @return Vector of each response's page
+     */
+    def AllStudyPlan(size: Int = 50): Vector[JsonObject] = {
+
+        /* var buffer: ArrayBuffer[JsonObject] = new ArrayBuffer()
+        var crt: Resp = this
+        while (crt.hasNext) {
+            buffer += crt.jsonObj
+            crt = {
+                val nextUrl = crt.jsonObj.getAsJsObj("_links").getAsJsObj("next").getAsStr("href")
+                ReqHdl(nextUrl).apply()
+            }
+        }
+        buffer.toVector */
+        val r1 = studyPlan(size = size).apply().jsonObj
+        val totPage = r1.getAsJsObj("_page").getAsInt("totalPages")
+        val reqAmount = Math.ceil(totPage / size).toInt
+        val list = (1 to 10000).toList
+        list.par.map(_ + 42)
+        val parVec = (0 until reqAmount).toList
+
+        null
+    }
 }

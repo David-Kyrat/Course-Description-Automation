@@ -74,10 +74,12 @@ final case class Resp(val resp: String, val page: Int = 0, val errMsg: Option[St
      *
      * NOTE: This method needs only to be called when retrieving study plans
      *
+     * @param size amount of element to get for each parallel request
      * @return Vector of each response's page
      */
-    def nextAll: Vector[JsonObject] = {
-        var buffer: ArrayBuffer[JsonObject] = new ArrayBuffer()
+    def nextAll(size: Int): Vector[JsonObject] = {
+        
+        /* var buffer: ArrayBuffer[JsonObject] = new ArrayBuffer()
         var crt: Resp = this
         while (crt.hasNext) {
             buffer += crt.jsonObj
@@ -86,7 +88,9 @@ final case class Resp(val resp: String, val page: Int = 0, val errMsg: Option[St
                 ReqHdl(nextUrl).apply()
             }
         }
-        buffer.toVector
+        buffer.toVector */
+
+       null
     }
 
     def isError: Boolean = !errMsg.isEmpty
