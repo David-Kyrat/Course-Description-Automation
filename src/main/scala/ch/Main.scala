@@ -29,7 +29,7 @@ object Main {
     /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
     lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
 
-    def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), ReqHdl.course(f"$year-$id").get())
+    def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), ReqHdl.course(f"$year-$id")().prettify)
 
     /**
      * Parses the java GUI input which looks something like `[code_1],...,[code_n]#[sp_1],...,[sp_m]`

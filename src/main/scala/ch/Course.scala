@@ -8,10 +8,10 @@ import ch.sealedconcept._
 import ch.Helpers.{JsonObjOps, JsonElementOps}
 import com.google.gson.JsonElement
 
-
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._
 import ch.io.Serializer
+import ch.net.exception.CourseNotFoundException
 
 /**
  * Represents a course for a given year.
@@ -49,8 +49,6 @@ final case class Course(
     val preRequisites: Option[Vector[String]] = None
     val usefulFor: Option[Vector[String]] = None
 
-
-
     /**
      * Serialize `this` into a markdown file that can be used to fill
      * the html course-description template.
@@ -73,13 +71,19 @@ object Course extends Function2[String, Int, Course] {
      * @param id String, i.e. course code, if `year` is not given => id must be the exact urlId (i.e. be of the form `year-code`, e.g. `2022-11X001`)
      * @param year Int, year this course was given (optional)
      * @return `JsonObject` that can be traversed like a Map with a `get()` method
+     *
+     * If Course Not Found (do not catch):
+     * @throws CourseNotFoundException
      */
-    def get[T](id: String, year: Int = 0)(implicit f: Int => T): JsonObject = {
+    @throws(classOf[CourseNotFoundException])
+    def get(id: String, year: Int = 0): JsonObject = {
         val reqUrl = if (year == 0) id else f"$year-$id"
         val request: ReqHdl = ReqHdl.course(reqUrl)
-        request().jsonObj
+        // TODO: THROW ERROR ON != 200 RESPONSE
+        val resp: Resp = request()
+        if (resp.isError) throw new CourseNotFoundException(f"$year-$id")
+        else resp.jsonObj
     }
-    
 
     /**
      * Shortcut method for very simple data to extract (i.e. the jsonKey isn't something nested like activities.<somehting>)
@@ -92,8 +96,6 @@ object Course extends Function2[String, Int, Course] {
         // return sco.ALL_MAP(jsObj.get(jsonKey).getAsString)
         return sco.ALL_MAP(jsObj.getAsStr(jsonKey))
     }
-
-
 
     /**
      * Takes the sequence of jsonObject representing the jsonArray of "activities" of each course

@@ -3,6 +3,7 @@ package ch
 import ch.net.ReqHdl
 import ch.net.Resp
 import ch.Helpers.JsonArrayOps
+import ch.net.exception.StudyPlanNotFoundException
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -40,7 +41,7 @@ object StudyPlan {
     /**
      * @return All StudyPlans as A `JsonArray`
      */
-    def all: JsonArray = ReqHdl.studyPlan(size = Integer.MAX_VALUE)().jsonObj.get("_data").getAsJsonArray()
+    def all: JsonArray = ReqHdl.studyPlan().apply.jsonObj.getAsJsonArray("_data")
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
@@ -48,7 +49,16 @@ object StudyPlan {
      * @param year Int, year / version of this study plan (optional)
      * @return formatted Json response from server for details about given study plan
      */
-    def get(id: String, year: Int = 0) = if (year == 0) ReqHdl.studyPlan(id).get() else ReqHdl.studyPlan(f"$year-$id")
+    def get(id: String, year: Int = 0): JsonObject = {
+        val reqUrl = if (year == 0) id else f"$year-$id"
+        val request: ReqHdl = ReqHdl.studyPlan(reqUrl)
+        // TODO: THROW ERROR ON != 200 RESPONSE
+        val resp: Resp = request()
+        if (resp.isError) throw new StudyPlanNotFoundException(f"$year-$id")
+        else resp.jsonObj
+
+
+    }//if (year == 0) ReqHdl.studyPlan(id) else ReqHdl.studyPlan(f"$year-$id")
 
     private def getYear(jsonObj: JsonObject): Int = jsonObj.get("academicalYear").getAsInt
 
