@@ -2,7 +2,7 @@ package ch
 
 import ch.net.ReqHdl
 import ch.net.Resp
-import ch.Helpers.JsonArrayOps
+import ch.Helpers.{JsonArrayOps, JsonObjOps}
 import ch.net.exception.StudyPlanNotFoundException
 
 import com.google.gson.JsonElement
@@ -36,12 +36,14 @@ object StudyPlan {
     private lazy val cleaningsToApply = Map(
         "Baccalauréat universitaire en" -> "Bachelor en"
     )
-    // def all: String = ReqHdl.studyPlan().get()
 
     /**
-     * @return All StudyPlans as A `JsonArray`
+     * @return All StudyPlans as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
      */
-    def all: JsonArray = ReqHdl.studyPlan().apply.jsonObj.getAsJsonArray("_data")
+    def all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll.flatMap(jo => jo.getAsScalaJsObjIter("_data"))
+
+    def _all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll
+    //ReqHdl.studyPlan().apply.jsonObj.getAsJsonArray("_data")
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
@@ -99,7 +101,9 @@ object StudyPlan {
      */
     private def getAbbreviations(): ParVector[(String, (String, String))] = {
         // val allCrtYear: Iterable[JsonObject] = Utils.getAsJsonObjIter(all).filter(sp => getYear(sp) == crtYear)
-        val allCrtYear: Iterable[JsonObject] = all.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear)
+        
+        // val allCrtYear: Vector[JsonObject] = all.flatMap(v => v.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear))
+        val allCrtYear: Vector[JsonObject] = all.filter(sp => getYear(sp) == crtYear)
         allCrtYear
             .to(ParVector)
             .map(sp => 
@@ -108,6 +112,15 @@ object StudyPlan {
                         sp.get("entityId").getAsString
                     )
                 )
+        /* val allCrtYear: Iterable[JsonObject] = all.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear)
+        allCrtYear
+            .to(ParVector)
+            .map(sp => 
+                    extractAbbrev(
+                        cleanSpName(sp.get("fullFormationLabel").getAsString),
+                        sp.get("entityId").getAsString
+                    )
+                ) */
     }
 
     /**
