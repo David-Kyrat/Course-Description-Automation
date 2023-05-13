@@ -22,10 +22,13 @@ import scala.collection.parallel.immutable.ParVector
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
-    /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
-    val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
 
-    def writeCoursDecsToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), ReqHdl.course(f"$year-$id").get())
+    // NB: lazy so value only get computed when needed 
+
+    /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
+    lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
+
+    def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), ReqHdl.course(f"$year-$id").get())
 
     /**
      * Parses the java GUI input which looks something like `[code_1],...,[code_n]#[sp_1],...,[sp_m]`
@@ -65,15 +68,21 @@ object Main {
 
     def _main(courseCodes: Vector[String], sps: Vector[String]) = {
         val courses: Vector[Course] = courseCodes.map(Course(_))
-        val spIds: Vector[String] = sps.map(s => abbrevMap(s)._2)
+        // val spIds: Vector[String] = sps.map(s => abbrevMap(s)._2)
 
         courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
+    }
+
+    def getSps() = {
+        val x = Utils.getAsJsonObjIter(StudyPlan.all).filter(sp => sp.get("academicalYear").getAsInt == crtYear).head
+        Utils.write(pathOf(f"sp1.json"), Resp.gson.toJson(x))
+
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
         // __main(args)
-
+        getSps()
         // writeCoursDecsToRes("14M252")
         // testJsonLib()
         // testResolveCoursHours()

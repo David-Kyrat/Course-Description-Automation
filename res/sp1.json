@@ -1,0 +1,30 @@
+{
+  "creation": {},
+  "lastUpdate": {},
+  "resId": "73710",
+  "entityId": "73710",
+  "academicalYear": "2022",
+  "formationCode": "15INFO",
+  "formationId": 1272,
+  "studyLevel": "Bachelor",
+  "studyLevelId": "195",
+  "facultyId": "547",
+  "facultyCode": "S",
+  "facultyLabel": "Faculté des sciences",
+  "fullFormationLabel": "Baccalauréat universitaire en sciences informatiques",
+  "formationLabel": "Baccalauréat universitaire en sciences informatiques",
+  "label": "Baccalauréat universitaire en informatique",
+  "studyPlanSortColumn": "152",
+  "credits": 180,
+  "_links": {
+    "self": {
+      "href": "https://pgc.unige.ch/main/api/study-plans/73710"
+    },
+    "list": {
+      "href": "https://pgc.unige.ch/main/api/study-plans"
+    },
+    "module": {
+      "href": "https://pgc.unige.ch/main/api"
+    }
+  }
+}

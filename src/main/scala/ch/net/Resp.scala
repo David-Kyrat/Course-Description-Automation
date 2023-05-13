@@ -24,6 +24,6 @@ final case class Resp(val resp: String, val page: Int = 0) {
 }
 
 object Resp {
-    private val gson = new GsonBuilder().setPrettyPrinting().create()
+    val gson = new GsonBuilder().setPrettyPrinting().create()
 
 }

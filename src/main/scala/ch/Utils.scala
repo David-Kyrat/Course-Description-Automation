@@ -18,6 +18,7 @@ import scala.collection.Factory
 import ch.net.ReqHdl
 import scala.collection.parallel.immutable.ParVector
 import com.google.gson.JsonObject
+import com.google.gson.JsonArray
 
 final object Utils {
     private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
@@ -103,6 +104,14 @@ final object Utils {
      * @return iterable of JsonObject
      */
     def getAsJsonObjIter(el: JsonElement): Iterable[JsonObject] = el.getAsJsonArray.asScala.map(_.getAsJsonObject)
+
+    /**
+     * Shorthand for `el.asScala.map(_.getAsJsonObject())`
+     *
+     * @param el `JsonElement` to convert to scala iterable
+     * @return iterable of JsonObject
+     */
+    def getAsJsonObjIter(el: JsonArray): Iterable[JsonObject] = el.asScala.map(_.getAsJsonObject)
 
     /*
       @param rawJson String

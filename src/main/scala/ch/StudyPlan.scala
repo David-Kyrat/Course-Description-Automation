@@ -9,6 +9,7 @@ import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
 
 import Utils.{crtYear, r}
+import com.google.gson.JsonArray
 
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
@@ -27,13 +28,17 @@ final case class StudyPlan(val id: String, val year: Int) {
 }
 
 object StudyPlan {
-    val abbrevFilePath: Path = Path.of(r("abbrev.tsv"))
+    val abbrevFilePath: Path = Utils.pathOf("abbrev.tsv")
+
+    private lazy val cleaningsToApply = Map(
+        "Baccalauréat universitaire en" -> "Bachelor en"
+    )
     // def all: String = ReqHdl.studyPlan().get()
 
     /**
-     * @return All StudyPlans as A `JsonObject`
+     * @return All StudyPlans as A `JsonArray`
      */
-    def all: JsonObject = ReqHdl.studyPlan()().jsonObj
+    def all: JsonArray = ReqHdl.studyPlan()().jsonObj.get("_data").getAsJsonArray()
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
@@ -45,7 +50,18 @@ object StudyPlan {
 
     private def getYear(jsonObj: JsonObject): Int = jsonObj.get("academicalYear").getAsInt
 
-    private def cleanSpName(fullFormationLabel: String): String = ???
+    /**
+     * Apply cleanings defined in `cleaningsToApply`
+     *
+     * @param fullFormationLabel study plan name to apply cleaning on
+     * @return cleaned name
+     */
+    private def cleanSpName(fullFormationLabel: String): String = {
+        for (kv <- cleaningsToApply) {
+            fullFormationLabel.replace(kv._1, kv._2)
+        }
+        fullFormationLabel
+    }
 
     /**
      * Extract Pair of information to be added to a Map
@@ -82,19 +98,21 @@ object StudyPlan {
      * Create content of `abbrev.tsv`.
      *
      * Reason why this file is needed:
-     * 
+     *
      * The name of each Study Plan is far from being consistant so a unique abbreviation has been assigned to each to
      * suppress all kind ambiguity from user input or else. (e.g. "Bachelor en Sciences Informatiques" => "BSI").
      * Each study plan id has been added as well to not have to refetch it all the time.
      */
     def createAbbrevFile() = {
-        val content: String = getAbbreviations().map(ppair => {
-            val abbrev = ppair._1
-            val pair = ppair._2
-            val id = pair._1
-            val cleanSpName = pair._2
-            f"${cleanSpName}\t${abbrev}\t${id}"  // DONT CHANGE ORDER
-        }).mkString("\n")
+        val content: String = getAbbreviations()
+            .map(ppair => {
+                val abbrev = ppair._1
+                val pair = ppair._2
+                val id = pair._1
+                val cleanSpName = pair._2
+                f"${cleanSpName}\t${abbrev}\t${id}" // DONT CHANGE ORDER
+            })
+            .mkString("\n")
         val _ = Utils.write(abbrevFilePath, content, false)
     }
 
