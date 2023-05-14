@@ -34,15 +34,13 @@ final case class StudyPlan(val id: String, val year: Int) {
 object StudyPlan {
     val abbrevFilePath: Path = Utils.pathOf("abbrev.tsv")
 
-    private lazy val cleaningsToApply = Map(
-        "Baccalauréat universitaire en" -> "Bachelor en"
-    )
+    /** WARN: APPLY LINEARLY IN ORDER! */
+    private lazy val cleaningsToApply = Map("Baccalauréat universitaire en" -> "Bachelor en", "Maîtrise universitaire en" -> "Master en", "Maîtrise universitaire" -> "Master")
 
     /**
      * @return All StudyPlans of current year as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
      */
-    private lazy val all: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector // slow avoid using it (even parallelized & optimized)
-
+    lazy val all: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector // slow avoid using it (even parallelized & optimized)
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
@@ -50,7 +48,7 @@ object StudyPlan {
      * @param year Int, year / version of this study plan (optional)
      * @return formatted Json response from server for details about given study plan
      *
-     * If StudyPlanNotFound: 
+     * If StudyPlanNotFound:
      *
      * @throws StudyPlanNotFoundException
      */
@@ -78,15 +76,32 @@ object StudyPlan {
         fullFormationLabel
     }
 
+    private val toSkip: Set[String] = Set("de", "d'", "du", "en", "aux", "au", "des", ",", ";", "\"", "'", "-", ".", "_", "'", "/")
+
     /**
-     * Extract Pair of information to be added to a Map
+     * Extract Pair of information to be added to a Map.
+     * abbreviation is created to be the first letter of each relevent word in `cleanSpName`
+     * i.e. each one that's not in `toSkip`
+     *
      * @param cleanSpName Cleaned name for the study plan to get the abbreviated name from
      * @param id study plan id to allow faster access later on
      * @return Pair `(Abbreviation, Id, Clean_SudyPlan_Name)`
      */
-    private def extractAbbrev(cleanSpName: String, id: String): (String, (String, String)) = ???
+    private def extractAbbrev(cleanSpName: String, id: String): (String, (String, String)) =
+        (cleanSpName.split(" ").filterNot(toSkip.contains).map(_.head.toUpper).mkString, (id, cleanSpName))
 
     // NOTE: This method will only be called to create `abbrev.tsv` later on the map will be created by just reading that file
+
+    /**
+     * The name of each Study Plan is far from being consistant so a unique abbreviation has been assigned to each to
+     * suppress all kind ambiguity from user input or else. (e.g. "Bachelor en Sciences Informatiques" => "BSI").
+     * Each study plan id has been added to this map to not have to refetch it all the time.
+     *
+     * These pair will be written to a file named `abbrev.tsv`, sorted according to `Clean_SudyPlan_Name`
+     *
+     * @return Sorted Vector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
+     */
+    def getAbbreviationsSorted(): Vector[(String, (String, String))] = getAbbreviations.toVector.sortBy(_._2._2)
 
     /**
      * The name of each Study Plan is far from being consistant so a unique abbreviation has been assigned to each to
@@ -97,29 +112,26 @@ object StudyPlan {
      *
      * @return ParVector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
      */
-    private def getAbbreviations(): ParVector[(String, (String, String))] = {
+    private def getAbbreviations(): ParVector[(String, (String, String))] =
         // val allCrtYear: Iterable[JsonObject] = Utils.getAsJsonObjIter(all).filter(sp => getYear(sp) == crtYear)
-        
+
         // val allCrtYear: Vector[JsonObject] = all.flatMap(v => v.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear))
         // val allCrtYear: Vector[JsonObject] = all.
-        ReqHdl.AllStudyPlan()
+        ReqHdl
+            .AllStudyPlan()
             .filter(sp => getYear(sp) == crtYear)
-            .map(sp => 
-                    extractAbbrev(
-                        cleanSpName(sp.get("fullFormationLabel").getAsString),
-                        sp.get("entityId").getAsString
-                    )
-                )
-        /* val allCrtYear: Iterable[JsonObject] = all.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear)
+            .map(sp => extractAbbrev(cleanSpName(sp.get("fullFormationLabel").getAsString), sp.get("entityId").getAsString))
+    /* .toVector
+            .sortBy(_._2._2) */
+    /* val allCrtYear: Iterable[JsonObject] = all.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear)
         allCrtYear
             .to(ParVector)
-            .map(sp => 
+            .map(sp =>
                     extractAbbrev(
                         cleanSpName(sp.get("fullFormationLabel").getAsString),
                         sp.get("entityId").getAsString
                     )
                 ) */
-    }
 
     /**
      * Create content of `abbrev.tsv`.

@@ -76,11 +76,11 @@ object Main {
     }
 
 
-    /* def getSps() = {
+    def getSps() = {
         val x = StudyPlan.all
         val json = Resp.gson.toJson(x.asJava)
         Utils.write(pathOf(f"sp1.json"), json)
-    } */
+    }
 
 
     def main(args: Array[String]): Unit = {
@@ -89,6 +89,7 @@ object Main {
         // TODO: print error message to stderr so that rust app can extract it into an error window
         // TODO: GET BACK LOGGING FUNCTIONS FROM MASTER
         try {
+            getSps()
             // __main(args)
             // writeCoursDecsToRes("14M252")
             // testJsonLib()
