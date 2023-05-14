@@ -249,6 +249,7 @@ Not urgent:
 - [x] Fix bug abbreviation screen list
 - [ ] Remove debugging in rust launcher
 - [ ] Stop Retrying multiple times on rust app
+- [ ] Fix bug with analysis 1 having no study plan
 
 ***
 
