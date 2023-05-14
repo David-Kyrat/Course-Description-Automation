@@ -1,15 +1,18 @@
 package ch
 
-import scala.collection.{View, mutable}
 import scala.collection.immutable.HashMap
 import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParVector
+import scala.collection.{View, mutable}
+import scala.jdk.CollectionConverters._
+import scala.jdk.StreamConverters._
 
 import java.nio.file.Path
+import java.util.stream.Collectors
 
 import com.google.gson.{JsonArray, JsonElement, JsonNull, JsonObject}
 
-import ch.Helpers.{JsonArrayOps, JsonObjOps}
+import ch.Helpers.{JsonArrayOps, JsonElementOps, JsonObjOps}
 import ch.Utils.{crtYear, r}
 import ch.net.ReqHdl.{baseUrl, studyPlanNodeUrl}
 import ch.net.exception.StudyPlanNotFoundException
@@ -49,13 +52,10 @@ object StudyPlan extends (String => StudyPlan) {
     lazy val ALL: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector // slow avoid using it (even parallelized & optimized)
 
     /**
-     * @param id String, id of studyPlan, if `year` is not given => id must be the exact
-     * url-id (i.e. be of the form `studyPlanYear-studyPlanUrlId`)
+     * @param id String, id of studyPlan
      * @return formatted Json response from server for details about given study plan
-     * NB: Year parameter not allowed
      *
-     * If StudyPlanNotFound:
-     *
+     * If StudyPlanNotFound :
      * @throws StudyPlanNotFoundException
      */
     @throws(classOf[StudyPlanNotFoundException])
@@ -120,9 +120,6 @@ object StudyPlan extends (String => StudyPlan) {
     )
     private lazy val postCleanDelete: Set[Char] = Set('<', '(', ')', ':', '>', ';', '/', '>')
     private lazy val postCleanReplace: Map[Char, Char] = HashMap('À' -> 'A', 'È' -> 'E', 'É' -> 'E')
-    // private lazy val postCleanReplaceKeys = postCleanReplace.keySet
-
-    // TODO: ADD INDEX TO MAKE abbrevations UNIQUE
 
     /**
      * Extract Pair of information to be added to a Map.
@@ -210,6 +207,46 @@ object StudyPlan extends (String => StudyPlan) {
     }
 
     /**
+     * Must be call on a non-empty `listTeachings` Json Array obtained while parsing `StudyPlan.get(id)`
+     * i.e. first line of the constructor
+     *
+     * @param jsArr JsonArray of json course object
+     *
+     * @return LazyList of course id's. The list is lazy because java parallel stream
+     * operations were applied on the given `JsonArray` and since java streams are lazily evaluated
+     * the conversion to scala collection was performed using a `LazyList` to optimize performance.
+     */
+    private def extractCourses(jsArr: JsonArray): LazyList[String] = {
+        jsArr.asList.parallelStream // not guaranteed to return a parallel stream
+            .parallel // will do nothing if stream is already parellel
+            .map(_.getAsStr("teachingCode"))
+            .toScala(LazyList)
+    }
+
+    /**
+     * Extract the `listTeaching` json array nested in children of children ... of given `jsObj`.
+     * Recursively search (DFS) through object of the form `{ "children": [...], "listTeaching": [] }` nested in `jsObj`
+     * until we arrived at leaf from which we can extract the non-empty array.
+     * (a leaf is caracterized by a empty `children` field and a non-empty `listTeaching` `JsArray`)
+     * i.e. `{ "children": [], "listTeaching": [...] }`
+     *
+     * @param obj the 'root' to extract all the nested arrays from
+     *
+     * @return Collection of
+     */
+    private def extracListTeachings(obj: JsonObject): mutable.ListBuffer[String] = {
+
+        /**
+         * @param jsObj current 'subtree' to explore
+         * @param acc Accumulator, stores the `"listTeaching" : [ ... ]`
+         */
+        def extractLtRec(jsObj: JsonObject, acc: mutable.ListBuffer[JsonArray]) = { 
+
+        }
+        null
+    }
+
+    /**
      * Factory methods that builds an Instance of `StudyPlan` by fetching data
      * from the http request and parses / resolve its result
      *
@@ -221,6 +258,10 @@ object StudyPlan extends (String => StudyPlan) {
      */
     @throws(classOf[StudyPlanNotFoundException])
     override def apply(id: String): StudyPlan = {
+        val obj = get(id)
+        val x = mutable.ListBuffer[JsonArray]()
+        val y = x.flatMap(extractCourses(_))
+
         null
     }
 }

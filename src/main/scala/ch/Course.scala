@@ -1,17 +1,18 @@
 package ch
 
-import ch.net.{ReqHdl, Resp}
-import ch.net.ReqHdl.courseUrl
-import ch.Utils.tryOrElse
-import ch.sealedconcept.CourseHours.CourseHoursBuilder
-import ch.sealedconcept._
-import ch.Helpers.{JsonObjOps, JsonElementOps}
-import com.google.gson.JsonElement
-
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._
+
+import com.google.gson.JsonElement
+
+import ch.Helpers.{JsonElementOps, JsonObjOps}
+import ch.Utils.tryOrElse
 import ch.io.Serializer
+import ch.net.ReqHdl.courseUrl
 import ch.net.exception.CourseNotFoundException
+import ch.net.{ReqHdl, Resp}
+import ch.sealedconcept.CourseHours.CourseHoursBuilder
+import ch.sealedconcept._
 
 /**
  * Represents a course for a given year.
@@ -61,7 +62,6 @@ final case class Course(
      */
     def saveToMarkdown() = Serializer.courseToMarkdown(this)
 }
-
 
 object Course extends ((String, Int) => Course) {
     import com.google.gson.JsonObject
