@@ -70,8 +70,6 @@ object Main {
 
     def _main(courseCodes: Vector[String], sps: Vector[String]) = {
         val courses: Vector[Course] = courseCodes.map(Course(_))
-        // val spIds: Vector[String] = sps.map(s => abbrevMap(s)._2)
-
         courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
     }
 
@@ -88,26 +86,18 @@ object Main {
         // TODO: print error message to stderr so that rust app can extract it into an error window
         // TODO: GET BACK LOGGING FUNCTIONS FROM MASTER
         try {
-
             testAbbrevMap()
-            // getSps()
             // __main(args)
-            // writeCoursDecsToRes("14M252")
-            // testJsonLib()
-            // testResolveCoursHours()
-            // testCourseFactoryMethod()
-            // testCourseToMarkdown()
-            // testMultipleCourseToMarkdown()
         } catch {
             case re: ResourceNotFoundException => {
                 System.err.println(re.getMessage())
-                // System.exit(1)
+                System.exit(1)
             }
-            /* case err: Exception => {
+            case err: Exception => {
                 System.err.println("An unexpected Error happened. Please try again.")
-                err.printStackTrace()
-                // System.exit(1)
-            } */
+                //err.printStackTrace()
+                System.exit(1)
+            }
         }
 
         println("\n\n")

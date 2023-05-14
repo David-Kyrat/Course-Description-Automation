@@ -182,8 +182,8 @@ object Course extends Function2[String, Int, Course] {
         val title = tryExtract("title", "")
         val language = tryExtract("language", "")
 
-        val spType: SPType = tryOrElse(() => resolveSpType(jsObj), SPType.Other)
-        val spYear: String = tryOrElse(() => resolveSpYear(jsObj, id), "N/A")
+        val spType: SPType = tryOrElse(() => resolveSpType(jsObj), () => SPType.Other)
+        val spYear: String = tryOrElse(() => resolveSpYear(jsObj, id), () => "N/A")
 
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
 
@@ -193,21 +193,21 @@ object Course extends Function2[String, Int, Course] {
         // val section = ???
 
         val evalMode = tryExtract("evaluation", "")
-        val hoursNb = tryOrElse(() => resolveCourseHours(activities), CourseHours(0, 0, 0)) // default value is 0 everywhere
+        val hoursNb: CourseHours = tryOrElse(() => resolveCourseHours(activities), () => CourseHours(0, 0, 0)) // default value is 0 everywhere
         val studyPlanNames = tryExtract("intended", "")
         val documentation = tryExtract("bibliography", "")
         val various = tryExtract("variousInformation", "")
         val comments = tryExtract("comment", "")
         val coursType = tryExtract("type", "")
 
-        val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), Vector.empty)
-        val noSp = Map("Pas de cursus" -> (0, "-"))
+        val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), () => Vector.empty)
+        lazy val noSp = Map("Pas de cursus" -> (0, "-"))
         var studPlan: Map[String, (Int, String)] = tryOrElse(
           () => {
               val sp = resolveStudyPlan(jsObj)
               if (sp.isEmpty) noSp else sp
           },
-          noSp
+          () => noSp
         )
         new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan, various, comments)
     }
