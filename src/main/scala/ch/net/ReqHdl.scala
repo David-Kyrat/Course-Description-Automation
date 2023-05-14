@@ -57,13 +57,19 @@ object ReqHdl {
     /** API entry point */
     val baseUrl: String = "https://pgc.unige.ch/main/api"
 
-    private val spPart = "study-plans"
-    private val coursePart = "teachings"
+    private lazy val spPart = "study-plans"
+    private lazy val spNodePart = "study-plan-nodes"
+    private lazy val coursePart = "teachings"
 
-    val studyPlanUrl: String = f"$baseUrl/$spPart"
-    val courseUrl = f"$baseUrl/$coursePart" // append courseYear-courseId
+    /** solely study plan contains almost no info. See `studyPlanNodeUrl` to get the contained course etc... */
+    // lazy val studyPlanUrl: String = f"$baseUrl/$spPart"
 
-    private def sp(size: Int, page: Int) = f"$studyPlanUrl?size=$size&page=$page"
+    /** will return study plan info and the courses inside it*/
+    lazy val studyPlanNodeUrl: String = f"$baseUrl/$spNodePart"
+    lazy val courseUrl = f"$baseUrl/$coursePart" // append courseYear-courseId
+
+    // private def sp(size: Int, page: Int) = f"$studyPlanUrl?size=$size&page=$page"
+    private def sp(size: Int, page: Int) = f"$baseUrl/$spPart?size=$size&page=$page"
 
     /**
      * Simple http GET request for given url
@@ -98,7 +104,7 @@ object ReqHdl {
      * @return new Request i.e. `ReqHdl` instance, requesting a list of study-plans if id was not given and details about study-plan with given `id` if it was
      */
     def studyPlan(id: String = null, size: Int = 2000): ReqHdl =
-        if (id == null) g(f"$spPart?size=$size") else g(f"$spPart/$id?size=$size")
+        if (id == null) g(f"$spPart?size=$size") else g(f"$spNodePart/$id?size=$size")
 
     /**
      * Same as `studyPlan()` but for couse, see [[ch.ReqHdl.studyPlan]] for more infos

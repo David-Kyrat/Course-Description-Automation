@@ -1,0 +1,1003 @@
+{
+    "searchCriterias": null,
+    "creation": {
+        "when": null,
+        "who": null,
+        "fullName": null
+    },
+    "lastUpdate": {
+        "when": null,
+        "who": null,
+        "fullName": null
+    },
+    "resId": "73710",
+    "entityId": "73710",
+    "label": "Baccalauréat universitaire en informatique",
+    "secondLabel": null,
+    "optionalText": null,
+    "academicalYear": "2022",
+    "planOrder": "152",
+    "structureId": "547",
+    "children": [
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "73713",
+            "entityId": "73713",
+            "label": "1re année",
+            "secondLabel": null,
+            "optionalText": null,
+            "academicalYear": "2022",
+            "planOrder": "155",
+            "structureId": "547",
+            "children": [],
+            "listTeaching": [
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175430",
+                    "entityId": "175430",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X001",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000004",
+                    "teachingCode": "11X001",
+                    "teachingTitle": "Introduction à la programmation des algorithmes",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, automne</b><br>LU 15h-17h, Bat D/Amphi\nMA 14h-16h, SCIII/0019<br>Cours, exercices, travaux pratiques intégrés<br><b>2h d'exercices, automne</b><br>LU 13h-15h, Bat D/Amphi et Bat A salles PC 314-315 et 322-323 (selon TP)<br>Pour les travaux pratiques, voir \"Laboratoire de programmation\"",
+                    "planCredits": "6"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175431",
+                    "entityId": "175431",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X002",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000005",
+                    "teachingCode": "11X002",
+                    "teachingTitle": "Laboratoire de programmation",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de travaux pratiques, annuel</b><br>Semestre d'automne : MA 8h-12h, Bat A/ salles PC 314-315, 322-323\nSemestre de printemps : JE 14h-18h, Bat A/ salles PC 314-315, 322-323<br>Intégré aux cours \"IPA\" et \"Structures de données\"",
+                    "planCredits": null
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175432",
+                    "entityId": "175432",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X006",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000010",
+                    "teachingCode": "11X006",
+                    "teachingTitle": "Principes de fonctionnement des ordinateurs",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>JE 13h-15h, SCII/A150 P.-F. Tingry<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>JE 15h-17h, SCII/A150, P.-F. Tingry<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175433",
+                    "entityId": "175433",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11M010",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000015",
+                    "teachingCode": "11M010",
+                    "teachingTitle": "Algèbre I - automne",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, automne</b><br>JE 10H-12H, SCII-A150\nVE 15H-17H, SCII-A300<br>ECTS physiciens : 6     ECTS informaticiens : 6    ECTS math-info-sc.num. : 5<br><b>2h d'exercices, automne</b><br>LU 14H-16H, SCII-223 (physiciens)\nJE 8H-10H, SCII-A50a-A50b-223, DUF-U259 (autres depts)<br><b>1h de travaux pratiques, automne</b><br>JE 12H-18H, SCII/223/229/A50b/SM1-07/SM 0-12/SM6-13/SM1-15\n \n\nVE 8H-10H, SCII/223/229/A50A/SM624/SMconf/SMSwissmap\n\n\n\n \n",
+                    "planCredits": "6"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175434",
+                    "entityId": "175434",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11M020",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000020",
+                    "teachingCode": "11M020",
+                    "teachingTitle": "Analyse I - automne",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, automne</b><br>MA 12H-14H, SCII-A300\nME 12H-14H, SCII-A300<br>ECTS physiciens : 14 annuel   ECTS informaticiens : 6 automne    ECTS math-info-sc. num. : 12 annuel<br><b>3h d'exercices, automne</b><br>VE 10H-13H, \nSCII-A50a/A50b/223/229/174/SM 1-07<br><b>1h de travaux pratiques, automne</b><br>JE 12H-18H, SCII/223/229/A50b/SM1-07/SM 0-12/SM6-13/SM1-15\n \n\nVE 8H-10H, SCII/223/229/A50A/SM624/SMconf/SMSwissmap\n\n",
+                    "planCredits": "6"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175435",
+                    "entityId": "175435",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11P090",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000025",
+                    "teachingCode": "11P090",
+                    "teachingTitle": "Physique générale C - automne",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, automne</b><br>ME 8-10 et VE 8-10, EPA<br><b>2h d'exercices, automne</b><br>VE 10-12, SCI-102 et 222, SCII-A150\nVE 13-15, SCI-222, SCIIA50A",
+                    "planCredits": "8"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175436",
+                    "entityId": "175436",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X003",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000030",
+                    "teachingCode": "11X003",
+                    "teachingTitle": "Langages formels",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>ME 10h-12h, SCII/A150<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>LUN, 9h-11h, Bat D/Amphi<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175437",
+                    "entityId": "175437",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X020",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000033",
+                    "teachingCode": "11X020",
+                    "teachingTitle": "Formation de base en informatique",
+                    "facultyCode": "S",
+                    "courseDescription": "<b> séance de travail, automne</b><br>formation donnée sur une semaine pendant le semestre d'automne (planning horaire donné à la rentrée)",
+                    "planCredits": "0"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175438",
+                    "entityId": "175438",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X005",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000040",
+                    "teachingCode": "11X005",
+                    "teachingTitle": "Structures de données",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, printemps</b><br>LU 13h-15h, Bat D/Amphi\nMA 10h-12h, Bat D/Amphi<br>Pour les travaux pratiques, voir Laboratoire de programmation<br><b>2h d'exercices, printemps</b><br>MA 14h-16h, Bat D/Amphi<br>Pour les travaux pratiques, voir Laboratoire de programmation",
+                    "planCredits": "7"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175439",
+                    "entityId": "175439",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X004",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000045",
+                    "teachingCode": "11X004",
+                    "teachingTitle": "Logiciels et réseaux informatiques",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>ME 15h-17h, Bat D/Amphi\n(en réserve SCIII/1S081)<br>Cours et exercices intégrés<br><b>1h d'exercices, printemps</b><br>ME 17h-18h, Bat D/Amphi\n(en réserve, SCIII/1S081)<br>Cours et exercices intégrés",
+                    "planCredits": "6"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175440",
+                    "entityId": "175440",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11P091",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000050",
+                    "teachingCode": "11P091",
+                    "teachingTitle": "Physique générale C - printemps",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, printemps</b><br>ME 8-10, EPA; VE 8-10, EPA<br><b>2h d'exercices, printemps</b><br>VE 10-12, SCII-A150 et STU\n",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175441",
+                    "entityId": "175441",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11M005",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000055",
+                    "teachingCode": "11M005",
+                    "teachingTitle": "Mathématiques pour informaticiens",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, printemps</b><br>MA 8H-10H, Battelle /bâtiment D, amphithéâtre\nJE 8H-10H, Battelle /bâtiment D, amphithéâtre<br><b>2h d'exercices, printemps</b><br>JE 10H-12H, Battelle /bâtiment D, amphithéâtre",
+                    "planCredits": "6"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175442",
+                    "entityId": "175442",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11M050",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000060",
+                    "teachingCode": "11M050",
+                    "teachingTitle": "Laboratoire de programmation mathématique",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>3h de travaux pratiques, printemps</b><br>LU 8H-11H, PAV. ANSERMET - 119(1er groupe info)\nMA 9H-12H, PAV. ANSERMET - 119(autres)\nMA 14H-17H, PAV. ANSERMET - 119 (2eme groupe physiciens)",
+                    "planCredits": "3"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175443",
+                    "entityId": "175443",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-11X008",
+                    "studyPlanNodeId": "73713",
+                    "teachingOrder": "000000065",
+                    "teachingCode": "11X008",
+                    "teachingTitle": "Complexité et calculabilité",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>MA 16h-18h, Battelle, Bat D, Amphithéâtre<br><b>2h d'exercices, printemps</b><br>LUN 15h-17h, Bat D/Amphi",
+                    "planCredits": "4"
+                }
+            ],
+            "root": false,
+            "principal": false
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "73714",
+            "entityId": "73714",
+            "label": "2e année",
+            "secondLabel": null,
+            "optionalText": null,
+            "academicalYear": "2022",
+            "planOrder": "160",
+            "structureId": "547",
+            "children": [],
+            "listTeaching": [
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175444",
+                    "entityId": "175444",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12M061",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000005",
+                    "teachingCode": "12M061",
+                    "teachingTitle": "Probabilités et statistique pour informaticiens",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>JE 10H-12H, SCII-457<br><b>2h d'exercices, automne</b><br>JE 8H-10H, SCII - 457",
+                    "planCredits": "5"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175445",
+                    "entityId": "175445",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12M040",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000010",
+                    "teachingCode": "12M040",
+                    "teachingTitle": "Analyse numérique",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, annuel</b><br>JE 13H-15H, SCII-A100<br>ECTS informaticiens : 11 annuel / ECTS math-info-sc.num : 14 annuel<br><b>1h d'exercices, annuel</b><br>JE 15H-16H, SCII-A100/A50a \n<br><b>2h de travaux pratiques, annuel</b><br>\nAUTOMNE : MER  13H-15H, PONT D'ARVE/4-106 \n\nPRINTEMPS :  VE 8H00-10H, PONT D'ARVE/4-106 (sauf Ve 31.03.23 en salle Pavillon Ansermet 115/119)\n<br>REMARQUE : à partir de la rentrée de septembre 2019, les travaux pratiques deviennent obligatoires pour les mathématiciens.",
+                    "planCredits": "11"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175446",
+                    "entityId": "175446",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X009",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000015",
+                    "teachingCode": "12X009",
+                    "teachingTitle": "Systèmes informatiques",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>LU 13h-15h, Bat A/404-407<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>MA 14h-16h, Bat D/Amphi (salle PC 314 pour certaines séances, seront annoncées par l'enseignant)<br>Cours et exercices intégrés",
+                    "planCredits": "5"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175447",
+                    "entityId": "175447",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X001",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000020",
+                    "teachingCode": "12X001",
+                    "teachingTitle": "Algorithmique",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>LU  15h-17h, Bat A/404-407<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>ME 15h-17h, Bat D/Amphi<br>Cours et exercices intégrés",
+                    "planCredits": "5"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175448",
+                    "entityId": "175448",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X014",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000025",
+                    "teachingCode": "12X014",
+                    "teachingTitle": "Cryptographie et sécurité",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>JE 16h-18h, SCIII/1S059<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>ME 17h-19h, Bat D/Amphi<br>Cours et exercices intégrés",
+                    "planCredits": "5"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175449",
+                    "entityId": "175449",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X005",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000030",
+                    "teachingCode": "12X005",
+                    "teachingTitle": "Outils formels de modélisation",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>MA 10h-12h, Bat D/Amphi<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>VE  12h-14h, Bat D/Amphi<br>Cours et exercices intégrés",
+                    "planCredits": "5"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175450",
+                    "entityId": "175450",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X050",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000040",
+                    "teachingCode": "12X050",
+                    "teachingTitle": "Formation documentaire",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>3.5 heures de cours-exercices, automne</b><br>Cours 1 : 18 nov (Bachelor sc. info)\nCours 2 : 25 nov (Bachelor math, info et sc. num.)\nEvaluation pour tous : 2 déc 2022\nLieu : salles PC 314 et 322 à Battelle",
+                    "planCredits": "0"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175451",
+                    "entityId": "175451",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X008",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000045",
+                    "teachingCode": "12X008",
+                    "teachingTitle": "Sémantique des langages informatiques",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>MA 10h-12h, Bat D/amphi<br>Cours et exercices intégrés<br><b>2h d'exercices, printemps</b><br>MA 14h-16h, Bat A/RdC<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175452",
+                    "entityId": "175452",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X003",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000050",
+                    "teachingCode": "12X003",
+                    "teachingTitle": "Concepts et langages orientés objets",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>MA 16h-18h, Bat A/404-407<br>Cours, exercices et travaux pratiques intégrés<br><b>2h d'exercices, printemps</b><br>JE 10h-12h, Bat A/salles PC 314-315<br>Cours, exercices et travaux pratiques intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175453",
+                    "entityId": "175453",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X006",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000055",
+                    "teachingCode": "12X006",
+                    "teachingTitle": "Programmation des systèmes",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>LUN 13h-15h, Bat A/319 + salles 314-322<br>Cours et exercices intégrés<br><b>2h d'exercices, printemps</b><br>ME 10h-12h Bat A/ 319 + salles 314-322<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175454",
+                    "entityId": "175454",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X004",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000060",
+                    "teachingCode": "12X004",
+                    "teachingTitle": "Théorie de l'information pour la science des données et l'apprentissage automatique",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>VE 10h-12h, Bat A/404-407<br>Cours et exercices intégrés<br><b>2h d'exercices, printemps</b><br>ME 8h-10h, Bat D/amphi<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175455",
+                    "entityId": "175455",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-D200025",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000065",
+                    "teachingCode": "D200025",
+                    "teachingTitle": "Bases de données",
+                    "facultyCode": "CUI",
+                    "courseDescription": "<b> cours, printemps</b><br>CR  Printemps Lundi 16-18 BAT RDC<I><br>(Faculté des Sciences: 4 crédits)</I><br><b> séminaire, printemps</b><br>SE  Printemps Jeudi 8-10 BAT 316 et 319",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175456",
+                    "entityId": "175456",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-12X015",
+                    "studyPlanNodeId": "73714",
+                    "teachingOrder": "000000070",
+                    "teachingCode": "12X015",
+                    "teachingTitle": "Applications informatiques",
+                    "facultyCode": "S",
+                    "courseDescription": "<b> cours-pratique, printemps</b>",
+                    "planCredits": "4"
+                }
+            ],
+            "root": false,
+            "principal": false
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "73715",
+            "entityId": "73715",
+            "label": "3e année",
+            "secondLabel": null,
+            "optionalText": null,
+            "academicalYear": "2022",
+            "planOrder": "165",
+            "structureId": "547",
+            "children": [],
+            "listTeaching": [
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175457",
+                    "entityId": "175457",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X001",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000005",
+                    "teachingCode": "13X001",
+                    "teachingTitle": "Compilateurs et interprètes",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>LUN 10h-12h, Bat A/319-321<br>Cours et projet préparant directement à l'examen<br><b>2h d'exercices, automne</b><br>LUN 16h-18h, Bat A/316-318 et salles PC 314-315 (selon le TP)<br>Cours et projets préparant directement à l'examen",
+                    "planCredits": "6"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175458",
+                    "entityId": "175458",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X007",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000009",
+                    "teachingCode": "13X007",
+                    "teachingTitle": "Parallélisme",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>JE 10h-12h, Bat A/404-407<br>Cours et exercices intégrés<br><b>2h de travaux pratiques, automne</b><br>ME 10h-13h, Bat A/ salles PC 322-323 et Bat A/319-321 (selon le TP)<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175459",
+                    "entityId": "175459",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X003",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000015",
+                    "teachingCode": "13X003",
+                    "teachingTitle": "Génie logiciel",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>VEN 15h-17h, BAT A, 404-407<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>MA 8h-10h, Bat A/319-321<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175460",
+                    "entityId": "175460",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X009",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000020",
+                    "teachingCode": "13X009",
+                    "teachingTitle": "Réseaux informatiques",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, automne</b><br>LU 14h-16h, Bat A/316-318<br>Cours et exercices intégrés<br><b>2h d'exercices, automne</b><br>JE 13h-15h, Bat A/319-321<br>Cours et exercices intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175461",
+                    "entityId": "175461",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X005",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000025",
+                    "teachingCode": "13X005",
+                    "teachingTitle": "Intelligence artificielle: principes et méthodes",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>4h de cours, automne</b><br>Cours : JE 15-17h, Bat D/Amphi\n<br>Cours, séminaires, exercices et travaux pratiques intégrés<br><b>2h d'exercices, automne</b><br>Exercices : ME 16-18h, Bat A/319-321<br>Cours, séminaires, exercices, travaux pratiques intégrés",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175462",
+                    "entityId": "175462",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X004",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000040",
+                    "teachingCode": "13X004",
+                    "teachingTitle": "Imagerie numérique",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, annuel</b><br>Semestre d'automne : VE 10h-12h, Bat A/319-321\nSemestre de printemps : JE 10h-12h, Bat A/301-302<br>Cours, exercices et travaux pratiques intégrés<br><b>2h d'exercices, annuel</b><br>Automne : VE 13h-15h, Bat A/404-407\nPrintemps : VE 12h-14h, Bat A/316-318<br>Cours, exercices et travaux pratiques intégrés",
+                    "planCredits": "8"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175463",
+                    "entityId": "175463",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X012",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000050",
+                    "teachingCode": "13X012",
+                    "teachingTitle": "Systèmes concurrents et distribués",
+                    "facultyCode": "S",
+                    "courseDescription": "<b> cours, automne</b><br>MA 10h-12h, Bat A/319-321<br>cours et exercices intégrés<br><b> exercices, automne</b><br>ME 14h-16h, Bat A/ salles PC 322-323",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175464",
+                    "entityId": "175464",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X008",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000060",
+                    "teachingCode": "13X008",
+                    "teachingTitle": "Projets informatiques",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>VEN, 16h-18h, Bat A/316-318<br>Cours et exercices intégrés<br><b>2h d'exercices, printemps</b><br>VE 14h-16h, Bat A/316-318<br>Cours et exercices intégrés",
+                    "planCredits": "8"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175465",
+                    "entityId": "175465",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-13X011",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000065",
+                    "teachingCode": "13X011",
+                    "teachingTitle": "Data Mining",
+                    "facultyCode": "S",
+                    "courseDescription": "<b>2h de cours, printemps</b><br>MA 8h-10h, Bat A/316-318<br><b>2h d'exercices, printemps</b><br>MA 10h-12h, Bat A/salles PC 322-323",
+                    "planCredits": "4"
+                },
+                {
+                    "searchCriterias": null,
+                    "creation": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "lastUpdate": {
+                        "when": null,
+                        "who": null,
+                        "fullName": null
+                    },
+                    "resId": "175466",
+                    "entityId": "175466",
+                    "academicalYear": "2022",
+                    "teachingId": "2022-1MEMINFO",
+                    "studyPlanNodeId": "73715",
+                    "teachingOrder": "000000070",
+                    "teachingCode": "1MEMINFO",
+                    "teachingTitle": "Travail de recherche",
+                    "facultyCode": "S",
+                    "courseDescription": "<b> travail personnel, printemps</b>",
+                    "planCredits": "14"
+                }
+            ],
+            "root": false,
+            "principal": false
+        }
+    ],
+    "listTeaching": [],
+    "root": true,
+    "principal": true,
+    "_links": {
+        "self": {
+            "href": "https://pgc.unige.ch/main/api/study-plan-nodes/73710"
+        },
+        "list": {
+            "href": "https://pgc.unige.ch/main/api/study-plan-nodes"
+        },
+        "module": {
+            "href": "https://pgc.unige.ch/main/api"
+        }
+    }
+}

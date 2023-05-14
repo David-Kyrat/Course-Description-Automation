@@ -1,0 +1,397 @@
+{
+    "searchCriterias": null,
+    "creation": {
+        "when": null,
+        "who": null,
+        "fullName": null
+    },
+    "lastUpdate": {
+        "when": null,
+        "who": null,
+        "fullName": null
+    },
+    "resId": "21141",
+    "entityId": "21141",
+    "label": " Maîtrise universitaire en mathématique et sciences informatiques",
+    "secondLabel": null,
+    "optionalText": null,
+    "academicalYear": "2016",
+    "planOrder": "221",
+    "structureId": "547",
+    "children": [],
+    "listTeaching": [
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83226",
+            "entityId": "83226",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M080",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000010",
+            "teachingCode": "14M080",
+            "teachingTitle": "Méthodes élémentaires",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, automne</b><br>Horaires disponibles à la Section de  mathématiques<br><b>1h d'exercices, automne</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83240",
+            "entityId": "83240",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M023",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000015",
+            "teachingCode": "14M023",
+            "teachingTitle": "Principes transversaux en mathématiques",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, printemps</b><br>Horaires disponibles à la Section de mathématiques.<br><b>1h d'exercices, printemps</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83228",
+            "entityId": "83228",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M082",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000020",
+            "teachingCode": "14M082",
+            "teachingTitle": "Méthodes itératives",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, printemps</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, printemps</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83229",
+            "entityId": "83229",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M114",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000025",
+            "teachingCode": "14M114",
+            "teachingTitle": "Groupes de Lie",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours , Non donné en 2016-2017</b><br><b>1h d'exercices , Non donné en 2016-2017</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83230",
+            "entityId": "83230",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M148",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000030",
+            "teachingCode": "14M148",
+            "teachingTitle": "Théorie additive des nombres : sommes de carrés",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, printemps</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, printemps</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83231",
+            "entityId": "83231",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M158",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000080",
+            "teachingCode": "14M158",
+            "teachingTitle": "Intégration numérique géométrique et raide des équations différentielles",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, automne</b><br>Horaires disponibles à la Section de mathématiques<br>Cours possible en anglais<br><b>1h d'exercices, automne</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83232",
+            "entityId": "83232",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M165",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000085",
+            "teachingCode": "14M165",
+            "teachingTitle": "Brownian Motion and stochastic calculus",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, printemps</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, printemps</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83233",
+            "entityId": "83233",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M178",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000090",
+            "teachingCode": "14M178",
+            "teachingTitle": "EquidécompositionsLe 3ème problème de Hilbert",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, automne</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, automne</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83234",
+            "entityId": "83234",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M179",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000095",
+            "teachingCode": "14M179",
+            "teachingTitle": "Chapitres choisis de géométrie",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, automne</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, automne</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83235",
+            "entityId": "83235",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M180",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000100",
+            "teachingCode": "14M180",
+            "teachingTitle": "The theory of operators",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, automne</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, automne</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83236",
+            "entityId": "83236",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M181",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000110",
+            "teachingCode": "14M181",
+            "teachingTitle": "Eléments de théorie des catégories",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, printemps</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, printemps</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83237",
+            "entityId": "83237",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M192",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000115",
+            "teachingCode": "14M192",
+            "teachingTitle": "Optimization with applications I",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, automne</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, automne</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83238",
+            "entityId": "83238",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M193",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000120",
+            "teachingCode": "14M193",
+            "teachingTitle": "Optimization with applications II",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, printemps</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, printemps</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83239",
+            "entityId": "83239",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M195",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000125",
+            "teachingCode": "14M195",
+            "teachingTitle": "Chapitres choisis de théorie des probabilités",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, automne</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, automne</b>",
+            "planCredits": "5"
+        },
+        {
+            "searchCriterias": null,
+            "creation": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "lastUpdate": {
+                "when": null,
+                "who": null,
+                "fullName": null
+            },
+            "resId": "83227",
+            "entityId": "83227",
+            "academicalYear": "2016",
+            "teachingId": "2016-14M196",
+            "studyPlanNodeId": "21141",
+            "teachingOrder": "000000130",
+            "teachingCode": "14M196",
+            "teachingTitle": "Introduction à la moyennabilité",
+            "facultyCode": "S",
+            "courseDescription": "<b>2h de cours, printemps</b><br>Horaires disponibles à la Section de mathématiques<br><b>1h d'exercices, printemps</b>",
+            "planCredits": "5"
+        }
+    ],
+    "root": true,
+    "principal": false,
+    "_links": {
+        "self": {
+            "href": "https://pgc.unige.ch/main/api/study-plan-nodes/21141"
+        },
+        "list": {
+            "href": "https://pgc.unige.ch/main/api/study-plan-nodes"
+        },
+        "module": {
+            "href": "https://pgc.unige.ch/main/api"
+        }
+    }
+}

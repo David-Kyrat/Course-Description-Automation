@@ -1,40 +1,32 @@
 package ch
 
-import ch.Helpers.JsonArrayOps
-import ch.Helpers.JsonObjOps
-import ch.net.ReqHdl
-import ch.net.Resp
-import ch.net.exception.StudyPlanNotFoundException
-import com.google.gson.JsonArray
-import com.google.gson.JsonElement
-import com.google.gson.JsonNull
-import com.google.gson.JsonObject
-
-import java.nio.file.Path
-import scala.collection.View
+import scala.collection.{View, mutable}
 import scala.collection.immutable.HashMap
 import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParVector
 
-import Utils.{crtYear, r}
+import java.nio.file.Path
+
+import com.google.gson.{JsonArray, JsonElement, JsonNull, JsonObject}
+
+import ch.Helpers.{JsonArrayOps, JsonObjOps}
+import ch.Utils.{crtYear, r}
+import ch.net.ReqHdl.{baseUrl, studyPlanNodeUrl}
+import ch.net.exception.StudyPlanNotFoundException
+import ch.net.{ReqHdl, Resp}
 
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
  *
- * @param id String, immutable id of the studyPlan (i.e. the part without the year, that will never change, at least not supposed to)
- * @param year Int, year the course in this studyplan are given
+ * @param id String, id of the studyPlan
  */
-final case class StudyPlan(val id: String, val year: Int) {
-    // val request = f"$studyPlanUrl/$year-$id"
-    val urlId = f"$year-$id"
+final case class StudyPlan private (id: String, courses: ParVector[Course]) {
+
     // TODO: implement retrieving fields from server response
 
-    val faculty: String = ???
-    val section: String = ???
-    val courses: Vector[Course] = ???
 }
 
-object StudyPlan {
+object StudyPlan extends (String => StudyPlan) {
     val abbrevFilePath: Path = Utils.pathOf("abbrev.tsv")
 
     /** WARN: APPLY LINEARLY IN ORDER! */
@@ -68,9 +60,10 @@ object StudyPlan {
      */
     @throws(classOf[StudyPlanNotFoundException])
     def get(id: String): JsonObject = {
-        val request: ReqHdl = ReqHdl.studyPlan(id)
+        val reqUrl = id
+        val request: ReqHdl = ReqHdl.studyPlan(reqUrl)
         val resp: Resp = request()
-        if (resp.isError) throw new StudyPlanNotFoundException(f"$id")
+        if (resp.isError) throw new StudyPlanNotFoundException(reqUrl)
         else resp.jsonObj
     }
 
@@ -154,7 +147,8 @@ object StudyPlan {
      * @return uniquified vector
      */
     private def uniquifyAbbrev(input: View[(String, (String, String))]): View[(String, (String, String))] = {
-        var counts = Map[String, Int]()
+        var counts = mutable.Map[String, Int]()
+
         input.map { case (abbrev, (id, cleanName)) =>
             val count = counts.getOrElse(abbrev, 0)
             counts += (abbrev -> (count + 1))
@@ -215,4 +209,18 @@ object StudyPlan {
         val _ = Utils.write(abbrevFilePath, content, false)
     }
 
+    /**
+     * Factory methods that builds an Instance of `StudyPlan` by fetching data
+     * from the http request and parses / resolve its result
+     *
+     * @param id studyplan code (present in `res/abbrev.tsv`)
+     *
+     * If request is malformed:
+     *
+     * @throws StudyPlanNotFoundException
+     */
+    @throws(classOf[StudyPlanNotFoundException])
+    override def apply(id: String): StudyPlan = {
+        null
+    }
 }

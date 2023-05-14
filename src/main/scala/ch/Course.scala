@@ -41,7 +41,7 @@ final case class Course(
   various: String,
   comments: String
 ) {
-    val requestUrl = f"$courseUrl/$id-$year"
+    // val requestUrl = f"$courseUrl/$id-$year"
 
     /*
      Option bc we dont know if its actually in the db (=> need to actually actively search for it)
@@ -62,7 +62,8 @@ final case class Course(
     def saveToMarkdown() = Serializer.courseToMarkdown(this)
 }
 
-object Course extends Function2[String, Int, Course] {
+
+object Course extends ((String, Int) => Course) {
     import com.google.gson.JsonObject
 
     /**
