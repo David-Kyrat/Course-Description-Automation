@@ -6,6 +6,7 @@ import scala.util.{Failure, Success, Using}
 import java.io.IOException
 import com.google.gson.JsonObject
 import scala.collection.parallel.immutable.ParVector
+import scala.collection.parallel.CollectionConverters._
 
 /**
  * Class representing an HTTP request, methods in the object `ReqHdl` returns
@@ -25,7 +26,7 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
      */
     override def apply(): Resp = {
         try {
-            Resp(request(req), page)
+            Resp(ReqHdl.request(req), page)
         } catch {
             case e: Exception => Resp("", page, Some(e.getMessage()))
         }
@@ -38,13 +39,8 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
      * If request failed:
      * @throws IllegalArgumentException
      */
-    @throws(classOf[IllegalArgumentException])
-    private[net] def request(url: String): String =
-        Using(Source.fromURL(req))(_.mkString) match {
-            case Success(response: String) => response
-            case Failure(reason) =>
-                throw new IllegalArgumentException(f"`ReqHDL.request()`: HTTP Request Failed, reason: $reason")
-        }
+    // @throws(classOf[IllegalArgumentException])
+    // private[net] def request(): String = ReqHdl.request(req)
 
     /**
      * Execute the `GET` request and directly formats the json instead of
@@ -52,9 +48,10 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
      * @return Server JSON Response
      *
      * If request failed:
-     * @throws IOException
+     * @throws IllegalArgumentException
      */
-    private def get(): String = request(req)
+    @throws(classOf[IllegalArgumentException])
+    private def get(): String = ReqHdl.request(req)
 
     /**
      * Return next page of current request. (faster than looking through the
@@ -97,6 +94,7 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
  * HTTP Request Handler
  */
 object ReqHdl {
+    import Resp.toJsonObject
 
     /** API entry point */
     val baseUrl: String = "https://pgc.unige.ch/main/api"
@@ -106,6 +104,25 @@ object ReqHdl {
 
     val studyPlanUrl: String = f"$baseUrl/$spPart"
     val courseUrl = f"$baseUrl/$coursePart" // append courseYear-courseId
+
+    private def sp(size: Int, page: Int) = f"$studyPlanUrl?size=$size&page=$page"
+
+    /**
+     * Simple http GET request for given url
+     * @param url request to perform
+     * @return server's response
+     *
+     * If request failed:
+     * @throws IllegalArgumentException
+     */
+    @throws(classOf[IllegalArgumentException])
+    private def request(url: String): String =
+        Using(Source.fromURL(url))(_.mkString) match {
+            case Success(response: String) => response
+            case Failure(reason) =>
+                throw new IllegalArgumentException(f"`ReqHDL.urluest()`: HTTP Request Failed, reason: $reason")
+
+        }
 
     /**
      * Instantiate ReqHdl class with a new request, to execute it call the apply
@@ -145,7 +162,7 @@ object ReqHdl {
      * @param size amount of element to get for each parallel request
      * @return Vector of each response's page
      */
-    def AllStudyPlan(size: Int = 50): Vector[JsonObject] = {
+    def AllStudyPlan(size: Int = 1500): ParVector[JsonObject] = {
 
         /* var buffer: ArrayBuffer[JsonObject] = new ArrayBuffer()
         var crt: Resp = this
@@ -159,7 +176,15 @@ object ReqHdl {
         buffer.toVector */
         val r1 = studyPlan(size = size).apply().jsonObj
         val totPage = r1.getAsJsObj("_page").getAsInt("totalPages")
-        val reqAmount = Math.ceil(totPage / size).toInt
-        null
+        val reqAmount = totPage
+
+        // val responses = (0 until reqAmount).toVector.par.map(pageNb => toJsonObject(request(sp(size, pageNb))))
+        val responses = (0 until reqAmount)
+            .toVector
+            .par
+            .flatMap(pageNb => toJsonObject(request(sp(size, pageNb))).getAsScalaJsObjIter("_data"))
+        println(responses.length)
+        responses
+        // ParVector()
     }
 }

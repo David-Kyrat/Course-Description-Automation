@@ -103,4 +103,11 @@ object Resp {
 
     /** @return Prettified json  string */
     def prettify(je: JsonElement): String = gson.toJson(je)
+
+    /**
+      * Serialize to `JsonObject`
+      * @param jsonString
+      */
+    private[net] def toJsonObject(jsonString: String): JsonObject = gson.fromJson(jsonString, classOf[JsonObject])
+
 }

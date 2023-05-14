@@ -80,30 +80,11 @@ object Main {
     //2. then do that much parallel request
 
     def getSps() = {
-        val x = StudyPlan.all// .filter(sp => sp.getAsInt("academicalYear") == crtYear).asJava
-        println(x.length)
+        val x = StudyPlan.all
         val json = Resp.gson.toJson(x.asJava)
         Utils.write(pathOf(f"sp1.json"), json)
-
-        // val x = StudyPlan.all.getAsScalaJsObjIter().filter(sp => sp.get("academicalYear").getAsInt == crtYear)
-        // val x = StudyPlan.all
-        // .mkString("[\n", ",\n", "\n]")
-        // Utils.write(pathOf(f"sp1.json"), Resp.gson.toJson(x))impo
     }
 
-    def spAlls() = {
-        import Resp.gson
-        val y = StudyPlan._all.flatMap(jso => jso.getAsScalaJsObjIter("_data"))
-        println(y.length)
-
-        val x = y.foreach(z => {
-            Utils.write(pathOf(f"sp1.json"), gson.toJson(z), true)
-        })
-        // Utils.write(pathOf(f"sp1.json"), gson.toJson(y.head))
-        // .flatMap(el => el.getAsScalaJsObjIter().asJava).//.filter(sp => sp.getAsInt("academicalYear") == crtYear).asJava
-        /* val json = Resp.gson.toJson(x)
-        Utils.write(pathOf(f"sp1.json"), json) */
-    }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
@@ -112,10 +93,7 @@ object Main {
         // TODO: GET BACK LOGGING FUNCTIONS FROM MASTER
         try {
             getSps()
-            // spAlls()
             // __main(args)
-            // getSps()
-            // spAlls()
             // writeCoursDecsToRes("14M252")
             // testJsonLib()
             // testResolveCoursHours()

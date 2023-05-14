@@ -39,11 +39,11 @@ object StudyPlan {
     )
 
     /**
-     * @return All StudyPlans as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
+     * @return All StudyPlans of current year as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
      */
-    def all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll().flatMap(jo => jo.getAsScalaJsObjIter("_data"))
+    lazy val all: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector
 
-    def _all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll()
+    // def _all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll()
     //ReqHdl.studyPlan().apply.jsonObj.getAsJsonArray("_data")
 
     /**
