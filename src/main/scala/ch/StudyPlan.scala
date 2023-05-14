@@ -190,7 +190,18 @@ object StudyPlan {
         ReqHdl
             .AllStudyPlan()
             .filter(sp => getYear(sp) == crtYear)
-            .map(sp => extractAbbrev(cleanSpName(sp.get("label").getAsString), sp.get("entityId").getAsString))
+            .map(sp => extractAbbrev(cleanSpName(Utils.tryOrElse(() => sp.getAsStr("fullFormationLabel"), () => sp.getAsStr("label"), false)), sp.getAsStr("entityId")))
+    }
+
+    // TODO:  TEST THIS!!
+/
+    def removeDuplicates(input: Vector[(String, (String, String))]): Vector[(String, (String, String))] = {
+        input
+            .foldLeft(Set.empty[String], Vector.empty[(String, (String, String))]) { case ((seen, acc), (first, (second1, second2))) =>
+                if (seen.contains(first)) (seen, acc) // Skip if we have seen the first element before
+                else (seen + first, acc :+ (first, (second1, second2))) // Add to the accumulator if first element is unique
+            }
+            ._2
     }
 
     /**

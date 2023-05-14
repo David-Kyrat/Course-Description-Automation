@@ -66,11 +66,11 @@ final object Utils {
     def read(path: Path) = String.join("\n", Files.readAllLines(path, UTF_8))
 
     /**
-      * Write string using `Files.writeString` method (i.e. to write multiple strings do not use this method multiple times)
-      * @param path Path of file to write to
-      * @param content content to write to file 
-      * @param append whether to add to previous content or overwrite the file
-      */
+     * Write string using `Files.writeString` method (i.e. to write multiple strings do not use this method multiple times)
+     * @param path Path of file to write to
+     * @param content content to write to file
+     * @param append whether to add to previous content or overwrite the file
+     */
     def write(path: Path, content: String, append: Boolean = false) = {
         val opt = if (append) APPEND else TRUNCATE_EXISTING
         Files.writeString(path, content, UTF_8, CREATE, opt)
@@ -113,6 +113,31 @@ final object Utils {
                 e.printStackTrace(errLogPrintWriter)
                 errLogPrintWriter.println(sep)
                 defaultVal
+            }
+        }
+    }
+
+    /**
+     * Try to apply given function `resolver` if it succeeds => return the result,
+     * or if an exception happened => return `defaultVal`
+     *
+     * @param resolver, function to try
+     * @param defaultVal function that returns a default value when an exception happened
+     * @param log whether to log the error
+     * (NB: it's important to pass in a function otherwise the default value will be computed when this method is called)
+     *
+     * @return see above
+     */
+    def tryOrElse[T](resolver: Function0[T], defaultVal: () => T, log: Boolean = true): T = {
+        try {
+            resolver()
+        } catch {
+            case e: Exception => {
+                if (log) {
+                    e.printStackTrace(errLogPrintWriter)
+                    errLogPrintWriter.println(sep)
+                }
+                defaultVal()
             }
         }
     }
