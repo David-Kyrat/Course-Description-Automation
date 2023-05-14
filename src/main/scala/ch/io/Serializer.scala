@@ -57,7 +57,7 @@ object Serializer {
         write(yamlHeaderSep)
         writes(
           yamlFmt("title", course.title),
-          yamlFmt("author", course.authors.mkString(", ") + f"  -  ${course.id}"),
+          yamlFmt("author", course.authors.mkString(", ") + f"  \\-  ${course.id}"),
           yamlFmt("weekly_hours", course.hoursNb.sum),
           yamlFmt("lectures_hours", course.hoursNb.lectures),
           yamlFmt("exercices_hours", course.hoursNb.exercices),

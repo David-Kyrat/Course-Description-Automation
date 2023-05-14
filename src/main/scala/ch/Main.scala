@@ -92,8 +92,11 @@ object Main {
         try {
             // testAbbrevMap()
             val _args = Array("#BSI,BMISN")
-            testStudyPlanFactory()
+            // testStudyPlanFactory()
+            // testSaveStudyPlanToMarkdown()
 
+            // writeCoursDescToRes("14M258")
+            writeCoursDescToRes("11M020")
             // writeSpDescToRes("73710")
             // __main(_args)
             // testMultipleCourseToMarkdown()

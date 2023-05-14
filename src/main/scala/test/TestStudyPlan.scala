@@ -34,9 +34,17 @@ object TestStudyPlan {
     }
 
     def testStudyPlanFactory() = {
-        val id = "74813"
+        // val id = "74813"
+        // val id = "76324"
+        val id = "73722"
         val sp = StudyPlan(id)
         sp.courses.map(_.toShortString).foreach(println)
+    }
+
+    def testSaveStudyPlanToMarkdown() {
+        val id = "73722"
+        val sp = StudyPlan(id)
+        sp.saveToMarkdown()
     }
   
 /*def testGetStudyPlans() = {

@@ -25,7 +25,13 @@ import ch.net.{ReqHdl, Resp}
  */
 final case class StudyPlan private (id: String, courses: ParVector[Course]) {
 
-    // TODO: implement retrieving fields from server response
+    /**
+     * Save all courses in this studyplan to a markdown file that can later be converted to pdf.
+     *
+     * this method uses the `ParVector` field to access courses. Thus it is significantly faster 
+     * than calling `saveToMarkdown` manually on each single `Course`
+     */
+    def saveToMarkdown() = courses.foreach(_.saveToMarkdown())
 
 }
 
@@ -236,6 +242,7 @@ object StudyPlan extends (String => StudyPlan) {
      * @return Collection of
      */
     private def extracListTeachings(obj: JsonObject) = {
+
         /**
          * @param jsObj current 'subtree' to explore
          * @param acc Accumulator, stores the `"listTeaching" : [ ... ]`
@@ -251,7 +258,7 @@ object StudyPlan extends (String => StudyPlan) {
                 children.forEach(child => extractLtRec(child.getAsJsonObject, acc))
             }
         }
-        
+
         val listTeachings = mutable.ListBuffer[JsonArray]()
         extractLtRec(obj, listTeachings)
         listTeachings.par.flatMap(extractCourses(_))

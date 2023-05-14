@@ -139,7 +139,8 @@ final object Utils {
                 logWrtr.println(fmtLog(f"Exception occured. ${additionalMsg}"))
                 err.printStackTrace(logWrtr)
                 logWrtr.println()
-            } catch { case t: Exception => (t.printStackTrace()) }
+            } catch { case _: Throwable => () }
+            // } catch { case t: Exception => (t.printStackTrace())) }
         }
     }
 
