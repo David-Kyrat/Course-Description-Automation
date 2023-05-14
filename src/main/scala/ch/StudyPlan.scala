@@ -39,10 +39,14 @@ object StudyPlan {
     /** WARN: APPLY LINEARLY IN ORDER! */
     private lazy val cleaningsToApply = Vector(
       "Baccalauréat universitaire en" -> "Bachelor en",
+      "Baccalauréat universitaire" -> "Bachelor",
+      "Baccalauréat univ." -> "Bachelor",
       "Maîtrise universitaire en" -> "Master en",
       "Maîtrise universitaire" -> "Master",
       "Maîtrise univ. en" -> "Master",
-      "Maîtrise univ." -> "Master"
+      "Maîtrise univ." -> "Master",
+      "(en cours de saisie)" -> "",
+      " ès " -> " "
     )
 
     /**
@@ -86,7 +90,41 @@ object StudyPlan {
         crt
     }
 
-    private lazy val toSkip: Set[String] = Set("of", "in", "for", "the", "ès", "&", "</I>", "la", "le", "l'", "de", "d'", "du", "et", "en", "aux", "au", "des", ",", ";", ":", "\"", "'", "-", ".", "_", "'", "/", "", "<", "(", ")")
+    private lazy val toSkip: Set[String] = Set(
+      "of",
+      "in",
+      "for",
+      "the",
+      "ès",
+      "&",
+      "</I>",
+      "la",
+      "le",
+      "l'",
+      "de",
+      "d'",
+      "du",
+      "et",
+      "en",
+      "aux",
+      "au",
+      "des",
+      ",",
+      ";",
+      ":",
+      "\"",
+      "'",
+      "-",
+      ".",
+      "_",
+      "'",
+      "/",
+      "",
+      "<",
+      "(",
+      ")",
+      " "
+    )
     private lazy val postCleanDelete: Set[Char] = Set('<', '(', ')', ':', '>', ';', '/', '>')
     private lazy val postCleanReplace: Map[Char, Char] = HashMap('À' -> 'A', 'È' -> 'E', 'É' -> 'E')
     // private lazy val postCleanReplaceKeys = postCleanReplace.keySet
@@ -111,15 +149,31 @@ object StudyPlan {
     // NOTE: This method will only be called to create `abbrev.tsv` later on the map will be created by just reading that file
 
     /**
+     * If there is a conflict on abbrevations (i.e. not unique) and index will be added to differentiate them.
+     * @param input to uniquify i.e. Vector of the form `(abbrev, (id, cleanName))`
+     * @return uniquified vector
+     */
+    private def uniquifyAbbrev(input: Vector[(String, (String, String))]): Vector[(String, (String, String))] = {
+        var counts = Map[String, Int]()
+        input.map { case (abbrev, (id, cleanName)) =>
+            val count = counts.getOrElse(abbrev, 0)
+            counts += (abbrev -> (count + 1))
+            if (count == 0) (abbrev, (id, cleanName))
+            else (s"$abbrev$count", (id, cleanName))
+        }
+    }
+
+    /**
      * The name of each Study Plan is far from being consistant so a unique abbreviation has been assigned to each to
      * suppress all kind ambiguity from user input or else. (e.g. "Bachelor en Sciences Informatiques" => "BSI").
      * Each study plan id has been added to this map to not have to refetch it all the time.
      *
      * These pair will be written to a file named `abbrev.tsv`, sorted according to `Clean_SudyPlan_Name` to allow easier searching in file.
+     * if there is a conflict on abbrevations (i.e. not unique) and index will be added to differentiate them.
      *
      * @return Sorted Vector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
      */
-    def getAbbreviationsSorted(): Vector[(String, (String, String))] = getAbbreviations.toVector.sortBy(_._2._2)
+    private def getAbbreviationsUniquifiedSorted(): Vector[(String, (String, String))] = uniquifyAbbrev(getAbbreviations.toVector.sortBy(_._2._2))
 
     // WARNING: Field "fullFormationLabel" or "formationLabel" are not present everywhere in the database use "label" instead
 
@@ -149,7 +203,7 @@ object StudyPlan {
      * Each study plan id has been added as well to not have to refetch it all the time.
      */
     def createAbbrevFile() = {
-        val content = getAbbreviationsSorted().view
+        val content = getAbbreviationsUniquifiedSorted().view
             .map(ppair => {
                 val abbrev = ppair._1
                 val pair = ppair._2
