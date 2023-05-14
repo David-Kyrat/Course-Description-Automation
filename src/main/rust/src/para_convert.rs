@@ -279,19 +279,20 @@ fn pandoc_md_to_pdf(
         exec_res
     };
 
+    if !(out_pdf.exists() && exec_res.is_ok()) {
+        dbg!(&out_pdf);
+        println!("does not exists\n");
+    }
+
     if out_pdf.exists() && exec_res.is_ok() {
         Ok(out_pdf)
     } else {
         let msg = &format!(
-            "pandoc_fill_template: Could not generate pdf file of {md_path}\\{md_filename} \n
-            ||  template: {template_s}    ||  md_path: {md_path}       ||   templates_path: {templates_path}        
-            ||  pandoc_path: {pandoc_path}    ||   css_path: {css_path_s}    ||   out_pdf: {out_pdf_s}"
+            "pandoc_md_to_pdf: Could not generate pdf file of {md_path}\\{md_filename}
+            \n|| template: {template_s}    \n||  md_path: {md_path}       \n||  templates_path: {templates_path}        
+            \n||  pandoc_path: {pandoc_path}    \n||  css_path: {css_path_s}    \n||  out_pdf: {out_pdf_s}"
         );
-        error!(
-            "pandoc_fill_template: Could not generate pdf file of {md_path}\\{md_filename} \n
-            ||  template: {template_s}    ||  md_path: {md_path}       ||   templates_path: {templates_path}        
-            ||  pandoc_path: {pandoc_path}    ||   css_path: {css_path_s}    ||   out_pdf: {out_pdf_s}"
-        );
+        error!("{}", &msg);
         Err(custom_io_err(msg))
     }
 }
