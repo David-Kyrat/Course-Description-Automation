@@ -25,7 +25,8 @@ object Main {
     /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
     lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
 
-    def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), ReqHdl.course(f"$year-$id")().prettify)
+    def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), Resp.prettify(Course.get(id)))
+    def writeSpDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"sp-$id.json"), Resp.prettify(StudyPlan.get(id)))
 
     /**
      * Parses the java GUI input which looks something like `[code_1],...,[code_n]#[sp_1],...,[sp_m]`
@@ -90,7 +91,8 @@ object Main {
         try {
             // testAbbrevMap()
             val _args = Array("#BSI,BMISN")
-            __main(_args)
+            writeSpDescToRes("73710")
+            // __main(_args)
         } catch {
             case re: ResourceNotFoundException => {
                 System.err.println(re.getMessage())
@@ -98,9 +100,9 @@ object Main {
                 System.exit(1)
             }
             case err: Exception => {
-                System.err.println("An unexpected Error happened. Please try again.")
                 Utils.log(err)
-                System.exit(1)
+                err.printStackTrace()
+                System.err.println("An unexpected Error happened. Please try again.")
             }
         }
 

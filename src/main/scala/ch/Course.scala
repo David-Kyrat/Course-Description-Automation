@@ -27,8 +27,6 @@ final case class Course(
   id: String,
   year: Int,
   title: String,
-  spType: SPType,
-  spYear: String, // year in StudyPlan i.e 1->3 for Bachelor / 1->2 for Master ...
   semester: Semester,
   objective: String,
   description: String,
@@ -67,11 +65,7 @@ final case class Course(
 object Course extends Function2[String, Int, Course] {
     import com.google.gson.JsonObject
 
-    // TODO: exract Extractor method here
-
     /**
-     * Here is some scaladocs taht you probably want to see in your hover
-     *
      * @param id String, i.e. course code, if `year` is not given => id must be the exact urlId (i.e. be of the form `year-code`, e.g. `2022-11X001`)
      * @param year Int, year this course was given (optional)
      * @return `JsonObject` that can be traversed like a Map with a `get()` method
@@ -153,12 +147,6 @@ object Course extends Function2[String, Int, Course] {
             .toMap
     }
 
-    // TODO:  SPTYPE
-    private def resolveSpType(jsObj: JsonObject): SPType = SPType.Other
-
-    // second letter of course code,  TODO: find smth that works also for master and phd
-    private def resolveSpYear(jsObj: JsonObject, id: String) = id.substring(1, 2)
-
     /**
      * Factory methods that builds an Instance of `Course` by fetching data
      * from the http request and parses / resolve its result
@@ -182,8 +170,8 @@ object Course extends Function2[String, Int, Course] {
         val title = tryExtract("title", "")
         val language = tryExtract("language", "")
 
-        val spType: SPType = tryOrElse(() => resolveSpType(jsObj), () => SPType.Other)
-        val spYear: String = tryOrElse(() => resolveSpYear(jsObj, id), () => "N/A")
+        /* val spType: SPType = tryOrElse(() => resolveSpType(jsObj), () => SPType.Other)
+        val spYear: String = tryOrElse(() => resolveSpYear(jsObj, id), () => "N/A") */
 
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
 
@@ -209,7 +197,7 @@ object Course extends Function2[String, Int, Course] {
           },
           () => noSp
         )
-        new Course(id, year, title, spType, spYear, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan, various, comments)
+        new Course(id, year, title, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan, various, comments)
     }
 
     @throws(classOf[CourseNotFoundException])
