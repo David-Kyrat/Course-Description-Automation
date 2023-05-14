@@ -7,6 +7,7 @@ import java.io.IOException
 import com.google.gson.JsonObject
 import scala.collection.parallel.immutable.ParVector
 import scala.collection.parallel.CollectionConverters._
+import scala.collection.parallel.ParIterable
 
 /**
  * Class representing an HTTP request, methods in the object `ReqHdl` returns
@@ -42,7 +43,6 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
      */
     @throws(classOf[IllegalArgumentException])
     private def get(): String = ReqHdl.request(req)
-
 
     override def toString(): String = this.req
 
@@ -125,10 +125,19 @@ object ReqHdl {
         val totPage = r1.getAsJsObj("_page").getAsInt("totalPages")
         val reqAmount = totPage
 
-        val responses = (0 until reqAmount)
+            /* val responses = (0 until reqAmount)
+                .toVector
+                .view
+                .par
+                .flatMap(pageNb => toJsonObject(request(sp(size, pageNb))).getAsScalaJsObjIter("_data"))
+            responses */
+
+        (0 until reqAmount)
             .toVector
             .par
-            .flatMap(pageNb => toJsonObject(request(sp(size, pageNb))).getAsScalaJsObjIter("_data"))
-        responses
+            .flatMap(pageNb => 
+                    toJsonObject(request(sp(size, pageNb)))
+                    .getAsScalaJsObjIter("_data")
+                    )
     }
 }

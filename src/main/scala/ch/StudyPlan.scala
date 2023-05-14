@@ -14,6 +14,8 @@ import scala.collection.parallel.CollectionConverters._
 
 import Utils.{crtYear, r}
 import com.google.gson.JsonArray
+import scala.collection.immutable.HashMap
+import com.google.gson.JsonNull
 
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
@@ -35,7 +37,12 @@ object StudyPlan {
     val abbrevFilePath: Path = Utils.pathOf("abbrev.tsv")
 
     /** WARN: APPLY LINEARLY IN ORDER! */
-    private lazy val cleaningsToApply = Map("Baccalauréat universitaire en" -> "Bachelor en", "Maîtrise universitaire en" -> "Master en", "Maîtrise universitaire" -> "Master")
+    private lazy val cleaningsToApply = Vector("Baccalauréat universitaire en" -> "Bachelor en", 
+        "Maîtrise universitaire en" -> "Master en", 
+        "Maîtrise universitaire" -> "Master",
+        "Maîtrise univ. en" -> "Master",
+        "Maîtrise univ." -> "Master"
+        )
 
     /**
      * @return All StudyPlans of current year as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
@@ -62,6 +69,9 @@ object StudyPlan {
     }
 
     private def getYear(jsonObj: JsonObject): Int = jsonObj.get("academicalYear").getAsInt
+    import scala.util.{Try, Success, Failure}
+
+    private def getYearTry(jsonObj: JsonObject): Try[Int] = Try(jsonObj.get("academicalYear").getAsInt)
 
     /**
      * Apply cleanings defined in `cleaningsToApply`
@@ -70,13 +80,12 @@ object StudyPlan {
      * @return cleaned name
      */
     private def cleanSpName(fullFormationLabel: String): String = {
-        for (kv <- cleaningsToApply) {
-            fullFormationLabel.replace(kv._1, kv._2)
-        }
-        fullFormationLabel
+        var crt = fullFormationLabel
+        for (kv <- cleaningsToApply) crt = crt.replace(kv._1, kv._2)
+        crt
     }
 
-    private val toSkip: Set[String] = Set("de", "d'", "du", "en", "aux", "au", "des", ",", ";", "\"", "'", "-", ".", "_", "'", "/")
+    private val toSkip: Set[String] = Set("de", "d'", "du", "en", "aux", "au", "des", ",", ";", "\"", "'", "-", ".", "_", "'", "/", "")
 
     /**
      * Extract Pair of information to be added to a Map.
@@ -88,7 +97,7 @@ object StudyPlan {
      * @return Pair `(Abbreviation, Id, Clean_SudyPlan_Name)`
      */
     private def extractAbbrev(cleanSpName: String, id: String): (String, (String, String)) =
-        (cleanSpName.split(" ").filterNot(toSkip.contains).map(_.head.toUpper).mkString, (id, cleanSpName))
+        (cleanSpName.split(" ").view.filterNot(toSkip.contains).map(_.head.toUpper).mkString, (id, cleanSpName))
 
     // NOTE: This method will only be called to create `abbrev.tsv` later on the map will be created by just reading that file
 
@@ -97,11 +106,13 @@ object StudyPlan {
      * suppress all kind ambiguity from user input or else. (e.g. "Bachelor en Sciences Informatiques" => "BSI").
      * Each study plan id has been added to this map to not have to refetch it all the time.
      *
-     * These pair will be written to a file named `abbrev.tsv`, sorted according to `Clean_SudyPlan_Name`
+     * These pair will be written to a file named `abbrev.tsv`, sorted according to `Clean_SudyPlan_Name` to allow easier searching in file.
      *
      * @return Sorted Vector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
      */
     def getAbbreviationsSorted(): Vector[(String, (String, String))] = getAbbreviations.toVector.sortBy(_._2._2)
+
+    // WARNING: Field "fullFormationLabel" or "formationLabel" are not present everywhere in the database use "label" instead
 
     /**
      * The name of each Study Plan is far from being consistant so a unique abbreviation has been assigned to each to
@@ -112,15 +123,18 @@ object StudyPlan {
      *
      * @return ParVector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
      */
-    private def getAbbreviations(): ParVector[(String, (String, String))] =
-        // val allCrtYear: Iterable[JsonObject] = Utils.getAsJsonObjIter(all).filter(sp => getYear(sp) == crtYear)
-
-        // val allCrtYear: Vector[JsonObject] = all.flatMap(v => v.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear))
-        // val allCrtYear: Vector[JsonObject] = all.
+    private def getAbbreviations(): ParVector[(String, (String, String))] = {
+        val x: ParVector[Try[Int]] = ReqHdl.AllStudyPlan().map(getYearTry(_))
+        val failure = x.filter(_.isFailure)
+        println(f" Length of studyplan without year: " + failure.length)
+        println("-------------------------------\n")
+        // System.exit(1)
         ReqHdl
             .AllStudyPlan()
             .filter(sp => getYear(sp) == crtYear)
-            .map(sp => extractAbbrev(cleanSpName(sp.get("fullFormationLabel").getAsString), sp.get("entityId").getAsString))
+            .map(sp => extractAbbrev(cleanSpName(sp.get("label").getAsString), sp.get("entityId").getAsString))
+            // .map(sp => extractAbbrev(cleanSpName(sp.get("label").getAsString), ""))
+    }
     /* .toVector
             .sortBy(_._2._2) */
     /* val allCrtYear: Iterable[JsonObject] = all.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear)
@@ -143,7 +157,7 @@ object StudyPlan {
      * Each study plan id has been added as well to not have to refetch it all the time.
      */
     def createAbbrevFile() = {
-        val content: String = getAbbreviations()
+        val content = getAbbreviationsSorted().view
             .map(ppair => {
                 val abbrev = ppair._1
                 val pair = ppair._2
