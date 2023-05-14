@@ -30,17 +30,7 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
         } catch {
             case e: Exception => Resp("", page, Some(e.getMessage()))
         }
-    } // Resp(request(req), page)
-
-    /**
-     * Simple http GET request for given url
-     * @param url string
-     * @return server's response
-     * If request failed:
-     * @throws IllegalArgumentException
-     */
-    // @throws(classOf[IllegalArgumentException])
-    // private[net] def request(): String = ReqHdl.request(req)
+    }
 
     /**
      * Execute the `GET` request and directly formats the json instead of
@@ -53,38 +43,6 @@ case class ReqHdl private[net] (val req: String, val page: Int = 0) extends Func
     @throws(classOf[IllegalArgumentException])
     private def get(): String = ReqHdl.request(req)
 
-    /**
-     * Return next page of current request. (faster than looking through the
-     * significatively long & complex json response for the "next" item)
-     * @param page (optional) index of page to request. If not given, defaults to `this.page + 1`
-     * @return Request for the next page of result of current request
-     */
-    /* def next(newPage: Int = 0): ReqHdl = {
-        var resolvedNewPage = if (newPage == 0) this.page + 1 else newPage
-        val newReq =
-            if (this.page == 0) {
-                val tokenToAdd = if (this.req.contains('?')) '&' else '?' // if request already contains the '?' for advanced search => do not re-add it and add a '&' instead
-
-                f"${this.req}${tokenToAdd}page=$resolvedNewPage"
-
-            } else {
-                val patternPair = ("page=", 5) // pair ["pattern", "patternLength"]
-                val idx = this.req.lastIndexOf(patternPair._1) + patternPair._2 // idx of pageNb
-                this.req.substring(0, idx + 1) + f"$resolvedNewPage"
-            } */
-    // if were in else: then url is of the form "$baseUrl/...&page=x" where x is this.page => hence replacing it
-    /* TODO: Check if there are url for page != 0, that do not end in "page=XX"
-     * if there aren't => we can just replace the everything from "page=..." to the end and append the new pageNb */
-    /*
-        ReqHdl(newReq, newPage)
-    } */
-
-    // def nextAll(): Vector[Resp] = ???
-    /* NOTE: Only things that indicates that there are no more results is the absence
-     * of "next" item in the json response => so we do have to:
-     * 1. Search for it in the end
-     * 2. And actually execute those request to look for the presence of that `next` item
-     */
 
     override def toString(): String = this.req
 
@@ -163,28 +121,14 @@ object ReqHdl {
      * @return Vector of each response's page
      */
     def AllStudyPlan(size: Int = 1500): ParVector[JsonObject] = {
-
-        /* var buffer: ArrayBuffer[JsonObject] = new ArrayBuffer()
-        var crt: Resp = this
-        while (crt.hasNext) {
-            buffer += crt.jsonObj
-            crt = {
-                val nextUrl = crt.jsonObj.getAsJsObj("_links").getAsJsObj("next").getAsStr("href")
-                ReqHdl(nextUrl).apply()
-            }
-        }
-        buffer.toVector */
         val r1 = studyPlan(size = size).apply().jsonObj
         val totPage = r1.getAsJsObj("_page").getAsInt("totalPages")
         val reqAmount = totPage
 
-        // val responses = (0 until reqAmount).toVector.par.map(pageNb => toJsonObject(request(sp(size, pageNb))))
         val responses = (0 until reqAmount)
             .toVector
             .par
             .flatMap(pageNb => toJsonObject(request(sp(size, pageNb))).getAsScalaJsObjIter("_data"))
-        println(responses.length)
         responses
-        // ParVector()
     }
 }

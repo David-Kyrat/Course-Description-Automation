@@ -41,10 +41,8 @@ object StudyPlan {
     /**
      * @return All StudyPlans of current year as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
      */
-    lazy val all: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector
+    private lazy val all: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector // slow avoid using it (even parallelized & optimized)
 
-    // def _all: Vector[JsonObject] = ReqHdl.studyPlan(size = 300).apply().nextAll()
-    //ReqHdl.studyPlan().apply.jsonObj.getAsJsonArray("_data")
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
@@ -60,7 +58,6 @@ object StudyPlan {
     def get(id: String, year: Int = 0): JsonObject = {
         val reqUrl = if (year == 0) id else f"$year-$id"
         val request: ReqHdl = ReqHdl.studyPlan(reqUrl)
-        // TODO: THROW ERROR ON != 200 RESPONSE
         val resp: Resp = request()
         if (resp.isError) throw new StudyPlanNotFoundException(f"$year-$id")
         else resp.jsonObj
@@ -104,9 +101,9 @@ object StudyPlan {
         // val allCrtYear: Iterable[JsonObject] = Utils.getAsJsonObjIter(all).filter(sp => getYear(sp) == crtYear)
         
         // val allCrtYear: Vector[JsonObject] = all.flatMap(v => v.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear))
-        val allCrtYear: Vector[JsonObject] = all.filter(sp => getYear(sp) == crtYear)
-        allCrtYear
-            .to(ParVector)
+        // val allCrtYear: Vector[JsonObject] = all.
+        ReqHdl.AllStudyPlan()
+            .filter(sp => getYear(sp) == crtYear)
             .map(sp => 
                     extractAbbrev(
                         cleanSpName(sp.get("fullFormationLabel").getAsString),
