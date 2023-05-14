@@ -216,11 +216,12 @@ object StudyPlan extends (String => StudyPlan) {
      * operations were applied on the given `JsonArray` and since java streams are lazily evaluated
      * the conversion to scala collection was performed using a `LazyList` to optimize performance.
      */
-    private def extractCourses(jsArr: JsonArray): LazyList[String] = {
+    private def extractCourses(jsArr: JsonArray) = {
         jsArr.asList.parallelStream // not guaranteed to return a parallel stream
             .parallel // will do nothing if stream is already parellel
             .map(_.getAsStr("teachingCode"))
-            .toScala(LazyList)
+            .map(Course(_))
+            .toScala(ParVector)
     }
 
     /**
@@ -253,9 +254,7 @@ object StudyPlan extends (String => StudyPlan) {
         
         val listTeachings = mutable.ListBuffer[JsonArray]()
         extractLtRec(obj, listTeachings)
-        val x = listTeachings.to(LazyList).flatMap(extractCourses(_))
-        // val y = listTeachings.par.flatMap(extractCourses(_)) //compare speed
-        x
+        listTeachings.par.flatMap(extractCourses(_))
     }
 
     /**
@@ -271,7 +270,8 @@ object StudyPlan extends (String => StudyPlan) {
     @throws(classOf[StudyPlanNotFoundException])
     override def apply(id: String): StudyPlan = {
         val obj: JsonObject = get(id)
-        val courses: ParVector[Course] = extracListTeachings(obj).par.map(Course(_)).to(ParVector)
+        // val courses: ParVector[Course] = extracListTeachings(obj).par.map(Course(_)).to(ParVector)
+        val courses = extracListTeachings(obj).to(ParVector)
         new StudyPlan(id, courses)
     }
 }

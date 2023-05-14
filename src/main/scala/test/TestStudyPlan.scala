@@ -36,8 +36,7 @@ object TestStudyPlan {
     def testStudyPlanFactory() = {
         val id = "74813"
         val sp = StudyPlan(id)
-        println(sp.id)
-        sp.courses.take(10).map(_.toShortString).foreach(println)
+        sp.courses.map(_.toShortString).foreach(println)
     }
   
 /*def testGetStudyPlans() = {

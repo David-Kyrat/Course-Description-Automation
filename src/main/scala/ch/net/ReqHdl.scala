@@ -130,14 +130,6 @@ object ReqHdl {
         val r1 = studyPlan(size = size).apply().jsonObj
         val totPage = r1.getAsJsObj("_page").getAsInt("totalPages")
         val reqAmount = totPage
-
-            /* val responses = (0 until reqAmount)
-                .toVector
-                .view
-                .par
-                .flatMap(pageNb => toJsonObject(request(sp(size, pageNb))).getAsScalaJsObjIter("_data"))
-            responses */
-
         (0 until reqAmount)
             .toVector
             .par
