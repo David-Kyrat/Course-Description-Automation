@@ -1,21 +1,22 @@
 package ch
 
+import ch.Helpers.JsonArrayOps
+import ch.Helpers.JsonObjOps
 import ch.net.ReqHdl
 import ch.net.Resp
-import ch.Helpers.{JsonArrayOps, JsonObjOps}
 import ch.net.exception.StudyPlanNotFoundException
-
+import com.google.gson.JsonArray
 import com.google.gson.JsonElement
+import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 
 import java.nio.file.Path
-import scala.collection.parallel.immutable.ParVector
+import scala.collection.View
+import scala.collection.immutable.HashMap
 import scala.collection.parallel.CollectionConverters._
+import scala.collection.parallel.immutable.ParVector
 
 import Utils.{crtYear, r}
-import com.google.gson.JsonArray
-import scala.collection.immutable.HashMap
-import com.google.gson.JsonNull
 
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
@@ -46,13 +47,14 @@ object StudyPlan {
       "Maîtrise univ. en" -> "Master",
       "Maîtrise univ." -> "Master",
       "(en cours de saisie)" -> "",
-      " ès " -> " "
+      " ès " -> " ",
+      " </I>" -> ""
     )
 
     /**
-     * @return All StudyPlans of current year as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
+     * @return All StudyPlans of current year (i.e. `Utils.crtYear`) as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
      */
-    lazy val all: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector // slow avoid using it (even parallelized & optimized)
+    lazy val ALL: Vector[JsonObject] = ReqHdl.AllStudyPlan().filter(sp => getYear(sp) == crtYear).toVector // slow avoid using it (even parallelized & optimized)
 
     /**
      * @param id String, id of studyPlan, if `year` is not given => id must be the exact
@@ -74,9 +76,9 @@ object StudyPlan {
     }
 
     private def getYear(jsonObj: JsonObject): Int = jsonObj.get("academicalYear").getAsInt
-    import scala.util.{Try, Success, Failure}
+    /* import scala.util.{Try, Success, Failure}
 
-    private def getYearTry(jsonObj: JsonObject): Try[Int] = Try(jsonObj.get("academicalYear").getAsInt)
+    private def getYearTry(jsonObj: JsonObject): Try[Int] = Try(jsonObj.get("academicalYear").getAsInt) */
 
     /**
      * Apply cleanings defined in `cleaningsToApply`
@@ -97,7 +99,6 @@ object StudyPlan {
       "the",
       "ès",
       "&",
-      "</I>",
       "la",
       "le",
       "l'",
@@ -153,7 +154,7 @@ object StudyPlan {
      * @param input to uniquify i.e. Vector of the form `(abbrev, (id, cleanName))`
      * @return uniquified vector
      */
-    private def uniquifyAbbrev(input: Vector[(String, (String, String))]): Vector[(String, (String, String))] = {
+    private def uniquifyAbbrev(input: View[(String, (String, String))]): View[(String, (String, String))] = {
         var counts = Map[String, Int]()
         input.map { case (abbrev, (id, cleanName)) =>
             val count = counts.getOrElse(abbrev, 0)
@@ -173,7 +174,7 @@ object StudyPlan {
      *
      * @return Sorted Vector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
      */
-    private def getAbbreviationsUniquifiedSorted(): Vector[(String, (String, String))] = uniquifyAbbrev(getAbbreviations.toVector.sortBy(_._2._2))
+    private def getAbbreviationsUniquifiedSorted(): Vector[(String, (String, String))] = uniquifyAbbrev(getAbbreviations.seq.view.distinctBy(_._2._2)).toVector.sortBy(_._2._2)
 
     // WARNING: Field "fullFormationLabel" or "formationLabel" are not present everywhere in the database use "label" instead
 
@@ -191,17 +192,6 @@ object StudyPlan {
             .AllStudyPlan()
             .filter(sp => getYear(sp) == crtYear)
             .map(sp => extractAbbrev(cleanSpName(Utils.tryOrElse(() => sp.getAsStr("fullFormationLabel"), () => sp.getAsStr("label"), false)), sp.getAsStr("entityId")))
-    }
-
-    // TODO:  TEST THIS!!
-/
-    def removeDuplicates(input: Vector[(String, (String, String))]): Vector[(String, (String, String))] = {
-        input
-            .foldLeft(Set.empty[String], Vector.empty[(String, (String, String))]) { case ((seen, acc), (first, (second1, second2))) =>
-                if (seen.contains(first)) (seen, acc) // Skip if we have seen the first element before
-                else (seen + first, acc :+ (first, (second1, second2))) // Add to the accumulator if first element is unique
-            }
-            ._2
     }
 
     /**

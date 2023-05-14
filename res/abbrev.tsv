@@ -1,6 +1,6 @@
 Annee d'immersion	AD	77253
 Année propédeutique	AP	77252
-Bachelor (Bachelor of Arts, BA) - Archéologie préhistorique </I> et anthropologie	BABAPA	76536
+Bachelor (Bachelor of Arts, BA) - Archéologie préhistorique et anthropologie	BABAPA	76536
 Bachelor en archéologie préhistorique	BAP	73759
 Bachelor en biologie	BB	73758
 Bachelor en chimie	BC	73737
@@ -27,15 +27,15 @@ Bachelor en systèmes d'information et science des services	BSDSS	77473
 Bachelor en théologie	BT	76945
 Bachelor en théologie (formation à distance)	BTAD	76946
 Bachelor en économie et management	BEM	76556
-Bachelor lettres/Archéologie classique	BLC	75271
-Bachelor lettres/Egyptologie et copte	BLC1	75319
+Bachelor lettres/Archéologie classique	BLC1	75271
+Bachelor lettres/Egyptologie et copte	BLC2	75319
 Bachelor lettres/Français langue étrangère	BLLE	76459
 Bachelor lettres/Histoire ancienne	BLA	75002
 Bachelor lettres/Histoire de l'art	BLL	76134
 Bachelor lettres/Histoire et anthropologie des religions	BLAR	75035
 Bachelor lettres/Histoire et civilisation du Moyen Age	BLCMA	76324
 Bachelor lettres/Histoire générale	BLG	75962
-Bachelor lettres/Hébreu	BL	76512
+Bachelor lettres/Hébreu	BL3	76512
 Bachelor lettres/Informatique pour les sciences humaines	BLPLSH	74084
 Bachelor lettres/Langue et littérature anglaises	BLLA	74275
 Bachelor lettres/Langue et littérature arméniennes	BLLA1	74627
@@ -48,12 +48,12 @@ Bachelor lettres/Langue, littérature et civilisation arabes	BLLCA1	74463
 Bachelor lettres/Langue, littérature et civilisation grecques modernes	BLLCGM	74515
 Bachelor lettres/Langue, littérature et culture hispaniques	BLLCH	74326
 Bachelor lettres/Langues et littératures françaises et latines médiévales	BLLFLM	74003
-Bachelor lettres/Linguistique	BL1	74034
-Bachelor lettres/Littérature comparée	BLC2	76290
+Bachelor lettres/Linguistique	BL	74034
+Bachelor lettres/Littérature comparée	BLC4	76290
 Bachelor lettres/Musicologie	BL2	76242
-Bachelor lettres/Philosophie	BL3	75877
-Bachelor lettres/Études chinoises	BLC3	74708
-Bachelor lettres/Études classiques	BLC4	75421
+Bachelor lettres/Philosophie	BL1	75877
+Bachelor lettres/Études chinoises	BLC	74708
+Bachelor lettres/Études classiques	BLC3	75421
 Bachelor lettres/Études japonaises	BLJ	74740
 Bachelor lettres/Études mésopotamiennes	BLM	75377
 Bachelor lettres/Études russes	BLR	74540
@@ -101,7 +101,6 @@ Master en archéologie préhistorique	MAP	73693
 Master en astrophysique	MA	73695
 Master en biochimie	MB	73739
 Master en biologie	MB1	73760
-Master en biologie	MB2	77661
 Master en biologie chimique	MBC	73740
 Master en business analytics	MBA	76560
 Master en chimie	MC	73738
@@ -120,11 +119,9 @@ Master en gestion de patrimoine	MGP	76565
 Master en géographie politique et culturelle	MGPC	76714
 Master en histoire économique internationale	MHEI	76715
 Master en innovation, développement humain et durabilité	MIDHD	76725
-Master en innovation, développement humain et durabilité	MIDHD1	76727
 Master en interprétation de conférence	MIC	77219
 Master en journalisme et communication, orientation médias et communication digitale	MJCOMCD	77601
-Master en journalisme et communication, orientation médias et communication digitale	MJCOMCD1	76716
-Master en logopédie	ML	76995
+Master en logopédie	ML3	76995
 Master en management public	MMP	76717
 Master en management responsable	MMR	76558
 Master en mathématiques	MM	73727
@@ -132,11 +129,10 @@ Master en mathématiques, informatique et sciences numériques	MMISN	73728
 Master en médecine dentaire	MMD	73887
 Master en médecine humaine	MMH	73874
 Master en négoce des matières premières	MNMP	76563
-Master en négoce des matières premières	MNMP1	76564
-Master en pharmacie	MP	73838
-Master en physique	MP1	73689
+Master en pharmacie	MP1	73838
+Master en physique	MP	73689
 Master en psychologie	MP2	76997
-Master en santé globale	MSG	77366
+Master en santé globale	MSG1	77366
 Master en science politique	MSP	76718
 Master en sciences biomédicales	MSB	73839
 Master en sciences de l'environnement	MSL	73691
@@ -145,15 +141,12 @@ Master en sciences de l'éducation Analyse et intervention dans les systèmes é
 Master en sciences de l'éducation Approches psycho-éducatives et situations de handicap	MSLAPSH	77155
 Master en sciences et technologies de l'apprentissage et de la formation	MSTLF	77206
 Master en sciences informatiques	MSI	73711
-Master en sciences informatiques	MSI1	73712
 Master en sciences économiques	MSE	76562
-Master en sociologie	MS	76720
-Master en sociologie	MS1	76721
-Master en socioéconomie	MS2	76719
+Master en sociologie	MS2	76720
+Master en socioéconomie	MS1	76719
 Master en sociétés durables et changement social	MSDCS	77561
 Master en standardisation, régulation sociale et développement durable	MSRSDD	76723
-Master en standardisation, régulation sociale et développement durable	MSRSDD1	76724
-Master en statistique	MS3	76559
+Master en statistique	MS	76559
 Master en systèmes et services numériques	MSSN	77474
 Master en théologie	MT	76947
 Master en traduction spécialisée	MTS	77221
@@ -165,10 +158,9 @@ Master en études européennes Orientation Global Europe	MEEOGE	77415
 Master en études genre	MEG	76713
 Master interdisciplinaire en droits de l'enfant	MIDL	77462
 Master interdisciplinaire en neurosciences	MIN	73872
-Master interdisciplinaire en neurosciences	MIN1	76996
-Master lettres avec spécialisation/Archéologie classique	MLASC	75273
+Master lettres avec spécialisation/Archéologie classique	MLASC1	75273
 Master lettres avec spécialisation/Dramaturgie et Histoire du Théâtre	MLASHT	73985
-Master lettres avec spécialisation/Egyptologie et copte	MLASC1	75321
+Master lettres avec spécialisation/Egyptologie et copte	MLASC2	75321
 Master lettres avec spécialisation/Histoire ancienne	MLASA	75004
 Master lettres avec spécialisation/Histoire et anthropologie des religions	MLASAR	75037
 Master lettres avec spécialisation/Histoire et théorie de l'art et de l'architecture	MLASTLL	76235
@@ -177,7 +169,7 @@ Master lettres avec spécialisation/Langue et littérature grecques	MLASLG	74815
 Master lettres avec spécialisation/Langue et littérature latines	MLASLL	74937
 Master lettres avec spécialisation/Littérature et savoirs	MLASS	74263
 Master lettres avec spécialisation/Littératures et cultures suisses	MLASCS	74264
-Master lettres avec spécialisation/Méthodes de la Critique	MLASC2	74417
+Master lettres avec spécialisation/Méthodes de la Critique	MLASC	74417
 Master lettres avec spécialisation/Philosophie antique et médiévale	MLASAM	75942
 Master lettres avec spécialisation/Philosophie contemporaine	MLASC3	75941
 Master lettres avec spécialisation/Philosophie des sciences	MLASS1	75943
@@ -185,8 +177,8 @@ Master lettres avec spécialisation/Production des savoirs historiques	MLASSH	76
 Master lettres avec spécialisation/Recherche et critique en études hispaniques	MLASCEH	74365
 Master lettres avec spécialisation/Études Est-Asiatiques	MLASE	74774
 Master lettres avec spécialisation/Études mésopotamiennes	MLASM	75379
-Master lettres/Archéologie classique	MLC	75272
-Master lettres/Egyptologie et copte	MLC1	75320
+Master lettres/Archéologie classique	MLC1	75272
+Master lettres/Egyptologie et copte	MLC2	75320
 Master lettres/Français langue étrangère	MLLE	76460
 Master lettres/Histoire ancienne	MLA	75003
 Master lettres/Histoire de l'art	MLL	76135
@@ -203,15 +195,15 @@ Master lettres/Langue et littérature latines	MLLL	74936
 Master lettres/Langue, littérature et civilisation allemandes	MLLCA	74147
 Master lettres/Langue, littérature et civilisation arabes	MLLCA1	74464
 Master lettres/Langue, littérature et culture hispaniques	MLLCH	74327
-Master lettres/Linguistique	ML1	74035
-Master lettres/Littérature comparée	MLC2	76291
+Master lettres/Linguistique	ML	74035
+Master lettres/Littérature comparée	MLC4	76291
 Master lettres/Musicologie	ML2	76243
-Master lettres/Philosophie	ML3	75878
-Master lettres/Études chinoises	MLC3	74709
-Master lettres/Études classiques	MLC4	75422
+Master lettres/Philosophie	ML1	75878
+Master lettres/Études chinoises	MLC	74709
+Master lettres/Études classiques	MLC3	75422
 Master lettres/Études japonaises	MLJ	74741
-Master lettres/Études médiévales	MLM	76380
-Master lettres/Études mésopotamiennes	MLM1	75378
+Master lettres/Études médiévales	MLM1	76380
+Master lettres/Études mésopotamiennes	MLM	75378
 Master lettres/Études russes	MLR	74541
 Modules d'études genre	MDG	76286
 Modules de langue et civilisation coréennes	MLCC	74706
@@ -219,6 +211,6 @@ Modules de langue et culture roumaines	MLCR	74325
 Modules de langue et littérature rhétoromanche	MLLR	74324
 Modules de langue portugaise et littératures lusophones	MLPLL	74323
 Modules de recherche	MR	76288
-Modules supplémentaires - grec	MSG1	74816
+Modules supplémentaires - grec	MSG	74816
 Modules supplémentaires - latin	MSL1	74938
 Séminaires avancés de la Section de mathématiques	SASM	73725

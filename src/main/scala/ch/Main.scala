@@ -77,7 +77,7 @@ object Main {
 
 
     def getSps() = {
-        val x = StudyPlan.all
+        val x = StudyPlan.ALL
         val json = Resp.gson.toJson(x.asJava)
         Utils.write(pathOf(f"all_sp_2022.json"), json)
     }
