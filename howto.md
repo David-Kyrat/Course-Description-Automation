@@ -248,7 +248,7 @@ Not urgent:
 - [ ] link GUI javafx / Rust + markdown generation with scala
 - [x] Fix bug abbreviation screen list
 - [ ] Remove debugging in rust launcher
-
+- [ ] Stop Retrying multiple times on rust app
 
 ***
 

@@ -4,7 +4,7 @@ use log4rs;
 use std::path::{Path, PathBuf};
 use std::{env, io};
 
-pub const RETRY_AMOUNT: u8 = 5;
+pub const RETRY_AMOUNT: u8 = 0;
 
 /// # Description
 /// Pops n times given path. and adds sequentially each one in `to_join`
