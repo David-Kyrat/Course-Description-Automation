@@ -46,7 +46,7 @@ final object Utils {
     }
 
     /**
-     * Shorthand for custom datetime format  
+     * Shorthand for custom datetime format
      * @return Current DateTime timestamp
      */
     def now(): String = java.time.LocalDateTime.now.format(DateTimeFormatter.ofPattern("dd/MM/YYYY - HH:mm:ss"))
@@ -119,7 +119,12 @@ final object Utils {
      * Otherwise, do nothing.
      * @param msg Message to log
      */
-    def log(msg: String) = { if (canLog) logWrtr.println(fmtLog(msg)) }
+    def log(msg: String) = {
+        if (canLog) {
+            try { logWrtr.println(fmtLog(msg)) }
+            catch { case _: Throwable => () }
+        }
+    }
 
     /**
      * Writes the `stackTrace` of the given message to the log file located at `res/log/err.log`
@@ -130,9 +135,11 @@ final object Utils {
      */
     def log(err: Exception, additionalMsg: String = "") = {
         if (canLog) {
-            logWrtr.println(fmtLog(f"Exception occured. ${additionalMsg}"))
-            err.printStackTrace(logWrtr)
-            logWrtr.println()
+            try {
+                logWrtr.println(fmtLog(f"Exception occured. ${additionalMsg}"))
+                err.printStackTrace(logWrtr)
+                logWrtr.println()
+            } catch { case _: Throwable => () }
         }
     }
 
@@ -161,8 +168,7 @@ final object Utils {
             resolver()
         } catch {
             case e: Exception => {
-                e.printStackTrace(logWrtr)
-                logWrtr.println(sep)
+                if (canLog) log(e)
                 defaultVal
             }
         }
@@ -184,7 +190,7 @@ final object Utils {
             resolver()
         } catch {
             case e: Exception => {
-                if (canLog && logErr) log(e) 
+                if (canLog && logErr) log(e)
                 defaultVal()
             }
         }
