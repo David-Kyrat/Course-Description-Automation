@@ -26,7 +26,7 @@ object Main {
     lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
 
     def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), Resp.prettify(Course.get(id)))
-    def writeSpDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"sp-$id.json"), Resp.prettify(StudyPlan.get(id)))
+    def writeSpDescToRes(id: String) = Utils.write(pathOf(f"sp-$id.json"), Resp.prettify(StudyPlan.get(id)))
 
     /**
      * Parses the java GUI input which looks something like `[code_1],...,[code_n]#[sp_1],...,[sp_m]`
@@ -91,9 +91,9 @@ object Main {
         try {
             // testAbbrevMap()
             val _args = Array("#BSI,BMISN")
-            // writeSpDescToRes("73710")
+            writeSpDescToRes("73710")
             // __main(_args)
-            testMultipleCourseToMarkdown()
+            // testMultipleCourseToMarkdown()
         } catch {
             case re: ResourceNotFoundException => {
                 System.err.println(re.getMessage())
