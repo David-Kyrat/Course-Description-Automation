@@ -19,6 +19,16 @@ final case class CourseHours(lectures: Int, exercices: Int, practice: Int) {
 
     /** sum throughout the whole semester */
     def semesterSum = sum * 14 // 14 weeks in a semester
+
+    /** @return  format of course i.e. "Course/Exercices" / "Course/Exercices/TP" */
+    def getFormat: String = {
+        val sb = new StringBuilder()
+        val vec = Vector("cours", "exercices", "TP")
+        if (lectures > 0) sb ++= "Cours"
+        if (exercices > 0) sb ++= (if (sb.isEmpty) "Exercices" else ", exercices")
+        if (practice > 0) sb ++= (if (sb.isEmpty) "TP" else ", TP")
+        if (sb.isEmpty) "-" else sb.toString
+    }
 }
 
 object CourseHours {

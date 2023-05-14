@@ -47,7 +47,7 @@ final case class Course(
      Option bc we dont know if its actually in the db (=> need to actually actively search for it)
      plus it must be immutable but need not being given at runtime
      */
-    val format: Option[String] = None
+    val format: String = hoursNb.getFormat
     val preRequisites: Option[Vector[String]] = None
     val usefulFor: Option[Vector[String]] = None
 

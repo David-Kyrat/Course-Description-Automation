@@ -1,10 +1,10 @@
 package ch.io
 
-import ch.{Course, Utils}
-
 import java.io.{BufferedWriter, FileWriter, PrintWriter}
 import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.Path
+
+import ch.{Course, Utils}
 
 object Serializer {
     // Begin and end symbol of yaml header in markdown file
@@ -31,7 +31,7 @@ object Serializer {
     def yamlFmtCursus(course: Course) = {
         val map = course.studyPlan
         val sbld = new StringBuilder("cursus:\n")
-        val credFmt: (Int) => String = c => if (c <= 0) "-" else c.toString // if credits = 0 write a "-" instead
+        val credFmt: (Int) => String = c => if (c <= 0) "\\-" else c.toString // if credits = 0 write a "-" instead
         map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${credFmt(kv._2._1)}}\n")
         sbld.toString
     }
@@ -67,13 +67,7 @@ object Serializer {
           yamlFmt("semester", course.semester),
           yamlFmt("eval_mode", course.evalMode),
           yamlFmt("exa_session", course.semester.session),
-          yamlFmt(
-            "course_format",
-            course.format match {
-                case Some(f) => f
-                case None    => ""
-            }
-          ),
+          yamlFmt("course_format", course.format.replace("-", "\\-")),
           yamlFmtCursus(course),
           yamlMultiLineStr("objective", Utils.sanitize(course.objective)),
           yamlMultiLineStr("description", Utils.sanitize(course.description)),

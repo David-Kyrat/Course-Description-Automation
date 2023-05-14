@@ -91,8 +91,9 @@ object Main {
         try {
             // testAbbrevMap()
             val _args = Array("#BSI,BMISN")
-            writeSpDescToRes("73710")
+            // writeSpDescToRes("73710")
             // __main(_args)
+            testMultipleCourseToMarkdown()
         } catch {
             case re: ResourceNotFoundException => {
                 System.err.println(re.getMessage())
