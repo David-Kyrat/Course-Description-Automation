@@ -1,32 +1,55 @@
 package ch
 
-import com.google.gson.{Gson, GsonBuilder}
-// import spray.json._
+import scala.collection.immutable
+import scala.collection.parallel.immutable.ParVector
+import scala.jdk.CollectionConverters._
+// import scala.language.postfixOps
+import scala.util.{Failure, Success, Try}
 
+import java.io.{BufferedWriter, FileWriter, PrintWriter}
 import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.StandardOpenOption._
 import java.nio.file.{Files, Path}
 import java.time.LocalDate
-import scala.language.postfixOps
-import scala.collection.immutable
-//import DefaultJsonProtocol._
-import java.io.{BufferedWriter, FileWriter, PrintWriter}
-import scala.jdk.CollectionConverters._
-import com.google.gson.JsonElement
-import java.util.Collection
-import scala.collection.Factory
+import java.time.format.DateTimeFormatter
+
 import ch.net.ReqHdl
-import scala.collection.parallel.immutable.ParVector
-import com.google.gson.JsonObject
-import com.google.gson.JsonArray
-import java.time.LocalDateTime
 
 final object Utils {
-    private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
-    private val logPath = Path.of(r("log/err.log")).toAbsolutePath
-    write(logPath, "") // prevents logfile content from getting to big by cleaning it
-    private val errLogPrintWriter = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
+    val LOG_MAX_SIZE = 1000000 // 1MB
+    private lazy val logPath_Try = getLogPath
+    private lazy val logPath = logPath_Try match {
+        case Success(path) => path
+        case Failure(e)    => Path.of("")
+    }
+
+    lazy val canLog = logPath_Try.isSuccess
+    // private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
+    // private val logPath = Path.of(r("log/err.log")).toAbsolutePath
+    // write(logPath, "") // prevents logfile content from getting to big by cleaning it
+    private lazy val logWrtr: PrintWriter = if (canLog) {
+        val pw = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
+        pw.println(String.format("[%s]: --------------------------------------- Run started %s", now(), sep))
+        pw
+    } else null
     private val sep = "---------------------------------------\n\n"
+
+    private def getLogPath: Try[Path] = Try {
+        val path = pathOf("log/err.log").toAbsolutePath
+        val exists = Files.exists(path)
+        if (!exists || Files.size(path) > LOG_MAX_SIZE) {
+            if (exists) Files.delete(path) // delete logs if the'yre too big
+            Files.createDirectories(path.getParent)
+            Files.createFile(path)
+        }
+        path
+    }
+
+    /**
+     * Shorthand for custom datetime format  
+     * @return Current DateTime timestamp
+     */
+    def now(): String = java.time.LocalDateTime.now.format(DateTimeFormatter.ofPattern("dd/MM/YYYY - HH:mm:ss"))
 
     // TODO:
     // FIX:  ADD REAL PATH RESOLVING SIMULATING WHERE THE COMPILED JAR WILL BE
@@ -80,11 +103,39 @@ final object Utils {
      * @return Lastest version for course & study plan information
      * i.e. current year - 1
      */
-    def crtYear: Int = LocalDate.now.getYear - 1
+    lazy val crtYear: Int = LocalDate.now.getYear - 1
 
-    /* def log(msg: String) = {
-        errLogPrintWriter.println(String.format("[%s ]: ", LocalDateTime.now.toString ))
-    } */
+    /**
+     * Define format / i.e. additional information that will be added to each entry in log file
+     * (e.g. date & time etc...)
+     *
+     * @param msg Message to log
+     */
+    private def fmtLog(msg: String) = String.format("[%s]:  %s", now, msg)
+
+    /**
+     * Writes the given message to the log file located at `res/log/err.log`
+     * if there were no error getting/creating it.
+     * Otherwise, do nothing.
+     * @param msg Message to log
+     */
+    def log(msg: String) = { if (canLog) logWrtr.println(fmtLog(msg)) }
+
+    /**
+     * Writes the `stackTrace` of the given message to the log file located at `res/log/err.log`
+     * if there were no error getting/creating it.
+     * Otherwise, do nothing.
+     * @param err `Exception` to get the stackTrace from
+     * @param additionalMsg additional Message to add at the top of the stackTrace
+     */
+    def log(err: Exception, additionalMsg: String = "") = {
+        if (canLog) {
+            logWrtr.println(fmtLog(f"Exception occured. ${additionalMsg}"))
+            err.printStackTrace(logWrtr)
+            logWrtr.println()
+        }
+    }
+
     /**
      * Removes special characters and other that can
      * prevent text from displaying / being read/written properly
@@ -110,8 +161,8 @@ final object Utils {
             resolver()
         } catch {
             case e: Exception => {
-                e.printStackTrace(errLogPrintWriter)
-                errLogPrintWriter.println(sep)
+                e.printStackTrace(logWrtr)
+                logWrtr.println(sep)
                 defaultVal
             }
         }
@@ -134,8 +185,8 @@ final object Utils {
         } catch {
             case e: Exception => {
                 if (log) {
-                    e.printStackTrace(errLogPrintWriter)
-                    errLogPrintWriter.println(sep)
+                    e.printStackTrace(logWrtr)
+                    logWrtr.println(sep)
                 }
                 defaultVal()
             }

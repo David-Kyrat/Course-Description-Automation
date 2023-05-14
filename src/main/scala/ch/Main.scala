@@ -1,26 +1,21 @@
 package ch
 
-// import ch.Resp.
-import ch.Helpers._
-import ch.Utils.crtYear
-import ch.Utils.pathOf
-import ch.Utils.r
-import ch.io.Serializer
-import ch.net.ReqHdl
-import ch.net.Resp
-import ch.net.exception._
-import com.google.gson.JsonArray
-import test.TestCourse
-import test.TestCourse._
-import test.TestStudyPlan
-
-import java.io.File
-import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
 import scala.jdk.CollectionConverters._
 
+// import java.io.File
+// import java.io.{IOException, File}
+import java.nio.file.{Files, Path}
+
+import com.google.gson.JsonArray
+
+import ch.Helpers._
+import ch.Utils.{crtYear, pathOf}
+import ch.net.exception._
+import ch.net.{ReqHdl, Resp}
+
+import test.TestCourse._
+import test.{TestCourse, TestStudyPlan}
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -44,8 +39,8 @@ object Main {
         if (args.length <= 0) { throw new IllegalArgumentException("Usage: course_description_automation.jar <gui_input>") }
         val gui_input: String = args(0);
         val tmp = gui_input.split("#")
-        val courses = tmp(0).split(",").toVector
-        val studyPlans = tmp(1).split(",").toVector
+        val courses = if (!tmp(0).isBlank) tmp(0).split(",").map(_.strip).toVector else Vector.empty
+        val studyPlans = if (!tmp(1).isBlank) tmp(1).split(",").map(_.strip).toVector else Vector.empty
         (courses, studyPlans)
     }
 
@@ -61,6 +56,7 @@ object Main {
         .toSet
         .toMap;
 
+    /** 'temporary' Main that parses user input and call 'real' main see `_main(Vector[String], Vector[String])` */
     def __main(args: Array[String]) = {
         var tmp = parseGuiInput(args)
         val course: Vector[String] = tmp._1
@@ -68,34 +64,42 @@ object Main {
         _main(course, sps)
     }
 
+    /** 'real' Main with parsed user input */
     def _main(courseCodes: Vector[String], sps: Vector[String]) = {
-        val courses: Vector[Course] = courseCodes.map(Course(_))
-        courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
+        if (!courseCodes.isEmpty) {
+            val courses: Vector[Course] = courseCodes.map(Course(_))
+            courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
+        }
+        if (!sps.isEmpty) {
+            println(sps)
+            for (sp <- sps) {
+                val kv = abbrevMap(sp)
+                println((String.format("{\n\tabbrev: %s\n\tid : %s\n\tname: %s\n}", sp, kv._1, kv._2)))
+            }
+        }
     }
 
     def testAbbrevMap() {
         val abbrevMap = getAbbrevMap()
         // println(abbrevMap("BSI"))
-        abbrevMap.values.foreach(kv => println(String.format("{\n\tid : %s,\n\tname: %s\n}", kv._1, kv._2)))
+        abbrevMap.values.foreach(kv => println(String.format("{\n\tid : %s\n\tname: %s\n}", kv._1, kv._2)))
     }
-
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
-
-        // TODO: print error message to stderr so that rust app can extract it into an error window
-        // TODO: GET BACK LOGGING FUNCTIONS FROM MASTER
         try {
-            testAbbrevMap()
-            // __main(args)
+            // testAbbrevMap()
+            val _args = Array("#BSI,BMISN")
+            __main(_args)
         } catch {
             case re: ResourceNotFoundException => {
                 System.err.println(re.getMessage())
+                Utils.log(re)
                 System.exit(1)
             }
             case err: Exception => {
                 System.err.println("An unexpected Error happened. Please try again.")
-                //err.printStackTrace()
+                Utils.log(err)
                 System.exit(1)
             }
         }
