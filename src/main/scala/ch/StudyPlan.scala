@@ -234,16 +234,28 @@ object StudyPlan extends (String => StudyPlan) {
      *
      * @return Collection of
      */
-    private def extracListTeachings(obj: JsonObject): mutable.ListBuffer[String] = {
-
+    private def extracListTeachings(obj: JsonObject) = {
         /**
          * @param jsObj current 'subtree' to explore
          * @param acc Accumulator, stores the `"listTeaching" : [ ... ]`
          */
-        def extractLtRec(jsObj: JsonObject, acc: mutable.ListBuffer[JsonArray]) = { 
-
+        def extractLtRec(jsObj: JsonObject, acc: mutable.ListBuffer[JsonArray]): Unit = {
+            // val children: JsonArray = Utils.tryOrElse(() => jsObj.getAsJsonArray("children"), () => null)
+            val children: JsonArray = jsObj.getAsJsonArray("children")
+            if (children.isEmpty) {
+                val lt = jsObj.getAsJsonArray("listTeaching")
+                if (!lt.isEmpty) acc += lt
+                return
+            } else {
+                children.forEach(child => extractLtRec(child.getAsJsonObject, acc))
+            }
         }
-        null
+        
+        val listTeachings = mutable.ListBuffer[JsonArray]()
+        extractLtRec(obj, listTeachings)
+        val x = listTeachings.to(LazyList).flatMap(extractCourses(_))
+        // val y = listTeachings.par.flatMap(extractCourses(_)) //compare speed
+        x
     }
 
     /**
@@ -258,10 +270,8 @@ object StudyPlan extends (String => StudyPlan) {
      */
     @throws(classOf[StudyPlanNotFoundException])
     override def apply(id: String): StudyPlan = {
-        val obj = get(id)
-        val x = mutable.ListBuffer[JsonArray]()
-        val y = x.flatMap(extractCourses(_))
-
-        null
+        val obj: JsonObject = get(id)
+        val courses: ParVector[Course] = extracListTeachings(obj).par.map(Course(_)).to(ParVector)
+        new StudyPlan(id, courses)
     }
 }

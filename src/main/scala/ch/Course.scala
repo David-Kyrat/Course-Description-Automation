@@ -61,6 +61,8 @@ final case class Course(
      *  - empty "body"
      */
     def saveToMarkdown() = Serializer.courseToMarkdown(this)
+
+    def toShortString() = f"$id-$title" //String.format("%s - %s }", id, title)
 }
 
 object Course extends ((String, Int) => Course) {

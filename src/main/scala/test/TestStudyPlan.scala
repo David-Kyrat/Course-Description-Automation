@@ -32,6 +32,13 @@ object TestStudyPlan {
         val json = Resp.gson.toJson(x.asJava)
         Utils.write(pathOf(f"all_sp_2022.json"), json)
     }
+
+    def testStudyPlanFactory() = {
+        val id = "74813"
+        val sp = StudyPlan(id)
+        println(sp.id)
+        sp.courses.take(10).map(_.toShortString).foreach(println)
+    }
   
 /*def testGetStudyPlans() = {
         val bs = Using(Source.fromURL(f"${ReqHdl.baseUrl}/$descIpa22"))

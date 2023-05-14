@@ -174,20 +174,17 @@ final object Utils {
      *
      * @param resolver, function to try
      * @param defaultVal function that returns a default value when an exception happened
-     * @param log whether to log the error
+     * @param logErr whether to log the error
      * (NB: it's important to pass in a function otherwise the default value will be computed when this method is called)
      *
      * @return see above
      */
-    def tryOrElse[T](resolver: Function0[T], defaultVal: () => T, log: Boolean = true): T = {
+    def tryOrElse[T](resolver: Function0[T], defaultVal: () => T, logErr: Boolean = true): T = {
         try {
             resolver()
         } catch {
             case e: Exception => {
-                if (log) {
-                    e.printStackTrace(logWrtr)
-                    logWrtr.println(sep)
-                }
+                if (canLog && logErr) log(e) 
                 defaultVal()
             }
         }

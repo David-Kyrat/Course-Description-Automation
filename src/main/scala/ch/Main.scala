@@ -16,6 +16,7 @@ import ch.net.{ReqHdl, Resp}
 
 import test.TestCourse._
 import test.{TestCourse, TestStudyPlan}
+import test.TestStudyPlan._
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -91,7 +92,9 @@ object Main {
         try {
             // testAbbrevMap()
             val _args = Array("#BSI,BMISN")
-            writeSpDescToRes("73710")
+            testStudyPlanFactory()
+
+            // writeSpDescToRes("73710")
             // __main(_args)
             // testMultipleCourseToMarkdown()
         } catch {
