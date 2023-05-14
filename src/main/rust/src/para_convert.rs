@@ -48,21 +48,6 @@ fn get_resources_path() -> io::Result<(String, String, String, String)> {
         abs_path_clean(md),
         abs_path_clean(templates),
     ))
-
-    // let mut rust_exe_path = current_exe_path();
-    // rust_exe_path.pop(); // /res/bin-converters
-    // let exes_path: String = abs_path_clean(rust_exe_path.clone());
-    //
-    // rust_exe_path.pop(); // /res
-    // let res_path: PathBuf = rust_exe_path;
-    // let res_path: String = abs_path_clean(&res_path);
-    //
-    // Ok((
-    //     exes_path.to_owned() + "\\pandoc.exe",
-    //     exes_path + "\\wkhtmltopdf.exe",
-    //     res_path.to_owned() + "\\md",
-    //     res_path + "\\templates",
-    // ))
 }
 
 /// # Description
@@ -109,8 +94,8 @@ fn pandoc_fill_template(
     } else {
         let msg = &format!(
             "pandoc_fill_template: Could not generate html file {md_path}\\{md_filename} \n
-            ||  template: {templates_path}    ||  md_path: {md_path}       ||   templates_path: {templates_path}        
-            ||  pandoc_path: {pandoc_path}"
+            \n||  template: {templates_path}    \n||  md_path: {md_path}       \n||   templates_path: {templates_path}        
+            \n||  pandoc_path: {pandoc_path}"
         );
         Err(custom_io_err(msg))
     }
@@ -279,18 +264,16 @@ fn pandoc_md_to_pdf(
         exec_res
     };
 
-    if !(out_pdf.exists() && exec_res.is_ok()) {
-        dbg!(&out_pdf);
-        println!("does not exists\n");
-    }
-
     if out_pdf.exists() && exec_res.is_ok() {
         Ok(out_pdf)
     } else {
+        let er = if !out_pdf.exists() { "".to_owned() } else { format!("\n{:?}", &exec_res) };
         let msg = &format!(
-            "pandoc_md_to_pdf: Could not generate pdf file of {md_path}\\{md_filename}
+            "pandoc_md_to_pdf: PDF Not generated: {md_path}\\{md_filename} {er}
+            ---------------------------------------------------------------
             \n|| template: {template_s}    \n||  md_path: {md_path}       \n||  templates_path: {templates_path}        
-            \n||  pandoc_path: {pandoc_path}    \n||  css_path: {css_path_s}    \n||  out_pdf: {out_pdf_s}"
+            \n||  pandoc_path: {pandoc_path}    \n||  css_path: {css_path_s}    \n||  out_pdf: {out_pdf_s}",
+
         );
         error!("{}", &msg);
         Err(custom_io_err(msg))

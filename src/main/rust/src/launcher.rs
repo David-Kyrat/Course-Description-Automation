@@ -137,11 +137,14 @@ pub fn main() -> io::Result<()> {
             exit(0);
         }
     }
-    let err_msg: Option<String> = para_convert::main()
-        .err()
-        .map(|e| format!("The following error happened.\n  \"{}\"", e));
-    dbg!(&err_msg);
-    // let err_msg: Option<String> = None;
+    let main_result = para_convert::main();
+    
+    if main_result.is_err() {
+        let err_msg = main_result
+            .err()
+            .map(|e| format!("The following error happened.\n  \"{}\"", e));
+        dbg!(&err_msg);
+    }
 
     // convert to pdf
     let success = err_msg.is_none();
