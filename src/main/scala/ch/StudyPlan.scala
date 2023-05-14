@@ -37,12 +37,13 @@ object StudyPlan {
     val abbrevFilePath: Path = Utils.pathOf("abbrev.tsv")
 
     /** WARN: APPLY LINEARLY IN ORDER! */
-    private lazy val cleaningsToApply = Vector("Baccalauréat universitaire en" -> "Bachelor en", 
-        "Maîtrise universitaire en" -> "Master en", 
-        "Maîtrise universitaire" -> "Master",
-        "Maîtrise univ. en" -> "Master",
-        "Maîtrise univ." -> "Master"
-        )
+    private lazy val cleaningsToApply = Vector(
+      "Baccalauréat universitaire en" -> "Bachelor en",
+      "Maîtrise universitaire en" -> "Master en",
+      "Maîtrise universitaire" -> "Master",
+      "Maîtrise univ. en" -> "Master",
+      "Maîtrise univ." -> "Master"
+    )
 
     /**
      * @return All StudyPlans of current year as a vector of `JsonArray` (i.e. extract the array in the '_data' field for each 'response page')
@@ -85,7 +86,12 @@ object StudyPlan {
         crt
     }
 
-    private val toSkip: Set[String] = Set("de", "d'", "du", "en", "aux", "au", "des", ",", ";", "\"", "'", "-", ".", "_", "'", "/", "")
+    private lazy val toSkip: Set[String] = Set("of", "in", "for", "the", "ès", "&", "</I>", "la", "le", "l'", "de", "d'", "du", "et", "en", "aux", "au", "des", ",", ";", ":", "\"", "'", "-", ".", "_", "'", "/", "", "<", "(", ")")
+    private lazy val postCleanDelete: Set[Char] = Set('<', '(', ')', ':', '>', ';', '/', '>')
+    private lazy val postCleanReplace: Map[Char, Char] = HashMap('À' -> 'A', 'È' -> 'E', 'É' -> 'E')
+    // private lazy val postCleanReplaceKeys = postCleanReplace.keySet
+
+    // TODO: ADD INDEX TO MAKE abbrevations UNIQUE
 
     /**
      * Extract Pair of information to be added to a Map.
@@ -97,7 +103,10 @@ object StudyPlan {
      * @return Pair `(Abbreviation, Id, Clean_SudyPlan_Name)`
      */
     private def extractAbbrev(cleanSpName: String, id: String): (String, (String, String)) =
-        (cleanSpName.split(" ").view.filterNot(toSkip.contains).map(_.head.toUpper).mkString, (id, cleanSpName))
+        (cleanAbbrev(cleanSpName.split(" ").view.filterNot(toSkip.contains).map(_.head.toUpper).mkString), (id, cleanSpName))
+
+    /** Clean any potential residual junk from abbreviation */
+    private def cleanAbbrev(abbrev: String): String = abbrev.view.filterNot(postCleanDelete.contains).map(c => postCleanReplace.getOrElse(c, c)).mkString
 
     // NOTE: This method will only be called to create `abbrev.tsv` later on the map will be created by just reading that file
 
@@ -124,28 +133,11 @@ object StudyPlan {
      * @return ParVector of abbrevations i.e. each element is of the form `(Abbreviation, (Id, Clean_SudyPlan_Name))`
      */
     private def getAbbreviations(): ParVector[(String, (String, String))] = {
-        val x: ParVector[Try[Int]] = ReqHdl.AllStudyPlan().map(getYearTry(_))
-        val failure = x.filter(_.isFailure)
-        println(f" Length of studyplan without year: " + failure.length)
-        println("-------------------------------\n")
-        // System.exit(1)
         ReqHdl
             .AllStudyPlan()
             .filter(sp => getYear(sp) == crtYear)
             .map(sp => extractAbbrev(cleanSpName(sp.get("label").getAsString), sp.get("entityId").getAsString))
-            // .map(sp => extractAbbrev(cleanSpName(sp.get("label").getAsString), ""))
     }
-    /* .toVector
-            .sortBy(_._2._2) */
-    /* val allCrtYear: Iterable[JsonObject] = all.getAsScalaJsObjIter.filter(sp => getYear(sp) == crtYear)
-        allCrtYear
-            .to(ParVector)
-            .map(sp =>
-                    extractAbbrev(
-                        cleanSpName(sp.get("fullFormationLabel").getAsString),
-                        sp.get("entityId").getAsString
-                    )
-                ) */
 
     /**
      * Create content of `abbrev.tsv`.
