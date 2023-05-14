@@ -242,14 +242,15 @@ Not urgent:
 
 2. Finish
 
-- [ ] Fix scala logging
-- [ ] Handle exception on wrong user input or course not found
-- [ ] Parsing de plan d'études
+- [x] Fix scala logging
+- [x] Handle exception on wrong user input or course not found
+- [x] Parsing de plan d'études
 - [ ] link GUI javafx / Rust + markdown generation with scala
 - [x] Fix bug abbreviation screen list
 - [ ] Remove debugging in rust launcher
 - [ ] Stop Retrying multiple times on rust app
 - [ ] Fix bug with analysis 1 having no study plan
+- [ ] Widden study plan table. currently hide some name
 
 ***
 
