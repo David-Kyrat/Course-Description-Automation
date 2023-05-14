@@ -1,6 +1,7 @@
 package ch
 
 // import ch.Resp.
+import ch.Helpers._
 import ch.Utils.crtYear
 import ch.Utils.pathOf
 import ch.Utils.r
@@ -8,8 +9,7 @@ import ch.io.Serializer
 import ch.net.ReqHdl
 import ch.net.Resp
 import ch.net.exception._
-import ch.Helpers._
-
+import com.google.gson.JsonArray
 import test.TestCourse
 import test.TestCourse._
 import test.TestStudyPlan
@@ -19,8 +19,8 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
-import com.google.gson.JsonArray
 import scala.jdk.CollectionConverters._
+
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -52,7 +52,7 @@ object Main {
     /**
      * Reads file at `res/abbrev.tsv` i.e. list of assocations ("study plan", ("abbreviation", "studyplan id"))
      * and parses it into a map.
-     * @return (`studyPlan_abbreviation -> (studyPlan_fullName, studyPlan_id)`) mapping
+     * @return (`studyPlan_abbreviation -> (studyPlan_id, studyPlan_fullName)`) mapping
      */
     private def getAbbrevMap(): Map[String, (String, String)] = Utils
         .readLines(abbrevFilePath)
@@ -75,11 +75,10 @@ object Main {
         courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
     }
 
-
-    def getSps() = {
-        val x = StudyPlan.ALL
-        val json = Resp.gson.toJson(x.asJava)
-        Utils.write(pathOf(f"all_sp_2022.json"), json)
+    def testAbbrevMap() {
+        val abbrevMap = getAbbrevMap()
+        // println(abbrevMap("BSI"))
+        abbrevMap.values.foreach(kv => println(String.format("{\n\tid : %s,\n\tname: %s\n}", kv._1, kv._2)))
     }
 
 
@@ -89,7 +88,8 @@ object Main {
         // TODO: print error message to stderr so that rust app can extract it into an error window
         // TODO: GET BACK LOGGING FUNCTIONS FROM MASTER
         try {
-            StudyPlan.createAbbrevFile()
+
+            testAbbrevMap()
             // getSps()
             // __main(args)
             // writeCoursDecsToRes("14M252")

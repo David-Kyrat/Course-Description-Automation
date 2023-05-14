@@ -1,6 +1,37 @@
 package test
 
+import ch.Helpers._
+import ch.StudyPlan
+import ch.Utils
+import ch.Utils.crtYear
+import ch.Utils.pathOf
+import ch.Utils.r
+import ch.io.Serializer
+import ch.net.ReqHdl
+import ch.net.Resp
+import ch.net.exception._
+import com.google.gson.JsonArray
+import test.TestCourse
+import test.TestCourse._
+
+import java.io.File
+import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.Path
+import scala.collection.parallel.immutable.ParVector
+import scala.jdk.CollectionConverters._
+
 object TestStudyPlan {
+
+    def testCreateAbbrevFile() = {
+        StudyPlan.createAbbrevFile()
+    }
+
+    def getStudyPlans() = {
+        val x = StudyPlan.ALL
+        val json = Resp.gson.toJson(x.asJava)
+        Utils.write(pathOf(f"all_sp_2022.json"), json)
+    }
   
 /*def testGetStudyPlans() = {
         val bs = Using(Source.fromURL(f"${ReqHdl.baseUrl}/$descIpa22"))

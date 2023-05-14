@@ -139,7 +139,7 @@ object StudyPlan {
      *
      * @param cleanSpName Cleaned name for the study plan to get the abbreviated name from
      * @param id study plan id to allow faster access later on
-     * @return Pair `(Abbreviation, Id, Clean_SudyPlan_Name)`
+     * @return Pair `(Abbreviation, ()Id, Clean_SudyPlan_Name)`
      */
     private def extractAbbrev(cleanSpName: String, id: String): (String, (String, String)) =
         (cleanAbbrev(cleanSpName.split(" ").view.filterNot(toSkip.contains).map(_.head.toUpper).mkString), (id, cleanSpName))

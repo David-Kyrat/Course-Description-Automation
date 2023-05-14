@@ -8,6 +8,7 @@ logLevel := Level.Error
 maxErrors := 2
 triggeredMessage := Watched.clearWhenTriggered
 
+// ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
 // Compile / resourceDirectory := resourceDirectory.value
 
 lazy val root = (project in file(".")).settings(
