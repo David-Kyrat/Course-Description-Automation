@@ -19,6 +19,7 @@ object Serializer {
      */
     def yamlFmt[T](key: String, value: T): String = f"$key: $value"
 
+    // unused
     def yamlFmTOpt[T](key: String, value: Option[T]) =
         value match {
             case Some(t) => f"$key: $t"
@@ -30,26 +31,17 @@ object Serializer {
      * i.e. Do nothing if `Option` is None and writes the "regular"
      * serialization on extracted object to `wr` if it is `Some`
      *
-     * @param wr `PrintWriter` to write to
+     * @param wr `BufferedWriter` to write to
      * @param course course to extract optional fields from
      */
-    def yamlWriteCourseOpt(wr: PrintWriter, course: Course) = {
-        val opts: ArraySeq[(String, Object)] = ArraySeq(("prerequisite", course.prerequisites), ("various", course.various), ("comments", course.comments))
-        // val keys = ArraySeq("prerequisite", "various", "comments")
-        opts.map(pair =>
+    def yamlWriteCourseOpt(br: BufferedWriter, course: Course) = {
+        val keyOptValuePair: ArraySeq[(String, Object)] = ArraySeq(("prerequisite", course.prerequisites), ("various", course.various), ("comments", course.comments))
+        keyOptValuePair.map(pair =>
             pair._2 match {
-                case Some(value) => {
-                    println(String.format("opt: %s,\n value: %s,\n pair: %s\n", pair._2, value, pair))
-                    write(wr, yamlFmtMultiLineStr(pair._1, value.toString))
-                }
-                case None => ()
+                case Some(value) => write(br, yamlFmtMultiLineStr(pair._1, value.toString))
+                case None        => ()
             }
         )
-        /* )
-        course.prerequisites match {
-            case Some(t) => write(wr, yamlFmtMultiLineStr("prerequisite", t.toString))
-            case None    => ()
-        } */
     }
 
     /**
@@ -64,7 +56,7 @@ object Serializer {
         sbld ++= indent
         val lines = value.strip().replace("\n", f"\n$indent")
         sbld ++= lines
-        sbld.toString // .stripTrailing()
+        sbld.toString
     }
 
     def yamlFmtCursus(course: Course) = {
@@ -76,10 +68,10 @@ object Serializer {
     }
 
     /** Buffered writing */
-    private def write(wr: PrintWriter, content: String) = { wr.print(content + "\n") }
+    private def write(br: BufferedWriter, content: String) = { br.write(content + "\n") }
 
     /** Buffered writing */
-    private def writes(wr: PrintWriter, contents: String*) = for (s <- contents) write(wr, s)
+    private def writes(br: BufferedWriter, contents: String*) = for (s <- contents) write(br, s)
 
     /**
      * Serialize a `Course` into a markdown file that can be used to fill
@@ -94,9 +86,8 @@ object Serializer {
     def courseToMarkdown(course: Course) = {
         val name = f"desc-${course.year}-${course.id}.md"
         val path = Path.of(f"res/md/$name")
-        val wr = new PrintWriter(new BufferedWriter(new FileWriter(path.toAbsolutePath.toString, UTF_8)), true)
-        // Just returns the Writer at the end
-        def write(content: String) = { wr.print(content + "\n") }
+        val br = new BufferedWriter(new FileWriter(path.toAbsolutePath.toString, UTF_8))
+        def write(content: String) = br.write(content + "\n")
         def writes(contents: String*) = for (s <- contents) write(s)
 
         write(yamlHeaderSep)
@@ -116,14 +107,10 @@ object Serializer {
           yamlFmtCursus(course),
           yamlFmtMultiLineStr("objective", Utils.sanitize(course.objective)),
           yamlFmtMultiLineStr("description", Utils.sanitize(course.description))
-          /* yamlFmtMultiLineStr("various", Utils.sanitize(course.various)),
-          yamlFmtMultiLineStr("comments", Utils.sanitize(course.comments)) */
         )
-        yamlWriteCourseOpt(wr, course)
+        yamlWriteCourseOpt(br, course)
         write(yamlHeaderSep)
-        wr.flush()
-        wr.close
+        br.flush
+        br.close
     }
-
-    //
 }
