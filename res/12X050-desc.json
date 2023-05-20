@@ -1,0 +1,122 @@
+{
+  "creation": {},
+  "lastUpdate": {},
+  "resId": "2022-12X050",
+  "entityId": "2022-12X050",
+  "academicalYear": "2022",
+  "code": "12X050",
+  "title": "Formation documentaire",
+  "facultyId": "547",
+  "shortFaculty": "S",
+  "facultyLabel": "Faculté des sciences",
+  "studyLevel": "Bachelor",
+  "activities": [
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "140677",
+      "entityId": "140677",
+      "code": "12X050CX01",
+      "title": "Formation documentaire",
+      "type": "Cours-exercices",
+      "shortType": "CX",
+      "duration": "3.5 heures",
+      "given": true,
+      "displayDuration": "3.5 heures de cours-exercices, automne",
+      "scheduleText": "Cours 1 : 18 nov (Bachelor sc. info)\nCours 2 : 25 nov (Bachelor math, info et sc. num.)\nEvaluation pour tous : 2 déc 2022\nLieu : salles PC 314 et 322 à Battelle",
+      "periodicity": "Automne",
+      "shortPeriodicity": "A",
+      "objective": "- Conduire et documenter des stratégies de recherche dans les bases de données documentaires principales en informatique\n- Rédiger une bibliographie cohérente à l\u0027aide du logiciel Zotero\n- Éviter le plagiat",
+      "description": "- Les différents types de ressources documentaires\n- Les bases de données documentaires principales en informatique (IEEE Xplore, DBLP\u0027)\n- Le logiciel de gestion des références Zotero\n- Citation et plagiat\n",
+      "codeLanguage": "FR",
+      "language": "français",
+      "languageForSearch": "français",
+      "evaluationComment": "Examen pratique",
+      "variousInformation": "Le cours de Formation documentaire de la deuxième année est obligatoire. Une évaluation réussie donne lieu à l\u0027obtention d\u0027un certificat nécessaire à la réussite de la 2ème année de bachelor.",
+      "teachingId": "2022-12X050",
+      "intended": "Bachelor sciences informatiques 2ème année, Bachelor en mathématiques informatiques et sciences numériques",
+      "listenerAccepted": false,
+      "publicAccepted": false,
+      "courses": [],
+      "activityTeachers": [
+        {
+          "creation": {},
+          "lastUpdate": {},
+          "resId": "140677-2022-878286",
+          "entityId": "140677-2022-878286",
+          "activityId": "140677",
+          "personId": "878286",
+          "teacherId": "2022-878286",
+          "teachingId": "2022-12X050",
+          "displayFirstName": "Vincent Laurent",
+          "displayLastName": "Huber",
+          "displayFonction": "Biblioth.-docum.-archiv. spécialiste",
+          "contactInfos": [
+            {
+              "creation": {},
+              "lastUpdate": {},
+              "resId": "13242454",
+              "entityId": "13242454",
+              "teacherId": "878286",
+              "name": "HUBER",
+              "firstName": "VINCENT LAURENT",
+              "title": "M.",
+              "function": "Biblioth.-docum.-archiv. spécialiste",
+              "structure": "BIBLIO - SITE UNI ARVE",
+              "officeNumber": "0032C",
+              "building": "SC2",
+              "phoneNumber": "022 379 61 15",
+              "email": "Vincent.Huber@unige.ch",
+              "buildingName": "Sciences 2",
+              "street": "QUAI ERNEST-ANSERMET 30",
+              "zipCode": "1205",
+              "locality": "GENEVE",
+              "officeName": "SC2 0032C",
+              "visible": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "departments": [
+    {
+      "entityId": "202210238",
+      "teachingId": "2022-12X050",
+      "code": "NDINF",
+      "label": "Département d\u0027informatique"
+    }
+  ],
+  "domains": [],
+  "teachingLinks": [],
+  "listStudyPlan": [
+    {
+      "creation": {},
+      "lastUpdate": {},
+      "resId": "175450",
+      "entityId": "175450",
+      "academicalYear": "2022",
+      "teachingOrder": "40",
+      "planCredits": "0",
+      "teachingId": "2022-12X050",
+      "studyPlanGroupId": "73714",
+      "studyPlanPath": "Baccalauréat universitaire en informatique/2e année",
+      "studyPlanId": "73710",
+      "studyPlanLabel": "Baccalauréat universitaire en informatique",
+      "facultyId": "547",
+      "facultyCode": "S",
+      "facultyLabel": "Faculté des sciences"
+    }
+  ],
+  "_links": {
+    "self": {
+      "href": "https://pgc.unige.ch/main/api/teachings/2022-12X050"
+    },
+    "list": {
+      "href": "https://pgc.unige.ch/main/api/teachings"
+    },
+    "module": {
+      "href": "https://pgc.unige.ch/main/api"
+    }
+  }
+}

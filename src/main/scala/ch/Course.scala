@@ -4,6 +4,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._
 
 import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 
 import ch.Helpers.{JsonElementOps, JsonObjOps}
 import ch.Utils.tryOrElse
@@ -24,7 +25,7 @@ import ch.sealedconcept._
  *
  * @throws CourseNotFoundException
  */
-final case class Course(
+final case class Course private (
   id: String,
   year: Int,
   title: String,
@@ -39,8 +40,11 @@ final case class Course(
   documentation: String,
   authors: Vector[String],
   studyPlan: Map[String, (Int, String)], // Option because i havent found the data relevant to CourseType in the DB yet
-  various: String,
-  comments: String
+  various: Option[String],
+  comments: Option[String],
+  prerequisites: Option[String],
+  listenerAccepted: Option[Boolean],
+  publicAccepted: Option[Boolean]
 ) {
     // val requestUrl = f"$courseUrl/$id-$year"
 
@@ -49,7 +53,12 @@ final case class Course(
      plus it must be immutable but need not being given at runtime
      */
     val format: String = hoursNb.getFormat
-    val preRequisites: Option[Vector[String]] = None
+    // val preRequisites: Option[Vector[String]] = None
+    // var prerequisites: Option[String] = None
+
+    // var listenerAccepted: Option[Boolean] = None
+    // var publicAccepted: Option[Boolean] = None
+
     val usefulFor: Option[Vector[String]] = None
 
     /**
@@ -61,12 +70,11 @@ final case class Course(
      *  - empty "body"
      */
     def saveToMarkdown() = Serializer.courseToMarkdown(this)
+    def toShortString() = f"$id-$title" // String.format("%s - %s }", id, title)
 
-    def toShortString() = f"$id-$title" //String.format("%s - %s }", id, title)
 }
 
 object Course extends ((String, Int) => Course) {
-    import com.google.gson.JsonObject
 
     /**
      * @param id String, i.e. course code, if `year` is not given => id must be the exact urlId (i.e. be of the form `year-code`, e.g. `2022-11X001`)
@@ -151,6 +159,21 @@ object Course extends ((String, Int) => Course) {
     }
 
     /**
+     * @param lectureActivity json object courseObj.activities[0] (activities is a jsonArray)
+     */
+    private def parseOptionals(lectureActivity: JsonObject): (Option[String], Option[Boolean], Option[Boolean]) = {
+        val triple: (Option[String], Option[Boolean], Option[Boolean]) = (
+          tryOrElse(() => Option(lectureActivity.getAsStr("recommended")), () => None),
+          tryOrElse(() => Option(lectureActivity.get("listenerAccepted").getAsBoolean), () => None),
+          tryOrElse(() => Option(lectureActivity.get("publicAccepted").getAsBoolean), () => None),
+        )
+        triple
+        // this.prerequisites = triple._1
+        // this.listenerAccepted = triple._2
+        // this.publicAccepted = triple._3
+    }
+
+    /**
      * Factory methods that builds an Instance of `Course` by fetching data
      * from the http request and parses / resolve its result
      *
@@ -169,6 +192,8 @@ object Course extends ((String, Int) => Course) {
 
         def tryExtract(key: String, default: String = "", jsObj: JsonObject = lectures) =
             tryOrElse(() => jsObj.get(key).getAsString, default)
+        def tryExtractOpt(key: String, default: Option[String] = None, jsObj: JsonObject = lectures) =
+            tryOrElse(() => Some(jsObj.get(key).getAsString), default)
 
         val title = tryExtract("title", "")
         val language = tryExtract("language", "")
@@ -187,12 +212,12 @@ object Course extends ((String, Int) => Course) {
         val hoursNb: CourseHours = tryOrElse(() => resolveCourseHours(activities), () => CourseHours(0, 0, 0)) // default value is 0 everywhere
         val studyPlanNames = tryExtract("intended", "")
         val documentation = tryExtract("bibliography", "")
-        val various = tryExtract("variousInformation", "")
-        val comments = tryExtract("comment", "")
+        val various = tryExtractOpt("variousInformation")
+        val comments = tryExtractOpt("comment")
         val coursType = tryExtract("type", "")
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), () => Vector.empty)
-        lazy val noSp = Map("Pas de cursus" -> (0, "-"))
+        lazy val noSp = Map("No cursus" -> (0, "-"))
         var studPlan: Map[String, (Int, String)] = tryOrElse(
           () => {
               val sp = resolveStudyPlan(jsObj)
@@ -200,7 +225,28 @@ object Course extends ((String, Int) => Course) {
           },
           () => noSp
         )
-        new Course(id, year, title, semester, objective, description, language, faculty, evalMode, hoursNb, documentation, teachers, studPlan, various, comments)
+        val triplOpt = parseOptionals(lectures)
+
+        new Course(
+          id,
+          year,
+          title,
+          semester,
+          objective,
+          description,
+          language,
+          faculty,
+          evalMode,
+          hoursNb,
+          documentation,
+          teachers,
+          studPlan,
+          various,
+          comments,
+          triplOpt._1,
+          triplOpt._2,
+          triplOpt._3
+        )
     }
 
     @throws(classOf[CourseNotFoundException])

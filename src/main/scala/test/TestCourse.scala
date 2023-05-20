@@ -39,6 +39,7 @@ object TestCourse {
         println(coursHours)
     } */
 
+    def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(Utils.pathOf(f"$id-desc.json"), Resp.prettify(Course.get(id)))
     def testNext() = {
         val ipa22Id = f"${crtYear}-11X001"
         val ipa22Req = ReqHdl.course(f"$ipa22Id?size=1000")
@@ -77,6 +78,24 @@ object TestCourse {
             val course = Course(code)
             println(f"converting $code to markdown")
             course.saveToMarkdown()
+            println(f"> $code done.\n-------\r\n")
+        })
+    }
+
+    def testCourseOptional() = {
+        val codes = Vector("12M040", "11X001", "13M016A", "14M252", "12X050", "14P017")
+        codes.foreach(code => {
+            println(f"Building course $code")
+            val course = Course(code)
+            val triple = (
+                course.prerequisites,
+                course.listenerAccepted,
+                course.publicAccepted
+                )
+            println(f"preqreq:\n\t${ triple._1 }")
+            println(f"list_accepted:\n\t${ triple._2 }")
+            println(f"public_accepted:\n\t${ triple._2 }")
+            // writeCoursDescToRes(code)
             println(f"> $code done.\n-------\r\n")
         })
     }

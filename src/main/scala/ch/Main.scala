@@ -94,12 +94,12 @@ object Main {
             val _args = Array("#BSI,BMISN")
             // testStudyPlanFactory()
             // testSaveStudyPlanToMarkdown()
-
+            // TestCourse.testCourseOptional()
             // writeCoursDescToRes("14M258")
-            writeCoursDescToRes("11M020")
+            // writeCoursDescToRes("11M020")
             // writeSpDescToRes("73710")
             // __main(_args)
-            // testMultipleCourseToMarkdown()
+            testMultipleCourseToMarkdown()
         } catch {
             case re: ResourceNotFoundException => {
                 System.err.println(re.getMessage())
