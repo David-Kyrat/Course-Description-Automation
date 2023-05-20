@@ -44,18 +44,12 @@ object Main {
         if (args.length <= 0) { 
             val argsStr = args.mkString("\t")
             throw new IllegalArgumentException(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
-            // Utils.log(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
-            // System.err.println(usageMsg)
-            // System.exit(1)
         }
         val gui_input: String = args(0);
         val tmp = gui_input.split("#")
         if (tmp.length < 2) {
             val argsStr = args.toList.mkString("\t")
             throw new IllegalArgumentException(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
-            // ctils.log(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
-            // System.err.println(usageMsg)
-            // System.exit(1)
         }
         val courses = if (!tmp(0).isBlank) tmp(0).split(",").par.map(_.strip) else ParArray.empty[String]
         val studyPlans = if (!tmp(1).isBlank) tmp(1).split(",").par.map(_.strip) else ParArray.empty[String]
@@ -89,28 +83,32 @@ object Main {
     def main(args: Array[String]): Unit = {
         // println("\n\n")
         try {
-            // testAbbrevMap()
-            // testStudyPlanFactory()
-            // testSaveStudyPlanToMarkdown()
-            // TestCourse.testCourseOptional()
-            // writeCoursDescToRes("14M258")
             __main(args)
-            // testMultipleCourseToMarkdown()
-            // testMultipleStudyPlanToMarkdown()
         } catch {
             case re: ResourceNotFoundException => {
-                System.err.println(re.getMessage())
                 Utils.log(re)
+                System.err.println(re.getMessage)
                 System.exit(1)
             }
             case err: Exception => {
                 Utils.log(err)
-                // err.printStackTrace()
                 System.err.println("An unexpected Error happened. Please try again.")
                 println("-------------\n"+ err.getMessage)
+                System.exit(1)
+            }
+            case _: Throwable => {
+                System.err.println("An unexpected Error happened. Please try again.")
+                // println("-------------\n"+ err.getMessage)
                 System.exit(1)
             }
         }
         // println("\n\n")
     }
 }
+// testAbbrevMap()
+// testStudyPlanFactory()
+// testSaveStudyPlanToMarkdown()
+// TestCourse.testCourseOptional()
+// writeCoursDescToRes("14M258")
+// testMultipleCourseToMarkdown()
+// testMultipleStudyPlanToMarkdown()
