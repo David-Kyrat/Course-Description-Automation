@@ -41,13 +41,21 @@ object Main {
      * @ return Pair of vectors `(Courses, StudyPlans)`
      */
     private def parseGuiInput(args: Array[String]): (ParArray[String], ParArray[String]) = {
-        if (args.length <= 0) { throw new IllegalArgumentException(usageMsg) }
+        if (args.length <= 0) { 
+            val argsStr = args.mkString("\t")
+            throw new IllegalArgumentException(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
+            // Utils.log(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
+            // System.err.println(usageMsg)
+            // System.exit(1)
+        }
         val gui_input: String = args(0);
         val tmp = gui_input.split("#")
         if (tmp.length < 2) {
-            Utils.log(f"$args: wrong input.\n $usageMsg")
-            System.err.println(usageMsg)
-            System.exit(1)
+            val argsStr = args.toList.mkString("\t")
+            throw new IllegalArgumentException(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
+            // ctils.log(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
+            // System.err.println(usageMsg)
+            // System.exit(1)
         }
         val courses = if (!tmp(0).isBlank) tmp(0).split(",").par.map(_.strip) else ParArray.empty[String]
         val studyPlans = if (!tmp(1).isBlank) tmp(1).split(",").par.map(_.strip) else ParArray.empty[String]
@@ -61,43 +69,27 @@ object Main {
      */
     private def getAbbrevMap: Map[String, (String, String)] = Utils
         .readLines(abbrevFilePath)
-        .map(_.split("\t"))
-        .map(s => (s(1), (s(0), s(2)))) // WARNING: In file key is 2nd and value is 1st !
+        .map(_.split("\t")) // tsv file
+        .map(s => (s(1), (s(0), s(2)))) // WARN: In file key is 2nd and value is 1st
         .toSet
         .toMap;
 
     /** 'temporary' Main that parses user input and call 'real' main see `_main(Vector[String], Vector[String])` */
     def __main(args: Array[String]) = {
-        // var tmp = parseGuiInput(args)
         val courseSpPair = parseGuiInput(args)
         _main(courseSpPair._1, courseSpPair._2)
-        /* val course = tmp._1
-        val sps = tmp._2
-        _main(course, sps) */
     }
 
     /** 'real' Main with parsed user input */
     def _main(courseCodes: ParArray[String], sps: ParArray[String]) = {
-        if (!courseCodes.isEmpty) 
-            courseCodes.foreach(Course(_).saveToMarkdown)
-            /* val courses: ParArray[Course] = courseCodes.map(Course(_))
-            courses.foreach(_.saveToMarkdown()) // generate markdown for all courses */
-        
-        if (!sps.isEmpty) {
-            sps.foreach(StudyPlan(_).saveToMarkdown)
-            /* println(sps)
-            for (sp <- sps) {
-                val kv = abbrevMap(sp)
-                println((String.format("{\n\tabbrev: %s\n\tid : %s\n\tname: %s\n}", sp, kv._1, kv._2)))
-            } */
-        }
+        if (!courseCodes.isEmpty) courseCodes.foreach(Course(_).saveToMarkdown)
+        if (!sps.isEmpty) sps.foreach(StudyPlan(_).saveToMarkdown)
     }
 
     def main(args: Array[String]): Unit = {
-        println("\n\n")
+        // println("\n\n")
         try {
             // testAbbrevMap()
-            // val _args = Array("#BSI,BMISN")
             // testStudyPlanFactory()
             // testSaveStudyPlanToMarkdown()
             // TestCourse.testCourseOptional()
@@ -113,10 +105,12 @@ object Main {
             }
             case err: Exception => {
                 Utils.log(err)
-                err.printStackTrace()
+                // err.printStackTrace()
                 System.err.println("An unexpected Error happened. Please try again.")
+                println("-------------\n"+ err.getMessage)
+                System.exit(1)
             }
         }
-        println("\n\n")
+        // println("\n\n")
     }
 }

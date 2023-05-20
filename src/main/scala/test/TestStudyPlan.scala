@@ -56,7 +56,7 @@ object TestStudyPlan {
             // println(f"> $code done.\n-------\r\n")
         })
     }
-
+}
     /*  def testGetStudyPlans() = {
         val bs = Using(Source.fromURL(f"${ReqHdl.baseUrl}/$descIpa22"))
         val resp = bs.mkString
@@ -70,7 +70,7 @@ object TestStudyPlan {
         val studyPlansResp: Resp = studyPlansReq()
         println(studyPlansResp)
 }*/
-    /*  def testJsonLib() = {
+/*  def testJsonLib() = {
         val jsonString = Utils.prettifyJson(course(f"${crtYear}-11X001").get())
         val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
         val ye = jsObj.get("academicalYear")
@@ -97,5 +97,4 @@ object TestStudyPlan {
         val coursHours = Course.resolveCourseHours(jsObj)
         println(coursHours)
     }
-     */
-}
+*/

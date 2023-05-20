@@ -29,7 +29,7 @@ final object Utils {
     // write(logPath, "") // prevents logfile content from getting to big by cleaning it
     private lazy val logWrtr: PrintWriter = if (canLog) {
         val pw = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
-        pw.println(String.format("[%s]: --------------------------------------- Run started %s", now(), sep))
+        pw.println(String.format("\n\n[%s]: --------------------------------------- Run started %s", now(), sep))
         pw
     } else null
     private val sep = "---------------------------------------\n\n"
