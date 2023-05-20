@@ -1,43 +1,17 @@
 package test
 
-import ch.Utils.crtYear
-import ch.io.Serializer
-import ch.net.{ReqHdl, Resp}
-import ch.{Course, Utils, StudyPlan}
-import ch.Course._
+import scala.collection.parallel.immutable.ParVector
 
 import java.io.File
 import java.nio.file.{Files, Path}
-import scala.collection.parallel.immutable.ParVector
+
+import ch.Course._
+import ch.Utils.crtYear
+import ch.io.Serializer
+import ch.net.{ReqHdl, Resp}
+import ch.{Course, StudyPlan, Utils}
 
 object TestCourse {
-    /* def testJsonLib() = {
-        val jsonString = Utils.prettifyJson(Course(f"${crtYear}-11X001").get())
-        val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
-        val ye = jsObj.get("academicalYear")
-        val v1 = jsObj.get("code")
-        val v2 = "activities"
-        val activities: JsonArray = jsObj.getAsJsonArray(v2)
-        val lectures: JsonObject = activities.get(0).getAsJsonObject()
-        val v3 = lectures.get("title")
-        val v4 = lectures.get("duration")
-        val v5 = lectures.get("periodicity")
-        val v6 = lectures.get("objective")
-        val v7 = lectures.get("intended")
-        val v8 = lectures.get("variousInfo")
-        val v9 = lectures.get("comment")
-        val v0 = lectures.get("type")
-
-        val vec = Vector(ye, v1, v2, v3, v4, v5, v6, v7, v8, v9, v0)
-        activities.forEach(el => println(el.getClass))
-    } */
-
-    /* def testResolveCoursHours() = {
-        val courseTest = "11X001"
-        val jsObj = Course.get(courseTest, crtYear)
-        val coursHours = Course.resolveCourseHours(jsObj) // NB: Do not decomment method is now private
-        println(coursHours)
-    } */
 
     def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(Utils.pathOf(f"$id-desc.json"), Resp.prettify(Course.get(id)))
     def testNext() = {
@@ -87,16 +61,40 @@ object TestCourse {
         codes.foreach(code => {
             println(f"Building course $code")
             val course = Course(code)
-            val triple = (
-                course.prerequisites,
-                course.listenerAccepted,
-                course.publicAccepted
-                )
-            println(f"preqreq:\n\t${ triple._1 }")
-            println(f"list_accepted:\n\t${ triple._2 }")
-            println(f"public_accepted:\n\t${ triple._2 }")
+            val triple = (course.prerequisites, course.listenerAccepted, course.publicAccepted)
+            println(f"preqreq:\n\t${triple._1}")
+            println(f"list_accepted:\n\t${triple._2}")
+            println(f"public_accepted:\n\t${triple._2}")
             // writeCoursDescToRes(code)
             println(f"> $code done.\n-------\r\n")
         })
     }
 }
+
+/* def testJsonLib() = {
+        val jsonString = Utils.prettifyJson(Course(f"${crtYear}-11X001").get())
+        val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
+        val ye = jsObj.get("academicalYear")
+        val v1 = jsObj.get("code")
+        val v2 = "activities"
+        val activities: JsonArray = jsObj.getAsJsonArray(v2)
+        val lectures: JsonObject = activities.get(0).getAsJsonObject()
+        val v3 = lectures.get("title")
+        val v4 = lectures.get("duration")
+        val v5 = lectures.get("periodicity")
+        val v6 = lectures.get("objective")
+        val v7 = lectures.get("intended")
+        val v8 = lectures.get("variousInfo")
+        val v9 = lectures.get("comment")
+        val v0 = lectures.get("type")
+
+        val vec = Vector(ye, v1, v2, v3, v4, v5, v6, v7, v8, v9, v0)
+        activities.forEach(el => println(el.getClass))
+    } */
+
+/* def testResolveCoursHours() = {
+        val courseTest = "11X001"
+        val jsObj = Course.get(courseTest, crtYear)
+        val coursHours = Course.resolveCourseHours(jsObj) // NB: Do not decomment method is now private
+        println(coursHours)
+    } */

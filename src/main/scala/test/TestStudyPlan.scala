@@ -1,25 +1,19 @@
 package test
 
-import ch.Helpers._
-import ch.StudyPlan
-import ch.Utils
-import ch.Utils.crtYear
-import ch.Utils.pathOf
-import ch.Utils.r
-import ch.io.Serializer
-import ch.net.ReqHdl
-import ch.net.Resp
-import ch.net.exception._
-import com.google.gson.JsonArray
-import test.TestCourse
-import test.TestCourse._
-
-import java.io.File
-import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Path
 import scala.collection.parallel.immutable.ParVector
 import scala.jdk.CollectionConverters._
+// import scala.collection.parallel.CollectionConverters._
+
+import java.io.{File, IOException}
+import java.nio.file.{Files, Path}
+
+import ch.Helpers._
+import ch.Utils.{crtYear, pathOf, r}
+import ch.io.Serializer
+import ch.net.exception._
+import ch.net.{ReqHdl, Resp}
+import ch.{Main, StudyPlan, Utils}
+import scala.collection.parallel.immutable.{ParSeq, ParSet}
 
 object TestStudyPlan {
 
@@ -33,21 +27,37 @@ object TestStudyPlan {
         Utils.write(pathOf(f"all_sp_2022.json"), json)
     }
 
+    def testAbbrevMap() = {
+        val abbrevMap = Main.abbrevMap
+        // println(abbrevMap("BSI"))
+        abbrevMap.values.foreach(kv => println(String.format("{\n\tid : %s\n\tname: %s\n}", kv._1, kv._2)))
+    }
+
     def testStudyPlanFactory() = {
-        // val id = "74813"
-        // val id = "76324"
         val id = "73722"
         val sp = StudyPlan(id)
         sp.courses.map(_.toShortString).foreach(println)
     }
 
-    def testSaveStudyPlanToMarkdown() {
+    def testSaveStudyPlanToMarkdown() = {
         val id = "73722"
         val sp = StudyPlan(id)
         sp.saveToMarkdown()
     }
-  
-/*def testGetStudyPlans() = {
+
+    def testMultipleStudyPlanToMarkdown() = {
+        val codes = ParSet("73722", "73726", "76324", "74813")
+        // ParSet("73722", "73726", "76324", "74813").foreach(StudyPlan(_).saveToMarkdown)
+        codes.foreach(code => {
+            // println(f"Building study plan $code")
+            val sp = StudyPlan(code)
+            // println(f"converting $code to markdown")
+            sp.saveToMarkdown()
+            // println(f"> $code done.\n-------\r\n")
+        })
+    }
+
+    /*  def testGetStudyPlans() = {
         val bs = Using(Source.fromURL(f"${ReqHdl.baseUrl}/$descIpa22"))
         val resp = bs.mkString
         bs.close()
@@ -60,7 +70,7 @@ object TestStudyPlan {
         val studyPlansResp: Resp = studyPlansReq()
         println(studyPlansResp)
 }*/
-/* def testJsonLib() = {
+    /*  def testJsonLib() = {
         val jsonString = Utils.prettifyJson(course(f"${crtYear}-11X001").get())
         val jsObj: JsonObject = new Gson().fromJson(jsonString, classOf[JsonObject])
         val ye = jsObj.get("academicalYear")
@@ -86,5 +96,6 @@ object TestStudyPlan {
         val jsObj = Course.get(courseTest, crtYear)
         val coursHours = Course.resolveCourseHours(jsObj)
         println(coursHours)
-    } */
+    }
+     */
 }

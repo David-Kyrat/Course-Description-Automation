@@ -2,6 +2,7 @@ package ch
 
 import scala.collection.parallel.immutable.ParVector
 import scala.jdk.CollectionConverters._
+import scala.collection.parallel.CollectionConverters._
 
 // import java.io.File
 // import java.io.{IOException, File}
@@ -15,8 +16,9 @@ import ch.net.exception._
 import ch.net.{ReqHdl, Resp}
 
 import test.TestCourse._
-import test.{TestCourse, TestStudyPlan}
 import test.TestStudyPlan._
+import test.{TestCourse, TestStudyPlan}
+import scala.collection.parallel.mutable.ParArray
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -24,7 +26,8 @@ object Main {
     // NB: lazy so value only get computed when needed
 
     /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
-    lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap()
+    lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap
+    lazy val usageMsg = "Usage: course_description_automation.jar \"[<course_codes>]#[<study_plan_codes>]\" ('#' is not optional)"
 
     def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), Resp.prettify(Course.get(id)))
     def writeSpDescToRes(id: String) = Utils.write(pathOf(f"sp-$id.json"), Resp.prettify(StudyPlan.get(id)))
@@ -37,12 +40,17 @@ object Main {
      * @param args entrypoint input (stdin) of this program. i.e. what was passed on command line (should normally be a single string)
      * @ return Pair of vectors `(Courses, StudyPlans)`
      */
-    private def parseGuiInput(args: Array[String]): (Vector[String], Vector[String]) = {
-        if (args.length <= 0) { throw new IllegalArgumentException("Usage: course_description_automation.jar <gui_input>") }
+    private def parseGuiInput(args: Array[String]): (ParArray[String], ParArray[String]) = {
+        if (args.length <= 0) { throw new IllegalArgumentException(usageMsg) }
         val gui_input: String = args(0);
         val tmp = gui_input.split("#")
-        val courses = if (!tmp(0).isBlank) tmp(0).split(",").map(_.strip).toVector else Vector.empty
-        val studyPlans = if (!tmp(1).isBlank) tmp(1).split(",").map(_.strip).toVector else Vector.empty
+        if (tmp.length < 2) {
+            Utils.log(f"$args: wrong input.\n $usageMsg")
+            System.err.println(usageMsg)
+            System.exit(1)
+        }
+        val courses = if (!tmp(0).isBlank) tmp(0).split(",").par.map(_.strip) else ParArray.empty[String]
+        val studyPlans = if (!tmp(1).isBlank) tmp(1).split(",").par.map(_.strip) else ParArray.empty[String]
         (courses, studyPlans)
     }
 
@@ -51,7 +59,7 @@ object Main {
      * and parses it into a map.
      * @return (`studyPlan_abbreviation -> (studyPlan_id, studyPlan_fullName)`) mapping
      */
-    private def getAbbrevMap(): Map[String, (String, String)] = Utils
+    private def getAbbrevMap: Map[String, (String, String)] = Utils
         .readLines(abbrevFilePath)
         .map(_.split("\t"))
         .map(s => (s(1), (s(0), s(2)))) // WARNING: In file key is 2nd and value is 1st !
@@ -60,46 +68,43 @@ object Main {
 
     /** 'temporary' Main that parses user input and call 'real' main see `_main(Vector[String], Vector[String])` */
     def __main(args: Array[String]) = {
-        var tmp = parseGuiInput(args)
-        val course: Vector[String] = tmp._1
-        val sps: Vector[String] = tmp._2
-        _main(course, sps)
+        // var tmp = parseGuiInput(args)
+        val courseSpPair = parseGuiInput(args)
+        _main(courseSpPair._1, courseSpPair._2)
+        /* val course = tmp._1
+        val sps = tmp._2
+        _main(course, sps) */
     }
 
     /** 'real' Main with parsed user input */
-    def _main(courseCodes: Vector[String], sps: Vector[String]) = {
-        if (!courseCodes.isEmpty) {
-            val courses: Vector[Course] = courseCodes.map(Course(_))
-            courses.foreach(_.saveToMarkdown()) // generate markdown for all courses
-        }
+    def _main(courseCodes: ParArray[String], sps: ParArray[String]) = {
+        if (!courseCodes.isEmpty) 
+            courseCodes.foreach(Course(_).saveToMarkdown)
+            /* val courses: ParArray[Course] = courseCodes.map(Course(_))
+            courses.foreach(_.saveToMarkdown()) // generate markdown for all courses */
+        
         if (!sps.isEmpty) {
-            println(sps)
+            sps.foreach(StudyPlan(_).saveToMarkdown)
+            /* println(sps)
             for (sp <- sps) {
                 val kv = abbrevMap(sp)
                 println((String.format("{\n\tabbrev: %s\n\tid : %s\n\tname: %s\n}", sp, kv._1, kv._2)))
-            }
+            } */
         }
-    }
-
-    def testAbbrevMap() {
-        val abbrevMap = getAbbrevMap()
-        // println(abbrevMap("BSI"))
-        abbrevMap.values.foreach(kv => println(String.format("{\n\tid : %s\n\tname: %s\n}", kv._1, kv._2)))
     }
 
     def main(args: Array[String]): Unit = {
         println("\n\n")
         try {
             // testAbbrevMap()
-            val _args = Array("#BSI,BMISN")
+            // val _args = Array("#BSI,BMISN")
             // testStudyPlanFactory()
             // testSaveStudyPlanToMarkdown()
             // TestCourse.testCourseOptional()
             // writeCoursDescToRes("14M258")
-            // writeCoursDescToRes("11M020")
-            // writeSpDescToRes("73710")
-            // __main(_args)
-            testMultipleCourseToMarkdown()
+            __main(args)
+            // testMultipleCourseToMarkdown()
+            // testMultipleStudyPlanToMarkdown()
         } catch {
             case re: ResourceNotFoundException => {
                 System.err.println(re.getMessage())
@@ -112,8 +117,6 @@ object Main {
                 System.err.println("An unexpected Error happened. Please try again.")
             }
         }
-
         println("\n\n")
-
     }
 }
