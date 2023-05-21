@@ -108,6 +108,7 @@ are located as following:
        - intended   # study plan names
        - variousInformation   # check if all variousInfo contains the same category of info => they dont
        - comment       # idem
+       - recommended   # (prerequisite)
        - activityTeachers:
        - - displayFirstName  # n-th teacher first name
          - displayLstName    # n-th teacher last name

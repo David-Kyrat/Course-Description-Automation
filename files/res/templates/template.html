@@ -34,10 +34,18 @@
                                 <td>Exercices</td>
                                 <td>$exercices_hours$</td>
                             </tr>
+                            $if(practice_hours)$
                             <tr>
                                 <td>Pratique</td>
                                 <td>$practice_hours$</td>
                             </tr>
+                            $endif$
+                            $if(sem_hours)$
+                            <tr>
+                                <td>Séminaire</td>
+                                <td>$sem_hours$</td>
+                            </tr>
+                            $endif$
                             <tr>
                                 <td>Total</td>
                                 <td>$total_hours$</td>
@@ -120,16 +128,27 @@
                                 <h2 class="important large">Description</h2>
                                 $description$
                             </div>
+                            $if(various)$
                             <hr />
                             <div id="various" class="section level2 important large">
                                 <h2 class="important large">Divers</h2>
                                 $various$
                             </div>
+                            $endif$
+                            $if(comments)$
                             <hr />
                             <div id="comments" class="section level2 important large">
                                 <h2 class="important large">Commentaires</h2>
                                 $comments$
                             </div>
+                            $endif$
+                            $if(prerequisite)$
+                            <hr />
+                            <div id="comments" class="section level2 important large">
+                                <h2 class="important large">Pré-requis</h2>
+                                $prerequisite$
+                            </div>
+                            $endif$
                         </div>
                     </div>
                 </div>
