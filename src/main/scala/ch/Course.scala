@@ -114,11 +114,11 @@ object Course extends ((String, Int) => Course) {
         } // removing the 'h' for hours at the end
 
         for (activity <- activities) {
+            val ca: CourseActivity = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
             if (activity.getAsStr("type").equals("Cours-séminaire")) {
-                println("COURSEM")
+                println(ca)
                 println(activity.getAsStr("duration"))
             }
-            val ca: CourseActivity = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
             chBld.setActivity(ca, extractor(activity))
         }
         chBld.build()
@@ -143,7 +143,6 @@ object Course extends ((String, Int) => Course) {
 
     private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Float, String)] = {
         val studyPlans: Iterable[JsonObject] = jsObj.getAsScalaJsObjIter("listStudyPlan")
-        // try {
         // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
         studyPlans
             .map(obj => {
@@ -197,14 +196,7 @@ object Course extends ((String, Int) => Course) {
         val faculty = tryExtract("facultyLabel", "", "faculty", jsObj)
 
         val evalMode = tryExtract("evaluation", "", "EVAL_MODE", log = false)
-        val hoursNb: CourseHours = tryOrElse(
-          () => resolveCourseHours(activities),
-          () => {
-              // if (activities.head.getAsStr(""))
-              CourseHours(0, 0, 0)
-          },
-          f"COURSEHOURS $id"
-        ) // default value is 0 everywhere
+        val hoursNb: CourseHours = tryOrElse(() => resolveCourseHours(activities), () => CourseHours(0, 0, 0), f"COURSEHOURS $id", logErr = false) // default value is 0 everywhere
         val documentation = tryExtract("bibliography", "", "DOCUMENTATION", log = false)
         val various: Option[String] = tryExtractOpt("variousInformation")
         val comments: Option[String] = tryExtractOpt("comment")
@@ -212,15 +204,14 @@ object Course extends ((String, Int) => Course) {
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), () => Vector.empty)
         lazy val noSp = Map("No cursus" -> (0f, "\\-"))
-        var studPlan: Map[String, (Float, String)] = { // tryOrElse(
-            // () => {
-            val sp = resolveStudyPlan(jsObj)
-            // if (sp == null || sp.isEmpty) noSp else sp
-            if (sp == null || sp.isEmpty) null else sp
-            // },
-            // () => noSp
-        }
-        // )
+        var studPlan: Map[String, (Float, String)] = tryOrElse(
+          () => {
+              val sp = resolveStudyPlan(jsObj)
+              if (sp == null || sp.isEmpty) noSp else sp
+          },
+          () => noSp,
+          logErr = false
+        )
         val triplOpt = parseOptionals(lectures)
 
         new Course(
