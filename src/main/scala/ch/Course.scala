@@ -115,10 +115,6 @@ object Course extends ((String, Int) => Course) {
 
         for (activity <- activities) {
             val ca: CourseActivity = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
-            if (activity.getAsStr("type").equals("Cours-séminaire")) {
-                println(ca)
-                println(activity.getAsStr("duration"))
-            }
             chBld.setActivity(ca, extractor(activity))
         }
         chBld.build()
@@ -235,25 +231,7 @@ object Course extends ((String, Int) => Course) {
           triplOpt._3
         )
     }
-    /* def test(id: String, throwable: Throwable = null) = {
-        Utils.log(throwable, f"Course: $id")
-        throwable.printStackTrace()
-        System.exit(1)
-        throw new IllegalStateException() // apparently compiler cant tell that theres no need for a return value if program exits
-    } */
 
-    // @throws(classOf[CourseNotFoundException])
+    @throws(classOf[CourseNotFoundException])
     override def apply(id: String, year: Int = Utils.crtYear): Course = factory(id, year)
-    /*{
-        try {
-            val x = Try(factory(id, year))
-            x match {
-                case Success(value)     => value
-                case Failure(exception) => test(id, exception)
-            }
-
-        } catch {
-            case _: Throwable => test(id)
-        }
-    }*/
 }
