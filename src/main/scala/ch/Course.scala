@@ -2,6 +2,9 @@ package ch
 
 import scala.collection.mutable.ArrayBuffer
 import scala.jdk.CollectionConverters._
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -38,7 +41,7 @@ final case class Course private (
   hoursNb: CourseHours,
   documentation: String,
   authors: Vector[String],
-  studyPlan: Map[String, (Int, String)],
+  studyPlan: Map[String, (Float, String)],
   various: Option[String],
   comments: Option[String],
   prerequisites: Option[String],
@@ -105,9 +108,16 @@ object Course extends ((String, Int) => Course) {
      */
     private def resolveCourseHours(activities: IndexedSeq[JsonObject]): CourseHours = {
         val chBld = new CourseHoursBuilder()
-        def extractor(activity: JsonObject) = activity.getAsStr(CourseHours.jsonKey2).dropRight(1).toInt // removing the 'h' for hours at the end
+        def extractor(activity: JsonObject) = activity.getAsStr(CourseHours.jsonKey2).dropRight(1).toFloatOption match {
+            case Some(value) => value
+            case None        => 0
+        } // removing the 'h' for hours at the end
 
         for (activity <- activities) {
+            if (activity.getAsStr("type").contains("s-séminaire")) {
+                println("COURSEM")
+                println(activity.getAsStr("duration"))
+            }
             val ca: CourseActivity = simpleResolveSealedConceptObject(activity, CourseActivity, CourseActivity.jsonKey2)
             chBld.setActivity(ca, extractor(activity))
         }
@@ -131,16 +141,16 @@ object Course extends ((String, Int) => Course) {
         stringBufr.to(Vector)
     }
 
-    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Int, String)] = {
+    private def resolveStudyPlan(jsObj: JsonObject): Map[String, (Float, String)] = {
         val studyPlans: Iterable[JsonObject] = jsObj.getAsScalaJsObjIter("listStudyPlan")
-
+        // try {
         // Goal is to create from each json object a triple containing 1.studyPlan-name, 2.credit for this coruse in that plan and whether the course is mandatory or optional
         studyPlans
             .map(obj => {
                 val studyPlanLabel: String = obj.getAsStr("studyPlanLabel")
                 val isOptional = studyPlanLabel.contains("à option")
                 // if false => does not mean the course is mandatory, we just dont know (lack the info in the database)
-                (studyPlanLabel, (obj.getAsInt("planCredits"), if (isOptional) "Optionnel" else "N/A"))
+                (studyPlanLabel, (tryOrElse(() => obj.get("planCredits").getAsFloat(), 0f, f"$studyPlanLabel", logErr = false), if (isOptional) "Optionnel" else "N/A"))
             })
             .toMap
     }
@@ -149,9 +159,9 @@ object Course extends ((String, Int) => Course) {
      * @param lectureActivity json object courseObj.activities[0] (activities is a jsonArray)
      */
     private def parseOptionals(lectureActivity: JsonObject): (Option[String], Option[Boolean], Option[Boolean]) = (
-      tryOrElse(() => Option(lectureActivity.getAsStr("recommended")), () => None),
-      tryOrElse(() => Option(lectureActivity.get("listenerAccepted").getAsBoolean), () => None),
-      tryOrElse(() => Option(lectureActivity.get("publicAccepted").getAsBoolean), () => None),
+      tryOrElse(() => Option(lectureActivity.getAsStr("recommended")), () => None, logErr = false),
+      tryOrElse(() => Option(lectureActivity.get("listenerAccepted").getAsBoolean), () => None, logErr = false),
+      tryOrElse(() => Option(lectureActivity.get("publicAccepted").getAsBoolean), () => None, logErr = false),
     )
 
     /**
@@ -169,38 +179,48 @@ object Course extends ((String, Int) => Course) {
         val v2 = "activities"
         val activities: IndexedSeq[JsonObject] = jsObj.getAsScalaJsObjIter(CourseHours.jsonKey).toIndexedSeq
         val lectures: JsonObject = activities.head
+        lazy val additionalErrMsg = f"COURSE_ID: $id"
 
-        def tryExtract(key: String, default: String = "", jsObj: JsonObject = lectures) =
-            tryOrElse(() => jsObj.get(key).getAsString, default)
-        def tryExtractOpt(key: String, default: Option[String] = None, jsObj: JsonObject = lectures) =
-            tryOrElse(() => Some(jsObj.get(key).getAsString), default)
+        def tryExtract(key: String, default: String = "", msg: String = "X", jsObj: JsonObject = lectures, log: Boolean = true): String =
+            tryOrElse(() => jsObj.get(key).getAsString, () => default, additionalErrMsg + f"| FIELD: $msg", logErr = log)
 
-        val title = tryExtract("title", "")
-        val language = tryExtract("language", "")
+        def tryExtractOpt(key: String, default: Option[String] = None, jsObj: JsonObject = lectures): Option[String] =
+            tryOrElse(() => Some(jsObj.get(key).getAsString), () => default, logErr = false)
+
+        val title = tryExtract("title", "", "TITLE")
+        val language = tryExtract("language", "LANG")
 
         val semester: Semester = simpleResolveSealedConceptObject(lectures, Semester, Semester.jsonKey2)
 
-        val description = tryExtract("description", "")
-        val objective = tryExtract("objective", "")
-        val faculty = tryExtract("facultyLabel", "", jsObj)
+        val description = tryExtract("description", "", "DESCRIPTION", log = false)
+        val objective = tryExtract("objective", "", "OBJECTIVE", log = false)
+        val faculty = tryExtract("facultyLabel", "", "faculty", jsObj)
 
-        val evalMode = tryExtract("evaluation", "")
-        val hoursNb: CourseHours = tryOrElse(() => resolveCourseHours(activities), () => CourseHours(0, 0, 0)) // default value is 0 everywhere
-        val studyPlanNames = tryExtract("intended", "")
-        val documentation = tryExtract("bibliography", "")
-        val various = tryExtractOpt("variousInformation")
-        val comments = tryExtractOpt("comment")
-        val coursType = tryExtract("type", "")
+        val evalMode = tryExtract("evaluation", "", "EVAL_MODE", log = false)
+        val hoursNb: CourseHours = tryOrElse(
+          () => resolveCourseHours(activities),
+          () => {
+              // if (activities.head.getAsStr(""))
+              CourseHours(0, 0, 0)
+          },
+          f"COURSEHOURS $id"
+        ) // default value is 0 everywhere
+        val documentation = tryExtract("bibliography", "", "DOCUMENTATION", log = false)
+        val various: Option[String] = tryExtractOpt("variousInformation")
+        val comments: Option[String] = tryExtractOpt("comment")
+        val coursType = tryExtract("type", "", "COURSE TYPE", log = false)
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), () => Vector.empty)
-        lazy val noSp = Map("No cursus" -> (0, "\\-"))
-        var studPlan: Map[String, (Int, String)] = tryOrElse(
-          () => {
-              val sp = resolveStudyPlan(jsObj)
-              if (sp.isEmpty) noSp else sp
-          },
-          () => noSp
-        )
+        lazy val noSp = Map("No cursus" -> (0f, "\\-"))
+        var studPlan: Map[String, (Float, String)] = { // tryOrElse(
+            // () => {
+            val sp = resolveStudyPlan(jsObj)
+            // if (sp == null || sp.isEmpty) noSp else sp
+            if (sp == null || sp.isEmpty) null else sp
+            // },
+            // () => noSp
+        }
+        // )
         val triplOpt = parseOptionals(lectures)
 
         new Course(
@@ -224,7 +244,25 @@ object Course extends ((String, Int) => Course) {
           triplOpt._3
         )
     }
+    /* def test(id: String, throwable: Throwable = null) = {
+        Utils.log(throwable, f"Course: $id")
+        throwable.printStackTrace()
+        System.exit(1)
+        throw new IllegalStateException() // apparently compiler cant tell that theres no need for a return value if program exits
+    } */
 
-    @throws(classOf[CourseNotFoundException])
+    // @throws(classOf[CourseNotFoundException])
     override def apply(id: String, year: Int = Utils.crtYear): Course = factory(id, year)
+    /*{
+        try {
+            val x = Try(factory(id, year))
+            x match {
+                case Success(value)     => value
+                case Failure(exception) => test(id, exception)
+            }
+
+        } catch {
+            case _: Throwable => test(id)
+        }
+    }*/
 }

@@ -187,7 +187,7 @@ object StudyPlan extends (String => StudyPlan) {
         ReqHdl
             .AllStudyPlan()
             .filter(sp => getYear(sp) == crtYear)
-            .map(sp => extractAbbrev(cleanSpName(Utils.tryOrElse(() => sp.getAsStr("fullFormationLabel"), () => sp.getAsStr("label"), false)), sp.getAsStr("entityId")))
+            .map(sp => extractAbbrev(cleanSpName(Utils.tryOrElse(() => sp.getAsStr("fullFormationLabel"), () => sp.getAsStr("label"), "",false)), sp.getAsStr("entityId")))
     }
 
     /**

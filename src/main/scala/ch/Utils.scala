@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter
 import ch.net.ReqHdl
 
 final object Utils {
-    val LOG_MAX_SIZE = 1000000 // 1MB
+    val LOG_MAX_SIZE = 5 << 20 // 5MB
     private lazy val logPath_Try = getLogPath
     private lazy val logPath = logPath_Try match {
         case Success(path) => path
@@ -37,7 +37,8 @@ final object Utils {
     private def getLogPath: Try[Path] = Try {
         val path = pathOf("log/err.log").toAbsolutePath
         val exists = Files.exists(path)
-        if (!exists || Files.size(path) > LOG_MAX_SIZE) {
+        val size = Files.size(path)
+        if (!exists || size >= LOG_MAX_SIZE) {
             if (exists) Files.delete(path) // delete logs if the'yre too big
             Files.createDirectories(path.getParent)
             Files.createFile(path)
@@ -133,10 +134,11 @@ final object Utils {
      * @param err `Exception` to get the stackTrace from
      * @param additionalMsg additional Message to add at the top of the stackTrace
      */
-    def log(err: Exception, additionalMsg: String = "") = {
+    def log[T <: Throwable](err: T, additionalMsg: String = "") = {
         if (canLog) {
             try {
-                logWrtr.println(fmtLog(f"Exception occured. ${additionalMsg}"))
+                println(String.format("msg: %s", additionalMsg))
+                logWrtr.println(fmtLog(f"Exception occured. Additional Message \"${additionalMsg}\"\n---"))
                 err.printStackTrace(logWrtr)
                 logWrtr.println()
             } catch { case _: Throwable => () }
@@ -162,14 +164,16 @@ final object Utils {
      *
      * @param resolver, function to try
      * @param defaultVal value to return when an exception happened
+     * @param additionalMsg additional Message to add at the top of the stackTrace
+     * @param logErr whether to log the error
      * @return see above
      */
-    def tryOrElse[T](resolver: Function0[T], defaultVal: T): T = {
+    def tryOrElse[T](resolver: Function0[T], defaultVal: T, additionalMsg: String, logErr: Boolean): T = {
         try {
             resolver()
         } catch {
             case e: Exception => {
-                if (canLog) log(e)
+                if (canLog && logErr) log(e, additionalMsg)
                 defaultVal
             }
         }
@@ -181,17 +185,18 @@ final object Utils {
      *
      * @param resolver, function to try
      * @param defaultVal function that returns a default value when an exception happened
+     * @param additionalMsg additional Message to add at the top of the stackTrace
      * @param logErr whether to log the error
      * (NB: it's important to pass in a function otherwise the default value will be computed when this method is called)
      *
      * @return see above
      */
-    def tryOrElse[T](resolver: Function0[T], defaultVal: () => T, logErr: Boolean = true): T = {
+    def tryOrElse[T](resolver: Function0[T], defaultVal: () => T, additionalMsg: String = "", logErr: Boolean = true): T = {
         try {
             resolver()
         } catch {
             case e: Exception => {
-                if (canLog && logErr) log(e)
+                if (canLog && logErr) log(e, additionalMsg)
                 defaultVal()
             }
         }

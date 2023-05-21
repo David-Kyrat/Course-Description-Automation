@@ -62,7 +62,7 @@ object Serializer {
     def yamlFmtCursus(course: Course) = {
         val map = course.studyPlan
         val sbld = new StringBuilder("cursus:\n")
-        val credFmt: (Int) => String = c => if (c <= 0) "\\-" else c.toString // if credits = 0 write a "-" instead
+        val credFmt: (Float) => String = c => if (c <= 0) "\\-" else c.toString // if credits = 0 write a "-" instead
         map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${credFmt(kv._2._1)}}\n")
         sbld.toString
     }
@@ -97,7 +97,6 @@ object Serializer {
           yamlFmt("weekly_hours", course.hoursNb.sum),
           yamlFmt("lectures_hours", course.hoursNb.lectures),
           yamlFmt("exercices_hours", course.hoursNb.exercices),
-          yamlFmt("practice_hours", course.hoursNb.practice),
           yamlFmt("total_hours", course.hoursNb.semesterSum),
           yamlFmt("course_lang", course.language),
           yamlFmt("semester", course.semester),
@@ -108,7 +107,12 @@ object Serializer {
           yamlFmtMultiLineStr("objective", Utils.sanitize(course.objective)),
           yamlFmtMultiLineStr("description", Utils.sanitize(course.description))
         )
-        yamlWriteCourseOpt(br, course)
+        val ch = course.hoursNb
+        if (ch.seminaire > 0) {
+            if (ch.practice > 0) write(yamlFmt("practice_hours", course.hoursNb.practice))
+            val toWrite = yamlFmt("sem_hours", course.hoursNb.seminaire)
+            write(toWrite)
+        } else write(yamlFmt("practice_hours", course.hoursNb.practice))
         write(yamlHeaderSep)
         br.flush
         br.close

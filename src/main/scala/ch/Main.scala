@@ -19,6 +19,8 @@ import test.TestCourse._
 import test.TestStudyPlan._
 import test.{TestCourse, TestStudyPlan}
 import scala.collection.parallel.mutable.ParArray
+import ch.sealedconcept.CourseActivity
+import ch.sealedconcept.CourseHours
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -29,7 +31,7 @@ object Main {
     lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap
     lazy val usageMsg = "Usage: course_description_automation.jar \"[<course_codes>]#[<study_plan_codes>]\" ('#' is not optional)"
 
-    def writeCoursDescToRes(id: String, year: Int = crtYear) = Utils.write(pathOf(f"$id-desc.json"), Resp.prettify(Course.get(id)))
+    def writeCoursDescToRes(id: String) = Utils.write(pathOf(f"$id-desc.json"), Resp.prettify(Course.get(id)))
     def writeSpDescToRes(id: String) = Utils.write(pathOf(f"sp-$id.json"), Resp.prettify(StudyPlan.get(id)))
 
     /**
@@ -83,7 +85,12 @@ object Main {
     def main(args: Array[String]): Unit = {
         // println("\n\n")
         try {
+            // println(CourseHours.ALL_MAP("Cours-séminaire"))
             __main(args)
+            /* writeCoursDescToRes("D200025")
+            writeCoursDescToRes("32H1464")
+            writeCoursDescToRes("32B0132")
+            writeCoursDescToRes("32H1461") */
         } catch {
             case re: ResourceNotFoundException => {
                 Utils.log(re)

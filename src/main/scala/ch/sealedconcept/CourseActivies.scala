@@ -11,6 +11,11 @@ case object Exercices extends CourseActivity
 case object Practice extends CourseActivity {
     override def toString = "Travaux pratiques"
 }
+case object Seminaire extends CourseActivity {
+    override def toString = "Séminaire"
+}
+
+case object CoursSeminaire extends CourseActivity { override def toString = "Cours-séminaire"}
 
 object CourseActivity extends SealedConceptObject[CourseActivity] {
 
@@ -27,5 +32,5 @@ object CourseActivity extends SealedConceptObject[CourseActivity] {
      * Vector containing all the entity implementing
      *  the sealed trait defined in this file
      */
-    override def ALL = Vector(Lectures, Exercices, Practice)
+    override def ALL = Vector(Lectures, Exercices, Practice, Seminaire, CoursSeminaire)
 }
