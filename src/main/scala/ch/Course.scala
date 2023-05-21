@@ -114,7 +114,7 @@ object Course extends ((String, Int) => Course) {
         } // removing the 'h' for hours at the end
 
         for (activity <- activities) {
-            if (activity.getAsStr("type").contains("s-séminaire")) {
+            if (activity.getAsStr("type").equals("Cours-séminaire")) {
                 println("COURSEM")
                 println(activity.getAsStr("duration"))
             }
