@@ -13,11 +13,17 @@ null
 target/*
 target/scala-2.13/*
 !target/scala-2.13
+!target/scala-2.13/*.jar
+!target/scala-2.13/*.pom
 
 
 
 # ignoring windows build dir, because its in branch build
-target/windows
+!target/windows
+target/windows/bin
+target/windows/main
+
+
 res/templates/rust/pandoc.exe
 **/pandoc.exe
 
