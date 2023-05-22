@@ -21,7 +21,7 @@ import ch.sealedconcept.CourseHours
 import test.TestCourse._
 import test.TestStudyPlan._
 import test.{TestCourse, TestStudyPlan}
-import scala.util.Try
+
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")

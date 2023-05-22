@@ -1,4 +1,5 @@
 import sbt._
+import java.nio
 
 object Artifacts {
     // lazy val munit = "org.scalameta" %% "munit" % "0.7.29"
@@ -13,7 +14,10 @@ object Artifacts {
     // NB:  ----------------------------- PATHS --------------------------------
 
     val resDir_String = "res"
-    val resDir_File = file(resDir_String) // File object that can be passed to functions that doesnt accept macros like `resourceDirectory`
+    lazy val resDir_path: nio.file.Path = nio.file.Path.of(Artifacts.resDir_String).toAbsolutePath
+    lazy val resDir_abs: java.io.File = resDir_path.toFile
+
+    val resDir_File = file(resDir_path.toString) // File object that can be passed to functions that doesnt accept macros like `resourceDirectory`
 
     val pName = "Course-Description-Automation" // project Name
     val pNameLower = "course-description-automation"
@@ -21,6 +25,7 @@ object Artifacts {
     // val batName = pNameLower + ".bat"
     // val batPath = "bin/" + batName
     object Package {
+        val mainClass = "ch.Main"
         val jarName = pNameLower + ".jar"
         val jarPath = "lib/" + jarName
         val maintainer = "Noah Munz <munz.no@gmail.com>"

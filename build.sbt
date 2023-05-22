@@ -1,3 +1,5 @@
+import java.nio
+
 import com.typesafe.sbt.SbtNativePackager.Universal
 import com.typesafe.sbt.packager.Keys.wixFeatures
 import com.typesafe.sbt.packager.Keys.{wixFile, wixFiles}
@@ -23,20 +25,28 @@ logLevel := Level.Error
 maxErrors := 2
 triggeredMessage := Watched.clearWhenTriggered
 
-resourceDirectory := baseDirectory.value / resDir_String
-Compile / resourceDirectory := resourceDirectory.value
+// resourceDirectory := baseDirectory.value / resDir_String
+//Runtime / resourceDirectory := resDir_abs
+//Compile / resourceDirectory := resDir_abs
+// lazy val tmp : SettingKey[File] = SettingKey
+// tmp :=  baseDirectory.value / resDir_String
+// Compile / resourceDirectory := tmp.value
+// Runtime / resourceDirectory := resourceDirectory.value
 
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
 
 lazy val root = (project in file(".")).settings(
-  // name := "CourseDescriptionAutomation",
   name := pName,
   libraryDependencies ++= externalDeps,
+  Compile / resourceDirectory := resDir_abs,
+  Runtime / resourceDirectory := resDir_abs,
+  // assembly
+  assembly / mainClass := Some(Package.mainClass),
   assembly / assemblyJarName := Package.jarName,
+  // pack info
   maintainer := Package.maintainer,
   packageSummary := Package.summary,
   packageDescription := Package.description,
-
   // wix build information
   wixProductId := Package.wixProductId,
   wixProductUpgradeId := Package.wixProductUpgradeId
@@ -44,7 +54,6 @@ lazy val root = (project in file(".")).settings(
 
 lazy val cl = taskKey[Unit]("A task that gets the res path")
 cl := { println("\033c") }
-
 
 // ---------------------------------------
 
@@ -67,7 +76,7 @@ wixFeatures += WindowsFeature(
   components = Seq()
 )
 
-wixFiles := Seq() //Seq(file("target/windows/Course-Description-Automation.wxs"))
+//wixFiles := Seq() //Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
@@ -82,11 +91,16 @@ writeWixConfig := {
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
 
 getResPath := {
-    println(resourceDirectory.value)
+    println(root / assembly / mainClass)
+    // println((root / assembly / mainClass).value.get)
+    // println(resourceDirectory.value)
+    println((Runtime / resourceDirectory).value)
     println("-----")
     println((Compile / resourceDirectory).value)
     println("-----")
     println(resDir_File)
+    println("-----")
+    println((root / Compile / resourceDirectory).value)
     println("-----")
 }
 
