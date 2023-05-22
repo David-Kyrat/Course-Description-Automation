@@ -1,6 +1,14 @@
-**/vendor
-**/node_modules
-**/rome.json
+# Example for startup debugging 
+src/main/scala/example/
+other_res
+
+# bundle jdk and javafx
+**/jdk-17
+res/java/tmep
+
+# utility scripts
+**/tmp.ps1
+**/shortcut-res.ps1
 
 
 # Scala config folders
@@ -10,10 +18,13 @@ null
 target/*
 target/scala-2.13/*
 !target/scala-2.13
-!target/scala-2.13/api
-!target/windows
 
+# ignoring windows build dir, because its in branch build
+target/windows
+res/templates/rust/pandoc.exe
+**/pandoc.exe
 
+# sbt config dirs
 project/.bloop
 project/project/
 project/target
@@ -23,9 +34,52 @@ project/metals.sbt
 howto-copy.md
 *.sc
 *.log
+**/log
+# necessary
+!res/log 
+res/log/*
+!res/log/.gitkeep
+res/templates/rmd
+
+
+# Rust binaries & config files
+
+**/rust/target
+# **/rust/target/*
+# !**/rust/target/release
+# **/rust/target/release/*
+# !**/rust/target/release/*.exe
+# !main/rust/target
+*.lock
+
+
+# Formatters config
+remarkrc.json
+
+
+# Ignoring scala-doc generated web-pages, as they are present in the other repo
+target/scala-2.13/api
 
 *err*.txt
+
+**/.vscode
+**/.idea
+.idea
 
 
 # I don't know why this folder keep getting generated
 **/Powershell 7.3.3
+
+# LaTeX build files
+*.aux
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+
+# Others
+**/vendor
+
+
+**/node_modules
+**/rome.json
