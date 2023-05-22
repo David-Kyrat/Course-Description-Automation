@@ -14,6 +14,8 @@ target/*
 target/scala-2.13/*
 !target/scala-2.13
 
+
+
 # ignoring windows build dir, because its in branch build
 target/windows
 res/templates/rust/pandoc.exe
@@ -30,6 +32,7 @@ howto-copy.md
 *.sc
 *.log
 **/log
+
 # necessary
 !res/log 
 res/log/*
