@@ -30,9 +30,14 @@ object Artifacts {
         val jarPath = "lib/" + jarName
         val maintainer = "Noah Munz <munz.no@gmail.com>"
         val summary = "Course-Description-Automation Installer"
-        val description = """MSI Installer for the application Course-Description-Automation"""
+        // val description = """MSI Installer for the application Course-Description-Automation"""
+        val description = """All the mandatory files (core, libraries and resources) for the project to run."""
+    }
+
+    object  Wix {
         // wix build information
         val wixProductId = "ce07be71-510d-414a-92d4-dff47631848a"
         val wixProductUpgradeId = "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"
+        val wixProductLicense = file("wixProductLicense")
     }
 }

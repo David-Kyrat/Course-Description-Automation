@@ -2,6 +2,7 @@ import java.nio
 
 import com.typesafe.sbt.SbtNativePackager.Universal
 import com.typesafe.sbt.packager.Keys.wixFeatures
+import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
 import com.typesafe.sbt.packager.Keys.{wixFile, wixFiles}
 import com.typesafe.sbt.packager.Keys.{wixProductId, wixProductUpgradeId}
 import com.typesafe.sbt.packager.universal.UniversalPlugin
@@ -12,6 +13,7 @@ import com.typesafe.sbt.packager.windows._
 
 // Informations relative to the packaging of this project
 import Artifacts.Package
+import Artifacts.Wix
 // Dependency and other information about build this project
 import Artifacts._
 import Path.relativeTo
@@ -35,6 +37,8 @@ triggeredMessage := Watched.clearWhenTriggered
 
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
 
+// NB: -------- ROOT PROJECT DEFINITION -----------
+
 lazy val root = (project in file(".")).settings(
   name := pName,
   libraryDependencies ++= externalDeps,
@@ -48,9 +52,12 @@ lazy val root = (project in file(".")).settings(
   packageSummary := Package.summary,
   packageDescription := Package.description,
   // wix build information
-  wixProductId := Package.wixProductId,
-  wixProductUpgradeId := Package.wixProductUpgradeId
+  wixProductId := Wix.wixProductId,
+  wixProductUpgradeId := Wix.wixProductUpgradeId,
+  wixProductLicense := Option(Wix.wixProductLicense)
 )
+
+// NB: ---------------------------------------
 
 lazy val cl = taskKey[Unit]("A task that gets the res path")
 cl := { println("\033c") }
@@ -76,7 +83,7 @@ wixFeatures += WindowsFeature(
   components = Seq()
 )
 
-//wixFiles := Seq() //Seq(file("target/windows/Course-Description-Automation.wxs"))
+wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
