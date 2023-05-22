@@ -18,15 +18,12 @@ import ch.net.ReqHdl
 final object Utils {
     val LOG_MAX_SIZE = 5 << 20 // 5MB
     private lazy val logPath_Try = getLogPath
-    private lazy val logPath = logPath_Try match {
+    lazy val logPath = logPath_Try match {
         case Success(path) => path
         case Failure(e)    => Path.of("")
     }
-
     lazy val canLog = logPath_Try.isSuccess
-    // private val gson: Gson = new GsonBuilder().setPrettyPrinting().create()
-    // private val logPath = Path.of(r("log/err.log")).toAbsolutePath
-    // write(logPath, "") // prevents logfile content from getting to big by cleaning it
+
     private lazy val logWrtr: PrintWriter = if (canLog) {
         val pw = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
         pw.println(String.format("\n\n[%s]: --------------------------------------- Run started %s", now(), sep))
@@ -35,12 +32,15 @@ final object Utils {
     private val sep = "---------------------------------------\n\n"
 
     private def getLogPath: Try[Path] = Try {
-        val path = pathOf("log/err.log").toAbsolutePath
-        val exists = Files.exists(path)
-        val size = Files.size(path)
-        if (!exists || size >= LOG_MAX_SIZE) {
-            if (exists) Files.delete(path) // delete logs if the'yre too big
-            Files.createDirectories(path.getParent)
+        val path = pathOf("log/err.log") // .toAbsolutePath
+        var exists = Files.exists(path)
+        // to prevent call Files.sizes 2 times => separate conditions
+        if (exists && Files.size(path) >= LOG_MAX_SIZE) {
+            Files.delete(path)
+            exists = false
+        }
+        if (!exists) {
+            Files.createDirectories(path.resolve("..").normalize())
             Files.createFile(path)
         }
         path

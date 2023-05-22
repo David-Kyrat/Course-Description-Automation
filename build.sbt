@@ -67,7 +67,7 @@ wixFeatures += WindowsFeature(
   components = Seq()
 )
 
-wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
+wixFiles := Seq() //Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {

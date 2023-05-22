@@ -1,8 +1,9 @@
 package ch
 
-import scala.collection.parallel.immutable.ParVector
-import scala.jdk.CollectionConverters._
 import scala.collection.parallel.CollectionConverters._
+import scala.collection.parallel.immutable.ParVector
+import scala.collection.parallel.mutable.ParArray
+import scala.jdk.CollectionConverters._
 
 // import java.io.File
 // import java.io.{IOException, File}
@@ -14,13 +15,13 @@ import ch.Helpers._
 import ch.Utils.{crtYear, pathOf}
 import ch.net.exception._
 import ch.net.{ReqHdl, Resp}
+import ch.sealedconcept.CourseActivity
+import ch.sealedconcept.CourseHours
 
 import test.TestCourse._
 import test.TestStudyPlan._
 import test.{TestCourse, TestStudyPlan}
-import scala.collection.parallel.mutable.ParArray
-import ch.sealedconcept.CourseActivity
-import ch.sealedconcept.CourseHours
+import scala.util.Try
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -43,7 +44,7 @@ object Main {
      * @ return Pair of vectors `(Courses, StudyPlans)`
      */
     private def parseGuiInput(args: Array[String]): (ParArray[String], ParArray[String]) = {
-        if (args.length <= 0) { 
+        if (args.length <= 0) {
             val argsStr = args.mkString("\t")
             throw new IllegalArgumentException(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
         }
@@ -97,14 +98,10 @@ object Main {
                 System.err.println(re.getMessage)
                 System.exit(1)
             }
-            case err: Exception => {
+            case err: Throwable => {
                 Utils.log(err)
                 System.err.println("An unexpected Error happened. Please try again.")
-                println("-------------\n"+ err.getMessage)
-                System.exit(1)
-            }
-            case _: Throwable => {
-                System.err.println("An unexpected Error happened. Please try again.")
+                err.printStackTrace()
                 // println("-------------\n"+ err.getMessage)
                 System.exit(1)
             }
