@@ -5,8 +5,6 @@ import scala.collection.parallel.immutable.ParVector
 import scala.collection.parallel.mutable.ParArray
 import scala.jdk.CollectionConverters._
 
-// import java.io.File
-// import java.io.{IOException, File}
 import java.nio.file.{Files, Path}
 
 import com.google.gson.JsonArray
@@ -18,15 +16,10 @@ import ch.net.{ReqHdl, Resp}
 import ch.sealedconcept.CourseActivity
 import ch.sealedconcept.CourseHours
 
-import test.TestCourse._
-import test.TestStudyPlan._
-import test.{TestCourse, TestStudyPlan}
 import scala.util.Try
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
-
-    // NB: lazy so value only get computed when needed
 
     /** Contains assocation (for each studyPlan) of the form : `Abbreviation -> (FullName, id)` */
     lazy val abbrevMap: Map[String, (String, String)] = getAbbrevMap
@@ -84,14 +77,8 @@ object Main {
     }
 
     def main(args: Array[String]): Unit = {
-        // println("\n\n")
         try {
-            // println(CourseHours.ALL_MAP("Cours-séminaire"))
             __main(args)
-            /* writeCoursDescToRes("D200025")
-            writeCoursDescToRes("32H1464")
-            writeCoursDescToRes("32B0132")
-            writeCoursDescToRes("32H1461") */
         } catch {
             case re: ResourceNotFoundException => {
                 Utils.log(re)
@@ -101,18 +88,8 @@ object Main {
             case err: Throwable => {
                 Utils.log(err)
                 System.err.println("An unexpected Error happened. Please try again.")
-                // err.printStackTrace()
-                // println("-------------\n"+ err.getMessage)
                 System.exit(1)
             }
         }
-        // println("\n\n")
     }
 }
-// testAbbrevMap()
-// testStudyPlanFactory()
-// testSaveStudyPlanToMarkdown()
-// TestCourse.testCourseOptional()
-// writeCoursDescToRes("14M258")
-// testMultipleCourseToMarkdown()
-// testMultipleStudyPlanToMarkdown()

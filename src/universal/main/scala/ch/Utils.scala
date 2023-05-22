@@ -32,7 +32,7 @@ final object Utils {
     private val sep = "---------------------------------------\n\n"
 
     private def getLogPath: Try[Path] = Try {
-        val path = pathOf("log/err.log") // .toAbsolutePath
+        val path = pathOf("log/err.log")
         var exists = Files.exists(path)
         // to prevent call Files.sizes 2 times => separate conditions
         if (exists && Files.size(path) >= LOG_MAX_SIZE) {
@@ -137,12 +137,10 @@ final object Utils {
     def log[T <: Throwable](err: T, additionalMsg: String = "") = {
         if (canLog) {
             try {
-                println(String.format("msg: %s", additionalMsg))
                 logWrtr.println(fmtLog(f"Exception occured. Additional Message \"${additionalMsg}\"\n---"))
                 err.printStackTrace(logWrtr)
                 logWrtr.println()
             } catch { case _: Throwable => () }
-            // } catch { case t: Exception => (t.printStackTrace())) }
         }
     }
 

@@ -1,10 +1,7 @@
 import java.nio
 
 import com.typesafe.sbt.SbtNativePackager.Universal
-import com.typesafe.sbt.packager.Keys.wixFeatures
-import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
-import com.typesafe.sbt.packager.Keys.{wixFile, wixFiles}
-import com.typesafe.sbt.packager.Keys.{wixProductId, wixProductUpgradeId}
+import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixFile, wixFiles, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
 import com.typesafe.sbt.packager.universal.UniversalPlugin
 import com.typesafe.sbt.packager.windows.WindowsFeature
 import com.typesafe.sbt.packager.windows.WixHelper.generateComponentsAndDirectoryXml
@@ -27,14 +24,6 @@ logLevel := Level.Error
 maxErrors := 2
 triggeredMessage := Watched.clearWhenTriggered
 
-// resourceDirectory := baseDirectory.value / resDir_String
-//Runtime / resourceDirectory := resDir_abs
-//Compile / resourceDirectory := resDir_abs
-// lazy val tmp : SettingKey[File] = SettingKey
-// tmp :=  baseDirectory.value / resDir_String
-// Compile / resourceDirectory := tmp.value
-// Runtime / resourceDirectory := resourceDirectory.value
-
 enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
 
 // NB: -------- ROOT PROJECT DEFINITION -----------
@@ -51,10 +40,19 @@ lazy val root = (project in file(".")).settings(
   maintainer := Package.maintainer,
   packageSummary := Package.summary,
   packageDescription := Package.description,
+
   // wix build information
   wixProductId := Wix.wixProductId,
   wixProductUpgradeId := Wix.wixProductUpgradeId,
-  wixProductLicense := Option(Wix.wixProductLicense)
+  wixProductLicense := Option(Wix.wixProductLicense),
+  //
+  wixFeatures += WindowsFeature(
+    id = "BinaryAndPath",
+    // title = "My Project's Binaries and updated PATH settings",
+    title = "Project Resources",
+    desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
+    components = Seq()
+  )
 )
 
 // NB: ---------------------------------------
@@ -75,19 +73,10 @@ Windows / mappings ++= {
 
 lazy val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
 
-wixFeatures += WindowsFeature(
-  id = "BinaryAndPath",
-  // title = "My Project's Binaries and updated PATH settings",
-  title = "Project Resources",
-  desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-  components = Seq()
-)
-
-wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
+// wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
-writeWixConfig := {
-    println("-----")
+writeWixConfig := { println("-----")
     /* println(comp) */
     println("\n-----\n")
     IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
@@ -96,6 +85,12 @@ writeWixConfig := {
 }
 
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
+lazy val getWixConfig = taskKey[Unit]("A task that prints wix related settings")
+
+getWixConfig := {
+    // println((Windows / mappings.map(s => s.toString() + "\n")))
+    println((Windows / mappings).value)
+}
 
 getResPath := {
     println(root / assembly / mainClass)

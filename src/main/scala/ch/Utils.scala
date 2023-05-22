@@ -137,7 +137,7 @@ final object Utils {
     def log[T <: Throwable](err: T, additionalMsg: String = "") = {
         if (canLog) {
             try {
-                println(String.format("msg: %s", additionalMsg))
+                // println(String.format("msg: %s", additionalMsg))
                 logWrtr.println(fmtLog(f"Exception occured. Additional Message \"${additionalMsg}\"\n---"))
                 err.printStackTrace(logWrtr)
                 logWrtr.println()

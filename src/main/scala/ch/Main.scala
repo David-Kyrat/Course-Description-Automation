@@ -18,9 +18,9 @@ import ch.net.{ReqHdl, Resp}
 import ch.sealedconcept.CourseActivity
 import ch.sealedconcept.CourseHours
 
-import test.TestCourse._
+/* import test.TestCourse._
 import test.TestStudyPlan._
-import test.{TestCourse, TestStudyPlan}
+import test.{TestCourse, TestStudyPlan} */
 
 
 object Main {
