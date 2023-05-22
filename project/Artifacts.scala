@@ -1,4 +1,5 @@
 import java.nio
+import java.nio.charset.StandardCharsets.UTF_8
 
 import com.typesafe.sbt.SbtNativePackager.Universal
 import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixFile, wixFiles, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
@@ -49,7 +50,7 @@ object Artifacts {
          * > where WIX can pick up the files and generate a cab or embedded cab for the msi.
          * > The WIX xml should use the relative locations in this mappings when referencing files for the package.
          * ----
-         * Tl;Dr: We need to give a pair "(resourceToAdd, jarToAddItTo)" and since 
+         * Tl;Dr: We need to give a pair "(resourceToAdd, jarToAddItTo)" and since
          * the path to the packaged jar is defined by `Package.jarPath` this function
          * takes in file and return mapping that maps this file to the `jarPath
          * @param res resources to add when packaging
@@ -57,6 +58,19 @@ object Artifacts {
          */
         def getJarMapping(res: java.io.File*): Seq[(java.io.File, String)] = res.map(r => (r -> Package.jarPath))
 
+        // Write manually some config in file
+        def setDirectory(): Unit = {
+            val path = nio.file.Path.of("C:/Users/noahm/DocumentsNb/BA4/Course-Description-Automation/target/windows/Course-Description-Automation.wxs")
+            val content: StringBuilder = new StringBuilder(nio.file.Files.readString(path, UTF_8))
+            if (!content.substring(0, 1000).contains("Set")) {
+                val toInsert: String = String.format("<SetDirectory Id=\"INSTALLDIR\" Value=\"[PersonalFolder]%s\" />", pName)
+                var patt1 = "<Directory"
+                val idx = content.indexOf(patt1) - 2 // + patt1.length
+                content.insertAll(idx, toInsert.toArray)
+                nio.file.Files.write(path, content.toString.getBytes(UTF_8))
+            }
+
+        }
     }
 
     object Wix {
@@ -64,7 +78,7 @@ object Artifacts {
         val wixTitle = pName
         val wixProductId = "ce07be71-510d-414a-92d4-dff47631848a"
         val wixProductUpgradeId = "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"
-        val wixProductLicense = file("License.rtf")
+        val wixProductLicense = file("LICENSE.rtf")
         val wixInstallScope = "perUser"
         val wixCompressed = true
         lazy val wixPackageInfo =

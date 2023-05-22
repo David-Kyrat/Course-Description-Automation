@@ -25,6 +25,8 @@ triggeredMessage := Watched.clearWhenTriggered
 
 enablePlugins(JavaAppPackaging, WindowsPlugin)
 
+wixProductLicense := Some(Wix.wixProductLicense)
+
 // NB: -------- ROOT PROJECT DEFINITION -----------
 
 lazy val root = (project in file(".")).settings(
@@ -41,14 +43,7 @@ lazy val root = (project in file(".")).settings(
   packageDescription := Package.description,
 
   // wix build information
-  wixPackageInfo := Artifacts.Wix.wixPackageInfo,
-  wixFeatures += WindowsFeature(
-    id = "BinaryAndPath",
-    // title = "My Project's Binaries and updated PATH settings",
-    title = "Project Resources",
-    desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-    components = Seq()
-  )
+  wixPackageInfo := Artifacts.Wix.wixPackageInfo
 )
 
 // NB: ---------------------------------------
@@ -72,35 +67,59 @@ cl := { println("\033c") }
 Windows / mappings ++= {
     val binJar = (Compile / packageBin).value // NT: this the jar of the actual compiled source code
     val resJar = (Compile / resourceDirectory).value
-    Seq(binJar -> Package.jarPath, 
-    resJar -> Package.jarPath) 
-    Package.getJarMapping(
-    (Compile / packageBin).value,
-    (Compile / resourceDirectory).value
-    )
+    Seq(binJar -> Package.jarPath, resJar -> Package.jarPath)
+    Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
 }
 
+wixFeatures += WindowsFeature(
+  id = "BinaryAndPath",
+  title = "Project Resources",
+  desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
+  components = Seq(ComponentFile("License.rtf"), AddDirectoryToPath("res"))
+)
 
-lazy val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
-
+/* id: String,
+  title: String,
+  desc: String,
+  absent: String = "allow",
+  level: String = "1",
+  display: String = "collapse",
+  components: Seq[FeatureComponent] = Seq.empty */
+/* val x =
+    WindowsFeature("AddBinToPath", "Update Environment Variables", "Update PATH environment variables (requires restart).", "allow", "1", "collapse", List(AddDirectoryToPath("bin"))) */
 wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
+/* lazy val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
     println("-----")
-    /* println(comp) */
+    // println(comp)
     println("\n-----\n")
     IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
     println("\n-----\n")
     // println(resources.value)
-}
+} */
 
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
 lazy val getWixConfig = taskKey[Unit]("A task that prints wix related settings")
+lazy val setDirectory = taskKey[Unit]("A task that write config manually to .wxs file")
+lazy val relBin = taskKey[Unit]("A tasks that reload this config & packageBin & calls task setDirectory")
+
+setDirectory := {
+    Package.setDirectory()
+}
+
+relBin := {
+    cl.value
+    (root / Windows / packageBin).value
+    setDirectory.value
+}
 
 getWixConfig := {
     println("-----\n")
     println((Windows / mappings).value.mkString("\n"))
+    println("\n-----")
+    println((wixFeatures).value.mkString("\n"))
     println("\n-----")
 }
 
