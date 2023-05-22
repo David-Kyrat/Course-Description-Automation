@@ -10,6 +10,7 @@
         <Media Id="1" Cabinet="_course_description_automation21236090x.cab" EmbedCab="yes" />
 
         <!-- Define the directories we use -->
+        <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]Course-Description-Automation" />
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramMenuFolder">
                 <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">

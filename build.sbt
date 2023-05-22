@@ -1,6 +1,6 @@
 import java.nio
 
-import com.typesafe.sbt.SbtNativePackager.Universal
+// import com.typesafe.sbt.SbtNativePackager.Universal.
 import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixFile, wixFiles, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
 import com.typesafe.sbt.packager.windows.WixHelper.generateComponentsAndDirectoryXml
 import com.typesafe.sbt.packager.windows.WixHelper.{makeIdFromFile, makeWixConfig, makeWixProductConfig}
@@ -16,14 +16,14 @@ import Path.relativeTo
 import sbt.IO
 
 ThisBuild / scalaVersion := "2.13.10"
-ThisBuild / version := version
+ThisBuild / version := vers
 ThisBuild / organization := "ch"
 
 logLevel := Level.Error
 maxErrors := 2
 triggeredMessage := Watched.clearWhenTriggered
 
-enablePlugins(UniversalPlugin, JavaAppPackaging, WindowsPlugin)
+enablePlugins(JavaAppPackaging, WindowsPlugin)
 
 // NB: -------- ROOT PROJECT DEFINITION -----------
 
@@ -41,11 +41,7 @@ lazy val root = (project in file(".")).settings(
   packageDescription := Package.description,
 
   // wix build information
-  wixPackageInfo := Artifacts.Wix.wixPackageInfo
-  // wixProductId := Wix.wixProductId,
-  // wixProductUpgradeId := Wix.wixProductUpgradeId,
-  // wixProductLicense := Option(Wix.wixProductLicense),
-  //
+  wixPackageInfo := Artifacts.Wix.wixPackageInfo,
   wixFeatures += WindowsFeature(
     id = "BinaryAndPath",
     // title = "My Project's Binaries and updated PATH settings",
@@ -60,30 +56,34 @@ lazy val root = (project in file(".")).settings(
 lazy val cl = taskKey[Unit]("A task that gets the res path")
 cl := { println("\033c") }
 
-// ---------------------------------------
-Windows / maintainer := ""
-Windows / mappings := (Universal / mappings).value
-//val resDirectory = resourceDirectory.value //file("/res")
+// --------------------------------------
+
+/**
+ * Included doc from: "https://www.scala-sbt.org/sbt-native-packager/formats/windows.html"
+ * A list of file->location pairs (`Seq[(sbt.File, String)]`). This list is used to move files into a location
+ * where WIX can pick up the files and generate a cab or embedded cab for the msi.
+ * The WIX xml should use the relative locations in this mappings when referencing files for the package.
+ *
+ * @return Sequence of resources to add when packaging
+ */
+// Windows / mappings := Seq[(File, String)]()
+// Windows / mappings := (Universal / mappings).value // default mappings
 
 Windows / mappings ++= {
-    val jar = (Compile / packageBin).value
-    /* val dir = (Windows / sourceDirectory).value */
-    Seq(jar -> Package.jarPath) // , (Compile / resourceDirectory).value ->  // , (dir / batName) -> batPath)
+    val binJar = (Compile / packageBin).value // NT: this the jar of the actual compiled source code
+    val resJar = (Compile / resourceDirectory).value
+    Seq(binJar -> Package.jarPath, 
+    resJar -> Package.jarPath) 
+    Package.getJarMapping(
+    (Compile / packageBin).value,
+    (Compile / resourceDirectory).value
+    )
 }
 
-wixPackageInfo := WindowsProductInfo(Wix.wixProductId, "", "", Package.maintainer, Package.description, Wix.wixProductUpgradeId, "", "perUser", "200", true)
-// wixProductConfig += WindowsProductInfo(Wix.wixProductId, "", "", Package.maintainer, Package.description, Wix.wixProductUpgradeId, "", "perMachine", "200", true)
-
-// val x = WindowsProductInfo(Wix.wixProductId, "", "", Package.maintainer, Package.description, WIx.wixProductUpgradeId, "", "perMachine", "200", true)
-// adding resource directory
-Windows / mappings ++= {
-    val jar = (Compile / resourceDirectory).value
-    Seq(jar -> Package.jarPath)
-}
 
 lazy val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
 
-// wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
+wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
@@ -99,8 +99,9 @@ lazy val getResPath = taskKey[Unit]("A task that gets the res path")
 lazy val getWixConfig = taskKey[Unit]("A task that prints wix related settings")
 
 getWixConfig := {
-    // println((Windows / mappings.map(s => s.toString() + "\n")))
-    println((Windows / mappings).value)
+    println("-----\n")
+    println((Windows / mappings).value.mkString("\n"))
+    println("\n-----")
 }
 
 getResPath := {

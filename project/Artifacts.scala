@@ -1,12 +1,14 @@
 import java.nio
 
+import com.typesafe.sbt.SbtNativePackager.Universal
 import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixFile, wixFiles, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
+import com.typesafe.sbt.packager.windows._
 import com.typesafe.sbt.packager.windows.{WindowsDeployPlugin, WindowsFeature, WindowsKeys, WindowsPlugin, WindowsProductInfo}
 
 import sbt._
 
 object Artifacts {
-    lazy val version = "1.0"
+    lazy val vers = "1.0"
     // lazy val munit = "org.scalameta" %% "munit" % "0.7.29"
     lazy val scalaBaseDep = "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
     // lazy val prettyPrintJsonLib = "io.spray" %% "spray-json" % "1.3.6"
@@ -37,6 +39,24 @@ object Artifacts {
         val summary = "Course-Description-Automation Installer"
         // val description = """MSI Installer for the application Course-Description-Automation"""
         val description = """All the mandatory files (core, libraries and resources) for the project to run."""
+
+        /**
+         * Return mapping `file->location` to be added
+         * to the `Windows / mappings configuration`.
+         * ----
+         * ### Included doc from: "https://www.scala-sbt.org/sbt-native-packager/formats/windows.html"**
+         * > A list of `file->location` pairs (`Seq[(sbt.File, String)]`). This list is used to move files into a location
+         * > where WIX can pick up the files and generate a cab or embedded cab for the msi.
+         * > The WIX xml should use the relative locations in this mappings when referencing files for the package.
+         * ----
+         * Tl;Dr: We need to give a pair "(resourceToAdd, jarToAddItTo)" and since 
+         * the path to the packaged jar is defined by `Package.jarPath` this function
+         * takes in file and return mapping that maps this file to the `jarPath
+         * @param res resources to add when packaging
+         * @return Pair described above
+         */
+        def getJarMapping(res: java.io.File*): Seq[(java.io.File, String)] = res.map(r => (r -> Package.jarPath))
+
     }
 
     object Wix {
@@ -48,16 +68,20 @@ object Artifacts {
         val wixInstallScope = "perUser"
         val wixCompressed = true
         lazy val wixPackageInfo =
-            WindowsProductInfo(
-                Wix.wixProductId, 
-                wixTitle,
-                version, 
-                Package.maintainer, 
-                Package.description,
-                Wix.wixProductUpgradeId, 
-                "", 
-                wixInstallScope,
-                "200", 
-                wixCompressed)
+            WindowsProductInfo(Wix.wixProductId, wixTitle, vers, Package.maintainer, Package.description, Wix.wixProductUpgradeId, "nil", wixInstallScope, "200", wixCompressed)
     }
 }
+/*
+    lazy val wixPackageInfo = WindowsProductInfo(
+        Wix.wixProductId,
+        wixTitle,
+        version,
+        Package.maintainer,
+        Package.description,
+        Wix.wixProductUpgradeId,
+        "",
+        wixInstallScope,
+        "200",
+        wixCompressed
+    )
+ */
