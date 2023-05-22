@@ -211,8 +211,8 @@
           </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
             <Component Id="_bin97543xxxxPathC" Guid="b313a109-35f4-42c4-89d1-d2ad5934fc8b">
               <CreateFolder/>
-              <Environment Id="COURSE_DESCRIPTION_AUTOMATION_HOME" Name="COURSE_DESCRIPTION_AUTOMATION_HOME" Value="[INSTALLDIR]" Permanent="no" Action="set" System="yes"/>
-              <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes"/>
+              <!-- <Environment Id="COURSE_DESCRIPTION_AUTOMATION_HOME" Name="COURSE_DESCRIPTION_AUTOMATION_HOME" Value="[INSTALLDIR]" Permanent="no" Action="set" System="yes"/> -->
+              <!-- <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes"/> -->
             </Component>
           </DirectoryRef><DirectoryRef Id="ApplicationProgramsFolder">
             <Component Id="_shortcut_229d685f_50a8_4903_a37e_e021bd40f891162789311" Guid="21bc8d21-385e-4720-9456-e1037284d0b5">
