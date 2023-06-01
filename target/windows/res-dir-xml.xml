@@ -1,39 +1,68 @@
 <Directory Id="_res112800xxx" Name="res">
-          <Component Id="_resabbrev_tsv204435127" Guid="*">
-          <File Id="_resabbrev_tsv204435127_file146101792" Name="abbrev.tsv" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\abbrev.tsv"/>
-        </Component><Directory Id="_resbin_converters203468800" Name="bin-converters">
-          <Component Id="_resbin_converters_pandoc_exe631568158" Guid="*">
-          <File Id="_resbin_converters_pandoc_exe631568158_file391139861" Name="pandoc.exe" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\pandoc.exe"/>
+    <Component Id="_resabbrev_tsv204435127" Guid="*">
+        <File Id="_resabbrev_tsv204435127_file146101792" Name="abbrev.tsv" DiskId="1"
+            Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\abbrev.tsv" />
+    </Component>
+    <Directory Id="_resbin_converters203468800" Name="bin-converters">
+        <Component Id="_resbin_converters_pandoc_exe631568158" Guid="*">
+            <File Id="_resbin_converters_pandoc_exe631568158_file391139861" Name="pandoc.exe"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\pandoc.exe" />
         </Component>
-        </Directory><Directory Id="_reslog934435164" Name="log">
-          <Component Id="_reslog__gitkeep137855196" Guid="*">
-          <File Id="_reslog__gitkeep137855196_file814228100" Name=".gitkeep" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\.gitkeep"/>
-        </Component><Component Id="_reslog_err_log208419276" Guid="*">
-          <File Id="_reslog_err_log208419276_file118952506" Name="err.log" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\err.log"/>
-        </Component><Component Id="_reslog_pdf_convert_log501357302" Guid="*">
-          <File Id="_reslog_pdf_convert_log501357302_file426328212" Name="pdf-convert.log" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\pdf-convert.log"/>
-        </Component><Component Id="_reslog_rust_convert_log432190888" Guid="*">
-          <File Id="_reslog_rust_convert_log432190888_file148000567" Name="rust-convert.log" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\rust-convert.log"/>
+    </Directory>
+    <Directory Id="_reslog934435164" Name="log">
+        <Component Id="_reslog__gitkeep137855196" Guid="*">
+            <File Id="_reslog__gitkeep137855196_file814228100" Name=".gitkeep" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\.gitkeep" />
         </Component>
-        </Directory><Directory Id="_resmd108404279" Name="md">
-          <Component Id="_resmd__gitkeep356227474" Guid="*">
-          <File Id="_resmd__gitkeep356227474_file974038348" Name=".gitkeep" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\md\.gitkeep"/>
+        <Component Id="_reslog_err_log208419276" Guid="*">
+            <File Id="_reslog_err_log208419276_file118952506" Name="err.log" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\err.log" />
         </Component>
-        </Directory><Directory Id="_respdf934431662" Name="pdf">
-          <Component Id="_respdf__gitkeep383024819" Guid="*">
-          <File Id="_respdf__gitkeep383024819_file131383067" Name=".gitkeep" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\pdf\.gitkeep"/>
+        <Component Id="_reslog_pdf_convert_log501357302" Guid="*">
+            <File Id="_reslog_pdf_convert_log501357302_file426328212" Name="pdf-convert.log"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\pdf-convert.log" />
         </Component>
-        </Directory><Directory Id="_restemplates158457820" Name="templates">
-          <Component Id="_restemplates_course_desc_css109847842" Guid="*">
-          <File Id="_restemplates_course_desc_css109847842_file600558440" Name="course-desc.css" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\course-desc.css"/>
-        </Component><Directory Id="_restemplates_rmd140059181" Name="rmd">
-          <Component Id="_restemplates_rmd_table_rmd507231021" Guid="*">
-          <File Id="_restemplates_rmd_table_rmd507231021_file739366789" Name="table.rmd" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\rmd\table.rmd"/>
+        <Component Id="_reslog_rust_convert_log432190888" Guid="*">
+            <File Id="_reslog_rust_convert_log432190888_file148000567" Name="rust-convert.log"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\log\rust-convert.log" />
         </Component>
-        </Directory><Component Id="_restemplates_template_html634231652" Guid="*">
-          <File Id="_restemplates_template_html634231652_file44874378x" Name="template.html" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\template.html"/>
-        </Component><Component Id="_restemplates_unige_png913304442" Guid="*">
-          <File Id="_restemplates_unige_png913304442_file474135254" Name="unige.png" DiskId="1" Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\unige.png"/>
+    </Directory>
+    <Directory Id="_resmd108404279" Name="md">
+        <Component Id="_resmd__gitkeep356227474" Guid="*">
+            <File Id="_resmd__gitkeep356227474_file974038348" Name=".gitkeep" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\md\.gitkeep" />
         </Component>
+    </Directory>
+    <Directory Id="_respdf934431662" Name="pdf">
+        <Component Id="_respdf__gitkeep383024819" Guid="*">
+            <File Id="_respdf__gitkeep383024819_file131383067" Name=".gitkeep" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\pdf\.gitkeep" />
+        </Component>
+    </Directory>
+    <Directory Id="_restemplates158457820" Name="templates">
+        <Component Id="_restemplates_course_desc_css109847842" Guid="*">
+            <File Id="_restemplates_course_desc_css109847842_file600558440" Name="course-desc.css"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\course-desc.css" />
+        </Component>
+        <Directory Id="_restemplates_rmd140059181" Name="rmd">
+            <Component Id="_restemplates_rmd_table_rmd507231021" Guid="*">
+                <File Id="_restemplates_rmd_table_rmd507231021_file739366789" Name="table.rmd"
+                    DiskId="1"
+                    Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\rmd\table.rmd" />
+            </Component>
         </Directory>
-        </Directory>
+        <Component Id="_restemplates_template_html634231652" Guid="*">
+            <File Id="_restemplates_template_html634231652_file44874378x" Name="template.html"
+                DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\template.html" />
+        </Component>
+        <Component Id="_restemplates_unige_png913304442" Guid="*">
+            <File Id="_restemplates_unige_png913304442_file474135254" Name="unige.png" DiskId="1"
+                Source="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\templates\unige.png" />
+        </Component>
+    </Directory>
+</Directory>
