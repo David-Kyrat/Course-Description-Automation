@@ -100,7 +100,7 @@ object Main {
             }
             case err: Throwable => {
                 Utils.log(err)
-                System.err.println("An unexpected Error happened. Please try again.")
+                System.err.println("An unexpected error happened during the pdf generation. Please try again.")
                 // err.printStackTrace()
                 // println("-------------\n"+ err.getMessage)
                 System.exit(1)

@@ -72,6 +72,10 @@ Windows / mappings ++= {
     Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
 }
 
+/* Windows / mappings ++= {
+    // val lib = (root/libraryDependencies).value.
+} */
+
 wixFeatures += WindowsFeature(
   id = "BinaryAndPath",
   title = "Project Resources",
