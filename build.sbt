@@ -22,7 +22,8 @@ ThisBuild / organization := "ch"
 logLevel := Level.Error
 maxErrors := 2
 triggeredMessage := Watched.clearWhenTriggered
-
+//TODO: LOOK AT THIS METHOD !
+//WixHelper.makeWixProductConfig()
 enablePlugins(JavaAppPackaging, WindowsPlugin)
 
 wixProductLicense := Some(Wix.wixProductLicense)
@@ -89,16 +90,15 @@ wixFeatures += WindowsFeature(
     WindowsFeature("AddBinToPath", "Update Environment Variables", "Update PATH environment variables (requires restart).", "allow", "1", "collapse", List(AddDirectoryToPath("bin"))) */
 wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
-/* lazy val comp = generateComponentsAndDirectoryXml(resDir_File, "res")
+lazy val comp = generateComponentsAndDirectoryXml(resDir_abs, "res")
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
     println("-----")
-    // println(comp)
+    println(comp)
     println("\n-----\n")
     IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
     println("\n-----\n")
-    // println(resources.value)
-} */
+}
 
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
 lazy val getWixConfig = taskKey[Unit]("A task that prints wix related settings")
