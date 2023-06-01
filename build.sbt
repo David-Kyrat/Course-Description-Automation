@@ -77,7 +77,7 @@ wixFeatures += WindowsFeature(
   id = "BinaryAndPath",
   title = "Project Resources",
   desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-  components = Seq(ComponentFile("License"), AddDirectoryToPath("res"))
+  components = Seq(ComponentFile("License"), AddDirectoryToPath("res"), AddDirectoryToPath("res/md"), AddDirectoryToPath("res/templates"), AddDirectoryToPath("res/pdf"))
 )
 
 /* id: String,
@@ -89,7 +89,7 @@ wixFeatures += WindowsFeature(
   components: Seq[FeatureComponent] = Seq.empty */
 /* val x =
     WindowsFeature("AddBinToPath", "Update Environment Variables", "Update PATH environment variables (requires restart).", "allow", "1", "collapse", List(AddDirectoryToPath("bin"))) */
-wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
+//wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val comp = generateComponentsAndDirectoryXml(resDir_abs, "res")
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
@@ -101,10 +101,37 @@ writeWixConfig := {
     println("\n-----\n")
 }
 
+import complete.DefaultParsers._
+import sbt.File
+
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
 lazy val getWixConfig = taskKey[Unit]("A task that prints wix related settings")
 lazy val setDirectory = taskKey[Unit]("A task that write config manually to .wxs file")
 lazy val relBin = taskKey[Unit]("A tasks that reload this config & packageBin & calls task setDirectory")
+/* lazy val genCompXml = inputKey[(Seq[String], scala.xml.Node)]("A task generate xml for the given `File`")
+
+genCompXml := {
+    val arg: String = spaceDelimited("<arg>").parsed(0)
+    val components:  (Seq[String], scala.xml.Node) = generateComponentsAndDirectoryXml(File(arg), "res")
+    println(f"Node:  ${components._2}")
+    components._1.foreach(println(_))
+    println("\n")
+    components
+} */
+
+lazy val gcx = taskKey[Unit]("")
+
+//FIX:
+// TODO:   SEE HOW TO INCLUDE EMPTY DIRS IN INSTALLER. other than that scala part would be done
+//         just need to call it in rust 
+
+gcx := {
+    val path = Path.of("res/md")
+    val x = generateComponentsAndDirectoryXml(java.nio.file.Path.toFile(), "md")       
+    println("\n-----\n")
+    println(x)
+    println("\n-----\n")
+}
 
 setDirectory := {
     Package.setDirectory()
