@@ -18,11 +18,6 @@ import ch.net.{ReqHdl, Resp}
 import ch.sealedconcept.CourseActivity
 import ch.sealedconcept.CourseHours
 
-/* import test.TestCourse._
-import test.TestStudyPlan._
-import test.{TestCourse, TestStudyPlan} */
-
-
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
 
@@ -52,7 +47,7 @@ object Main {
         // if gui_input has a "#" but nothing after i.e. "12X001#" program will fail
         // since apparently the split array is only of length 1.
         // So checking that special case here.
-        val gui_input = if (_gui_input.endsWith("#")) _gui_input + " " else _gui_input  
+        val gui_input = if (_gui_input.endsWith("#")) _gui_input + " " else _gui_input
         val tmp = gui_input.split("#")
         if (tmp.length < 2) {
             val argsStr = args.toList.mkString("\t")
@@ -85,17 +80,14 @@ object Main {
     def _main(courseCodes: ParArray[String], sps: ParArray[String]) = {
         if (!courseCodes.isEmpty) courseCodes.foreach(Course(_).saveToMarkdown)
         if (!sps.isEmpty) sps.foreach(StudyPlan(_).saveToMarkdown)
+        println(f"written courses in ${courseCodes.mkString("\n")}")
+        println(f"\nwritten courses in ${sps.mkString("\n")}")
+
     }
 
     def main(args: Array[String]): Unit = {
-        // println("\n\n")
         try {
-            // println(CourseHours.ALL_MAP("Cours-séminaire"))
             __main(args)
-            /* writeCoursDescToRes("D200025")
-            writeCoursDescToRes("32H1464")
-            writeCoursDescToRes("32B0132")
-            writeCoursDescToRes("32H1461") */
         } catch {
             case re: ResourceNotFoundException => {
                 Utils.log(re)
@@ -110,7 +102,6 @@ object Main {
                 // System.exit(1)
             }
         }
-        // println("\n\n")
     }
 }
 // testAbbrevMap()

@@ -71,12 +71,13 @@ Windows / mappings ++= {
     Seq(binJar -> Package.jarPath, resJar -> Package.jarPath)
     Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
 }
+// Ok si on arrive a faire un directory res/md/ vide => works
 
 wixFeatures += WindowsFeature(
   id = "BinaryAndPath",
   title = "Project Resources",
   desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-  components = Seq(ComponentFile("License.rtf"), AddDirectoryToPath("res"))
+  components = Seq(ComponentFile("License"), AddDirectoryToPath("res"))
 )
 
 /* id: String,
