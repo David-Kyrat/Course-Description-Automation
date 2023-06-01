@@ -1,0 +1,113 @@
+<Wix xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+    xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="ce07be71-510d-414a-92d4-dff47631848a" Name="Course-Description-Automation"
+        Language="1033" Version="1.0" Manufacturer="Noah Munz &lt;munz.no@gmail.com&gt;"
+        UpgradeCode="4552fb0e-e257-4dbd-9ecb-dba9dbacf424">
+        <Package
+            Description="All the mandatory files (core, libraries and resources) for the project to run."
+            Comments="nil" Manufacturer="Noah Munz &lt;munz.no@gmail.com&gt;" InstallScope="perUser"
+            InstallerVersion="200" Compressed="yes" />
+        <Media Id="1" Cabinet="_course_description_automation21236090x.cab" EmbedCab="yes" />
+
+        <!-- Define the directories we use -->
+      <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]Course-Description-Automation" /><Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">
+                    <Component Id="_ApplicationProgramsFolderRemove689092593"
+                        Guid="fe99e3bf-fa62-4d65-9cb1-9f18cbbcb49a">
+                        <RemoveFolder Id="ApplicationProgramsFolderRemove" On="uninstall" />
+                        <RegistryValue Root="HKCU"
+                            Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation"
+                            Name="installed" Type="integer" Value="1" KeyPath="yes" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="ProgramFilesFolder" Name="PFiles">
+                <Directory Id="INSTALLDIR" Name="Course-Description-Automation">
+                    <Directory Id="_lib107141xxx" Name="lib">
+
+                    </Directory><!-- -->
+                    <Directory Id="_res112800xxx" Name="res">
+
+                    </Directory>
+                </Directory>
+            </Directory>
+        </Directory>
+        <!-- Now define the components -->
+        <DirectoryRef Id="_lib107141xxx">
+            <Component Id="_lib_course_description_automation_jar714145123"
+                Guid="8e036f3f-5dc8-4466-88eb-3433420eaf54">
+                <File Id="fl__lib_course_description_automation_jar714145123"
+                    Name="course-description-automation.jar" DiskId="1"
+                    Source="lib\course-description-automation.jar">
+
+                </File>
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="ApplicationProgramsFolder">
+            <Component Id="_shortcut_f2bb4627_852d_4f17_9256_96c7f95a3bea955335126"
+                Guid="57624f87-d212-4cb6-b04c-29c9d87ef025">
+
+                <RegistryValue Root="HKCU"
+                    Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation"
+                    Name="installed" Type="integer" Value="1" KeyPath="yes" />
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="INSTALLDIR">
+            <Component Id="_License_rtf102568936" Guid="294ca509-be34-4ed0-930a-be46ffe632c3">
+                <File Id="fl__License_rtf102568936" Name="License.rtf" DiskId="1"
+                    Source="License.rtf">
+
+                </File>
+            </Component>
+        </DirectoryRef>
+        <DirectoryRef Id="_res112800xxx">
+            <Component Id="_res112800xxxPathC" Guid="f6b57254-bcfc-4814-88e0-6ec8ec46ac7f">
+                <CreateFolder />
+                <Environment Id="COURSE_DESCRIPTION_AUTOMATION_HOME"
+                    Name="COURSE_DESCRIPTION_AUTOMATION_HOME" Value="[INSTALLDIR]" Permanent="no"
+                    Action="set" System="no" />
+                <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]res" Permanent="no"
+                    Part="last" Action="set" System="no" />
+            </Component>
+        </DirectoryRef>
+        <!-- Now define the features! -->
+        <Feature Id="Complete" Title="Course-Description-Automation"
+            Description="All the mandatory files (core, libraries and resources) for the project to run."
+            Display="expand" Level="1" ConfigurableDirectory="INSTALLDIR">
+            <!-- Manually added uninstall feautre -->
+            <Feature Id="Uninstall" Title="Uninstall" Description="Uninstall ApplicationFolder"
+                Level="1" Absent="allow">
+                <ComponentRef Id="_ApplicationProgramsFolderRemove689092593" />
+            </Feature>
+            <Feature Id="e_description_automation_core151743571"
+                Title="course-description-automation" Description="All core files." Level="1"
+                Absent="disallow">
+                <ComponentRef Id="_lib_course_description_automation_jar714145123" />
+            </Feature>
+            <Feature Id="AddBinToPath" Title="Update Environment Variables"
+                Description="Update PATH environment variables (requires restart)." Level="1"
+                Absent="allow">
+            </Feature>
+            <Feature Id="AddConfigLinks" Title="Configuration start menu links"
+                Description="Adds start menu shortcuts to edit configuration files." Level="1"
+                Absent="allow">
+                <ComponentRef Id="_shortcut_f2bb4627_852d_4f17_9256_96c7f95a3bea955335126" />
+            </Feature>
+            <Feature Id="BinaryAndPath" Title="Project Resources"
+                Description="Mandatory project resources (like pdf template) to be able to automatically generate some."
+                Level="1" Absent="allow">
+                <ComponentRef Id="_License_rtf102568936" />
+                <ComponentRef Id="_res112800xxxPathC" />
+            </Feature>
+        </Feature>
+        <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize"
+            DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit." />
+        <UIRef Id="WixUI_FeatureTree" />
+        <UIRef Id="WixUI_ErrorProgressText" />
+        <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+        <WixVariable Id="WixUILicenseRtf"
+            Value="C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\LICENSE.rtf" />
+
+    </Product>
+</Wix>
