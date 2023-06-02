@@ -6,6 +6,9 @@ other_res/
 # bundle jdk and javafx
 res/java/jdk-17
 res/java/tmep
+
+# ignoring the huge number of generated markdown files
+res/md/*.md
 # Scala config folders
 null
 .bsp
@@ -70,7 +73,7 @@ target/scala-2.13/api
 **/.vscode
 **/.idea
 .idea
-
+out
 
 # I don't know why this folder keep getting generated
 **/Powershell 7.3.3
