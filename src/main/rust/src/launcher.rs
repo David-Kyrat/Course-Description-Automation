@@ -49,10 +49,10 @@ fn get_java_paths() -> io::Result<(String, String, String)> {
         abs_path_clean(pop_n_push_s(&javadir, 0, &["fancyform.jar"])),
     );
 
-    dbg!(&javafx_lib_path);
+    /* dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
-    println!("");
+    println!(""); */
     Ok((java_exe_path, javafx_lib_path, jar_path))
 }
 
@@ -120,9 +120,12 @@ pub fn main() -> io::Result<()> {
     let main_out = launch_main_scalapp(main_in);
     let err_msg: Option<String> = match main_out {
         Ok(()) => None,
-        Err(msg) => Some(msg),
+        Err(msg) => {
+            let ms = msg.clone();
+            error!("during launcher, after launch_main_scalapp {}", &ms);
+            Some(msg)
+        }
     };
-    dbg!(&err_msg);
 
     // if user input incorrect
     let success = err_msg.is_none();
@@ -130,10 +133,11 @@ pub fn main() -> io::Result<()> {
         println!("launching popup");
         let retry = win_popup::main(success, err_msg);
         if retry {
-            println!("retry\n");
+            // println!("retry\n");
             return main();
         } else {
-            println!("exit");
+            // dbg!(&err_msg);
+            // println!("exit");
             exit(0);
         }
     }
@@ -143,7 +147,8 @@ pub fn main() -> io::Result<()> {
         let err_msg = main_result
             .err()
             .map(|e| format!("The following error happened.\n  \"{}\"", e));
-        dbg!(&err_msg);
+        error!("during launcher, after par_convert::main() {}", &err_msg.unwrap());
+        // dbg!(&err_msg);
     }
 
     // convert to pdf
