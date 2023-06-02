@@ -14,6 +14,7 @@ import Artifacts.Wix
 import Artifacts._
 import Path.relativeTo
 import sbt.IO
+import sbt.file
 
 ThisBuild / scalaVersion := "2.13.10"
 ThisBuild / version := vers
@@ -65,28 +66,31 @@ cl := { println("\033c") }
 // Windows / mappings := Seq[(File, String)]()
 // Windows / mappings := (Universal / mappings).value // default mappings
 
-Windows / mappings ++= {
+Windows / mappings := {
     // val binJar = (Compile / packageBin).value // NT: this the jar of the actual compiled source code
-    val resJar = (Compile / resourceDirectory).value
-    Seq(resJar -> Package.jarPath)
+    // val resJar = (Compile / resourceDirectory).value
+    val resJar = resDir_abs
+    val launcher = launcher_file
+    // Seq(resJar -> Package.jarPath)
     // Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
-    Package.getJarMapping((Compile / resourceDirectory).value)
+    Package.getJarMapping(resJar, launcher)
 }
 
 /* Windows/mappings ++= {
     val binJar_with_deps = File("target/wind")
 
 } */
-
 // Ok si on arrive a faire un directory res/md/ vide => works
-val x =
-    wixFeatures += WindowsFeature(
-      id = "BinaryAndPath",
-      title = "Project Resources",
-      desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-      // components = Seq(ComponentFile("record.md"))
-      components = Seq(ComponentFile("./record.md"))
-    )
+wixFeatures := Seq(
+  WindowsFeature(
+    id = "BinaryAndPath",
+    title = "Project Resources",
+    desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
+    // components = Seq(ComponentFile("record.md"))
+    components = Seq(ComponentFile("./Course-Descritpion-Automation.exe"))
+  )
+)
+val x = wixFeatures
 
 /* id: String,
   title: String,

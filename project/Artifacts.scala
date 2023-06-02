@@ -29,6 +29,13 @@ object Artifacts {
 
     val pName = "Course-Description-Automation" // project Name
     val pNameLower = "course-description-automation"
+    
+    val launcher_name = pName + ".exe"
+    val launcher_file = file("./" + launcher_name)
+    /* val launcher_path: nio.file.Path = nio.file.Path.of(launcher_string).toAbsolutePath
+    val launcher_abs: java.io.File = launcher_path.toFile */
+
+
 
     // val batName = pNameLower + ".bat"
     // val batPath = "bin/" + batName
