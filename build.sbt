@@ -1,15 +1,14 @@
 import java.nio
 
 // import com.typesafe.sbt.SbtNativePackager.Universal.
-import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixFile, wixFiles, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
+/* import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixFile, wixFiles, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
 import com.typesafe.sbt.packager.windows.WixHelper.generateComponentsAndDirectoryXml
 import com.typesafe.sbt.packager.windows.WixHelper.{makeIdFromFile, makeWixConfig, makeWixProductConfig}
 import com.typesafe.sbt.packager.windows._
-import com.typesafe.sbt.packager.windows.{WindowsDeployPlugin, WindowsFeature, WindowsKeys, WindowsPlugin, WindowsProductInfo}
+import com.typesafe.sbt.packager.windows.{WindowsDeployPlugin, WindowsFeature, WindowsKeys, WindowsPlugin, WindowsProductInfo} */
 
 // Informations relative to the packaging of this project
 import Artifacts.Package
-import Artifacts.Wix
 // Dependency and other information about build this project
 import Artifacts._
 import Path.relativeTo
@@ -24,7 +23,7 @@ logLevel := Level.Error
 maxErrors := 2
 triggeredMessage := Watched.clearWhenTriggered
 //WixHelper.makeWixProductConfig()
-enablePlugins(JavaAppPackaging, WindowsPlugin)
+// enablePlugins(JavaAppPackaging, WindowsPlugin)
 
 // wixProductLicense := Some(Wix.wixProductLicense)
 
@@ -39,12 +38,12 @@ lazy val root = (project in file(".")).settings(
   assembly / mainClass := Some(Package.mainClass),
   assembly / assemblyJarName := Package.jarName,
   // pack info
-  /* maintainer := Package.maintainer,
+  maintainer := Package.maintainer,
   packageSummary := Package.summary,
-  packageDescription := Package.description, */
+  packageDescription := Package.description,
 
   // wix build information
-  wixPackageInfo := Artifacts.Wix.wixPackageInfo
+  // wixPackageInfo := Artifacts.Wix.wixPackageInfo
 )
 
 // NB: ---------------------------------------
@@ -65,7 +64,7 @@ cl := { println("\033c") }
 // Windows / mappings := Seq[(File, String)]()
 // Windows / mappings := (Universal / mappings).value // default mappings
 
-Windows / mappings := {
+/* Windows / mappings := {
     // val binJar = (Compile / packageBin).value // NT: this the jar of the actual compiled source code
     // val resJar = (Compile / resourceDirectory).value
     val resJar = resDir_abs
@@ -73,14 +72,14 @@ Windows / mappings := {
     // Seq(resJar -> Package.jarPath)
     // Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
     Package.getJarMapping(resJar, launcher)
-}
+} */
 
 /* Windows/mappings ++= {
     val binJar_with_deps = File("target/wind")
 
 } */
 // Ok si on arrive a faire un directory res/md/ vide => works
-wixFeatures := Seq(
+/* wixFeatures := Seq(
   WindowsFeature(
     id = "BinaryAndPath",
     title = "Project Resources",
@@ -89,7 +88,7 @@ wixFeatures := Seq(
     components = Seq(ComponentFile("./Course-Descritpion-Automation.exe"))
   )
 )
-val x = wixFeatures
+val x = wixFeatures */
 
 /* id: String,
   title: String,
@@ -102,7 +101,7 @@ val x = wixFeatures
     WindowsFeature("AddBinToPath", "Update Environment Variables", "Update PATH environment variables (requires restart).", "allow", "1", "collapse", List(AddDirectoryToPath("bin"))) */
 //wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
-lazy val comp = generateComponentsAndDirectoryXml(resDir_abs, "res")
+/* lazy val comp = generateComponentsAndDirectoryXml(resDir_abs, "res")
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
     println("-----")
@@ -114,15 +113,15 @@ writeWixConfig := {
     println("\n-----\n")
     // IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
     println("\n-----\n")
-}
+} */
 
-import complete.DefaultParsers._
+/* import complete.DefaultParsers._
 import sbt.File
 
 lazy val getResPath = taskKey[Unit]("A task that gets the res path")
 lazy val getWixConfig = taskKey[Unit]("A task that prints wix related settings")
 lazy val setDirectory = taskKey[Unit]("A task that write config manually to .wxs file")
-lazy val relBin = taskKey[Unit]("A tasks that reload this config & packageBin & calls task setDirectory")
+lazy val relBin = taskKey[Unit]("A tasks that reload this config & packageBin & calls task setDirectory") */
 /* lazy val genCompXml = inputKey[(Seq[String], scala.xml.Node)]("A task generate xml for the given `File`")
 
 genCompXml := {
@@ -134,9 +133,7 @@ genCompXml := {
     components
 } */
 
-lazy val gcx = taskKey[Unit]("")
 
-//FIX:
 
 /* gcx := {
     val path = Path.of("res/md")
@@ -146,7 +143,7 @@ lazy val gcx = taskKey[Unit]("")
     println("\n-----\n")
 } */
 
-setDirectory := {
+/* setDirectory := {
     Package.setDirectory()
 }
 
@@ -162,9 +159,9 @@ getWixConfig := {
     println("\n-----")
     println((wixFeatures).value.mkString("\n"))
     println("\n-----")
-}
+} */
 
-getResPath := {
+/* getResPath := {
     println(root / assembly / mainClass)
     // println((root / assembly / mainClass).value.get)
     // println(resourceDirectory.value)
@@ -176,7 +173,7 @@ getResPath := {
     println("-----")
     println((root / Compile / resourceDirectory).value)
     println("-----")
-}
+} */
 
 // HINT: TO GENERATE MSI INSTALLER RUN `sbt 'Windows / packageBin'` (or windows:packageBin but sbt says its deprecated)
 
