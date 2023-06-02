@@ -8,11 +8,6 @@ trait ResourceNotFoundException extends Exception {
 
 object ResourceNotFoundException {
 
-    def fmtErr(resName: String) = {
-        /* val tmp = courseYear.split("-")
-        val year = tmp(0)
-        val code = tmp(1) */
-        f"$resName was not found. Please check spelling and retry."
-    }
+    def fmtErr(resName: String) = f"$resName was not found. Please check the spelling (or your internet connection) and retry."
 }
 
