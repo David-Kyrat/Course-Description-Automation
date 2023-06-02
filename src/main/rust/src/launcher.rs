@@ -34,7 +34,7 @@ fn get_java_paths() -> io::Result<(String, String, String)> {
         pop_n_push_s(&javadir, 0, &["fancyform.jar"]),
     );
     if !javafx_lib_path.exists() {
-        println!("{}", abs_path_clean(&javafx_lib_path));
+        // println!("{}", abs_path_clean(&javafx_lib_path));
         return Err(io::Error::new(io::ErrorKind::NotFound, format!("javafx_lib_path {} not found", (javafx_lib_path.display()))));
     } 
     if !java_exe_path.exists() {
@@ -114,7 +114,7 @@ pub fn main() -> io::Result<()> {
 
     let main_in: String = extract_std(gui_out.stdout);
     // let main_in: String = "".to_owned();
-    println!("main_in: \"{}\"", &main_in);
+    // println!("main_in: \"{}\"", &main_in);
 
     // generate markdown
     let main_out = launch_main_scalapp(main_in);
@@ -130,7 +130,7 @@ pub fn main() -> io::Result<()> {
     // if user input incorrect
     let success = err_msg.is_none();
     if (!success) {
-        println!("launching popup");
+        // println!("launching popup");
         let retry = win_popup::main(success, err_msg);
         if retry {
             // println!("retry\n");
@@ -158,7 +158,7 @@ pub fn main() -> io::Result<()> {
     // asks user to retry
     let retry = win_popup::main(success, err_msg);
     if retry {
-        println!("retry");
+        // println!("retry");
         return main();
     } else {
         exit(0);
