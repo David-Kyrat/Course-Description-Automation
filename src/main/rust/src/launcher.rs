@@ -1,6 +1,5 @@
 #![allow(unused)]
 
-
 use crate::utils::RETRY_AMOUNT;
 use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::execvp};
 
@@ -11,7 +10,7 @@ use std::error::Error;
 use std::fs::{DirEntry, File, ReadDir};
 use std::io::Write;
 use std::path::{Path, PathBuf};
-use std::process::{exit, Command, Output};
+use std::process::{exit, Command, Output, ExitStatus};
 use std::{env, fs, io};
 
 extern crate native_windows_derive as nwd;
@@ -19,7 +18,7 @@ extern crate native_windows_gui as nwg;
 
 use log::error;
 
-fn get_java_paths() -> io::Result<(String, String, String)> {
+fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let pathbuf = env::current_exe().unwrap();
 
     // FIX IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
@@ -35,25 +34,39 @@ fn get_java_paths() -> io::Result<(String, String, String)> {
     );
     if !javafx_lib_path.exists() {
         // println!("{}", abs_path_clean(&javafx_lib_path));
-        return Err(io::Error::new(io::ErrorKind::NotFound, format!("javafx_lib_path {} not found", (javafx_lib_path.display()))));
-    } 
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("javafx_lib_path {} not found", (javafx_lib_path.display())),
+        ));
+    }
     if !java_exe_path.exists() {
-        return Err(io::Error::new(io::ErrorKind::NotFound, format!("java_exe_path {:#?} not found", (java_exe_path).display())));
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("java_exe_path {:#?} not found", (java_exe_path).display()),
+        ));
     }
     if !jar_path.exists() {
-        return Err(io::Error::new(io::ErrorKind::NotFound, format!("jar_path {:#?} not found", (jar_path).display())));
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("jar_path {:#?} not found", (jar_path).display()),
+        ));
     }
-    let (javafx_lib_path, java_exe_path, jar_path) = (
+    let (javafx_lib_path, java_exe_path, jar_path, scala_jar_path) = (
         abs_path_clean(pop_n_push_s(&javadir, 0, &["javafx-sdk-19", "lib"])),
         abs_path_clean(pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java.exe"])),
         abs_path_clean(pop_n_push_s(&javadir, 0, &["fancyform.jar"])),
+        abs_path_clean(pop_n_push_s(
+            &javadir,
+            0,
+            &["Course-Description-Automation.jar"],
+        )),
     );
 
     /* dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
     println!(""); */
-    Ok((java_exe_path, javafx_lib_path, jar_path))
+    Ok((java_exe_path, javafx_lib_path, jar_path, scala_jar_path))
 }
 
 /// # Descriptionn
@@ -70,7 +83,7 @@ fn extract_std(out: Vec<u8>) -> String {
 }
 
 fn launch_gui() -> io::Result<Output> {
-    let (java_exe_path, javafx_lib_path, jar_path) = get_java_paths()?;
+    let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
 
     Command::new(java_exe_path)
         .args(
@@ -88,11 +101,14 @@ fn launch_gui() -> io::Result<Output> {
 /// Launch main scala application, that will query the unige database
 /// and generate the markdown
 ///
-fn launch_main_scalapp(args: String) -> Result<(), String> {
-    Ok(())
+fn launch_main_scalapp(args: String) -> io::Result<Output> {
+    let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
+    Command::new(java_exe_path)
+        .args(format!("-jar {} {}", scala_jar_path, args).split(" "))
+        .output()
 }
 
-use crate::{log_err, log_if_err, para_convert, win_popup, unwrap_or_log};
+use crate::{log_err, log_if_err, para_convert, unwrap_or_log, win_popup};
 
 /// # Desc
 /// Launcher for the whole project. There are several steps.
@@ -110,16 +126,23 @@ use crate::{log_err, log_if_err, para_convert, win_popup, unwrap_or_log};
 /// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
 pub fn main() -> io::Result<()> {
     // gui input
-    let gui_out: Output = unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"); 
+    let gui_out: Output = unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui");
 
     let main_in: String = extract_std(gui_out.stdout);
     // let main_in: String = "".to_owned();
     // println!("main_in: \"{}\"", &main_in);
 
     // generate markdown
-    let main_out = launch_main_scalapp(main_in);
-    let err_msg: Option<String> = match main_out {
-        Ok(()) => None,
+    let main_out: Output = unwrap_or_log!(
+        launch_main_scalapp(main_in),
+        "launch scala app, cannot launch scala app"
+    );
+    // let main_out_msg = main_out.
+    // let main_out = launch_main_scalapp(main_in);
+    let main_exit_status: &ExitStatus = &main_out.status.clone();
+
+    let err_msg: Option<Output> = match main_exit_status.success() {
+        true => None,
         Err(msg) => {
             let ms = msg.clone();
             error!("during launcher, after launch_main_scalapp {}", &ms);
@@ -142,12 +165,15 @@ pub fn main() -> io::Result<()> {
         }
     }
     let main_result = para_convert::main();
-    
+
     if main_result.is_err() {
         let err_msg = main_result
             .err()
             .map(|e| format!("The following error happened.\n  \"{}\"", e));
-        error!("during launcher, after par_convert::main() {}", &err_msg.unwrap());
+        error!(
+            "during launcher, after par_convert::main() {}",
+            &err_msg.unwrap()
+        );
         // dbg!(&err_msg);
     }
 
