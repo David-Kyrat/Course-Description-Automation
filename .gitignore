@@ -27,6 +27,7 @@ target/windows/main
 res/templates/rust/pandoc.exe
 **/pandoc.exe
 
+**/jdk17
 # sbt config dirs
 project/.bloop
 project/project/
@@ -90,3 +91,6 @@ package*.json
 
 **/node_modules
 **/rome.json
+
+**/jdk-17/lib/modules
+**/jdk-17

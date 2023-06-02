@@ -7,7 +7,7 @@
     <SetDirectory Id="INSTALLDIR" Value="[PersonalFolder]Course-Description-Automation" />  <Directory Id="TARGETDIR" Name="SourceDir">
         <Directory Id="ProgramMenuFolder">
           <Directory Id="ApplicationProgramsFolder" Name="Course-Description-Automation">
-            <Component Id="_ApplicationProgramsFolderRemove689092593" Guid="389cb166-e123-4542-b0bd-71e867717877">
+            <Component Id="_ApplicationProgramsFolderRemove689092593" Guid="25e351ac-ec79-425f-abee-e818a3b7a14e">
               <RemoveFolder Id="ApplicationProgramsFolderRemove" On="uninstall"/>
               <RegistryValue Root="HKCU" Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
@@ -27,6 +27,8 @@
       </Directory><Directory Id="_main_scala_ch_io158151108" Name="io">
         
       </Directory>
+      </Directory><Directory Id="_main_scala_test119540382" Name="test">
+        
       </Directory>
       </Directory>
       </Directory><!-- --><Directory Id="_lib107141xxx" Name="lib">
@@ -39,163 +41,175 @@
       </Directory>
       <!-- Now define the components -->
       <DirectoryRef Id="_main_scala_ch206604662">
-            <Component Id="_main_scala_ch_Main_scala848827004" Guid="105341de-686f-4cea-b5d5-d9eae749f73d">
+            <Component Id="_main_scala_ch_Main_scala848827004" Guid="36b2058d-9597-489a-b99b-9bcc365fbf35">
               <File Id="fl__main_scala_ch_Main_scala848827004" Name="Main.scala" DiskId="1" Source="main\scala\ch\Main.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_net178220811">
-            <Component Id="_main_scala_ch_net_Resp_scala546664837" Guid="42778f3a-84e9-4064-aca5-f6f2d11ae4f5">
+            <Component Id="_main_scala_ch_net_Resp_scala546664837" Guid="3b11e0d2-1875-4b28-aece-922564f7e7c3">
               <File Id="fl__main_scala_ch_net_Resp_scala546664837" Name="Resp.scala" DiskId="1" Source="main\scala\ch\net\Resp.scala">
                 
               </File>
             </Component>
+          </DirectoryRef><DirectoryRef Id="_main_scala_test119540382">
+            <Component Id="_main_scala_test_TestCourse_scala131105177" Guid="e18c36fc-34f8-4a67-89cd-b98d3d3834b2">
+              <File Id="fl__main_scala_test_TestCourse_scala131105177" Name="TestCourse.scala" DiskId="1" Source="main\scala\test\TestCourse.scala">
+                
+              </File>
+            </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_sealedconcept211675900">
-            <Component Id="_main_scala_ch_sealedconcept_Semesters_scala992340027" Guid="fa512a7a-015b-467a-b18c-34b0600176e6">
+            <Component Id="_main_scala_ch_sealedconcept_Semesters_scala992340027" Guid="97a953b6-4e51-4a99-a058-1569d70e7927">
               <File Id="fl__main_scala_ch_sealedconcept_Semesters_scala992340027" Name="Semesters.scala" DiskId="1" Source="main\scala\ch\sealedconcept\Semesters.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch206604662">
-            <Component Id="_main_scala_ch_StudyPlan_scala214227715" Guid="dd0f5347-fdd4-4b38-9ebe-2c81119f4775">
+            <Component Id="_main_scala_ch_StudyPlan_scala214227715" Guid="fca09380-acf2-4caf-8bd9-6ab001c3bb51">
               <File Id="fl__main_scala_ch_StudyPlan_scala214227715" Name="StudyPlan.scala" DiskId="1" Source="main\scala\ch\StudyPlan.scala">
                 
               </File>
             </Component>
+          </DirectoryRef><DirectoryRef Id="_main_scala_test119540382">
+            <Component Id="_main_scala_test_TestExceptions_scala414453972" Guid="79d96fab-0080-487a-827e-b74726a2b0f3">
+              <File Id="fl__main_scala_test_TestExceptions_scala414453972" Name="TestExceptions.scala" DiskId="1" Source="main\scala\test\TestExceptions.scala">
+                
+              </File>
+            </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_net_exception111712539">
-            <Component Id="_main_scala_ch_net_exception_CourseNotFoundException_scala158521737" Guid="42583757-5ad5-4ae2-8ff6-dcadc635e18b">
+            <Component Id="_main_scala_ch_net_exception_CourseNotFoundException_scala158521737" Guid="ae5a873b-f59c-4f9d-934c-c3af940f3b89">
               <File Id="fl__main_scala_ch_net_exception_CourseNotFoundException_scala158521737" Name="CourseNotFoundException.scala" DiskId="1" Source="main\scala\ch\net\exception\CourseNotFoundException.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch206604662">
-            <Component Id="_main_scala_ch_Utils_scala428692098" Guid="94ad4011-0613-4f0e-9f6a-1b935429dafc">
+            <Component Id="_main_scala_ch_Utils_scala428692098" Guid="23918c80-ec97-4e77-89f9-f7236edc501c">
               <File Id="fl__main_scala_ch_Utils_scala428692098" Name="Utils.scala" DiskId="1" Source="main\scala\ch\Utils.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_sealedconcept211675900">
-            <Component Id="_main_scala_ch_sealedconcept_SealedConceptObject_scala111780637" Guid="6ab8d47c-64f0-4190-afe3-ff62cced9a52">
+            <Component Id="_main_scala_ch_sealedconcept_SealedConceptObject_scala111780637" Guid="4b8dfe48-8243-4ec1-bb26-2f921486863b">
               <File Id="fl__main_scala_ch_sealedconcept_SealedConceptObject_scala111780637" Name="SealedConceptObject.scala" DiskId="1" Source="main\scala\ch\sealedconcept\SealedConceptObject.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_net_exception111712539">
-            <Component Id="_in_scala_ch_net_exception_ResourceNotFoundException_scala129997345" Guid="71a2ac5f-390c-488c-9ef7-23c8b0a150c9">
+            <Component Id="_in_scala_ch_net_exception_ResourceNotFoundException_scala129997345" Guid="891ac3eb-ef22-47b6-a1fa-13433e386a93">
               <File Id="fl__in_scala_ch_net_exception_ResourceNotFoundException_scala129997345" Name="ResourceNotFoundException.scala" DiskId="1" Source="main\scala\ch\net\exception\ResourceNotFoundException.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_io158151108">
-            <Component Id="_main_scala_ch_io_Serializer_scala290259624" Guid="511adeb9-621a-4b98-8846-0c7b41507542">
+            <Component Id="_main_scala_ch_io_Serializer_scala290259624" Guid="562d834e-b3ef-45e6-bc28-dd9340455248">
               <File Id="fl__main_scala_ch_io_Serializer_scala290259624" Name="Serializer.scala" DiskId="1" Source="main\scala\ch\io\Serializer.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_net178220811">
-            <Component Id="_main_scala_ch_net_ReqHdl_scala153455984" Guid="b19fe09c-1d22-4695-b788-0122b608f058">
+            <Component Id="_main_scala_ch_net_ReqHdl_scala153455984" Guid="a9bc725c-4654-4481-a577-65af36faede3">
               <File Id="fl__main_scala_ch_net_ReqHdl_scala153455984" Name="ReqHdl.scala" DiskId="1" Source="main\scala\ch\net\ReqHdl.scala">
                 
               </File>
             </Component>
+          </DirectoryRef><DirectoryRef Id="_main_scala_test119540382">
+            <Component Id="_main_scala_test_TestStudyPlan_scala167227509" Guid="b26d6a5c-fb4d-4be9-8aab-d3f0cadf8056">
+              <File Id="fl__main_scala_test_TestStudyPlan_scala167227509" Name="TestStudyPlan.scala" DiskId="1" Source="main\scala\test\TestStudyPlan.scala">
+                
+              </File>
+            </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_sealedconcept211675900">
-            <Component Id="_main_scala_ch_sealedconcept_SPTypes_scala923547258" Guid="97d2056a-00d4-4a94-b240-772007a9e9ee">
+            <Component Id="_main_scala_ch_sealedconcept_SPTypes_scala923547258" Guid="f49c7614-445f-4226-88c4-9b880f401334">
               <File Id="fl__main_scala_ch_sealedconcept_SPTypes_scala923547258" Name="SPTypes.scala" DiskId="1" Source="main\scala\ch\sealedconcept\SPTypes.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch206604662">
-            <Component Id="_main_scala_ch_Course_scala125123702" Guid="9604f0d4-6183-45d4-a777-d2e99a737efd">
+            <Component Id="_main_scala_ch_Course_scala125123702" Guid="bfde7282-d972-47c0-a8ff-d3e935e9eef5">
               <File Id="fl__main_scala_ch_Course_scala125123702" Name="Course.scala" DiskId="1" Source="main\scala\ch\Course.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_sealedconcept211675900">
-            <Component Id="_main_scala_ch_sealedconcept_ExaSessions_scala64065067x" Guid="534b19a2-c105-41f3-9b3a-ecb144a5c679">
+            <Component Id="_main_scala_ch_sealedconcept_ExaSessions_scala64065067x" Guid="4b0a925b-e862-4c8f-a54f-ada9f09872fa">
               <File Id="fl__main_scala_ch_sealedconcept_ExaSessions_scala64065067x" Name="ExaSessions.scala" DiskId="1" Source="main\scala\ch\sealedconcept\ExaSessions.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_sealedconcept211675900">
-            <Component Id="_main_scala_ch_sealedconcept_CourseHours_scala100000511" Guid="8a2eaa8f-7841-4689-a3ea-981851356d22">
+            <Component Id="_main_scala_ch_sealedconcept_CourseHours_scala100000511" Guid="5b3e2302-ebc7-4ed4-86da-54856977a0c5">
               <File Id="fl__main_scala_ch_sealedconcept_CourseHours_scala100000511" Name="CourseHours.scala" DiskId="1" Source="main\scala\ch\sealedconcept\CourseHours.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch206604662">
-            <Component Id="_main_scala_ch_Helpers_scala920369938" Guid="3fee83bd-15fc-4ea1-8840-2ed2ca223405">
+            <Component Id="_main_scala_ch_Helpers_scala920369938" Guid="d7a75f7c-cb28-44e3-a36f-14edcca4fd8e">
               <File Id="fl__main_scala_ch_Helpers_scala920369938" Name="Helpers.scala" DiskId="1" Source="main\scala\ch\Helpers.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_sealedconcept211675900">
-            <Component Id="_main_scala_ch_sealedconcept_CourseActivies_scala30293671x" Guid="2b30afe2-d2dd-4770-b1ec-653be2a0f385">
+            <Component Id="_main_scala_ch_sealedconcept_CourseActivies_scala30293671x" Guid="03a6c939-16aa-4b44-86f5-e9aec4d49686">
               <File Id="fl__main_scala_ch_sealedconcept_CourseActivies_scala30293671x" Name="CourseActivies.scala" DiskId="1" Source="main\scala\ch\sealedconcept\CourseActivies.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_net_exception111712539">
-            <Component Id="_n_scala_ch_net_exception_StudyPlanNotFoundException_scala136864950" Guid="247f7940-1a34-46e8-9216-79178e997ef3">
+            <Component Id="_n_scala_ch_net_exception_StudyPlanNotFoundException_scala136864950" Guid="1334d0de-a06f-4d2b-bcfb-da8c54f95eca">
               <File Id="fl__n_scala_ch_net_exception_StudyPlanNotFoundException_scala136864950" Name="StudyPlanNotFoundException.scala" DiskId="1" Source="main\scala\ch\net\exception\StudyPlanNotFoundException.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_main_scala_ch_sealedconcept211675900">
-            <Component Id="_main_scala_ch_sealedconcept_CourseTypes_scala178806991" Guid="7af36a19-d6a0-4a8f-a185-09ff125cc891">
+            <Component Id="_main_scala_ch_sealedconcept_CourseTypes_scala178806991" Guid="6ffdf268-fda7-4b7c-98ef-a42b7a3a628a">
               <File Id="fl__main_scala_ch_sealedconcept_CourseTypes_scala178806991" Name="CourseTypes.scala" DiskId="1" Source="main\scala\ch\sealedconcept\CourseTypes.scala">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_ch_course_description_automation_1_0_jar20044686x" Guid="6d0f1a62-5993-437b-8068-3d34f7dda3bb">
+            <Component Id="_lib_ch_course_description_automation_1_0_jar20044686x" Guid="c5047e9c-f00f-4c5a-9ec8-db0502b06f42">
               <File Id="fl__lib_ch_course_description_automation_1_0_jar20044686x" Name="ch.course-description-automation-1.0.jar" DiskId="1" Source="lib\ch.course-description-automation-1.0.jar">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854" Guid="20fece92-f022-4b97-baa1-1fe1b3f9c532">
+            <Component Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854" Guid="fd3fb619-e964-4ddf-a4ef-b8b0e751510d">
               <File Id="fl__lib_org_scala_lang_scala_library_2_13_10_jar116078854" Name="org.scala-lang.scala-library-2.13.10.jar" DiskId="1" Source="lib\org.scala-lang.scala-library-2.13.10.jar">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206" Guid="72e3431b-91df-4686-94b7-2e03cd5bb731">
+            <Component Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206" Guid="a28e5bb9-f87a-449d-b0b0-87757f3eeb2e">
               <File Id="fl__lib_com_google_code_gson_gson_2_10_1_jar112890206" Name="com.google.code.gson.gson-2.10.1.jar" DiskId="1" Source="lib\com.google.code.gson.gson-2.10.1.jar">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_la_lang_modules_scala_parallel_collections_2_13_1_0_4_jar116652532" Guid="7e583b33-3659-4821-9edd-ed883ba2842f">
+            <Component Id="_la_lang_modules_scala_parallel_collections_2_13_1_0_4_jar116652532" Guid="d5ca4357-79ca-490c-8fcc-6bf17ce20ea3">
               <File Id="fl__la_lang_modules_scala_parallel_collections_2_13_1_0_4_jar116652532" Name="org.scala-lang.modules.scala-parallel-collections_2.13-1.0.4.jar" DiskId="1" Source="lib\org.scala-lang.modules.scala-parallel-collections_2.13-1.0.4.jar">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
-            <Component Id="_bin_course_description_automation626901618" Guid="61949fed-085d-46bb-8880-0a6ad37c1ad9">
+            <Component Id="_bin_course_description_automation626901618" Guid="1fded0ad-d741-416f-8ad8-6389fb019c22">
               <File Id="fl__bin_course_description_automation626901618" Name="course-description-automation" DiskId="1" Source="bin\course-description-automation">
                 
               </File>
             </Component>
           </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
-            <Component Id="_bin_course_description_automation_bat485908839" Guid="2a55edc2-c7c0-4f8c-8978-744387295b58">
+            <Component Id="_bin_course_description_automation_bat485908839" Guid="19ec8158-6bab-4eac-abfb-7389d177dcb7">
               <File Id="fl__bin_course_description_automation_bat485908839" Name="course-description-automation.bat" DiskId="1" Source="bin\course-description-automation.bat">
                 
               </File>
             </Component>
-          </DirectoryRef><DirectoryRef Id="_lib107141xxx">
-            <Component Id="_lib_course_description_automation_jar714145123" Guid="701ec3b9-7014-40cb-9566-d78fe7c41a77">
-              <File Id="fl__lib_course_description_automation_jar714145123" Name="course-description-automation.jar" DiskId="1" Source="lib\course-description-automation.jar">
-                
-              </File>
-            </Component>
           </DirectoryRef><DirectoryRef Id="_bin97543xxxx">
-            <Component Id="_bin97543xxxxPathC" Guid="6d36333e-88fd-4b01-b75b-162cf364612d">
+            <Component Id="_bin97543xxxxPathC" Guid="da354b28-e08a-403a-ba7a-430cba4319e1">
               <CreateFolder/>
               <Environment Id="COURSE_DESCRIPTION_AUTOMATION_HOME" Name="COURSE_DESCRIPTION_AUTOMATION_HOME" Value="[INSTALLDIR]" Permanent="no" Action="set" System="yes"/>
               <Environment Id="PATH" Name="PATH" Value="[INSTALLDIR]bin" Permanent="no" Part="last" Action="set" System="yes"/>
             </Component>
           </DirectoryRef><DirectoryRef Id="ApplicationProgramsFolder">
-            <Component Id="_shortcut_c04dafa2_07a4_49e5_bbca_41ed8736b0bb803766155" Guid="569124c8-290d-43b8-89bc-db80b5b1ddfb">
+            <Component Id="_shortcut_66216821_9f32_4c43_9093_e0fb10931459932515889" Guid="4024b17a-5db0-412f-8481-abf6194990a5">
               
               <RegistryValue Root="HKCU" Key="Software\Noah Munz &lt;munz.no@gmail.com&gt;\Course-Description-Automation" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
             </Component>
@@ -207,11 +221,11 @@
           <ComponentRef Id="_ApplicationProgramsFolderRemove689092593"/>
         </Feature>
         <Feature Id="e_description_automation_core151743571" Title="course-description-automation" Description="All core files." Level="1" Absent="disallow">
-                    <ComponentRef Id="_main_scala_ch_Main_scala848827004"/><ComponentRef Id="_main_scala_ch_net_Resp_scala546664837"/><ComponentRef Id="_main_scala_ch_sealedconcept_Semesters_scala992340027"/><ComponentRef Id="_main_scala_ch_StudyPlan_scala214227715"/><ComponentRef Id="_main_scala_ch_net_exception_CourseNotFoundException_scala158521737"/><ComponentRef Id="_main_scala_ch_Utils_scala428692098"/><ComponentRef Id="_main_scala_ch_sealedconcept_SealedConceptObject_scala111780637"/><ComponentRef Id="_in_scala_ch_net_exception_ResourceNotFoundException_scala129997345"/><ComponentRef Id="_main_scala_ch_io_Serializer_scala290259624"/><ComponentRef Id="_main_scala_ch_net_ReqHdl_scala153455984"/><ComponentRef Id="_main_scala_ch_sealedconcept_SPTypes_scala923547258"/><ComponentRef Id="_main_scala_ch_Course_scala125123702"/><ComponentRef Id="_main_scala_ch_sealedconcept_ExaSessions_scala64065067x"/><ComponentRef Id="_main_scala_ch_sealedconcept_CourseHours_scala100000511"/><ComponentRef Id="_main_scala_ch_Helpers_scala920369938"/><ComponentRef Id="_main_scala_ch_sealedconcept_CourseActivies_scala30293671x"/><ComponentRef Id="_n_scala_ch_net_exception_StudyPlanNotFoundException_scala136864950"/><ComponentRef Id="_main_scala_ch_sealedconcept_CourseTypes_scala178806991"/><ComponentRef Id="_lib_ch_course_description_automation_1_0_jar20044686x"/><ComponentRef Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854"/><ComponentRef Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206"/><ComponentRef Id="_la_lang_modules_scala_parallel_collections_2_13_1_0_4_jar116652532"/><ComponentRef Id="_bin_course_description_automation626901618"/><ComponentRef Id="_bin_course_description_automation_bat485908839"/><ComponentRef Id="_lib_course_description_automation_jar714145123"/>
+                    <ComponentRef Id="_main_scala_ch_Main_scala848827004"/><ComponentRef Id="_main_scala_ch_net_Resp_scala546664837"/><ComponentRef Id="_main_scala_test_TestCourse_scala131105177"/><ComponentRef Id="_main_scala_ch_sealedconcept_Semesters_scala992340027"/><ComponentRef Id="_main_scala_ch_StudyPlan_scala214227715"/><ComponentRef Id="_main_scala_test_TestExceptions_scala414453972"/><ComponentRef Id="_main_scala_ch_net_exception_CourseNotFoundException_scala158521737"/><ComponentRef Id="_main_scala_ch_Utils_scala428692098"/><ComponentRef Id="_main_scala_ch_sealedconcept_SealedConceptObject_scala111780637"/><ComponentRef Id="_in_scala_ch_net_exception_ResourceNotFoundException_scala129997345"/><ComponentRef Id="_main_scala_ch_io_Serializer_scala290259624"/><ComponentRef Id="_main_scala_ch_net_ReqHdl_scala153455984"/><ComponentRef Id="_main_scala_test_TestStudyPlan_scala167227509"/><ComponentRef Id="_main_scala_ch_sealedconcept_SPTypes_scala923547258"/><ComponentRef Id="_main_scala_ch_Course_scala125123702"/><ComponentRef Id="_main_scala_ch_sealedconcept_ExaSessions_scala64065067x"/><ComponentRef Id="_main_scala_ch_sealedconcept_CourseHours_scala100000511"/><ComponentRef Id="_main_scala_ch_Helpers_scala920369938"/><ComponentRef Id="_main_scala_ch_sealedconcept_CourseActivies_scala30293671x"/><ComponentRef Id="_n_scala_ch_net_exception_StudyPlanNotFoundException_scala136864950"/><ComponentRef Id="_main_scala_ch_sealedconcept_CourseTypes_scala178806991"/><ComponentRef Id="_lib_ch_course_description_automation_1_0_jar20044686x"/><ComponentRef Id="_lib_org_scala_lang_scala_library_2_13_10_jar116078854"/><ComponentRef Id="_lib_com_google_code_gson_gson_2_10_1_jar112890206"/><ComponentRef Id="_la_lang_modules_scala_parallel_collections_2_13_1_0_4_jar116652532"/><ComponentRef Id="_bin_course_description_automation626901618"/><ComponentRef Id="_bin_course_description_automation_bat485908839"/>
                   </Feature><Feature Id="AddBinToPath" Title="Update Environment Variables" Description="Update PATH environment variables (requires restart)." Level="1" Absent="allow">
                     <ComponentRef Id="_bin97543xxxxPathC"/>
                   </Feature><Feature Id="AddConfigLinks" Title="Configuration start menu links" Description="Adds start menu shortcuts to edit configuration files." Level="1" Absent="allow">
-                    <ComponentRef Id="_shortcut_c04dafa2_07a4_49e5_bbca_41ed8736b0bb803766155"/>
+                    <ComponentRef Id="_shortcut_66216821_9f32_4c43_9093_e0fb10931459932515889"/>
                   </Feature>
       </Feature>
       <MajorUpgrade AllowDowngrades="no" Schedule="afterInstallInitialize" DowngradeErrorMessage="A later version of [ProductName] is already installed. Setup will now exit."/>

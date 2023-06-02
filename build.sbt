@@ -65,16 +65,18 @@ cl := { println("\033c") }
 // Windows / mappings := Seq[(File, String)]()
 // Windows / mappings := (Universal / mappings).value // default mappings
 
-/* Windows / mappings ++= {
-    val binJar = (Compile / packageBin).value // NT: this the jar of the actual compiled source code
+Windows / mappings ++= {
+    // val binJar = (Compile / packageBin).value // NT: this the jar of the actual compiled source code
     val resJar = (Compile / resourceDirectory).value
-    Seq(binJar -> Package.jarPath, resJar -> Package.jarPath)
-    Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
+    Seq(resJar -> Package.jarPath)
+    // Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
+    Package.getJarMapping((Compile / resourceDirectory).value)
+}
+
+/* Windows/mappings ++= {
+    val binJar_with_deps = File("target/wind")
+
 } */
-
-Windows/mappings ++= {
-
-    }
 
 // Ok si on arrive a faire un directory res/md/ vide => works
 val x =
@@ -95,15 +97,19 @@ val x =
   components: Seq[FeatureComponent] = Seq.empty */
 /* val x =
     WindowsFeature("AddBinToPath", "Update Environment Variables", "Update PATH environment variables (requires restart).", "allow", "1", "collapse", List(AddDirectoryToPath("bin"))) */
-wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
+//wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val comp = generateComponentsAndDirectoryXml(resDir_abs, "res")
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
 writeWixConfig := {
     println("-----")
     println(comp)
+    cl.value
+    println(f"Node:  ${comp._2}")
+    comp._1.foreach(println(_))
+    println("\n")
     println("\n-----\n")
-    IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
+    // IO.write(file("./target/windows/res-dir-xml.xml"), comp._2.toString().strip().stripMargin)
     println("\n-----\n")
 }
 
