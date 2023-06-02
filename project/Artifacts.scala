@@ -78,7 +78,7 @@ object Artifacts {
         val wixTitle = pName
         val wixProductId = "ce07be71-510d-414a-92d4-dff47631848a"
         val wixProductUpgradeId = "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"
-        val wixProductLicense = file("LICENSE.rtf")
+        // val wixProductLicense = file("LICENSE")
         val wixInstallScope = "perUser"
         val wixCompressed = true
         lazy val wixPackageInfo =

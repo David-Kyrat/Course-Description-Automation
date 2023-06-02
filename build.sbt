@@ -26,7 +26,7 @@ triggeredMessage := Watched.clearWhenTriggered
 //WixHelper.makeWixProductConfig()
 enablePlugins(JavaAppPackaging, WindowsPlugin)
 
-wixProductLicense := Some(Wix.wixProductLicense)
+// wixProductLicense := Some(Wix.wixProductLicense)
 
 // NB: -------- ROOT PROJECT DEFINITION -----------
 
@@ -65,20 +65,26 @@ cl := { println("\033c") }
 // Windows / mappings := Seq[(File, String)]()
 // Windows / mappings := (Universal / mappings).value // default mappings
 
-Windows / mappings ++= {
+/* Windows / mappings ++= {
     val binJar = (Compile / packageBin).value // NT: this the jar of the actual compiled source code
     val resJar = (Compile / resourceDirectory).value
     Seq(binJar -> Package.jarPath, resJar -> Package.jarPath)
     Package.getJarMapping((Compile / packageBin).value, (Compile / resourceDirectory).value)
-}
-// Ok si on arrive a faire un directory res/md/ vide => works
+} */
 
-wixFeatures += WindowsFeature(
-  id = "BinaryAndPath",
-  title = "Project Resources",
-  desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
-  components = Seq(ComponentFile("License"), AddDirectoryToPath("res"), AddDirectoryToPath("res/md"), AddDirectoryToPath("res/templates"), AddDirectoryToPath("res/pdf"))
-)
+Windows/mappings ++= {
+
+    }
+
+// Ok si on arrive a faire un directory res/md/ vide => works
+val x =
+    wixFeatures += WindowsFeature(
+      id = "BinaryAndPath",
+      title = "Project Resources",
+      desc = "Mandatory project resources (like pdf template) to be able to automatically generate some.",
+      // components = Seq(ComponentFile("record.md"))
+      components = Seq(ComponentFile("./record.md"))
+    )
 
 /* id: String,
   title: String,
@@ -89,7 +95,7 @@ wixFeatures += WindowsFeature(
   components: Seq[FeatureComponent] = Seq.empty */
 /* val x =
     WindowsFeature("AddBinToPath", "Update Environment Variables", "Update PATH environment variables (requires restart).", "allow", "1", "collapse", List(AddDirectoryToPath("bin"))) */
-//wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
+wixFiles := Seq(file("target/windows/Course-Description-Automation.wxs"))
 
 lazy val comp = generateComponentsAndDirectoryXml(resDir_abs, "res")
 lazy val writeWixConfig = taskKey[Unit]("A task that prints result of generateComponentsAndDirectoryXml")
@@ -123,15 +129,15 @@ lazy val gcx = taskKey[Unit]("")
 
 //FIX:
 // TODO:   SEE HOW TO INCLUDE EMPTY DIRS IN INSTALLER. other than that scala part would be done
-//         just need to call it in rust 
+//         just need to call it in rust
 
-gcx := {
+/* gcx := {
     val path = Path.of("res/md")
-    val x = generateComponentsAndDirectoryXml(java.nio.file.Path.toFile(), "md")       
+    val x = generateComponentsAndDirectoryXml(java.nio.file.Path.toFile(), "md")
     println("\n-----\n")
     println(x)
     println("\n-----\n")
-}
+} */
 
 setDirectory := {
     Package.setDirectory()
