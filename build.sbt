@@ -36,12 +36,12 @@ lazy val root = (project in file(".")).settings(
   Compile / resourceDirectory := resDir_abs,
   Runtime / resourceDirectory := resDir_abs,
   // assembly
-  assembly / mainClass := Some(Package.mainClass),
-  assembly / assemblyJarName := Package.jarName,
+  /* assembly / mainClass := Some(Package.mainClass),
+  assembly / assemblyJarName := Package.jarName, */
   // pack info
-  maintainer := Package.maintainer,
+  /* maintainer := Package.maintainer,
   packageSummary := Package.summary,
-  packageDescription := Package.description,
+  packageDescription := Package.description, */
 
   // wix build information
   wixPackageInfo := Artifacts.Wix.wixPackageInfo

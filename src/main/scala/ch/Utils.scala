@@ -30,7 +30,7 @@ final object Utils {
     private def getLogPath: Try[Path] = Try {
         val path = pathOf("log/err.log") // .toAbsolutePath
         var exists = Files.exists(path)
-        println("LogPath: " + path.toAbsolutePath)
+        // println("LogPath: " + path.toAbsolutePath)
         // to prevent call Files.sizes 2 times => separate conditions
         if (exists && Files.size(path) >= LOG_MAX_SIZE) {
             Files.delete(path)

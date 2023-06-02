@@ -57,11 +57,11 @@ object Main {
 			val argsStr = args.mkString("\t")
 			throw new IllegalArgumentException(f"Expect at least 1 argument. Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
 		}
-		val _gui_input: String = args(0).trim();
+		var _gui_input: String = args(0).trim();
 		// if gui_input has a "#" but nothing after i.e. "12X001#" program will fail
 		// since apparently the split array is only of length 1.
 		// So checking that special case here.
-		val gui_input = if (_gui_input.endsWith("#")) _gui_input + " " else _gui_input
+		val gui_input = if (_gui_input.endsWith("#")) _gui_input + " " else if (_gui_input.startsWith("#")) " " + _gui_input else _gui_input
 		val tmp = gui_input.split("#")
 		if (tmp.length < 2) {
 			val argsStr = args.toList.mkString("\t")
@@ -96,8 +96,8 @@ object Main {
 	private def _main(courseCodes: ParArray[String], sps: ParArray[Int]) = {
 		if (courseCodes.nonEmpty) courseCodes.foreach(Course(_).saveToMarkdown())
 		if (sps.nonEmpty) sps.foreach(StudyPlan(_).saveToMarkdown())
-		println(f"written courses in ${courseCodes.mkString("\n")}")
-		println(f"\nwritten courses in ${sps.mkString("\n")}")
+		// println(f"written courses in ${courseCodes.mkString("\n")}")
+		// println(f"\nwritten courses in ${sps.mkString("\n")}")
 		
 	}
 	
@@ -113,7 +113,7 @@ object Main {
 			case err: Throwable => {
 				Utils.log(err)
 				System.err.println("An unexpected error happened during the pdf generation. Please try again.")
-				err.printStackTrace()
+				// err.printStackTrace()
 				// println("-------------\n"+ err.getMessage)
 				// System.exit(1)
 			}
