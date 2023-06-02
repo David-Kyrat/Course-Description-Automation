@@ -1,13 +1,12 @@
 package ch.net
 
 import ch.Helpers._
+import com.google.gson.JsonObject
+
+import scala.collection.parallel.CollectionConverters._
+import scala.collection.parallel.immutable.ParVector
 import scala.io.Source
 import scala.util.{Failure, Success, Using}
-import java.io.IOException
-import com.google.gson.JsonObject
-import scala.collection.parallel.immutable.ParVector
-import scala.collection.parallel.CollectionConverters._
-import scala.collection.parallel.ParIterable
 
 /**
  * Class representing an HTTP request, methods in the object `ReqHdl` returns
@@ -60,7 +59,7 @@ object ReqHdl {
     private lazy val spPart = "study-plans"
     private lazy val spNodePart = "study-plan-nodes"
     private lazy val coursePart = "teachings"
-
+    
     /** solely study plan contains almost no info. See `studyPlanNodeUrl` to get the contained course etc... */
     // lazy val studyPlanUrl: String = f"$baseUrl/$spPart"
 
@@ -98,7 +97,7 @@ object ReqHdl {
     def g(endpoint: String) = ReqHdl(f"$baseUrl/$endpoint")
 
     /**
-     * @param id String, exact url-id of the form `studyPlanYear-studyPlanUrlId`. (Optional) if not given, defaults to aksing for the list of studyPlans
+     * @param id String, exact url-id of the form `studyPlanUrlId`. (Optional) if not given, defaults to aksing for the list of studyPlans
      * @param size Int, number of results (optional, defaults to 2000) NB: MAXIMUM (accepted by api) IS 2000
      *
      * @return new Request i.e. `ReqHdl` instance, requesting a list of study-plans if id was not given and details about study-plan with given `id` if it was

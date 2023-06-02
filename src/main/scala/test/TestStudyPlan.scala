@@ -1,19 +1,15 @@
 package test
 
-import scala.collection.parallel.immutable.ParVector
 import scala.jdk.CollectionConverters._
 // import scala.collection.parallel.CollectionConverters._
 
-import java.io.{File, IOException}
-import java.nio.file.{Files, Path}
-
 import ch.Helpers._
-import ch.Utils.{crtYear, pathOf, r}
-import ch.io.Serializer
+import ch.Utils.pathOf
+import ch.net.Resp
 import ch.net.exception._
-import ch.net.{ReqHdl, Resp}
 import ch.{Main, StudyPlan, Utils}
-import scala.collection.parallel.immutable.{ParSeq, ParSet}
+
+import scala.collection.parallel.immutable.ParSet
 
 object TestStudyPlan {
 
@@ -34,19 +30,19 @@ object TestStudyPlan {
     }
 
     def testStudyPlanFactory() = {
-        val id = "73722"
+        val id = 73722
         val sp = StudyPlan(id)
         sp.courses.map(_.toShortString).foreach(println)
     }
 
     def testSaveStudyPlanToMarkdown() = {
-        val id = "73722"
+        val id = 73722
         val sp = StudyPlan(id)
         sp.saveToMarkdown()
     }
 
     def testMultipleStudyPlanToMarkdown() = {
-        val codes = ParSet("73722", "73726", "76324", "74813")
+        val codes = ParSet(73722, 73726, 76324, 74813)
         // ParSet("73722", "73726", "76324", "74813").foreach(StudyPlan(_).saveToMarkdown)
         codes.foreach(code => {
             // println(f"Building study plan $code")

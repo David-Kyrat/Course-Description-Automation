@@ -1,5 +1,12 @@
 package ch
 
+import ch.Helpers.{JsonElementOps, JsonObjOps}
+import ch.Utils.crtYear
+import ch.net.exception.StudyPlanNotFoundException
+import ch.net.{ReqHdl, Resp}
+import com.google.gson.{JsonArray, JsonObject}
+
+import java.nio.file.Path
 import scala.collection.immutable.HashMap
 import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParVector
@@ -7,23 +14,12 @@ import scala.collection.{View, mutable}
 import scala.jdk.CollectionConverters._
 import scala.jdk.StreamConverters._
 
-import java.nio.file.Path
-import java.util.stream.Collectors
-
-import com.google.gson.{JsonArray, JsonElement, JsonNull, JsonObject}
-
-import ch.Helpers.{JsonArrayOps, JsonElementOps, JsonObjOps}
-import ch.Utils.{crtYear, r}
-import ch.net.ReqHdl.{baseUrl, studyPlanNodeUrl}
-import ch.net.exception.StudyPlanNotFoundException
-import ch.net.{ReqHdl, Resp}
-
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
  *
  * @param id String, id of the studyPlan
  */
-final case class StudyPlan private (id: String, courses: ParVector[Course]) {
+final case class StudyPlan private (id: Int, courses: ParVector[Course]) {
 
     /**
      * Save all courses in this studyplan to a markdown file that can later be converted to pdf.
@@ -35,7 +31,7 @@ final case class StudyPlan private (id: String, courses: ParVector[Course]) {
 
 }
 
-object StudyPlan extends (String => StudyPlan) {
+object StudyPlan extends (Int => StudyPlan) {
     val abbrevFilePath: Path = Utils.pathOf("abbrev.tsv")
 
     /** WARN: APPLY LINEARLY IN ORDER! */
@@ -69,7 +65,7 @@ object StudyPlan extends (String => StudyPlan) {
         val reqUrl = id
         val request: ReqHdl = ReqHdl.studyPlan(reqUrl)
         val resp: Resp = request()
-        if (resp.isError) throw new StudyPlanNotFoundException(reqUrl)
+        if (resp.isError) throw StudyPlanNotFoundException(reqUrl)
         else resp.jsonObj
     }
 
@@ -275,8 +271,8 @@ object StudyPlan extends (String => StudyPlan) {
      * @throws StudyPlanNotFoundException
      */
     @throws(classOf[StudyPlanNotFoundException])
-    override def apply(id: String): StudyPlan = {
-        val obj: JsonObject = get(id)
+    override def apply(id: Int): StudyPlan = {
+        val obj: JsonObject = get(id.toString)
         // val courses: ParVector[Course] = extracListTeachings(obj).par.map(Course(_)).to(ParVector)
         val courses = extracListTeachings(obj).to(ParVector)
         new StudyPlan(id, courses)

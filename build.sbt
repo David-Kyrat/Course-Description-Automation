@@ -23,7 +23,6 @@ ThisBuild / organization := "ch"
 logLevel := Level.Error
 maxErrors := 2
 triggeredMessage := Watched.clearWhenTriggered
-//TODO: LOOK AT THIS METHOD !
 //WixHelper.makeWixProductConfig()
 enablePlugins(JavaAppPackaging, WindowsPlugin)
 
@@ -138,8 +137,6 @@ genCompXml := {
 lazy val gcx = taskKey[Unit]("")
 
 //FIX:
-// TODO:   SEE HOW TO INCLUDE EMPTY DIRS IN INSTALLER. other than that scala part would be done
-//         just need to call it in rust
 
 /* gcx := {
     val path = Path.of("res/md")

@@ -1,19 +1,15 @@
 package ch
 
 import scala.collection.immutable
-import scala.collection.parallel.immutable.ParVector
 import scala.jdk.CollectionConverters._
 // import scala.language.postfixOps
-import scala.util.{Failure, Success, Try}
-
 import java.io.{BufferedWriter, FileWriter, PrintWriter}
 import java.nio.charset.StandardCharsets.UTF_8
 import java.nio.file.StandardOpenOption._
 import java.nio.file.{Files, Path}
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
-import ch.net.ReqHdl
+import scala.util.{Failure, Success, Try}
 
 final object Utils {
     val LOG_MAX_SIZE = 5 << 20 // 5MB
@@ -53,8 +49,6 @@ final object Utils {
      */
     def now(): String = java.time.LocalDateTime.now.format(DateTimeFormatter.ofPattern("dd/MM/YYYY - HH:mm:ss"))
 
-    // TODO:
-    // FIX:  ADD REAL PATH RESOLVING SIMULATING WHERE THE COMPILED JAR WILL BE
     /**
      * Resolve given 'against' resource path
      * e.g. if we want to acces `/files/res/md/test.md`
