@@ -114,9 +114,18 @@ fn launch_main_scalapp(args: &String) -> io::Result<Output> {
 // use crate::{log_err, log_if_err, para_convert, unwrap_or_log, win_popup};
 use crate::{log_err, log_if_err, para_convert, unwrap_or_log};
 
+/// # Description
+/// Wrapper function around the program to able to simply propagate any amount 
+/// of errors up to `main()` (with `?`), to be dealt with only once. 
+/// (the first if there is one will just stop the execution and go back to `main()` with the error message)
+/// # Returns
+/// Nothing or Error message
 fn sub_main() -> Result<(), String> {
 
-    let gui_out: Result<Output, std::Errror> =  panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"));
+    let gui_out = panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"))
+        .map_err(|cause| format!("The following error happened:\nCannot launch gui : {:#?}", cause))?;
+
+
     let main_in: String = match gui_out {
         Ok(out) => extract_std(out.stdout),
         Err(cause)=> return Err(cause),
@@ -126,13 +135,10 @@ fn sub_main() -> Result<(), String> {
     // println!("main_in: \"{}\"", &main_in);
 
     // generate markdown
-    let main_out: Result<Output> = panic::catch_unwind(|| unwrap_or_log!(
+    let main_out  = panic::catch_unwind(|| unwrap_or_log!(
         launch_main_scalapp(&main_in),
         "launch scala app, cannot launch scala app"
     ));
-    match main_out {
-        Ok()
-    }
 
     // if user input incorrect or other unexpected error
     let mainSuccess: &bool = &main_out.status.success();
@@ -141,6 +147,7 @@ fn sub_main() -> Result<(), String> {
         true => None,
         false => Some(extract_std(main_out.stderr)),
     };
+    //Propagate error (i.e. return an `Err(...)` if returned value is not an `Ok(...)`)
 
     if (!*mainSuccess) {
         // println!("launching popup");
