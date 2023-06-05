@@ -179,7 +179,7 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
         exec_res
     };
 
-    let out_pdf = out_pdf; // removes mut? i.e. makes out_pdf immutable ?
+    let out_pdf = out_pdf.clone(); // removes mut? i.e. makes out_pdf immutable ?
     if out_pdf.exists() {
         Ok(out_pdf)
     } else {

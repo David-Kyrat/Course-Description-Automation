@@ -116,19 +116,23 @@ use crate::{log_err, log_if_err, para_convert, unwrap_or_log};
 
 fn sub_main() -> Result<(), String> {
 
-    let gui_out: Result<Output> =  panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"));
+    let gui_out: Result<Output, std::Errror> =  panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"));
+    let main_in: String = match gui_out {
+        Ok(out) => extract_std(out.stdout),
+        Err(cause)=> return Err(cause),
+    };
 
-   
-
-    let main_in: String = extract_std(gui_out.stdout);
     // let main_in: String = "".to_owned();
     // println!("main_in: \"{}\"", &main_in);
 
     // generate markdown
-    let main_out: Output = unwrap_or_log!(
+    let main_out: Result<Output> = panic::catch_unwind(|| unwrap_or_log!(
         launch_main_scalapp(&main_in),
         "launch scala app, cannot launch scala app"
-    );
+    ));
+    match main_out {
+        Ok()
+    }
 
     // if user input incorrect or other unexpected error
     let mainSuccess: &bool = &main_out.status.success();
@@ -143,11 +147,11 @@ fn sub_main() -> Result<(), String> {
         let retry = false; //win_popup::main(success, err_msg);
         if retry {
             // println!("retry\n");
-            return main();
+            return sub_main();
         } else {
             // dbg!(&err_msg);
             // println!("exit");
-            exit(0);
+            exit(1);
         }
     }
     let main_result = para_convert::main();
@@ -168,7 +172,7 @@ fn sub_main() -> Result<(), String> {
     // let success = true;
 
     
-
+        .map_err(|cause| format!(" Launcher: cannot launch para_convert: {:#?}", cause))?;
     Ok(())
 }
 
