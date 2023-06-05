@@ -1,5 +1,0 @@
-#define RT_MANIFEST 24
-1 RT_MANIFEST "embed_resources.exe.manifest"
-MAINICON ICON "../../test_rc/appinfologo6.ico"
-WINDOWICON ICON "../../test_rc/appinfologo6.ico"
-BALL BITMAP "../../test_rc/ball.bmp"
