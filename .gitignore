@@ -24,8 +24,7 @@ target/scala-2.13/*
 
 # ignoring windows build dir, because its in branch build
 target/windows
-res/templates/rust/pandoc.exe
-**/pandoc.exe
+res/templates/rust/pandoc.exe **/pandoc.exe
 
 # sbt config dirs
 project/.bloop
@@ -84,6 +83,7 @@ target/scala-2.13/api
 
 # Others
 **/vendor
+src/main/rust2/rust-para-convert/target
 
 
 **/node_modules
