@@ -12,6 +12,7 @@ res/java/tmep
 **/tmp.ps1
 **/shortcut-res.ps1
 
+files/res/pdf/*.pdf
 
 # Scala config folders
 null
@@ -44,8 +45,8 @@ res/log/*
 res/templates/rmd
 
 
-**/pdf/*
-**/md/*
+**/pdf/*.pdf
+**/md/*.md
 
 # Rust binaries & config files
 
@@ -70,7 +71,6 @@ target/scala-2.13/api
 **/.vscode
 **/.idea
 .idea
-
 
 # I don't know why this folder keep getting generated
 **/Powershell 7.3.3
