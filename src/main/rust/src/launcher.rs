@@ -83,6 +83,7 @@ fn get_abbrev_file_path() -> String {
 /// Takes in a byte vector and return the underlying represented utf8 string.
 /// `Vec<u8>` is the type returned by `outuput.stdout` or `output.stderr`
 /// # Param
+
 /// - out: byte vector to convert
 /// # Returns
 /// Underlying string
