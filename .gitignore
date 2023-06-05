@@ -16,7 +16,7 @@ null
 target/*
 target/scala-2.13/*
 !target/scala-2.13
-target/scala-2.13/*.jar
+!target/scala-2.13/*.jar
 !target/scala-2.13/*.pom
 
 
