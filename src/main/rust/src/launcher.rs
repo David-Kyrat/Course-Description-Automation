@@ -122,7 +122,10 @@ use crate::{log_err, log_if_err, para_convert, unwrap_or_log};
 /// Nothing or Error message
 fn sub_main() -> Result<(), String> {
     fn err_fmter<T: std::fmt::Debug>(add_msg: &str, cause: &T) -> String {
-        format!("The following error happened:\nLauncher: {add_msg} : {:#?}", cause)
+        format!(
+            "The following error happened:\nLauncher: {add_msg} : {:#?}",
+            cause
+        )
     }
 
     let gui_out: String =
@@ -139,10 +142,7 @@ fn sub_main() -> Result<(), String> {
 
     // generate markdown
     let main_out: Output = panic::catch_unwind(|| {
-        unwrap_or_log!(
-            launch_main_scalapp(&gui_out),
-            "cannot launch scala app"
-        )
+        unwrap_or_log!(launch_main_scalapp(&gui_out), "cannot launch scala app")
     })
     .map_err(|cause| err_fmter("Cannot launch app", &cause))?;
 
@@ -172,7 +172,6 @@ fn sub_main() -> Result<(), String> {
     let main_result = para_convert::main()
         .map_err(|cause| err_fmter("Not all pdf could be generated", &cause))?;
 
-    
     /* if main_result.is_err() {
         let err_msg = main_result
             .err()
@@ -205,17 +204,29 @@ fn sub_main() -> Result<(), String> {
 ///
 /// # Returns
 /// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
-pub fn main() -> io::Result<()> {
-    // gui input
-
-    // asks user to retry
-    let retry = false; //win_popup::main(success, err_msg);
-    if retry {
-        // println!("retry");
-        return main();
-    } else {
-        exit(0);
+pub fn main() {
+    fn ok_popup() -> bool {
+        false
     }
 
-    Ok(())
+    fn error_popup(message: String) -> bool {
+        false
+    }
+
+    let prog_result = sub_main();
+    let retry = match prog_result {
+        Ok(()) => ok_popup(), // Ok popup
+        Err(message) => error_popup(message),
+        /* {
+            let retry = error_popup(message); // error retry popup
+            if retry {
+                main()
+            } else { exit(1) }
+
+        }, */
+    };
+
+    if retry {
+        return main();
+    }
 }
