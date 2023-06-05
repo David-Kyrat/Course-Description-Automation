@@ -61,6 +61,7 @@ fn get_java_paths() -> io::Result<(String, String, String, String)> {
     dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
+    dbg!(&scala_jar_path);
     println!("");
     Ok((java_exe_path, javafx_lib_path, jar_path, scala_jar_path))
 }
@@ -147,6 +148,8 @@ fn sub_main() -> Result<(), String> {
     })
     .map_err(|cause| err_fmter("Cannot launch app", &cause))?;
 
+    dbg!(&main_out);
+    dbg!(&main_out.status);
     // if user input incorrect or other unexpected error
     let main_success: &bool = &main_out.status.success();
     if !main_success {
