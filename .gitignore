@@ -2,6 +2,8 @@
 src/main/scala/example/
 other_res
 
+*.DS_Store
+
 # bundle jdk and javafx
 **/jdk-17
 res/java/tmep
