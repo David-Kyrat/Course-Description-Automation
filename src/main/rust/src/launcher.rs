@@ -1,23 +1,22 @@
 #![allow(unused)]
 
 use crate::utils::RETRY_AMOUNT;
-use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::execvp};
+use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
-use std::env::temp_dir;
+//use std::env::temp_dir;
 use std::error::Error;
 use std::fs::{DirEntry, File, ReadDir};
 use std::io::Write;
 use std::path::{Path, PathBuf};
-use std::process::{exit, Command, Output, ExitStatus};
-use std::{env, fs, io};
+use std::process::{exit, Command, ExitStatus, Output};
+use std::{env, fs, io, panic};
 
-extern crate native_windows_derive as nwd;
-extern crate native_windows_gui as nwg;
+//extern crate native_windows_derive as nwd;
+//extern crate native_windows_gui as nwg;
 
 use log::error;
-
 fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let pathbuf = env::current_exe().unwrap();
 
@@ -85,6 +84,10 @@ fn extract_std(out: Vec<u8>) -> String {
 fn launch_gui() -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
 
+    /* Command::new(java_exe_path)
+        .args(&["-jar", "--module-path", &javafx_lib_path,  "--add-modules", "javafx.controls,javafx.fxml,javafx.graphics", &jar_path]); */
+
+
     Command::new(java_exe_path)
         .args(
             format!(
@@ -101,32 +104,21 @@ fn launch_gui() -> io::Result<Output> {
 /// Launch main scala application, that will query the unige database
 /// and generate the markdown
 ///
-fn launch_main_scalapp(args: String) -> io::Result<Output> {
+fn launch_main_scalapp(args: &String) -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
     Command::new(java_exe_path)
         .args(format!("-jar {} {}", scala_jar_path, args).split(" "))
         .output()
 }
 
-use crate::{log_err, log_if_err, para_convert, unwrap_or_log, win_popup};
+// use crate::{log_err, log_if_err, para_convert, unwrap_or_log, win_popup};
+use crate::{log_err, log_if_err, para_convert, unwrap_or_log};
 
-/// # Desc
-/// Launcher for the whole project. There are several steps.
-///
-/// 1. Launch gui to ask for user input
-/// 2) If user input is correct launch the "main" part (scala app that
-/// will generate the markdown documents)
-///     2. if its not, asks user if he wants to retry
-/// 3. Launch conversion of markdown files to pdf
-/// 4) Display message to inform of success / error of conversion to pdf
-/// and asks to user whether he wants to retry
-///
-///
-/// # Returns
-/// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
-pub fn main() -> io::Result<()> {
-    // gui input
-    let gui_out: Output = unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui");
+fn sub_main() -> Result<(), String> {
+
+    let gui_out: Result<Output> =  panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"));
+
+   
 
     let main_in: String = extract_std(gui_out.stdout);
     // let main_in: String = "".to_owned();
@@ -134,27 +126,21 @@ pub fn main() -> io::Result<()> {
 
     // generate markdown
     let main_out: Output = unwrap_or_log!(
-        launch_main_scalapp(main_in),
+        launch_main_scalapp(&main_in),
         "launch scala app, cannot launch scala app"
     );
-    // let main_out_msg = main_out.
-    // let main_out = launch_main_scalapp(main_in);
-    let main_exit_status: &ExitStatus = &main_out.status.clone();
 
-    let err_msg: Option<Output> = match main_exit_status.success() {
+    // if user input incorrect or other unexpected error
+    let mainSuccess: &bool = &main_out.status.success();
+
+    let err_msg: Option<String> = match mainSuccess {
         true => None,
-        Err(msg) => {
-            let ms = msg.clone();
-            error!("during launcher, after launch_main_scalapp {}", &ms);
-            Some(msg)
-        }
+        false => Some(extract_std(main_out.stderr)),
     };
 
-    // if user input incorrect
-    let success = err_msg.is_none();
-    if (!success) {
+    if (!*mainSuccess) {
         // println!("launching popup");
-        let retry = win_popup::main(success, err_msg);
+        let retry = false; //win_popup::main(success, err_msg);
         if retry {
             // println!("retry\n");
             return main();
@@ -181,8 +167,31 @@ pub fn main() -> io::Result<()> {
     let success = err_msg.is_none();
     // let success = true;
 
+    
+
+    Ok(())
+}
+
+
+/// # Desc
+/// Launcher for the whole project. There are several steps.
+///
+/// 1. Launch gui to ask for user input
+/// 2) If user input is correct launch the "main" part (scala app that
+/// will generate the markdown documents)
+///     2. if its not, asks user if he wants to retry
+/// 3. Launch conversion of markdown files to pdf
+/// 4) Display message to inform of success / error of conversion to pdf
+/// and asks to user whether he wants to retry
+///
+///
+/// # Returns
+/// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
+pub fn main() -> io::Result<()> {
+    // gui input
+
     // asks user to retry
-    let retry = win_popup::main(success, err_msg);
+    let retry = false; //win_popup::main(success, err_msg);
     if retry {
         // println!("retry");
         return main();

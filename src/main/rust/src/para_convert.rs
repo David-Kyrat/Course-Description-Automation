@@ -6,7 +6,7 @@ use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
-use std::ffi::OsStr;
+use std::ffi::OsString;
 use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitStatus};
@@ -30,9 +30,9 @@ fn custom_io_err(message: &str) -> io::Error {
 /// * `cmd_line` - arguments to that comand (e.g. for "`ls -la`", `args` = `["-la"]`)
 /// # Returns
 /// Result containing `ExitStatus` of child process (or the error)
-fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
+pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
     Command::new(exe_path)
-        .args(cmd_line.iter().map(|s| OsStr.from(s)))
+        .args(cmd_line.iter().map(|s| OsString::from(s)))
         .spawn()?
         .wait()
 }
@@ -184,7 +184,7 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
         Ok(out_pdf)
     } else {
         let msg = &format!(
-            "Could not convert html file to pdf: {} {}",
+            "Could not convert html file to pdf: {} {:?}",
             wk_path, cmd_line
         )
         .to_string();

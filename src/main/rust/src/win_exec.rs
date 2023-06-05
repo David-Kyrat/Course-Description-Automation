@@ -1,3 +1,4 @@
+/*
 #![allow(non_snake_case)]
 #![allow(unused)]
 
@@ -16,7 +17,6 @@ use winsafe::guard::CloseHandlePiGuard;
 use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO, SECURITY_ATTRIBUTES, PROCESS_INFORMATION};
 
 use log::{error, warn};
-
 /// # Returns
 /// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
 fn custom_io_err(message: &str) -> io::Error {
@@ -102,4 +102,4 @@ pub fn execvp(app_name: &str, command_line: &str, wait_time: Option<u32>) -> io:
     }
     Ok(())
 }
-
+*/
