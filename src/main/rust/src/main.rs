@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+
 //extern crate native_windows_derive as nwd;
 //extern crate native_windows_gui as nwg;
 
@@ -17,5 +18,5 @@ pub fn main() {
     // init_log4rs_debug();
 
     // para_convert::main()
-    launcher::main().unwrap();
+    launcher::main();
 }
