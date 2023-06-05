@@ -57,9 +57,9 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
 /// # Return
 /// `std::env::current_exe().expect(...)` i.e. `PathBuf` to the full filesystem path of the current running executable.
 pub fn current_exe_path() -> PathBuf {
-    let path = std::env::current_exe().expect("could not get path of current executable");
+    //let path = std::env::current_exe().expect("could not get path of current executable");
     // FIX: comment below for release
-    // let path = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe");
+    let path = PathBuf::from(r"C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER/course-description-automation.exe");
     path 
 }
 

@@ -1,6 +1,6 @@
 #![allow(unused)]
 
-use crate::utils::RETRY_AMOUNT;
+use crate::utils::{RETRY_AMOUNT, self, current_exe_path};
 use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
 use io::ErrorKind::Other;
@@ -19,7 +19,7 @@ use std::{env, fs, io, panic};
 
 use log::error;
 fn get_java_paths() -> io::Result<(String, String, String, String)> {
-    let pathbuf = env::current_exe().unwrap();
+    let pathbuf = current_exe_path();
 
     // FIX IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
     // let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\launcher.exe");
@@ -62,11 +62,21 @@ fn get_java_paths() -> io::Result<(String, String, String, String)> {
         )),
     );
 
-    /* dbg!(&javafx_lib_path);
+    dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
-    println!(""); */
+    println!("");
     Ok((java_exe_path, javafx_lib_path, jar_path, scala_jar_path))
+}
+
+/// Computes the path of the file that should be at '/files/res/abbrev.tsv'
+///
+/// # Errors
+///
+/// This function will return an error if .
+fn get_abbrev_file_path() -> String {
+    let ab_fp = pop_n_push_s(&current_exe_path(), 1, &["files", "res", "abbrev.tsv"]);
+    abs_path_clean(ab_fp)
 }
 
 /// # Descriptionn
@@ -84,6 +94,8 @@ fn extract_std(out: Vec<u8>) -> String {
 
 fn launch_gui() -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
+    let abbrevfile_path = get_abbrev_file_path();
+    dbg!(&abbrevfile_path);
 
     /* Command::new(java_exe_path)
     .args(&["-jar", "--module-path", &javafx_lib_path,  "--add-modules", "javafx.controls,javafx.fxml,javafx.graphics", &jar_path]); */
@@ -91,15 +103,15 @@ fn launch_gui() -> io::Result<Output> {
     Command::new(java_exe_path)
         .args(
             format!(
-            "-jar --module-path {} --add-modules javafx.controls,javafx.fxml,javafx.graphics {}",
-            javafx_lib_path, jar_path
+            "-jar --module-path {} --add-modules javafx.controls,javafx.fxml,javafx.graphics {} {}",
+            javafx_lib_path, jar_path, abbrevfile_path
         )
             .split(" "),
         )
         .output()
     // .expect("failed to execute process");
 }
-
+//.\jdk-17\bin\java.exe --module-path .\javafx-sdk-19\lib\ --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar .\fancyform.jar ..\abbrev.tsv
 /// # Desc
 /// Launch main scala application, that will query the unige database
 /// and generate the markdown

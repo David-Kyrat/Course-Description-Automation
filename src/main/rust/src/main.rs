@@ -10,6 +10,7 @@ pub mod launcher;
 
 use utils::{abs_path_clean, init_log4rs, pop_n_push_s, init_log4rs_debug};
 
+// TODO:  remove stdout/err from execvp when done debugging
 
 pub fn main() {
     init_log4rs(None);

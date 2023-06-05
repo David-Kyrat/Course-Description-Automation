@@ -9,7 +9,7 @@ use rayon::iter::*;
 use std::ffi::OsString;
 use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
-use std::process::{Command, ExitStatus};
+use std::process::{Command, ExitStatus, Stdio};
 use std::{fs, io};
 
 use log::error;
@@ -33,6 +33,8 @@ fn custom_io_err(message: &str) -> io::Error {
 pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
         .spawn()?
         .wait()
 }
@@ -99,7 +101,7 @@ fn pandoc_fill_template(
     md_path: &str,
     templates_path: &str,
 ) -> io::Result<PathBuf> {
-    let template: String = templates_path.to_owned() + "\\template.html";
+    let _template: String = templates_path.to_owned() + "\\template.html";
 
     let md_filepath: &String = &format!("{md_path}\\{md_filename}");
     let out_html = templates_path.to_owned() + "\\" + &md_filename.replace(".md", ".html");
