@@ -15,9 +15,6 @@ native-dialog = "0.6.3"
 path-clean = "1.0.1"
 rayon = "1.7.0"
 
-[build-dependencies]
-embed-resource = "1.3"
-
 [[bin]]
 name = "Course-Descritpion-Automation"
 path = "src/main.rs"
