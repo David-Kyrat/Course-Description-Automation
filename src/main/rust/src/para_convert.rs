@@ -2,12 +2,14 @@
 #![allow(dead_code)]
 
 use crate::utils::{current_exe_path, RETRY_AMOUNT};
-use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, win_exec::execvp};
+use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
+use std::ffi::OsStr;
 use std::fs::{DirEntry, ReadDir};
 use std::path::{Path, PathBuf};
+use std::process::{Command, ExitStatus};
 use std::{fs, io};
 
 use log::error;
@@ -15,6 +17,24 @@ use log::error;
 /// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
 fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
+}
+
+/// # Description
+/// Wrapper arround a `std::process::Command::new(...).args(...).spawn().wait()` i.e.
+/// * Creates a new `std::process::Command` instance with the executable path given by `exe_path`.  
+/// * Sets its arguments to `cmd_line`.
+/// * `spawn()` the child (returning the error if their were any.)
+/// * Then `wait()` on said child.  
+/// # Params
+/// * `exe_path` - Path of the executable to give to the constructor of `Command`
+/// * `cmd_line` - arguments to that comand (e.g. for "`ls -la`", `args` = `["-la"]`)
+/// # Returns
+/// Result containing `ExitStatus` of child process (or the error)
+fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
+    Command::new(exe_path)
+        .args(cmd_line.iter().map(|s| OsStr.from(s)))
+        .spawn()?
+        .wait()
 }
 
 /// # Description
@@ -34,13 +54,22 @@ fn get_resources_path() -> io::Result<(String, String, String, String)> {
         pop_n_push_s(&res_path, 0, &["templates"]),
     );
     if !pandoc.exists() {
-        return Err(io::Error::new(io::ErrorKind::NotFound, format!("pandoc path {:#?} not found", pandoc.display()))); 
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("pandoc path {:#?} not found", pandoc.display()),
+        ));
     }
     if !md.exists() {
-        return Err(io::Error::new(io::ErrorKind::NotFound, format!("md path {:#?} not found", md.display()))); 
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("md path {:#?} not found", md.display()),
+        ));
     }
     if !templates.exists() {
-        return Err(io::Error::new(io::ErrorKind::NotFound, format!("templates path {:#?} not found", templates.display())));
+        return Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            format!("templates path {:#?} not found", templates.display()),
+        ));
     }
     Ok((
         abs_path_clean(pandoc),
@@ -78,11 +107,18 @@ fn pandoc_fill_template(
     if out_html_path.exists() {
         fs::remove_file(out_html_path).unwrap_or_default();
     }
-    let cmd_line: &str = &format!("{md_filepath} -t html --template={template} -o {out_html}");
+    let cmd_line: &[&str] = &[
+        md_filepath,
+        "-t",
+        "html",
+        "--template={template}",
+        "-o",
+        &out_html,
+    ];
 
-    let exec_res = execvp(pandoc_path, cmd_line, None);
+    let exec_res = execvp(pandoc_path, cmd_line);
     let _exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line, None)
+        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
     } else {
         exec_res
     };
@@ -122,15 +158,23 @@ fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
         .replace(".html", ".pdf");
     out_pdf.push(new_name);
 
-    let cmd_line: &str = &format!(
-        "--enable-local-file-access -T 2 -B 0 -L 3 -R 0 {} {}",
+    let cmd_line: &[&str] = &[
+        "--enable-local-file-access",
+        "-T",
+        "2",
+        "-B",
+        "0",
+        "-L",
+        "3",
+        "-R",
+        "0",
         out_html.to_str().unwrap(),
-        &out_pdf.to_str().unwrap()
-    );
+        &out_pdf.to_str().unwrap(),
+    ];
 
-    let exec_res = execvp(wk_path, cmd_line, None);
+    let exec_res = execvp(wk_path, cmd_line);
     let _exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line, None)
+        unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line)
     } else {
         exec_res
     };
@@ -254,12 +298,30 @@ fn pandoc_md_to_pdf(
         md_filepath.to_str().unwrap(),
     );
 
-    let cmd_line: &str = &format!(
-    "{md_filepath_s} -t html5 --template={template_s} --pdf-engine wkhtmltopdf -V margin-top=2 -V margin-left=3 -V margin-right=0 -V margin-bottom=0 --css {css_path_s} -o {out_pdf_s}");
+    let cmd_line: &[&str] = &[
+        md_filepath_s,
+        "-t",
+        "html5",
+        &format!("--template={template_s}"),
+        "--pdf-engine",
+        "wkhtmltopdf",
+        "-V",
+        "margin-top=2",
+        "-V",
+        "margin-left=3",
+        "-V",
+        "margin-right=0",
+        "-V",
+        "margin-bottom=0",
+        "--css",
+        css_path_s,
+        "-o",
+        out_pdf_s,
+    ];
 
-    let exec_res = execvp(pandoc_path, cmd_line, None);
+    let exec_res = execvp(pandoc_path, cmd_line);
     let exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line, None)
+        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
     } else {
         exec_res
     };
@@ -267,7 +329,11 @@ fn pandoc_md_to_pdf(
     if out_pdf.exists() && exec_res.is_ok() {
         Ok(out_pdf)
     } else {
-        let er = if !out_pdf.exists() { "".to_owned() } else { format!("\n{:?}", &exec_res) };
+        let er = if !out_pdf.exists() {
+            "".to_owned()
+        } else {
+            format!("\n{:?}", &exec_res)
+        };
         let msg = &format!(
             "pandoc_md_to_pdf: PDF Not generated: {md_path}\\{md_filename} {er}
             ---------------------------------------------------------------
