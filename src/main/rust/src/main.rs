@@ -20,7 +20,6 @@ pub fn main() {
     // HK: DONT DELETE ABOVE THIS
 
     // init_log4rs_debug();
-    main2::main();
     // para_convert::main()
-    // launcher::main();
+    launcher::main();
 }

@@ -1,9 +1,11 @@
 #![allow(unused)]
 
-use crate::utils::{RETRY_AMOUNT, self, current_exe_path};
+use crate::message_dialog::*;
+use crate::utils::{self, current_exe_path, RETRY_AMOUNT};
 use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
 use io::ErrorKind::Other;
+use native_dialog::MessageType;
 use rayon::iter::*;
 use std::any::Any;
 //use std::env::temp_dir;
@@ -12,20 +14,14 @@ use std::fs::{DirEntry, File, ReadDir};
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::{exit, Command, ExitStatus, Output};
-use std::{env, fs, io, panic};
+use std::{env, fs, io, panic, thread};
 
-//extern crate native_windows_derive as nwd;
-//extern crate native_windows_gui as nwg;
 
 use log::error;
 fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let pathbuf = current_exe_path();
 
-    // FIX IMPLEMENT ACTUAL PATH WITH FILE DIRECTORY THAT WRAPS EVERYTHING!
-    // let pathbuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\temp\Course-Description-Automation\launcher.exe");
-    let files_path = "files"; // FIX: should actually be "files"
-
-    let javadir = pop_n_push_s(&pathbuf, 1, &[files_path, "res", "java"]);
+    let javadir = pop_n_push_s(&pathbuf, 1, &["files", "res", "java"]);
 
     let (javafx_lib_path, java_exe_path, jar_path) = (
         pop_n_push_s(&javadir, 0, &["javafx-sdk-19", "lib"]),
@@ -98,9 +94,6 @@ fn launch_gui() -> io::Result<Output> {
     let abbrevfile_path = get_abbrev_file_path();
     dbg!(&abbrevfile_path);
 
-    /* Command::new(java_exe_path)
-    .args(&["-jar", "--module-path", &javafx_lib_path,  "--add-modules", "javafx.controls,javafx.fxml,javafx.graphics", &jar_path]); */
-
     Command::new(java_exe_path)
         .args(
             format!(
@@ -112,7 +105,7 @@ fn launch_gui() -> io::Result<Output> {
         .output()
     // .expect("failed to execute process");
 }
-//.\jdk-17\bin\java.exe --module-path .\javafx-sdk-19\lib\ --add-modules javafx.controls,javafx.fxml,javafx.graphics -jar .\fancyform.jar ..\abbrev.tsv
+
 /// # Desc
 /// Launch main scala application, that will query the unige database
 /// and generate the markdown
@@ -124,7 +117,6 @@ fn launch_main_scalapp(args: &String) -> io::Result<Output> {
         .output()
 }
 
-// use crate::{log_err, log_if_err, para_convert, unwrap_or_log, win_popup};
 use crate::{log_err, log_if_err, para_convert, unwrap_or_log};
 
 /// # Description
@@ -148,11 +140,7 @@ fn sub_main() -> Result<(), String> {
 
     //Propagate error (i.e. return an `Err(...)` if returned value is not an `Ok(...)`)
 
-    /* let main_in: String = match gui_out {
-        Ok(out) => extract_std(out.stdout),
-        Err(cause)=> return Err(cause),
-    }; */
-
+    thread::spawn(|| quick_message_dialog("Generating", "Generating pdfs please wait...", None));
     // generate markdown
     let main_out: Output = panic::catch_unwind(|| {
         unwrap_or_log!(launch_main_scalapp(&gui_out), "cannot launch scala app")
@@ -165,41 +153,9 @@ fn sub_main() -> Result<(), String> {
         return Err(extract_std(main_out.stderr));
     }
 
-    /* let main_result: Result<(), String> = match main_success {
-        true => Ok(()),
-        false => Err(extract_std(main_out.stderr)),
-    }; */
-
-    /* if (!*main_success) {
-        // println!("launching popup");
-        let retry = false; //win_popup::main(success, err_msg);
-        if retry {
-            return sub_main();
-        } else {
-            dbg!(&main_result);
-            // println!("exit");
-            return main_result;
-        }
-    } */
-
     let main_result = para_convert::main()
         .map_err(|cause| err_fmter("Not all pdf could be generated", &cause))?;
 
-    /* if main_result.is_err() {
-        let err_msg = main_result
-            .err()
-            .map(|e| format!("The following error happened.\n  \"{}\"", e));
-        error!(
-            "during launcher, after par_convert::main() {}",
-            &err_msg.unwrap()
-        );
-        // dbg!(&err_msg);
-    } */
-
-    // convert to pdf
-    // let success = true;
-
-    // .map_err(|cause| format!(" Launcher: cannot launch para_convert: {:#?}", cause))?;
     Ok(())
 }
 
@@ -219,24 +175,29 @@ fn sub_main() -> Result<(), String> {
 /// `Ok(())` i.e. Nothing if success. The error of the function that failed otherwise.
 pub fn main() {
     fn ok_popup() -> bool {
-        false
+        let err_msg = "main could not display popup";
+        quick_yesno_dialog(
+            "Success",
+            &format!("PDF generation successful.\n Do you want to generate anything else?"),
+            None,
+        )
+        .expect(err_msg)
     }
 
     fn error_popup(message: String) -> bool {
-        false
+        let err_msg = "main could not display popup";
+        quick_yesno_dialog(
+            "Error",
+            &format!("{message}\n Do you want to retry?"),
+            Some(MessageType::Error),
+        )
+        .expect(err_msg)
     }
 
     let prog_result = sub_main();
     let retry = match prog_result {
         Ok(()) => ok_popup(), // Ok popup
         Err(message) => error_popup(message),
-        /* {
-            let retry = error_popup(message); // error retry popup
-            if retry {
-                main()
-            } else { exit(1) }
-
-        }, */
     };
 
     if retry {
