@@ -16,7 +16,6 @@ use std::path::{Path, PathBuf};
 use std::process::{exit, Command, ExitStatus, Output};
 use std::{env, fs, io, panic, thread};
 
-
 use log::error;
 pub fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let pathbuf = current_exe_path();
@@ -90,10 +89,15 @@ fn extract_std(out: Vec<u8>) -> String {
     String::from_utf8(out).expect("output didn't return a valid utf8 string")
 }
 
-fn launch_gui() -> io::Result<Output> {
+pub fn launch_gui() -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
     let abbrevfile_path = get_abbrev_file_path();
     dbg!(&abbrevfile_path);
+    let x = format!(
+        "-jar --module-path {} --add-modules javafx.controls,javafx.fxml,javafx.graphics {} {}",
+        javafx_lib_path, jar_path, abbrevfile_path
+    );
+    dbg!(x);
 
     Command::new(java_exe_path)
         .args(

@@ -14,5 +14,6 @@ fn main() {
     println!("Hello, world!");
     init_log4rs(None);
 
-    launcher::get_java_paths().unwrap();
+    //launcher::get_java_paths().unwrap();
+    launcher::launch_gui().expect("cannot launch gui");
 }
