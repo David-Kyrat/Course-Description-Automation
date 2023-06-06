@@ -44,9 +44,6 @@ res/log/*
 res/templates/rmd
 
 
-**/pdf/*.pdf
-**/md/*.md
-
 # Rust binaries & config files
 
 **/rust/target
