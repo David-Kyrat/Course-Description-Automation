@@ -43,6 +43,8 @@ res/log/*
 !res/log/.gitkeep
 res/templates/rmd
 
+files/res/md/*.md
+files/res/pdf/*.pdf
 
 # Rust binaries & config files
 
