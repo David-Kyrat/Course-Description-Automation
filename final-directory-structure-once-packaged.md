@@ -16,7 +16,7 @@ To be able to run correctly, one could verify that the unzipped directory has th
     │           │   ├── core-[version].jar
     │           │   ├── fancyform.jar
     │           │   ├── javafx-swt.jar
-    │           │   ├── jforenix-[version].jar
+    │           │   ├── jfoenix-[version].jar
     │           │   └── jvm.driver-[version].jar
     │           ├── log/ (optional will get generated at runtime)
     │           ├── md/
@@ -28,7 +28,7 @@ To be able to run correctly, one could verify that the unzipped directory has th
     │           ├── abbrev.tsv
     │           └── logging_config.yaml
     │ 
-    └── pdfs/ --> ./files/res/pdf  (shortcut)
+    └── pdfs/ --> ./files/res/pdf/  (shortcut)
     │ 
     └── LICENSE
 
