@@ -108,6 +108,11 @@ these steps.
 
 ### Dependencies
 
+- **[wkhtmltopdf](https://wkhtmltopdf.org/)** (pandoc dependency)
+
+`wkhtmltopdf` must be findable by pandoc (i.e. in `$PATH`) for this to work.
+
+
 #### JavaFx Gui Part
 
 Building the gui is currently not supported. Please use the following to launch it.
