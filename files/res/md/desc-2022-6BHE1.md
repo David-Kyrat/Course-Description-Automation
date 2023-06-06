@@ -1,18 +1,18 @@
 ---
-title: Hébreu I
-author: Chen Morgane Dandelot  \-  6BHE1
-weekly_hours: 0.0
-lectures_hours: 0.0
-exercices_hours: 0.0
-total_hours: 0.0
-course_lang: français
-semester: Annuel
-eval_mode: 
-exa_session: Juillet
-course_format: \-
+title: "Hébreu I"
+author: "Chen Morgane Dandelot  -  6BHE1"
+weekly_hours: "0.0"
+lectures_hours: "0.0"
+exercices_hours: "0.0"
+total_hours: "0.0"
+course_lang: "français"
+semester: "Annuel"
+eval_mode: ""
+exa_session: "Juillet"
+course_format: "-"
 cursus:
-  - {name: Baccalauréat universitaire en théologie, type: N/A, credits: 6.0}
-  - {name: Baccalauréat universitaire (Bachelor of Arts, BA) - Hébreu, type: N/A, credits: 6.0}
+  - {name: "Baccalauréat universitaire en théologie", type: "N/A", credits: "6.0"}
+  - {name: "Baccalauréat universitaire (Bachelor of Arts, BA) - Hébreu", type: "N/A", credits: "6.0"}
 
 objective:  |
             Au  terme  de  cet  enseignement,  létudiant-e sera  en  mesure  de lire  et  traduire  des  textes narratifs  et des textes poétiques. Il/elle maîtrisera les outils nécessaires à la traduction de tous les types de textes hébraïques anciens.
@@ -21,5 +21,5 @@ description:  |
               
               Remarque pour le semestre de printemps 2023
               Jeudi 8h15-10h00/15 jours, U363: le 2.3 ; 16.3 ; 23.3 ; 6.4; 20.04 ; 27.04 ; 11.05 ; 25.05.
-practice_hours: 0.0
+practice_hours: "0.0"
 ---
