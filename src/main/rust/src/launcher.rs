@@ -7,8 +7,7 @@ use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 use io::ErrorKind::Other;
 use native_dialog::MessageType;
 use rayon::iter::*;
-use std::any::Any;
-//use std::env::temp_dir;
+use std::any::Any; //use std::env::temp_dir;
 use std::error::Error;
 use std::fs::{DirEntry, File, ReadDir};
 use std::io::Write;
@@ -57,11 +56,11 @@ fn get_java_paths() -> io::Result<(String, String, String, String)> {
         )),
     );
 
-    dbg!(&javafx_lib_path);
+    /* dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
     dbg!(&scala_jar_path);
-    println!("");
+    println!(""); */
     Ok((java_exe_path, javafx_lib_path, jar_path, scala_jar_path))
 }
 
@@ -137,15 +136,15 @@ fn sub_main() -> Result<(), String> {
         )
     }
 
-    /* let gui_out: String =
+    let gui_out: String =
         panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"))
             .map(|output| extract_std(output.stdout))
             .map_err(|cause| err_fmter("Cannot launch gui", &cause))?;
 
     //Propagate error (i.e. return an `Err(...)` if returned value is not an `Ok(...)`)
-*/
+
     //thread::spawn(|| quick_message_dialog("Generating", "Generating pdfs please wait...", None));
-    let gui_out = "12X001#".to_owned();
+    // let gui_out = "12X001#".to_owned();
     // generate markdown
     let main_out: Output = panic::catch_unwind(|| {
         unwrap_or_log!(launch_main_scalapp(&gui_out), "cannot launch scala app")

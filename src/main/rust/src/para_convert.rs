@@ -50,8 +50,8 @@ fn get_resources_path() -> io::Result<(String, String, String, String)> {
     let res_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res"]);
     let exes_path = pop_n_push_s(&res_path, 0, &["bin-converters"]);
     let (pandoc, wkhtml, md, templates) = (
-        pop_n_push_s(&exes_path, 0, &["pandoc.exe"]),
-        pop_n_push_s(&exes_path, 0, &["wkhtmltopdf.exe"]),
+        pop_n_push_s(&exes_path, 0, &["pandoc"]),
+        pop_n_push_s(&exes_path, 0, &["wkhtmltopdf"]),
         pop_n_push_s(&res_path, 0, &["md"]),
         pop_n_push_s(&res_path, 0, &["templates"]),
     );
