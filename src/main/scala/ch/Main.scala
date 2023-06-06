@@ -103,6 +103,7 @@ object Main {
 	
 	def main(args: Array[String]): Unit = {
 		try {
+            // println(pathOf("resource").toAbsolutePath().normalize())
 			parseForMainThenLaunch(args)
 		} catch {
 			case re: ResourceNotFoundException => {
@@ -113,8 +114,8 @@ object Main {
 			case err: Throwable => {
 				Utils.log(err)
 				System.err.println("An unexpected error happened during the pdf generation. Please try again.")
-				System.exit(1)
 				// err.printStackTrace()
+				System.exit(1)
 				// println("-------------\n"+ err.getMessage)
 			}
 		}

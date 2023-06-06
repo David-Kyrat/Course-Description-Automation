@@ -57,7 +57,8 @@ final object Utils {
      * @param path resource to locate
      * @return valid relative to resource (relative w.r.t the runnable i.e. jar or else)
      */
-    def r(path: String): String = f"res/$path"
+    def r(path: String): String = f"files/res/$path"
+    // def r(path: String): String = f"res/$path"
     // def r(path: String): String = f"files/res/$path"
 
     /**
