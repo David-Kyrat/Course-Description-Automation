@@ -23,7 +23,7 @@ pub fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let javadir = pop_n_push_s(&pathbuf, 1, &["files", "res", "java"]);
 
     let (javafx_lib_path, java_exe_path, jar_path) = (
-        pop_n_push_s(&javadir, 0, &["javafx-sdk-19", "lib"]),
+        pop_n_push_s(&javadir, 0, &["javafx-sdk-17", "lib"]),
         pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java"]),
         pop_n_push_s(&javadir, 0, &["fancyform.jar"]),
     );
@@ -47,8 +47,8 @@ pub fn get_java_paths() -> io::Result<(String, String, String, String)> {
         ));
     }
     let (javafx_lib_path, java_exe_path, jar_path, scala_jar_path) = (
-        abs_path_clean(pop_n_push_s(&javadir, 0, &["javafx-sdk-19", "lib"])),
-        abs_path_clean(pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java.exe"])),
+        abs_path_clean(pop_n_push_s(&javadir, 0, &["javafx-sdk-17", "lib"])),
+        abs_path_clean(pop_n_push_s(&javadir, 0, &["jdk-17", "bin", "java"])),
         abs_path_clean(pop_n_push_s(&javadir, 0, &["fancyform.jar"])),
         abs_path_clean(pop_n_push_s(
             &javadir,
