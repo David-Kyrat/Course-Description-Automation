@@ -16,7 +16,6 @@ use std::path::{Path, PathBuf};
 use std::process::{exit, Command, ExitStatus, Output};
 use std::{env, fs, io, panic, thread};
 
-
 use log::error;
 fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let pathbuf = current_exe_path();
@@ -113,8 +112,12 @@ fn launch_gui() -> io::Result<Output> {
 ///
 fn launch_main_scalapp(args: &String) -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
+    let cmd = &[java_exe_path.as_str(), "-jar", scala_jar_path.as_str(), args];
+    // dbg!(cmd);
+    dbg!(&cmd.join(" "));
+
     Command::new(java_exe_path)
-        .args(format!("-jar {} {}", scala_jar_path, args).split(" "))
+        .args(&["-jar", scala_jar_path.as_str(), args])
         .output()
 }
 
@@ -134,14 +137,15 @@ fn sub_main() -> Result<(), String> {
         )
     }
 
-    let gui_out: String =
+    /* let gui_out: String =
         panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"))
             .map(|output| extract_std(output.stdout))
             .map_err(|cause| err_fmter("Cannot launch gui", &cause))?;
 
     //Propagate error (i.e. return an `Err(...)` if returned value is not an `Ok(...)`)
-
+*/
     thread::spawn(|| quick_message_dialog("Generating", "Generating pdfs please wait...", None));
+    let gui_out = "12X001#".to_owned();
     // generate markdown
     let main_out: Output = panic::catch_unwind(|| {
         unwrap_or_log!(launch_main_scalapp(&gui_out), "cannot launch scala app")
@@ -150,6 +154,9 @@ fn sub_main() -> Result<(), String> {
 
     dbg!(&main_out);
     dbg!(&main_out.status);
+    let x = main_out.clone();
+    let y = extract_std(x.stdout);
+    dbg!(y);
     // if user input incorrect or other unexpected error
     let main_success: &bool = &main_out.status.success();
     if !main_success {
