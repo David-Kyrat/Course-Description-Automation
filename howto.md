@@ -12,8 +12,6 @@
             * [Course:](#course)
         * [Example of markdown structure used to generate  htmls and pdfs](#example-of-markdown-structure-used-to-generate--htmls-and-pdfs)
     * [Packaging](#packaging)
-    * [Left to do (25.04.23):](#left-to-do-250423)
-    * [To Do (by 02.06.23)](#to-do-by-020623)
     * [Pandoc quick commands](#pandoc-quick-commands)
 
 <!-- vim-markdown-toc -->
@@ -203,55 +201,6 @@ The actual wix configuration of the installer is present in the file `target/win
 file.
 It's just an xml file with a specific microsoft-defined syntax see
 here [Course-Description-Automation.wxs](https://github.com/David-Kyrat/Course-Description-Automation/blob/build/target/windows/Course-Description-Automation.wxs)
-
-***
-
-<br > 
-
-## Left to do (25.04.23):
-
-- [x] Find a way to bundle `res/` directory with the installer
-- [x] Find a way to force project installation in document directory and add symlink the "pdf" folder next to the .exe
-- [x] Small GUI
-
-- [x] Find a way to generate an executable instead of `.bat`
-    - [x] If that's not possible just hide the `.bat` and make a ~~C~~ Rust wrapper that calls it.
-      The wrapper will then be compiled as `.exe`
-- [x] Rust parallelized pandoc convert application
-- [x] Rust launcher
-
-
-Not urgent:
-
-- [x] Remove empty (0 Kb) / useless wix features (from "features to be installed" screen)
-- [ ] Replace the lorem ipsum in the license screen by an actual license
-- [ ] Find a way to put it in something like `C:\ProgramData\Microsoft\Windows\Start Menu\Programs` to make it searchable
-  from windows seach
-
-
-
-## To Do (by 02.06.23)
-
-
-- [ ] Man / user documentation.
-
-1. Add
-
-- [x] 1. Add button to add course to selection
-- [x] 2. Replace 'ok' button with 'generate' button
-- [x] 3. Show actual user selection
-
-2. Finish
-
-- [x] Fix scala logging
-- [x] Handle exception on wrong user input or course not found
-- [x] Parsing de plan d'études
-- [ ] link GUI javafx / Rust + markdown generation with scala
-- [x] Fix bug abbreviation screen list
-- [ ] Remove debugging in rust launcher
-- [ ] Stop Retrying multiple times on rust app
-- [ ] Fix bug with analysis 1 having no study plan
-- [ ] Widden study plan table. currently hide some name
 
 ***
 
