@@ -120,7 +120,7 @@ Building the gui is currently not supported. Please use the following to launch 
 - core-[version].jar
 - fancyform.jar
 - javafx-swt.jar
-- jforenix-[version].jar
+- jfoenix-[version].jar
 - jvm.driver-[version].jar
 
 command:
