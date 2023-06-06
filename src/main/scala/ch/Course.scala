@@ -87,8 +87,7 @@ object Course extends ((String, Int) => Course) {
         else resp.jsonObj
     }
 
-    /**
-     * Shortcut method for very simple data to extract (i.e. the jsonKey isn't something nested like activities.<somehting>)
+    /** Shortcut method for very simple data to extract (i.e. the jsonKey isn't something nested like activities.<somehting>)
      * @param jsObj JsonObject, response to get request wrapped in JsonObject
      * @param sco SealedConceptObject[T], trait representing data to extract
      * @param U, case object, i.e. realisation of trait of type T (e.g. `Semester` => `Autumn`, `Semester` is a sealed Trait and `Autumn` is a case object)
@@ -199,7 +198,7 @@ object Course extends ((String, Int) => Course) {
         val coursType = tryExtract("type", "", "COURSE TYPE", log = false)
 
         val teachers: Vector[String] = tryOrElse(() => resolveTeacherNames(lectures), () => Vector.empty)
-        lazy val noSp = Map("No cursus" -> (0f, "\\-"))
+        lazy val noSp = Map("No cursus" -> (0f, "-"))
         var studPlan: Map[String, (Float, String)] = tryOrElse(
           () => {
               val sp = resolveStudyPlan(jsObj)

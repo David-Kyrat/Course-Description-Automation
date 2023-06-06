@@ -13,17 +13,29 @@ object Serializer {
     val yamlHeaderSep = "---"
 
     /**
+      * Escapes, in the given string, characters that actually that have a special meaning in Yaml.
+      * (e.g. "-" is a reserved character to indicate the begining of a list/enumeration)
+      *
+      * @param ymlStmt
+      * @return
+      */
+    def sanitizeForYaml(ymlStmt: String): String = {
+        ""
+    }
+
+    /**
      * Format given parameters in a yaml fmt i.e. "key: value"
      * @param key String
      * @param value String
      */
-    def yamlFmt[T](key: String, value: T): String = f"$key: $value"
+    def yamlFmt[T](key: String, value: T): String = f"$key: \"$value\""
 
     // unused
     def yamlFmTOpt[T](key: String, value: Option[T]) =
         value match {
-            case Some(t) => f"$key: $t"
+            case Some(t) => yamlFmt(key, value)
             case None    => ""
+            // case Some(t) => f"$key: \"$t\""
         }
 
     /**
@@ -62,8 +74,8 @@ object Serializer {
     def yamlFmtCursus(course: Course) = {
         val map = course.studyPlan
         val sbld = new StringBuilder("cursus:\n")
-        val credFmt: (Float) => String = c => if (c <= 0) "\\-" else c.toString // if credits = 0 write a "-" instead
-        map.foreach(kv => sbld ++= f"  - {name: ${kv._1}, type: ${kv._2._2}, credits: ${credFmt(kv._2._1)}}\n")
+        val credFmt: (Float) => String = c => if (c <= 0) "-" else c.toString // if credits = 0 write a "-" instead
+        map.foreach(kv => sbld ++= f"  - {name: \"${kv._1}\", type: \"${kv._2._2}\", credits: \"${credFmt(kv._2._1)}\"}\n")
         sbld.toString
     }
 
@@ -85,7 +97,9 @@ object Serializer {
      */
     def courseToMarkdown(course: Course) = {
         val name = f"desc-${course.year}-${course.id}.md"
-        val path = Utils.pathOf(name)
+        val path = Utils.pathOf(f"md/$name")
+        val tmp = Utils.pathOf("res")
+        println(f"  ---- Saving ${course.id} to ${path.toAbsolutePath().normalize()}\n Because r('res') gives ${tmp.toAbsolutePath().normalize()}\n")
         val br = new BufferedWriter(new FileWriter(path.toAbsolutePath.toString, UTF_8))
         def write(content: String) = br.write(content + "\n")
         def writes(contents: String*) = for (s <- contents) write(s)
@@ -93,7 +107,7 @@ object Serializer {
         write(yamlHeaderSep)
         writes(
           yamlFmt("title", course.title),
-          yamlFmt("author", course.authors.mkString(", ") + f"  \\-  ${course.id}"),
+          yamlFmt("author", course.authors.mkString(", ") + f"  -  ${course.id}"),
           yamlFmt("weekly_hours", course.hoursNb.sum),
           yamlFmt("lectures_hours", course.hoursNb.lectures),
           yamlFmt("exercices_hours", course.hoursNb.exercices),
@@ -102,7 +116,7 @@ object Serializer {
           yamlFmt("semester", course.semester),
           yamlFmt("eval_mode", course.evalMode),
           yamlFmt("exa_session", course.semester.session),
-          yamlFmt("course_format", course.format.replace("-", "\\-")),
+          yamlFmt("course_format", course.format.replace("-", "-")),
           yamlFmtCursus(course),
           yamlFmtMultiLineStr("objective", Utils.sanitize(course.objective)),
           yamlFmtMultiLineStr("description", Utils.sanitize(course.description))

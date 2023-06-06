@@ -29,13 +29,11 @@ object Artifacts {
 
     val pName = "Course-Description-Automation" // project Name
     val pNameLower = "course-description-automation"
-    
+
     val launcher_name = pName + ".exe"
     val launcher_file = file("./" + launcher_name)
     /* val launcher_path: nio.file.Path = nio.file.Path.of(launcher_string).toAbsolutePath
     val launcher_abs: java.io.File = launcher_path.toFile */
-
-
 
     // val batName = pNameLower + ".bat"
     // val batPath = "bin/" + batName
@@ -76,7 +74,18 @@ object Artifacts {
                 content.insertAll(idx, toInsert.toArray)
                 nio.file.Files.write(path, content.toString.getBytes(UTF_8))
             }
+        }
 
+        /**
+          * Copy packaged scala part to the folder containing the master repo
+          * with the rust part and everything to allow quicker testing & debugging
+          * @param destPath : path to copy jar to. (Will replace if exists)
+          */
+        def copyJarToMasterFun(destPath: nio.file.Path) = {
+            import nio.file.{Path, Files, StandardCopyOption}
+            val jarPath = file(f"./target/scala-2.13/$jarName").toPath()
+            // val pathDest = Path.of("C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER/files/res/java", jarName)
+            Files.copy(jarPath, destPath, StandardCopyOption.REPLACE_EXISTING)
         }
     }
 

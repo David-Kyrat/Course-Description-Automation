@@ -1,18 +1,20 @@
 package ch
 
-import ch.Helpers.{JsonElementOps, JsonObjOps}
-import ch.Utils.crtYear
-import ch.net.exception.StudyPlanNotFoundException
-import ch.net.{ReqHdl, Resp}
-import com.google.gson.{JsonArray, JsonObject}
-
-import java.nio.file.Path
 import scala.collection.immutable.HashMap
 import scala.collection.parallel.CollectionConverters._
 import scala.collection.parallel.immutable.ParVector
 import scala.collection.{View, mutable}
 import scala.jdk.CollectionConverters._
 import scala.jdk.StreamConverters._
+
+import java.nio.file.Path
+
+import com.google.gson.{JsonArray, JsonObject}
+
+import ch.Helpers.{JsonElementOps, JsonObjOps}
+import ch.Utils.crtYear
+import ch.net.exception.StudyPlanNotFoundException
+import ch.net.{ReqHdl, Resp}
 
 /**
  * Represents a Study Plan (i.e. Computer Science Bachelor)
@@ -24,7 +26,7 @@ final case class StudyPlan private (id: Int, courses: ParVector[Course]) {
     /**
      * Save all courses in this studyplan to a markdown file that can later be converted to pdf.
      *
-     * this method uses the `ParVector` field to access courses. Thus it is significantly faster 
+     * this method uses the `ParVector` field to access courses. Thus it is significantly faster
      * than calling `saveToMarkdown` manually on each single `Course`
      */
     def saveToMarkdown() = courses.foreach(_.saveToMarkdown())
@@ -183,7 +185,7 @@ object StudyPlan extends (Int => StudyPlan) {
         ReqHdl
             .AllStudyPlan()
             .filter(sp => getYear(sp) == crtYear)
-            .map(sp => extractAbbrev(cleanSpName(Utils.tryOrElse(() => sp.getAsStr("fullFormationLabel"), () => sp.getAsStr("label"), "",false)), sp.getAsStr("entityId")))
+            .map(sp => extractAbbrev(cleanSpName(Utils.tryOrElse(() => sp.getAsStr("fullFormationLabel"), () => sp.getAsStr("label"), "", false)), sp.getAsStr("entityId")))
     }
 
     /**

@@ -1,12 +1,5 @@
 import java.nio
 
-// import com.typesafe.sbt.SbtNativePackager.Universal.
-/* import com.typesafe.sbt.packager.Keys.{wixConfig, wixFeatures, wixFile, wixFiles, wixProductConfig, wixProductId, wixProductLicense, wixProductUpgradeId}
-import com.typesafe.sbt.packager.windows.WixHelper.generateComponentsAndDirectoryXml
-import com.typesafe.sbt.packager.windows.WixHelper.{makeIdFromFile, makeWixConfig, makeWixProductConfig}
-import com.typesafe.sbt.packager.windows._
-import com.typesafe.sbt.packager.windows.{WindowsDeployPlugin, WindowsFeature, WindowsKeys, WindowsPlugin, WindowsProductInfo} */
-
 // Informations relative to the packaging of this project
 import Artifacts.Package
 // Dependency and other information about build this project
@@ -40,7 +33,7 @@ lazy val root = (project in file(".")).settings(
   // pack info
   maintainer := Package.maintainer,
   packageSummary := Package.summary,
-  packageDescription := Package.description,
+  packageDescription := Package.description
 
   // wix build information
   // wixPackageInfo := Artifacts.Wix.wixPackageInfo
@@ -52,6 +45,33 @@ lazy val cl = taskKey[Unit]("A task that gets the res path")
 cl := { println("\033c") }
 
 // --------------------------------------
+
+lazy val masterDirPath = "C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER"
+lazy val masterJarPath = nio.file.Path.of(masterDirPath, "files", "res", "java", Package.jarName)
+
+lazy val copyJarToMaster = taskKey[Unit]("A task that will copy the jar file to " + masterDirPath + "/files/res/java")
+
+copyJarToMaster := {
+    println("Copying to " + masterJarPath)
+    Package.copyJarToMasterFun(masterJarPath)
+}
+
+lazy val cleanMasterJar = taskKey[Unit]("A task that will remove the jar " + masterJarPath + " if it exists")
+cleanMasterJar := {
+    nio.file.Files.deleteIfExists(masterJarPath)
+    println("cleaned " + masterJarPath)
+}
+
+/* lazy val compileAndCopyJarToMaster =
+    taskKey[Unit]("A wrapper task for `clean`, `assembly (package into jar)`, `copyJarToMaster`. (reload has to be done manually just enter `reload`)")
+compileAndCopyJarToMaster := {
+    cl.value
+    // reload.value
+    clean.value
+    cleanMasterJar.value
+    assembly.value
+    copyJarToMaster.value
+} */
 
 /**
  * Included doc from: "https://www.scala-sbt.org/sbt-native-packager/formats/windows.html"
@@ -78,7 +98,6 @@ cl := { println("\033c") }
     val binJar_with_deps = File("target/wind")
 
 } */
-// Ok si on arrive a faire un directory res/md/ vide => works
 /* wixFeatures := Seq(
   WindowsFeature(
     id = "BinaryAndPath",
@@ -132,8 +151,6 @@ genCompXml := {
     println("\n")
     components
 } */
-
-
 
 /* gcx := {
     val path = Path.of("res/md")
