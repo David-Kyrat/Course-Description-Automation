@@ -1,7 +1,6 @@
 #![allow(non_snake_case)]
 
 pub mod launcher;
-pub mod main2;
 pub mod message_dialog;
 pub mod para_convert;
 pub mod utils;
