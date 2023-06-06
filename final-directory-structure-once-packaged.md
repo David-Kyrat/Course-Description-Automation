@@ -17,7 +17,10 @@ To be able to run correctly, one could verify that the unzipped directory has th
     │           │   ├── fancyform.jar
     │           │   ├── javafx-swt.jar
     │           │   ├── jfoenix-[version].jar
-    │           │   └── jvm.driver-[version].jar
+    │           │   ├── jvm.driver-[version].jar
+    │           │   │ 
+    │           │   └── course-description-automation.jar
+    │           │
     │           ├── log/ (optional will get generated at runtime)
     │           ├── md/
     │           ├── pdf/

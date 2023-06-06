@@ -213,7 +213,10 @@ Now that you've build the project, it should have the following structure to wor
     │           │   ├── fancyform.jar
     │           │   ├── javafx-swt.jar
     │           │   ├── jfoenix-[version].jar
-    │           │   └── jvm.driver-[version].jar
+    │           │   ├── jvm.driver-[version].jar
+    │           │   │ 
+    │           │   └── course-description-automation.jar
+    │           │
     │           ├── log/ (optional will get generated at runtime)
     │           ├── md/
     │           ├── pdf/
