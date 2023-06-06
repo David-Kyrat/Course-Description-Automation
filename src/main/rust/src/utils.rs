@@ -56,10 +56,10 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
 /// # Return
 /// `std::env::current_exe().expect(...)` i.e. `PathBuf` to the full filesystem path of the current running executable.
 pub fn current_exe_path() -> PathBuf {
-    //let path = std::env::current_exe().expect("could not get path of current executable");
+    let path = std::env::current_exe().expect("could not get path of current executable");
     // FIX: comment below for release
     // let path = PathBuf::from(r"C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER/course-description-automation.exe");
-    let path = PathBuf::from(r"/Users/ekkemunz/Documents/.noah/cda/course-description-automation");
+    // let path = PathBuf::from(r"/Users/ekkemunz/Documents/.noah/cda/course-description-automation");
     path 
 }
 
@@ -72,7 +72,7 @@ pub fn init_log4rs(log_config_file: Option<String>) {
         let config_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res", LOG_CONFIG_FILE_NAME]);
         config_path.to_str().unwrap().to_owned()
     });
-    // dbg!(&log_config_file);
+    dbg!(&log_config_file);
     log4rs::init_file(log_config_file, Default::default()).unwrap();
 }
 
