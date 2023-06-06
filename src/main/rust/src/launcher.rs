@@ -61,7 +61,7 @@ fn get_java_paths() -> io::Result<(String, String, String, String)> {
     dbg!(&java_exe_path);
     dbg!(&jar_path);
     dbg!(&scala_jar_path); */
-    println!("");
+    // println!("");
     Ok((java_exe_path, javafx_lib_path, jar_path, scala_jar_path))
 }
 
@@ -92,7 +92,7 @@ fn extract_std(out: Vec<u8>) -> String {
 fn launch_gui() -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
     let abbrevfile_path = get_abbrev_file_path();
-    dbg!(&abbrevfile_path);
+    // dbg!(&abbrevfile_path);
 
     Command::new(java_exe_path)
         .args(
@@ -113,8 +113,7 @@ fn launch_gui() -> io::Result<Output> {
 fn launch_main_scalapp(args: &String) -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
     let cmd = &[java_exe_path.as_str(), "-jar", scala_jar_path.as_str(), args];
-    // dbg!(cmd);
-    dbg!(&cmd.join(" "));
+    // dbg!(&cmd.join(" "));
 
     Command::new(java_exe_path)
         .args(&["-jar", scala_jar_path.as_str(), args])
@@ -151,9 +150,9 @@ fn sub_main() -> Result<(), String> {
     })
     .map_err(|cause| err_fmter("Cannot launch app", &cause))?;
 
-    dbg!(&main_out.status);
+    // dbg!(&main_out.status);
     let y = extract_std(main_out.clone().stdout);
-    println!("[src\\launcher.rs:157] &main_out.stdout = {y}");
+    // println!("[src\\launcher.rs:157] &main_out.stdout = {y}");
     // if user input incorrect or other unexpected error
     let main_success: &bool = &main_out.status.success();
     if !main_success {
