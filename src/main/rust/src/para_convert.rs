@@ -2,16 +2,15 @@
 #![allow(dead_code)]
 
 use crate::utils::{current_exe_path, RETRY_AMOUNT};
-use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
+use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, log_if_err, unwrap_or_log};
+use crate::log_err;
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
 use std::ffi::OsString;
 use std::fs::{DirEntry, ReadDir};
-use std::path::{PathBuf};
-use std::process::{Command, ExitStatus};
-use std::{fs, io};
-
+use std::path::{PathBuf, Path};
+use std::process::{Command, ExitStatus, Stdio}; use std::{fs, io};
 use log::error;
 /// # Returns
 /// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
@@ -49,7 +48,7 @@ pub fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
 pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
-        // .stdout(Stdio::null())
+        .stdout(Stdio::null())
         // .stderr(Stdio::null())
         .spawn()?
         .wait()
@@ -265,6 +264,8 @@ pub fn ftcp_parallel(
         ))),
     }
 }
+
+
 
 pub fn main() -> io::Result<()> {
     let rp = get_resources_path();
