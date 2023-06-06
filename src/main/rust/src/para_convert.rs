@@ -33,8 +33,6 @@ fn custom_io_err(message: &str) -> io::Error {
 pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
-        .stdout(Stdio::null())
-        .stderr(Stdio::null())
         .spawn()?
         .wait()
 }
@@ -116,6 +114,7 @@ fn pandoc_fill_template(
         "--template={template}",
         "-o",
         &out_html,
+        "--quiet"
     ];
 
     let exec_res = execvp(pandoc_path, cmd_line);
@@ -301,6 +300,7 @@ fn pandoc_md_to_pdf(
     );
 
     let cmd_line: &[&str] = &[
+        "--quiet",
         md_filepath_s,
         "-t",
         "html5",
@@ -394,7 +394,6 @@ pub fn ftcp_parallel(
             (pandoc_path, wk_path, md_path, templates_path),
             |q, md_file| {
                 // we can directly unwrap since the path on wich to_str() would return None have been filtered
-
                 let name = md_file.file_name();
                 let name = name.to_str();
                 if name.is_none() {
@@ -434,6 +433,7 @@ pub fn main() -> io::Result<()> {
     };
 
     let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap();
+    dbg!(&md_path);
     let out: Result<(), io::Error> =
         ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
     if out.is_err() {
