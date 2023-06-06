@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+old_path=$PWD
+
+cd src/main/rust/
+
+cargo build
+
+echo ""
+echo "built copying to cda_master"
+cp -f target/debug/Course-Descritpion-Automation "$HOME/Documents/.noah/cda/"
+
+cd $old_path
