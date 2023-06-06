@@ -144,7 +144,7 @@ fn sub_main() -> Result<(), String> {
 
     //Propagate error (i.e. return an `Err(...)` if returned value is not an `Ok(...)`)
 */
-    thread::spawn(|| quick_message_dialog("Generating", "Generating pdfs please wait...", None));
+    //thread::spawn(|| quick_message_dialog("Generating", "Generating pdfs please wait...", None));
     let gui_out = "12X001#".to_owned();
     // generate markdown
     let main_out: Output = panic::catch_unwind(|| {
