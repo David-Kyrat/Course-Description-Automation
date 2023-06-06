@@ -19,6 +19,22 @@ fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
 }
 
+use std::env;
+
+
+/// # Description
+/// Modify this process' environment variables
+/// # Errors
+/// This function will return an error if it failed to joined the current `$PATH` with `to_add`
+pub fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
+    let path = env::var_os("PATH").unwrap();
+    let mut paths = env::split_paths(&path).collect::<Vec<_>>();
+    paths.push(to_add);
+    let new_path = env::join_paths(paths)?;
+    env::set_var("PATH", &new_path);
+    Ok(())
+}
+
 /// # Description
 /// Wrapper arround a `std::process::Command::new(...).args(...).spawn().wait()` i.e.
 /// * Creates a new `std::process::Command` instance with the executable path given by `exe_path`.  
@@ -144,7 +160,7 @@ fn pandoc_md_to_pdf(
         css_path_s,
         "-o",
         out_pdf_s,
-        "--quiet"
+        "--quiet",
     ];
 
     let exec_res = execvp(pandoc_path, cmd_line);
@@ -251,7 +267,6 @@ pub fn ftcp_parallel(
 }
 
 pub fn main() -> io::Result<()> {
-    let _r = 0;
     let rp = get_resources_path();
     let rp = if rp.is_err() {
         unwrap_retry_or_log!(&x, get_resources_path, "get_resources_path")
@@ -260,6 +275,9 @@ pub fn main() -> io::Result<()> {
     };
 
     let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap();
+    // add_to_path(PathBuf::from(&wk_path)).map_err(|c| custom_io_err(&format!("{:#?}", c)))?;
+    // dbg!(env!("PATH"));
+
     let out: Result<(), io::Error> =
         ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
     if out.is_err() {

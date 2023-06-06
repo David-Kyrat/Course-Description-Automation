@@ -84,7 +84,7 @@ fn get_abbrev_file_path() -> String {
 /// Underlying string
 /// # Panics
 /// If the given byte vector is not a valid utf8 strings
-fn extract_std(out: Vec<u8>) -> String {
+pub fn extract_std(out: Vec<u8>) -> String {
     String::from_utf8(out).expect("output didn't return a valid utf8 string")
 }
 
