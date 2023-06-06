@@ -16,6 +16,7 @@ use std::process::{exit, Command, ExitStatus, Output};
 use std::{env, fs, io, panic, thread};
 
 use log::error;
+
 fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let pathbuf = current_exe_path();
 
@@ -111,7 +112,12 @@ fn launch_gui() -> io::Result<Output> {
 ///
 fn launch_main_scalapp(args: &String) -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
-    let cmd = &[java_exe_path.as_str(), "-jar", scala_jar_path.as_str(), args];
+    let cmd = &[
+        java_exe_path.as_str(),
+        "-jar",
+        scala_jar_path.as_str(),
+        args,
+    ];
     // dbg!(cmd);
     dbg!(&cmd.join(" "));
 

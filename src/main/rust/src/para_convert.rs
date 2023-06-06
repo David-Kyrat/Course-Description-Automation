@@ -8,8 +8,8 @@ use io::ErrorKind::Other;
 use rayon::iter::*;
 use std::ffi::OsString;
 use std::fs::{DirEntry, ReadDir};
-use std::path::{Path, PathBuf};
-use std::process::{Command, ExitStatus, Stdio};
+use std::path::{PathBuf};
+use std::process::{Command, ExitStatus};
 use std::{fs, io};
 
 use log::error;
