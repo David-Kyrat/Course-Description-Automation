@@ -116,6 +116,7 @@ fn pandoc_fill_template(
         "--template={template}",
         "-o",
         &out_html,
+        "--quiet"
     ];
 
     let exec_res = execvp(pandoc_path, cmd_line);
@@ -319,6 +320,7 @@ fn pandoc_md_to_pdf(
         css_path_s,
         "-o",
         out_pdf_s,
+        "--quiet"
     ];
 
     let exec_res = execvp(pandoc_path, cmd_line);

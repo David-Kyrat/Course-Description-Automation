@@ -151,11 +151,9 @@ fn sub_main() -> Result<(), String> {
     })
     .map_err(|cause| err_fmter("Cannot launch app", &cause))?;
 
-    dbg!(&main_out);
     dbg!(&main_out.status);
-    let x = main_out.clone();
-    let y = extract_std(x.stdout);
-    dbg!(y);
+    let y = extract_std(main_out.clone().stdout);
+    println!("[src\\launcher.rs:157] &main_out.stdout = {y}");
     // if user input incorrect or other unexpected error
     let main_success: &bool = &main_out.status.success();
     if !main_success {
