@@ -12,5 +12,6 @@ pwd
 echo ""
 echo "built copying to cda_master"
 cp -f "$build_path" "$HOME/Documents/.noah/cda/"
+cp -f "$build_path" "$HOME/Documents/.noah/course-description-automation/Course-Description-Automation.app"
 
 cd $old_path
