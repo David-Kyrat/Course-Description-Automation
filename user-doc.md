@@ -1,5 +1,9 @@
+# Guide d'utilisation (Manuel FR)
 
-# Installation
+
+## Installation
+
+### Dépendences
 
 Avant de lancer notre logiciel, il faut d'abord télécharger un programme nécessaire 
 à son bon fonctionnement. Il s'appel 'wkhtmltopdf'. (Son utilité est assez explicite).
@@ -17,3 +21,28 @@ Il vous faudra faire un clique droit sur le fichier, appuyer sur "ouvrir" puis "
 
 Vous devriez, désormais, pouvoir installer le programme normalement. (Suivez simplement les installations d'instructions)
 
+### Installation
+
+Maintenant décompresser le fichier .zip fourni dans votre dossier `documents`,
+déplacez-vous-y et double cliquez sur le fichier `Course-Description-Automation` pour le lancer.
+
+
+***
+
+
+## Utilisation
+
+
+
+
+
+
+
+
+
+
+**NB:** J'ai grandement travaillé sur l'optimisation de la vitesse de traitement du programme,
+afin qu'il soit le plus rapide possible. Sur mon PC générer un plan d'étude entier est une affaires
+d'une dizaine voir, éventuellement, vingtaine de secondes tout au plus. 
+
+Cependant, ayant essayé sur un mac un peu plus vieux, la même génération prenait parfois plusieurs minutes... Donc si le programme à l'air de ne pas répondre / "freezer", la génération prend peut-être juste plus de temps que prévu.
