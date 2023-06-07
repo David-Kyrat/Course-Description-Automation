@@ -20,18 +20,19 @@
 Avant de lancer notre logiciel, il faut d'abord télécharger un programme nécessaire 
 à son bon fonctionnement. Il s'appel 'wkhtmltopdf'. (Son utilité est assez explicite).
 
-Pour ce faire il vous faut cliquer sur ce lien: [text](url) 
+Pour ce faire il vous faut cliquer sur ce lien: [https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-2/wkhtmltox-0.12.6-2.macos-cocoa.pkg](https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-2/wkhtmltox-0.12.6-2.macos-cocoa.pkg) 
 (cela va ouvrire votre navigateur et directement télécharger l'installeur.)
 
 Une fois téléchargé double cliquez sur le fichier.
 
-Si vous voyez un message d'erreur qui ressemble à 
-![apple-access-denied](path) 
+Si vous voyez un message d'erreur qui ressemble à  
+
+![](report-diagrams/imgs/apple-acces-denied.png)
 
 Il vous faudra faire un clique droit sur le fichier, appuyer sur "ouvrir" puis "ouvrir quand même"  
 (voir [https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac)  pour plus d'informations)
 
-Vous devriez, désormais, pouvoir installer le programme normalement. (Suivez simplement les installations d'instructions)
+Vous devriez, désormais, pouvoir installer le programme normalement. (Suivez simplement les instructions d'installation.)
 
 ### Installation
 
@@ -61,7 +62,7 @@ double cliquez sur le fichier `Course-Description-Automation` pour le lancer.
 Comme vous pouvez le voir sur l'écran ci-dessous, il y a 2 moyens de générer des pdfs de cours.
 
 
-![main-screen](./report-diagrams/imgs/main-screen.png)
+![](report-diagrams/imgs/main-screen.png)
 
 
 1. Entrer le code des cours 1 par 1 séparé par une virgule dans le champs *"Course code"*.  
@@ -73,7 +74,7 @@ Appuyer sur "**Add**" pour valider votre séléction, puis "**Generate**" pour l
 Pour ce faire, ouvrez le menu de séléction en appuyant sur le bouton
 "**See list of abbreviation & select study plan**", cela va ouvrir le menu suivant:  
 
-    ![selec-menu](./report-diagrams/imgs/selec-menu.png)
+    ![](report-diagrams/imgs/selec-menu.png)
 
     Vous pouvez maintenant simplement double cliquer sur le plan que vous voulez et cela va directement l'ajouter à la sélection. (vous pouvez double-cliquer n'importe où sur la ligne).  
 Puis appuyer sur **Generate** quand vous avez fini (pas besoin d'appuyer sur "Add" si vous n'écrivez rien manuellement dans les champs.)
@@ -84,7 +85,7 @@ Une fois fait, appuyer sur le boutton "**Add**" pour valider votre séléction, 
 
     Une fois que votre séléction (de cour(s) et/ou plan(s) d'études) est validée, elle devrait ressembler à ça:
 
-    ![confirmed-selection](./report-diagrams/imgs/confirmed-selection.png)
+    ![confirmed-selection](report-diagrams/imgs/confirmed-selection.png)
 
     appuyez sur Generate et c'est tout bon.
 
