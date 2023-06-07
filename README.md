@@ -182,8 +182,6 @@ you can just enter `assembly`).
 
 (If we had our rust code in this branch, then sbt would've added the entiere rust project with it as well as some uneeded resources present only in `master`).
 
-If you want you can directly type `sbt clean; reload; assembly` without starting the sbt shell but this will be relatively slower since sbt will start and shut down on its own each time you give it a command.
-
 #### Rust Part
 
 Like for sbt this is pretty straightforward.
