@@ -2,14 +2,14 @@
 #![allow(dead_code)]
 
 use crate::utils::{current_exe_path, RETRY_AMOUNT};
-use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, log_if_err, unwrap_or_log};
-use crate::log_err;
+use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
+
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
 use std::ffi::OsString;
 use std::fs::{DirEntry, ReadDir};
-use std::path::{PathBuf, Path};
+use std::path::{PathBuf};
 use std::process::{Command, ExitStatus, Stdio}; use std::{fs, io};
 use log::error;
 /// # Returns
@@ -49,7 +49,7 @@ pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
         .stdout(Stdio::null())
-        // .stderr(Stdio::null())
+        .stderr(Stdio::null())
         .spawn()?
         .wait()
 }
