@@ -24,7 +24,20 @@ Vous devriez, désormais, pouvoir installer le programme normalement. (Suivez si
 ### Installation
 
 Maintenant décompresser le fichier .zip fourni dans votre dossier `documents`,
-déplacez-vous-y et double cliquez sur le fichier `Course-Description-Automation` pour le lancer.
+déplacez-vous-y.
+
+Vous devriez voir les fichiers suivants:
+
+```markdown
+.
+├── files/ (dossier)
+├── Course-Description-Automation (programme)
+├── pdfs/ (dossier)
+└── LICENSE
+
+```
+
+double cliquez sur le fichier `Course-Description-Automation` pour le lancer.
 
 
 ***
@@ -63,6 +76,52 @@ Si le plan d'étude que vous recherchez n'est pas la liste, vous pouvez entrer m
 Entrez le comme si c'était une abbréviation dans le champs *"Study-Plan Abbreviations"*, appuyer sur "Add" puis "Generate".
 
 
+***
+
+## En cas d'erreur
+
+Si jamais quelque chose ne fonctionne pas, que vous recevez un message d'erreur, ou que vous n'arrivez pas à installer le projet, n'hésitez pas à m'envoyer un mail à [noah.munz@etu.unige.ch](mailto:noah.munz@etu.unige.ch) .
+
+Si pour une quelconque raison mon adresse unige n'est plus valide. J'ai inclus mon addresse personnelle dans la license ([munz.no@gmail.com](mailto:munz.no@gmail.com)).
+
+Si votre erreur arrive *pendant* que vous utilisez le programme (i.e. vous arrivez à le démarrer sans problème).
+Des rapports expliquant ce qui se passe quand et comment sont présents dans le dossier
+`files/res/log`, joignez-les à votre mail pour que je puisse vous assister au mieux.
+
+***
+
+## Structure du dossier du projet
+
+Si tout ce passe bien, vous ne devriez pas avoir besoin de ce que je vais vous dire dans cette section. 
+
+J'ai parlé du dossier `log` dans la section précdente voici où le trouver:
+
+
+```
+├── files/
+│   └── res/
+│       ├── bin-converters/
+|       |
+│       └── log/ (ici)
+|       .
+│       .
+|       .
+|
+├── Course-Description-Automation (executable)
+├── pdfs 
+└── LICENSE
+```
+
+Dans le dossier `files` puis `res`. 
+
+
+Si jamais vous un problème et vous voulez vérifier qu'il ne vous manque aucun fichier pour lancer le programme (il n'y aucune raison particulière pouquoi cela arriverait mais on ne sait jamais.)  
+Un schéma comme celui-dessus (mais complet) est présent à 
+[structure-projet-github](https://github.com/David-Kyrat/Course-Description-Automation#end-packaged-structure)  
+(sur ce schéma `[version]` correspond à une version de fichier e.g. `19.0.1` aucun fichier n'a réellement "version" dans son nom.)
+
+
+***
 
 <br/>
 
