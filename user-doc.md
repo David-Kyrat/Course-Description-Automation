@@ -39,22 +39,23 @@ Comme vous pouvez le voir sur l'écran ci-dessus, il y a 2 moyens de générer d
 
 1. Entrer le code des cours 1 par 1 séparé par une virgule dans le champs *"Course code"*.  
 exemple: `11X001,11X002,11X006`  
-Appuyer sur "**Add**" pour valider votre séléction, puis "**Generate**" quand vous êtes sûre de nplus rien vouloir ajouter.
+Appuyer sur "**Add**" pour valider votre séléction, puis "**Generate**" pour lancer la génération.
+
 
 2. Entrer des "abbréviations" de plans d'études pour générer chaque cours d'un plan d'études.  
 Pour ce faire, ouvrez le menu de séléction en appuyant sur le bouton
 "**See list of abbreviation & select study plan**", cela va ouvrir le menu suivant:
     ![selec_menu](path) 
 
-    Vous pouvez maintenant simplement *double cliquer sur le plan que vous voulez et cela va directement l'ajouter à la sélection. (vous pouvez double-cliquer n'importe où sur la ligne).
+    Vous pouvez maintenant simplement double cliquer sur le plan que vous voulez et cela va directement l'ajouter à la sélection. (vous pouvez double-cliquer n'importe où sur la ligne).  
+Puis appuyer sur **Generate** quand vous avez fini (pas besoin d'appuyer sur "Add" si vous n'écrivez rien manuellement dans les champs.)
 
-    Puis appuyer sur **Generate** quand vous avez fini (pas besoin d'appuyer sur "Add" si vous n'écrivez rien manuellement dans les champs.)
-
-    Si vous le voulez, vous pouvez entrer les abbrévations manuellement vous pouvez cliquer 1 seule fois au lieu de 2, cela va copier l'abbréviation du plan 'étude' et vous pourrez le coller ( avec `cmd (⌘)` + `v`) dans le champs *"Study-Plan Abbreviations"* de l'écran principal puis appuyer sur le boutton "**Add**" pour valider votre séléction, puis "**generate**".
+    Si vous voulez entrer les abbrévations  manuellement, cliquer 1 seule fois (au lieu de 2), cela va copier l'abbréviation du plan d'étude que vous pourrez coller ( avec `cmd (⌘)` + `v`) dans le champs *"Study-Plan Abbreviations"* de l'écran principal.
+Une fois fait, appuyer sur le boutton "**Add**" pour valider votre séléction, puis "**generate**" pour lancer la génération.
 
 <br/>
 
-Comme vous avez peut-être pu le remarquer sur l'image ci-dessus, vous pouvez chercher un plan d'études spécifique en entrant son nom dans la barre de recherche.  
+Comme vous avez peut-être pu le remarquer sur l'image ci-dessus, vous pouvez chercher un plan d'études spécifique en entrant son nom dans la barre de recherche, pour filtrer les résultats.
 
 
 Si le plan d'étude que vous recherchez n'est pas la liste, vous pouvez entrer manuellement l'identifiant de la base de donnée de l'unige qui correspond à ce plan d'étude.
