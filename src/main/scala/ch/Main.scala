@@ -12,6 +12,7 @@ import java.nio.file.Path
 import ch.Utils.pathOf
 import ch.net.Resp
 import ch.net.exception._
+import java.util.Locale
 
 object Main {
     private val abbrevFilePath: Path = pathOf("abbrev.tsv")
@@ -67,7 +68,7 @@ object Main {
             val argsStr = args.toList.mkString("\t")
             throw new IllegalArgumentException(f"Argument:\n\"$argsStr\" wrong input.\n $usageMsg")
         }
-        val formatter = (s: String) => s.strip
+        val formatter = (s: String) => s.strip.toUpperCase
         val courses: ParSet[String] = if (!tmp(0).isBlank) tmp(0).split(",").par.map(formatter).to(ParSet) else ParSet.empty[String]
         val studyPlans: ParSet[Int] = if (!tmp(1).isBlank) tmp(1).split(",").par.map(formatter andThen checkIdOrAbbrev).to(ParSet) else ParSet.empty[Int]
         (courses, studyPlans)
