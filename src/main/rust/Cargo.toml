@@ -21,6 +21,17 @@ path = "src/main.rs"
 test = false
 bench = false
 
+[package.metadata.bundle]
+name = "Course-Description-Automation"
+identifier = "ch.unige.munz.cda"
+icon = ["32x32.png", "64x64.png", "256x256.png", "256x256@2x.png"]
+version = "1.0.0"
+resources = ["files"]
+copyright = "Copyright (c) Noah Munz <munz.no@gmail.com> 2023. MIT License."
+category = "Productivity"
+short_description = "Generates pdf from courses description parsed from unige database."
+long_description = """
+Application to automatically generate pdfs of course description from the database of the University of Geneva"""
 
 #[[bin]]
 #name = "launcher"

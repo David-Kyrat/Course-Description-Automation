@@ -1,0 +1,35 @@
+[package]
+name = "par_convert_md_to_pdf"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["Noah Munz <munz.no@gmail.com>"]
+repository = "https://github.com/David-Kyrat/Course-Description-Automation"
+description = "Application to automatically generate pdfs of course description from the database of the University of Geneva"
+
+
+[dependencies]
+log = "0.4.17"
+log4rs = "1.2.0"
+native-dialog = "0.6.3"
+path-clean = "1.0.1"
+rayon = "1.7.0"
+
+[[bin]]
+name = "Course-Description-Automation"
+path = "src/main.rs"
+test = false
+bench = false
+
+
+#[[bin]]
+#name = "launcher"
+#path = "src/launcher.rs"
+#test = false
+#bench = false
+
+# [[bin]]
+# name = "test"
+# path = "src/test/test.rs"
+# test = true
+# bench = false
