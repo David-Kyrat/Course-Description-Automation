@@ -7,8 +7,7 @@ use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 use io::ErrorKind::Other;
 use native_dialog::MessageType;
 use rayon::iter::*;
-use std::any::Any;
-//use std::env::temp_dir;
+use std::any::Any; //use std::env::temp_dir;
 use std::error::Error;
 use std::fs::{DirEntry, File, ReadDir};
 use std::io::Write;
@@ -17,6 +16,7 @@ use std::process::{exit, Command, ExitStatus, Output};
 use std::{env, fs, io, panic, thread};
 
 use log::error;
+
 fn get_java_paths() -> io::Result<(String, String, String, String)> {
     let pathbuf = current_exe_path();
 
@@ -57,11 +57,11 @@ fn get_java_paths() -> io::Result<(String, String, String, String)> {
         )),
     );
 
-    dbg!(&javafx_lib_path);
+    /* dbg!(&javafx_lib_path);
     dbg!(&java_exe_path);
     dbg!(&jar_path);
     dbg!(&scala_jar_path);
-    println!("");
+    println!(""); */
     Ok((java_exe_path, javafx_lib_path, jar_path, scala_jar_path))
 }
 
@@ -75,6 +75,22 @@ fn get_abbrev_file_path() -> String {
     abs_path_clean(ab_fp)
 }
 
+/// # Description
+/// Clean markdown forlder before, so that the generated pdfs are only
+/// those the user asked for
+///
+/// # Errors
+/// Will return an error if
+/// - path doesn't exists
+/// - path is not a dir
+/// - user doesn't have permissions
+fn clean_md_before(md_path: &PathBuf) -> io::Result<()> {
+    if md_path.is_dir() {
+        std::fs::remove_dir_all(md_path);
+    } 
+    std::fs::create_dir_all(md_path)
+}
+
 /// # Descriptionn
 /// Takes in a byte vector and return the underlying represented utf8 string.
 /// `Vec<u8>` is the type returned by `outuput.stdout` or `output.stderr`
@@ -85,14 +101,14 @@ fn get_abbrev_file_path() -> String {
 /// Underlying string
 /// # Panics
 /// If the given byte vector is not a valid utf8 strings
-fn extract_std(out: Vec<u8>) -> String {
+pub fn extract_std(out: Vec<u8>) -> String {
     String::from_utf8(out).expect("output didn't return a valid utf8 string")
 }
 
 fn launch_gui() -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
     let abbrevfile_path = get_abbrev_file_path();
-    dbg!(&abbrevfile_path);
+    // dbg!(&abbrevfile_path);
 
     Command::new(java_exe_path)
         .args(
@@ -112,9 +128,14 @@ fn launch_gui() -> io::Result<Output> {
 ///
 fn launch_main_scalapp(args: &String) -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
-    let cmd = &[java_exe_path.as_str(), "-jar", scala_jar_path.as_str(), args];
+    let cmd = &[
+        java_exe_path.as_str(),
+        "-jar",
+        scala_jar_path.as_str(),
+        args,
+    ];
     // dbg!(cmd);
-    dbg!(&cmd.join(" "));
+    // dbg!(&cmd.join(" "));
 
     Command::new(java_exe_path)
         .args(&["-jar", scala_jar_path.as_str(), args])
@@ -131,32 +152,40 @@ use crate::{log_err, log_if_err, para_convert, unwrap_or_log};
 /// Nothing or Error message
 fn sub_main() -> Result<(), String> {
     fn err_fmter<T: std::fmt::Debug>(add_msg: &str, cause: &T) -> String {
-        format!(
-            "The following error happened:\nLauncher: {add_msg} : {:#?}",
-            cause
-        )
+        format!("{} : {:#?}", err_fmt(add_msg), cause)
+    }
+    fn err_fmt(add_msg: &str) -> String {
+        format!("The following error happened:\nLauncher: {add_msg}")
     }
 
-    /* let gui_out: String =
+    let gui_out: String =
         panic::catch_unwind(|| unwrap_or_log!(launch_gui(), "launch gui, cannot launch gui"))
             .map(|output| extract_std(output.stdout))
-            .map_err(|cause| err_fmter("Cannot launch gui", &cause))?;
+            .map_err(|cause| err_fmt("Cannot launch gui"))?;
 
     //Propagate error (i.e. return an `Err(...)` if returned value is not an `Ok(...)`)
-*/
-    thread::spawn(|| quick_message_dialog("Generating", "Generating pdfs please wait...", None));
-    let gui_out = "12X001#".to_owned();
+
+    //thread::spawn(|| quick_message_dialog("Generating", "Generating pdfs please wait...", None));
+    // NOTE: cannot use multiple gui threads on macOs
+
+    let md_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res", "md"]);
+    if let Err(cause) = clean_md_before(&md_path) {
+        log_err!(
+            cause,
+            format!("Cannot clean/create md directory: {}", md_path.display())
+        );
+    };
+
     // generate markdown
     let main_out: Output = panic::catch_unwind(|| {
         unwrap_or_log!(launch_main_scalapp(&gui_out), "cannot launch scala app")
     })
     .map_err(|cause| err_fmter("Cannot launch app", &cause))?;
 
-    dbg!(&main_out);
-    dbg!(&main_out.status);
-    let x = main_out.clone();
-    let y = extract_std(x.stdout);
-    dbg!(y);
+    // dbg!(&main_out.status);
+    // let y = extract_std(main_out.clone().stdout);
+    // println!("[src\\launcher.rs:157] &main_out.stdout = {y}");
+
     // if user input incorrect or other unexpected error
     let main_success: &bool = &main_out.status.success();
     if !main_success {
@@ -164,7 +193,7 @@ fn sub_main() -> Result<(), String> {
     }
 
     let main_result = para_convert::main()
-        .map_err(|cause| err_fmter("Not all pdf could be generated", &cause))?;
+        .map_err(|cause| err_fmt("Not all pdf could be generated. (para_convert)"))?;
 
     Ok(())
 }
