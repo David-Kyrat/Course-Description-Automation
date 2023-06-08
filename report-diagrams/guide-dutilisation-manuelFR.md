@@ -7,7 +7,8 @@
     * [Dépendences](#dépendences)
     * [Installation](#installation-1)
 * [Utilisation](#utilisation)
-* [En cas d'erreur](#en-cas-derreur)
+    * [Où trouver les pdfs générés ?](#où-trouver-les-pdfs-générés-)
+* [En cas derreur](#en-cas-derreur)
     * [Trouver le dossier log](#trouver-le-dossier-log)
 
 <!-- vim-markdown-toc -->
@@ -43,7 +44,7 @@ et placez l'application `Course-Description-Automation.app` où vous voulez,
 et double-cliquer sur l'application pour la lancer.
 
 
-***
+<hr style="border-top: outset #d0d7de 2px" />
 
 
 ## Utilisation
@@ -89,9 +90,18 @@ Si le plan d'étude que vous recherchez n'est pas la liste, vous pouvez entrer m
 Entrez le comme si c'était une abbréviation dans le champs *"Study-Plan Abbreviations"*, appuyer sur "Add" puis "Generate".
 
 
-***
+### Où trouver les pdfs générés ?
 
-## En cas d'erreur
+Dans le dossier "`Course-Description-Automation-pdfs`" qui
+se trouve dans votre dossier `Documents`.
+
+
+
+<hr style="border-top: outset #d0d7de 2px" />
+
+<br />
+
+## En cas derreur
 
 Si jamais quelque chose ne fonctionne pas, que vous recevez un message d'erreur, ou que vous n'arrivez pas à installer le projet, n'hésitez pas à m'envoyer un mail à [noah.munz@etu.unige.ch](mailto:noah.munz@etu.unige.ch) .
 
@@ -101,7 +111,7 @@ Si votre erreur arrive *pendant* que vous utilisez le programme (i.e. vous arriv
 Des rapports expliquant ce qui se passe quand et comment sont présents dans le dossier
 `files/res/log`, joignez-les à votre mail pour que je puisse vous assister au mieux.
 
-***
+<hr style="border-top: outset #d0d7de 2px" />
 
 ### Trouver le dossier log
 
@@ -136,7 +146,7 @@ Un schéma comme celui-dessus (mais complet) est présent à
 (sur ce schéma `[version]` correspond à une version de fichier e.g. `19.0.1` aucun fichier n'a réellement "version" dans son nom.) -->
 
 
-***
+<hr style="border-top: outset #d0d7de 2px" />
 
 <br/>
 
