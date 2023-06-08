@@ -1,23 +1,24 @@
 #![allow(non_snake_case)]
 #![allow(dead_code)]
 
+use crate::launcher::extract_std;
 use crate::utils::{current_exe_path, RETRY_AMOUNT};
 use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
-use std::ffi::OsString;
+use std::{fs, io};
 use std::fs::{DirEntry, ReadDir};
-use std::path::{PathBuf};
-use std::process::{Command, ExitStatus, Stdio}; use std::{fs, io};
+use std::path::PathBuf;
+use std::process::{Command, Stdio, Output}; 
+use std::ffi::OsString;
 use log::error;
 /// # Returns
 /// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
 fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
 }
-
 use std::env;
 
 
@@ -25,14 +26,14 @@ use std::env;
 /// Modify this process' environment variables
 /// # Errors
 /// This function will return an error if it failed to joined the current `$PATH` with `to_add`
-pub fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
+/* fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
     let path = env::var_os("PATH").unwrap();
     let mut paths = env::split_paths(&path).collect::<Vec<_>>();
     paths.push(to_add);
     let new_path = env::join_paths(paths)?;
     env::set_var("PATH", &new_path);
     Ok(())
-}
+} */
 
 /// # Description
 /// Wrapper arround a `std::process::Command::new(...).args(...).spawn().wait()` i.e.
@@ -45,13 +46,13 @@ pub fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
 /// * `cmd_line` - arguments to that comand (e.g. for "`ls -la`", `args` = `["-la"]`)
 /// # Returns
 /// Result containing `ExitStatus` of child process (or the error)
-pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
+pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<Output> {
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
         .stdout(Stdio::null())
-        .stderr(Stdio::null())
+        .env("PATH", format!("/usr/local/bin:/usr/local/sbin:{}:/bin:/sbin", env!("PATH")))
         .spawn()?
-        .wait()
+        .wait_with_output()
 }
 
 /// # Description
@@ -163,6 +164,7 @@ fn pandoc_md_to_pdf(
     ];
 
     let exec_res = execvp(pandoc_path, cmd_line);
+    dbg!(&exec_res);
     let exec_res = if exec_res.is_err() {
         unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
     } else {
@@ -172,13 +174,13 @@ fn pandoc_md_to_pdf(
     if out_pdf.exists() && exec_res.is_ok() {
         Ok(out_pdf)
     } else {
-        let er = if !out_pdf.exists() {
-            "".to_owned()
-        } else {
+        let er = if exec_res.is_err() {
             format!("\n{:?}", &exec_res)
+        } else {
+            format!("std_err: \n-----\n\t{}", extract_std(exec_res.unwrap().stderr))
         };
         let msg = &format!(
-            "pandoc_md_to_pdf: PDF Not generated: {md_path}\\{md_filename} {er}
+            "pandoc_md_to_pdf: PDF Not generated: {md_path}/{md_filename}\n error:\n {er}\n
             ---------------------------------------------------------------
             \n|| template: {template_s}    \n||  md_path: {md_path}       \n||  templates_path: {templates_path}        
             \n||  pandoc_path: {pandoc_path}    \n||  css_path: {css_path_s}    \n||  out_pdf: {out_pdf_s}",
@@ -240,7 +242,7 @@ pub fn ftcp_parallel(
                 let name = name.to_str();
                 if name.is_none() {
                     let message = &format!(
-                        "ftcp_parallel, getting file {md_path}\\{:?} line:{}",
+                        "ftcp_parallel, getting file {md_path}/{:?} line:{}",
                         name,
                         line!()
                     );
