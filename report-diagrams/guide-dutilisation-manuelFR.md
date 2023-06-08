@@ -8,7 +8,7 @@
     * [Installation](#installation-1)
 * [Utilisation](#utilisation)
 * [En cas d'erreur](#en-cas-derreur)
-* [Structure du dossier du projet](#structure-du-dossier-du-projet)
+    * [Trouver le dossier log](#trouver-le-dossier-log)
 
 <!-- vim-markdown-toc -->
 
@@ -36,21 +36,11 @@ Vous devriez, désormais, pouvoir installer le programme normalement. (Suivez si
 
 ### Installation
 
-Maintenant décompresser le fichier .zip fourni dans votre dossier `documents`,
-déplacez-vous-y.
+Comme le programme a pu (non sans mal) finalement être converti en application native MacOS (i.e. un programme qui se comporte juste comme n'importe quel autre app "professionnelle" que vous pouvez installer).  
 
-Vous devriez voir les fichiers suivants:
-
-```markdown
-.
-├── files/ (dossier)
-├── Course-Description-Automation (programme)
-├── pdfs/ (dossier)
-└── LICENSE
-
-```
-
-double cliquez sur le fichier `Course-Description-Automation` pour le lancer.
+Tout ce qu'il vous reste à faire est de décompresser le fichier .zip (double cliquez dessus.)
+et placez l'application `Course-Description-Automation.app` où vous voulez, 
+et double-cliquer sur l'application pour la lancer.
 
 
 ***
@@ -113,42 +103,58 @@ Des rapports expliquant ce qui se passe quand et comment sont présents dans le 
 
 ***
 
-## Structure du dossier du projet
+### Trouver le dossier log
 
 Si tout ce passe bien, vous ne devriez pas avoir besoin de ce que je vais vous dire dans cette section. 
 
 J'ai parlé du dossier `log` dans la section précdente voici où le trouver:
 
+faites un clique-droit (ou maintenez la touche `ctrl` + clique normal) sur l'applications, cliquer sur "`Afficher le contenu du paquet`" (2e option en partant du haut).  
+Vous arrivez dans un dossier avec un seul dossier appelé "`Contents`" aller dedans, puis continuez dans `Resources`.
 
-```
-├── files/
-│   └── res/
-│       ├── bin-converters/
-|       |
-│       └── log/ (ici)
-|       .
-│       .
-|       .
-|
-├── Course-Description-Automation (executable)
-├── pdfs 
-└── LICENSE
-```
+Vous devriez voir ceci:
 
-Dans le dossier `files` puis `res`. 
+![](./imgs/appdir.png)
+
+Le dossier `log` se trouver dans le dossier `res` lui même dans `files`.
+
+c-à-d. ici:
+
+![](imgs/logdir.png)
 
 
-Si jamais vous un problème et vous voulez vérifier qu'il ne vous manque aucun fichier pour lancer le programme (il n'y aucune raison particulière pouquoi cela arriverait mais on ne sait jamais.)  
+En résumé: 
+
+1. Clique droit sur l'app $\Rightarrow$ `Afficher le contenu du paquet`
+2. `Contents` $\Rightarrow$  `Resources`  $\Rightarrow$
+`files`  $\Rightarrow$  `res`  $\Rightarrow$  `log` 
+3. Clique droit $\Rightarrow$ compresser $\Rightarrow$ joindre dans le mail
+
+<!-- Si jamais vous un problème et vous voulez vérifier qu'il ne vous manque aucun fichier pour lancer le programme (il n'y aucune raison particulière pouquoi cela arriverait mais on ne sait jamais.)  
 Un schéma comme celui-dessus (mais complet) est présent à 
 [structure-projet-github](https://github.com/David-Kyrat/Course-Description-Automation#end-packaged-structure)  
-(sur ce schéma `[version]` correspond à une version de fichier e.g. `19.0.1` aucun fichier n'a réellement "version" dans son nom.)
+(sur ce schéma `[version]` correspond à une version de fichier e.g. `19.0.1` aucun fichier n'a réellement "version" dans son nom.) -->
 
 
 ***
 
 <br/>
 
-<br/>
+<br />
+
+
+<br />
+
+
+<br />
+
+
+<br />
+
+<br />
+
+<br />
+
 
 **NB:** Une partie importante du projet a été l'optimisation de la vitesse de traitement du programme,
 afin qu'il soit le plus rapide possible. Sur mon PC générer un plan d'étude entier est une affaires
