@@ -8,7 +8,9 @@ if [ ! -d "$PROJECT_DIR" ]; then
     exit 1
 fi
 
-[[ ! -L "$PDF_SYMLINK_PATH" ||  ! -e "$PDF_SYMLINK_PATH" ]] && ln -sf "$PDF_SYMLINK_TARGET_PATH" "$PDF_SYMLINK_PATH"
+#[[ ! -L "$PDF_SYMLINK_PATH" ||  ! -e "$PDF_SYMLINK_PATH" ]] && ln -sf "$PDF_SYMLINK_TARGET_PATH" "$PDF_SYMLINK_PATH"
+
+[ -L "$PDF_SYMLINK_PATH" ] && [ "$(readlink -- "$PDF_SYMLINK_PATH")" != "$PDF_SYMLINK_TARGET_PATH" ] && ln -sf "$PDF_SYMLINK_TARGET_PATH" "$PDF_SYMLINK_PATH"
 
 cd "$PROJECT_DIR" || exit
 
