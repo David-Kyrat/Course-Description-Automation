@@ -64,7 +64,12 @@ final object Utils {
 
     def createResDirsIfNotExists() = {
         val paths = pathOf("md") :: pathOf("pdf") :: Nil;
-        paths.foreach(path => Files.createDirectories(path.toAbsolutePath.normalize))
+        paths.map(_.toAbsolutePath.normalize).foreach(Files.createDirectories(_))
+        paths.map(_.toAbsolutePath.normalize).foreach(p => {
+            log("creating " + p)
+            println("creating " + p)
+            println("exists ? " + Files.exists(p))
+        })
     }
 
 
