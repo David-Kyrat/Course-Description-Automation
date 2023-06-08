@@ -1,5 +1,5 @@
 [package]
-name = "par_convert_md_to_pdf"
+name = "Course-Description-Automation"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"

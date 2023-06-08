@@ -47,7 +47,7 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .replace(WEIRD_PATTERN, "")
 }
 
-/// # Description 
+/// # Description
 /// Wrapper around `std::env::current_exe().expect(...)`
 /// particularly useful when debugging and we have to simulate a relative file path to have
 /// we can just modify the return by this function instead of doing in 10 diffferent file each
@@ -57,10 +57,11 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
 /// `std::env::current_exe().expect(...)` i.e. `PathBuf` to the full filesystem path of the current running executable.
 pub fn current_exe_path() -> PathBuf {
     let path = std::env::current_exe().expect("could not get path of current executable");
+    let path = pop_n_push_s(&path, 2, &["Resources"]);
     // FIX: comment below for release
     // let path = PathBuf::from(r"C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER/course-description-automation.exe");
     //let path = PathBuf::from(r"/Users/ekkemunz/Documents/.noah/cda/course-description-automation");
-    path 
+    path
 }
 
 /// # Description
@@ -69,7 +70,11 @@ pub fn current_exe_path() -> PathBuf {
 /// defaults to the static variable of the same name if given a `None`
 pub fn init_log4rs(log_config_file: Option<String>) {
     let log_config_file = log_config_file.unwrap_or_else(|| {
-        let config_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res", LOG_CONFIG_FILE_NAME]);
+        let config_path = pop_n_push_s(
+            &current_exe_path(),
+            1,
+            &["files", "res", LOG_CONFIG_FILE_NAME],
+        );
         config_path.to_str().unwrap().to_owned()
     });
     // dbg!(&log_config_file);
@@ -81,7 +86,6 @@ pub fn init_log4rs(log_config_file: Option<String>) {
 pub fn init_log4rs_debug() {
     log4rs::init_file("logging_config.yaml", Default::default()).expect("Cannot find log file");
 }
-
 
 // NOTE: ------------- MACROS ------------
 
@@ -111,7 +115,7 @@ macro_rules! log_err {
 /// - `msg` : an optional error messag to add while logging
 ///
 /// # Returns
-/// Panics if given `Result` is an error otherwise return unwrapped value. 
+/// Panics if given `Result` is an error otherwise return unwrapped value.
 macro_rules! unwrap_or_log {
     ( $fun_res:expr  $(, $msg:expr) ? ) => {
         if let Ok(res) = $fun_res { res }
@@ -134,7 +138,7 @@ macro_rules! unwrap_or_log {
 /// - `msg` : an optional error messag to add while logging
 ///
 /// # Returns
-/// `Err(fun_res.unwrap_err)` if given `Result` is an error otherwise nothing. 
+/// `Err(fun_res.unwrap_err)` if given `Result` is an error otherwise nothing.
 macro_rules! log_if_err{
     ( $fun_res:expr  $(, $msg:expr) ? ) => {
         if $fun_res.is_err() {
