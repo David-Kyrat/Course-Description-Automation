@@ -10,6 +10,7 @@ import java.nio.file.{Files, Path}
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import scala.util.{Failure, Success, Try}
+import java.nio.file.attribute.FileAttribute
 
 final object Utils {
     val LOG_MAX_SIZE = 5 << 20 // 5MB
@@ -60,6 +61,12 @@ final object Utils {
     def r(path: String): String = f"files/res/$path"
     // def r(path: String): String = f"res/$path"
     // def r(path: String): String = f"files/res/$path"
+
+    def createResDirsIfNotExists() = {
+        val paths = pathOf("md") :: pathOf("pdf") :: Nil;
+        paths.foreach(path => Files.createDirectories(path.toAbsolutePath.normalize))
+    }
+
 
     /**
      * Wraps `Path.of(r(path))` see `Utils.r` for more info

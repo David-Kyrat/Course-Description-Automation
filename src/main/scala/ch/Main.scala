@@ -105,6 +105,7 @@ object Main {
     def main(args: Array[String]): Unit = {
         try {
             // println(pathOf("resource").toAbsolutePath().normalize())
+            Utils.createResDirsIfNotExists()
             parseForMainThenLaunch(args)
         } catch {
             case re: ResourceNotFoundException => {
