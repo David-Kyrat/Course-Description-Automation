@@ -27,7 +27,7 @@ Une fois téléchargé double cliquez sur le fichier.
 
 Si vous voyez un message d'erreur qui ressemble à  
 
-![](report-diagrams/imgs/apple-acces-denied.png)
+![](imgs/apple-acces-denied.png)
 
 Il vous faudra faire un clique droit sur le fichier, appuyer sur "ouvrir" puis "ouvrir quand même"  
 (voir [https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac](https://support.apple.com/guide/mac-help/open-a-mac-app-from-an-unidentified-developer-mh40616/mac)  pour plus d'informations)
@@ -62,7 +62,7 @@ double cliquez sur le fichier `Course-Description-Automation` pour le lancer.
 Comme vous pouvez le voir sur l'écran ci-dessous, il y a 2 moyens de générer des pdfs de cours.
 
 
-![](report-diagrams/imgs/main-screen.png)
+![](imgs/main-screen.png)
 
 
 1. Entrer le code des cours 1 par 1 séparé par une virgule dans le champs *"Course code"*.  
@@ -74,7 +74,7 @@ Appuyer sur "**Add**" pour valider votre séléction, puis "**Generate**" pour l
 Pour ce faire, ouvrez le menu de séléction en appuyant sur le bouton
 "**See list of abbreviation & select study plan**", cela va ouvrir le menu suivant:  
 
-    ![](report-diagrams/imgs/selec-menu.png)
+    ![](imgs/selec-menu.png)
 
     Vous pouvez maintenant simplement double cliquer sur le plan que vous voulez et cela va directement l'ajouter à la sélection. (vous pouvez double-cliquer n'importe où sur la ligne).  
 Puis appuyer sur **Generate** quand vous avez fini (pas besoin d'appuyer sur "Add" si vous n'écrivez rien manuellement dans les champs.)
@@ -85,7 +85,7 @@ Une fois fait, appuyer sur le boutton "**Add**" pour valider votre séléction, 
 
     Une fois que votre séléction (de cour(s) et/ou plan(s) d'études) est validée, elle devrait ressembler à ça:
 
-    ![confirmed-selection](report-diagrams/imgs/confirmed-selection.png)
+    ![](imgs/confirmed-selection.png)
 
     appuyez sur Generate et c'est tout bon.
 
