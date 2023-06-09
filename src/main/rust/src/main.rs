@@ -10,9 +10,7 @@ use std::error::Error;
 use std::path::PathBuf;
 use std::process::Command;
 
-use pandoc::OutputKind;
-use pandoc::PandocOutput::*;
-use pandoc::*;
+use pandoc::{OutputFormat, OutputKind, PandocOption, PandocOutput};
 
 use launcher::{extract_std, extract_stderr, extract_stdout};
 use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
@@ -20,29 +18,18 @@ use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
 fn default_pandoc_options_md_to_pdf() -> Vec<PandocOption> {
     use pandoc::PandocRuntimeSystemOption::MaximumHeapMemory;
     use PandocOption as PO;
-    use PO::Var;
-    //PO::PdfEngine("wkhtmltopdf".into())
-
-    fn wo(s: &str) -> Option<String> {
-        Some(s.to_owned())
-    }
-    fn w(s: &str) -> String {
-        s.to_string()
-    }
-
     /// Wraps endless boilerplate to generate `PandocOption::Var`
     fn var(key: &str, value: &str) -> PandocOption {
-        Var(w(key), wo(value))
+        PO::Var(key.to_string(), Some(value.to_string()))
     }
-
     vec![
         PO::Template("templates/template.html".into()),
-        Var(w("margin-top"), wo("2")),
-        Var(w("margin-left"), wo("3")),
-        Var(w("margin-right"), wo("0")),
-        Var(w("margin-bottom"), wo("0")),
+        var("margin-top", "2"),
+        var("margin-left", "3"),
+        var("margin-right", "0"),
+        var("margin-bottom", "0"),
         // PO::Css(w("templates/course-desc.css")),
-        PO::RuntimeSystem(vec![MaximumHeapMemory(w("8192M"))]),
+        PO::RuntimeSystem(vec![MaximumHeapMemory("8192M".to_string())]),
         PO::PdfEngine("wkhtmltopdf".into()),
     ]
 }
@@ -51,17 +38,15 @@ fn test_pandoc(
     md_filename: &str,
     _path: Option<PathBuf>,
 ) -> Result<pandoc::PandocOutput, pandoc::PandocError> {
-
     let out_pdf = md_filename.replace(".md", ".pdf");
     let mut pandoc = pandoc::new();
     pandoc
         .add_input(md_filename)
         .set_output_format(OutputFormat::Html, vec![])
         .add_options(&default_pandoc_options_md_to_pdf())
-        .set_output(OutputKind::File(out_pdf.into()))
-        .set_show_cmdline(true)
-        .clone()
-        .execute()
+        .set_output(OutputKind::File(out_pdf.into()));
+        // .set_show_cmdline(true)
+    pandoc.execute()
 }
 
 /**
@@ -94,8 +79,8 @@ pub fn main() {
 
     match test_pandoc(name, None) {
         Ok(_) => println!(
-            "dir:\n{}",
-            extract_stdout(Command::new("ls").output().unwrap())
+            /* "dir:\n{}",
+            extract_stdout(Command::new("ls").output().unwrap()) */
         ),
         Err(pd_err) => eprintln!("pandoc error:\n\t{:#?}", pd_err),
     };
