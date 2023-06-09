@@ -51,28 +51,8 @@ fn test_pandoc(
     md_filename: &str,
     _path: Option<PathBuf>,
 ) -> Result<pandoc::PandocOutput, pandoc::PandocError> {
+
     let out_pdf = md_filename.replace(".md", ".pdf");
-    let _cmd_line: &[&str] = &[
-        md_filename,
-        "-o",
-        &out_pdf,
-        "-t",
-        "html5",
-        &format!("--template=template.html"),
-        "--pdf-engine",
-        "wkhtmltopdf",
-        "-V",
-        "margin-top=2",
-        "-V",
-        "margin-left=3",
-        "-V",
-        "margin-right=0",
-        "-V",
-        "margin-bottom=0",
-        "--css",
-        "course-desc.css",
-        "--quiet",
-    ];
     let mut pandoc = pandoc::new();
     pandoc
         .add_input(md_filename)
