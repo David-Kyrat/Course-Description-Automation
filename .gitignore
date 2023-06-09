@@ -7,7 +7,7 @@ other_res/
 **/jdk17
 
 # ignoring the huge number of generated markdown files
-res/md/*.md
+#res/md/*.md
 
 # Scala config folders
 null
