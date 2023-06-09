@@ -7,7 +7,6 @@ other_res/
 **/jdk17
 
 # ignoring the huge number of generated markdown files
-#res/md/*.md
 
 # Scala config folders
 null
@@ -50,7 +49,7 @@ howto-copy.md
 res/log/*
 !res/log/.gitkeep
 res/templates/rmd
-files/res/md/*.md
+# files/res/md/*.md
 files/res/pdf/*.pdf
 
 # Rust binaries & config files
