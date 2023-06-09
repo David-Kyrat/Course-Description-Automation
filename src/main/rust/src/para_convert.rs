@@ -18,7 +18,7 @@ fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
 }
 
-use std::env;
+use std::env::{self, current_dir};
 
 
 /// # Description
@@ -46,8 +46,13 @@ pub fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
 /// # Returns
 /// Result containing `ExitStatus` of child process (or the error)
 pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
+    let mut np = env::current_dir().unwrap();
+    np.push("wkhtmltopdf");
+    let np = String::from(np.to_string_lossy());
+
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
+        // .env("PATH", format!("{}:{}", env!("PATH"), env::current_dir().unwrap().psuh )
         .stdout(Stdio::null())
         .stderr(Stdio::null())
         .spawn()?
