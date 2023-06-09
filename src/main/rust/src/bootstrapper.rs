@@ -46,6 +46,28 @@ fn rl(rel_path: String) -> Result<Url, url::ParseError> {
     repo()?.join(&rel_path)
 }
 
+
+use rocket::{get, routes, State};
+use std::fs::File;
+use std::io::Read;
+
+#[get("/course-description-automation.jar")]
+async fn download_file(state: State<Files>) -> Result<File, rocket::Error> {
+        let url = "https://github.com/David-Kyrat/Course-Description-Automation/blob/master/files/res/java/course-description-automation.jar";
+            let mut resp = state.client.get(url).await?;
+                let mut file = File::create("files/res/java/course-description-automation.jar").unwrap();
+                    io::copy(&mut resp.body, &mut file).await?;
+                        Ok(file)
+}
+
+#[routes]
+struct Files;
+
+fn main() {
+        rocket::ignite().mount("/", routes![download_file]).launch();
+}
+
+
 /// # Params
 /// - `rel_path`: relative path to the root of the repo i.e. "`Course-Description-Automation/<branch>`"
 /// - `parent_dir`: path to directory to download the file to
