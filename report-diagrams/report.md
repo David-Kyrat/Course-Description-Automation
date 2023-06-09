@@ -62,17 +62,20 @@ Example given:
         * [Scenario d'utilisation](#scenario-dutilisation)
         * [Methodes de conception et diagrammes](#methodes-de-conception-et-diagrammes)
             * [Vue globale du projet](#vue-globale-du-projet)
-            * [Diagrammes de classe](#diagrammes-de-classe)
+            * [Use Case Diagram](#use-case-diagram)
+            * [Class Diagram](#class-diagram)
     * [Implémentation](#implémentation)
         * [Choix et outils à disposition pour la réalistion du projet](#choix-et-outils-à-disposition-pour-la-réalistion-du-projet)
         * [Quels outils informatiques avez-vous utilisés (IDE, langages, git, programme externes, etc.) ? Pourquoi votre choix c’est porté sur ces outils ?](#quels-outils-informatiques-avez-vous-utilisés-ide-langages-git-programme-externes-etc--pourquoi-votre-choix-cest-porté-sur-ces-outils-)
     * [Tests et évaluation](#tests-et-évaluation)
+        * [Backend](#backend)
+        * [Projet en entier](#projet-en-entier)
 * [Formation](#formation)
 * [Feedback](#feedback)
 
 <!-- vim-markdown-toc -->
 
-***
+<hr />
 
 ## Identification des besoins
 
@@ -90,10 +93,13 @@ Principalement la cliente elle même.
 
 Les problèmes rencontrés ont été les suivants:
 
-1.  Redondance et incomplétudedes données de la base de donnée de l'université
-2.  Packager le projet et sortir une version "standalone"
-3. L'apprentissage de la création d'installeurs windows (`.msi`) avec  [Wix](https://wixtoolset.org/) et le packager du build tool de scala [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/index.html).
-4. L'apprentissage de Rust
+-  Redondance et incomplétudedes données de la base de donnée de l'université
+-  Packager le projet et sortir une version "standalone"
+- L'apprentissage de la création d'installeurs windows (`.msi`) avec  [Wix](https://wixtoolset.org/) et le packager du build tool de scala [sbt-native-packager](https://www.scala-sbt.org/sbt-native-packager/index.html).
+- L'apprentissage de Rust
+- Réaliser le jour de la fin des cours que la cliente n'utilisait pas Windows
+- Le packaging du programme en application native mac. (Pour arriver simplement à juster pouvoir "lancer" quelque chose sans qu'un terminal se lance derrière)
+- La conception d'interface graphique et l'interfaçage de feature (même une fois implémenté) pour que l'utilisateur puisse l'utiliser.
 
 <br />
 
@@ -132,7 +138,7 @@ Le maximum que l'on puisse faire est d'activer le "mode développeur" qui lui va
 
 <br >
 
-Pour remédier à ces problèmes il a été décidé d'utiliser **Rust** pour générer, de manière safe et efficiente, pour créer:  
+Pour remédier à ces problèmes il a été décidé d'utiliser [Rust](https://www.rust-lang.org/) pour générer, de manière safe et efficiente, pour créer:  
  1. Une application gérant tous les appeles à des dépendances externes, i.e. pandoc et wkhtmltopdf (plus d'informations sur ces outils dans la partie implémentation) ainsi que de gérer les dossiers de resources dans lesquels générer les differents outputs générés par le projet (markdown, html, pdf).
 
 
@@ -156,10 +162,48 @@ Le seul problème résultant est qu'il faut tout de même configurer le "build c
 pour pouvoir profiter de ce dernier.  
 Même si sa création était accelérée, elle n'en restait pas moins lourdement chronophage dû au manque de documentaiton à jour sur la création d'installeur windows via scala.
 
-Pour plus d'information voir la section [Packaging]() du `howto.md` à la râcine du répo.
+Pour plus d'information voir la section [Packaging]() du `howto.md` à la râcine du repo.
+
+<hr />
 
 <br />
 
+3. **MacOs**
+
+ Créer une application native MacOS (i.e. un dossier `application.app` avec un dossier `Contents/MacOS/<executable>` et `Contents/Resource/<resources>`) est surprennamment aisée. Il y a _beaucoup_ de software qui propose de le faire et même de packager des script en executable... Mais alors pourquoi était-ce une difficulté ? A cause de 2 facteurs (plus ou moins liés de software qui propose de le faire et même de packager des script en executable... Mais alors pourquoi était-ce une difficulté ? A cause de 2 facteurs (plus ou moins liés)
+1. Le premier est le fait que lorsqu'un utilisateur clique sur un fichier depuis l'explorateur de fichier, celà ouvre/execute le fichier. Jusque là riend d'anormal. Cependant le `cwd` (current working directory) n'est pas le dossier lui-même mais plutôt soit le dossier utilisateur (`$HOME`) soit le `$PWD` de la dernière session de terminal ouverte (parfois je ne sais pas pourquoi...)
+
+Cela pose donc une quantité de soucis non-négligeable sur comment accéder à des resources externes depuis un executable Rust ou de la JVM avec un .jar.
+(Rien que de ce rendre compte que c'est effectivement ceci qui se produit, peut prendre... un certain temps...)
+
+2. Accéder à des resources externes depuis une applications packagé même après avoir résolu le problème ci-dessus, même après avoir package lesdites resources dans l'applications reste... peu évident pour des raisons qui me restent encore obscure au moment de l'écriture de ce rapport.
+
+Tout ceci ensemble on bien rajouté la duré du developpement de 3 à 4 jours (non-stop) ce qui amène la totalité du projet à environ 120h.
+
+4. **Bilan de "l'utilisation" temps par "tâches" du projet**
+
+J'ai eu l'impression que réaliser le projet "en lui même" m'a pris seulement  
+35 à 40 % du temps (i.e. envoyer des requetes à la base de donnée, parse l'output générer le markdown puis les pdfs)  
+
+20-25% sont allés vers "juste rendre disponible" certaines features (i.e. des fonctions pour faire telle ou telle chose existe mais il faut pouvoir les appeler depuis un endroit pratique, récupérer l'output le sérialiser pour rendre l'output de la procédure lisible pour l'utilisateur..)  
+    Ou juste faire des logs. Quand log, quoi log, qu'est ce qui est pertinent, qu'est ce qui ne l'est pas, ou simplement comment faire des logs / débugger à partir de logs?
+
+Puis enfin les 40% du temps restant à packager et "deploy" le projet.  
+En effet, je pense qu'en moyenne j'ai passé autant de temps voir plus à essayer de rendre mon projet utilisable  qu'à  le developper.
+
+
+Pourtant les technologies utilisés ne sont loin d'être peu communes.
+
+1. Du java et du scala qui se compilent tous les 2 en archives `.jar` pour la JVM
+dont le sloggan est censé être *"WORA: Write Once Run Anywhere"*
+2. Du Rust qui est censé être bas niveau, efficient et qui compile directement des binaries native pour la plateform.
+
+Le building cycle est composé de simplement 2 commandes (`sbt assembly` et `cargo build --release`) cela ne me semble pas déraisonnable, niveau déploiement et technologie à utiliser.
+
+
+<hr />
+
+<br/>
 
 #### Quel est l’objectif principal du logiciel, en quoi ce logiciel résoudra les problèmes ?
 
@@ -177,10 +221,10 @@ word dont les pdfs étaient accessibles par les étudiants.
 
 La création de ces pdfs est donc evidemment fastidieuse, répétitive et sujette à erreur.
 
-C'est la qu'entre en jeux la solution developpé: l'automatisation de ces fiches descriptives.
+C'est là qu'entre en jeux la solution developpé: l'automatisation de ces fiches descriptives.
 (Voir exemple ci-dessous)
 
-![image](../res/readme-example.png)
+![image](../files/res/readme-example2.png)
 
 L'objectif du logiciel est de générer automatiquement des PDFs de fiches descriptives de cours
 de 1-2 pages qui contiennent cette compression et ce résumé
@@ -210,21 +254,23 @@ Pour plus d'information voir [https://choosealicense.com/licenses/mit](https://c
 #### mis en avant par le developpeur
 
 *   Génération de descriptifs "à la vollée" ("batch generation")
-    par plan d'étude (rentrer un nom du type "BA-Inf" pour générer les descriptifs des cours du bachelor en sciences informatiques)
+    par plan d'étude (rentrer un nom du type "BSI", ou directement l'identifiant défini par l'Unige, pour générer les descriptifs des cours du bachelor en sciences informatiques)
 
-*   Realisation d'un installeur windows (.msi) pour simplifier le déploiement et éviter
+*   ~~Realisation d'un installeur windows (.msi) pour simplifier le déploiement et éviter
     l'execution de scripts powershell qui sont, certes très pratiques, mais désactivés / bloqués
-    par défaut sur la plupart des machines.
+    par défaut sur la plupart des machines.~~
 
-*   Implémentation d'une interface en rust qui utilise directement l'api Windows
-    (voir [winsafe](https://docs.rs/winsafe/latest/winsafe/) et [winapi](https://docs.rs/winapi/latest/winapi/))
+*   Implémentation d'une interface en rust ~~qui utilise directement l'api Windows
+    (voir [winsafe](https://docs.rs/winsafe/latest/winsafe/) et [winapi](https://docs.rs/winapi/latest/winapi/))~~
     pour lancer de manière "safe" les différents programmes externes ([pandoc](https://pandoc.org/) et [wkhtmltopdf](https://wkhtmltopdf.org/)) en parallèle afin de
 
-    1.  Encore eviter l'utilisation de scripts powershell dont l'execution pourrait se faire bloquer sur la machine de la cliente.
+    1.  ~~Encore eviter l'utilisation de scripts powershell dont l'execution pourrait se faire bloquer sur la machine de la cliente.~~
     2.  Permettre un traitement "en masse" de fichiers markdown, effficient et optimisé grâce à la
         librairie de traitement de donnése en parallèle de rust, [rayon](https://docs.rs/rayon/latest/rayon/).
 
-***
+* Deploiment d'une application native MacOS (i.e. package `.app`) pour simplifier le déploiment et l'utilisation du projet.
+
+<hr />
 
 <br/>
 
@@ -260,16 +306,18 @@ Comme on peut le voir sur le use-case diagram ci-dessous, la structure du projet
 
 3.  Une partie en [Javafx](https://openjfx.io/) (libraire graphique de Java)  qui s'occupe de l'interface utilisateur (i.e. la gui)
 
+##### Use Case Diagram
 
-**use-case diagram**:
 ![usecase_diagram](./svg/use-case-diagram.svg)
 
 <br />
 
 
-##### Diagrammes de classe
+##### Class Diagram
 
-*Partie 1: Scala*
+
+<u> *Partie 1: Scala* </u>
+
 Pour la partie en scala, les designs patterns de base en Java/Scala ont été utilisé, ce qui à donnée suite au diagramme de classe suivant:
 
 ![class-diagram-whole.svg](./svg/class-diagram.svg)
@@ -298,7 +346,7 @@ Comme dit précédemment, le diagramme a été séparé en 2 packages, `ch.seale
 
 <br>
 
-*Partie 2:  Rust*
+<u> *Partie 2:  Rust* </u>
 
 Je n'avais jamais fait de rust avant ce projet, j'ai dû apprendre les bases de ce langage "sur le tas". Je n'ai donc pas utilisé de méthode de conception, ni de schéma particulier pour la partie rust, j'ai simplement essayé
 de suivre les bonnes pratiques et les conseils de la documentation officielle.
@@ -315,7 +363,48 @@ En effet, j'ai assez sous-estimé les compétences techniques
 nécessaires pour comprendre Rust, le borrow-checker,
 la notion d'ownership d'une zone de mémoire virtuelle etc...
 
-***
+
+<u> *Partie JavaFx* </u>
+
+La parite javafx est montrée en dernier même si c'est techniquement la "partie 1" car c'est la moins interessantes. Voici différentes captures d'écrans des features princpipales qui ont été présenté lors des réunions.
+
+<div style="text-align:center">
+
+![](./imgs/main-screen.png)  
+
+*Screenshot 1: Ecran de séléction principal*
+
+<br >
+
+![](./imgs/selec-menu.png)  
+
+*Screenshot 2: Tableau de séléction et des abbréviations de plan d'études*  
+</div> 
+
+Une barre de recherche a été implementé au dernier moment, et, sur les conseils du professeur encadrant, la feature "cliquer pour ajouter à la séléction" a aussi été rajouté.
+ 
+<br >
+
+
+<div style="text-align:center">
+
+![](./imgs/confirmed-selection.png)  
+
+*Screenshot 3: Ecran de séléction principal, une fois la séléction confirmée*
+
+
+</div> 
+
+On peut entrer une 1ere séléction, appuyer sur add puis rajouter une 2e, 3e...  
+sans avoir à les ajouter 1 par 1 avant d'appuyer sur Generate.
+
+
+<br />
+
+
+
+
+<hr />
 
 <br/>
 
@@ -383,13 +472,13 @@ expliquées ci-dessus interagissent entre elles.
   2. wkhtmltopdf : 
      Cet outil était, pour une raison qui m'est encore obscure au moment de l'écriture de ce rapport, déjà installé sur ma machine et je n'ai tout simplement pas trouvé d'alternatives qui ne dépendait pas ce programme. (pandoc propose également cette feature mais je n'ai pas trouvé la combinaison de paramètres nécessaire pour obtenir le rendu exact qu'on peut voir plus haut.)
 
-***
+<hr />
+
 <br />
 
 ### Tests et évaluation
 
-Etant donné que le programme n'est pas fini (au moment du rendu de ce rapport 25.04.23) Il n'y a pas eu "d'évaluation "
-à proprement parler. 
+#### Backend
 
 Des tests unitaires pour les différents modules Rust et scala ont été cependant réalisé.
 e.g. 
@@ -402,9 +491,23 @@ e.g.
 
 Des tests similaires ont été réalisés en rust avec la conversation vers pdf. (i.e. un seul puis plusieurs, puis plusieurs en parallèle).
 
-***
+#### Projet en entier
+
+Pour tester le projet en entier ainsi que pour compiler les binaries natives pour mac et suite à la taille colossale (50GB d'après certains tuto) de l'image VirtualBox nécéssaire pour faire tourner macOS Monterey, un Mac fut emprunté. 
+Après avoir été paramétré pour compiler du rust, l'application fut testé avec la toolchain `stable-86_x64-apple-darwin` (de rust) puis avec la version `nightly` pour vérifier si il y a un quelconque gain d'efficacité (la compilation et plus simplement l'utilisation du programme developpé est **significativement** plus lente sur mac et d'après la cliente ce n'est "juste" sur le mac emprunté...)
+
+Malheursement aucune amélioration de performance n'a été observé.  
+Tout du moins pas pour ne serait-ce qu'approcher les quelques secondes de runtime qui ont pourtant été durement obtenu sur windows de par l'apprentissage (non sans douleur) des librairies de parallélisme de Rust et Scala.
+
+Pour tester l'application en elle même le contenu de la "release" (i.e. projet fini sans le code source) fut zippé puis dezippé à differents endroits pour tester les differents problèmes d'accès à des ressources externes.
+
+Le logiciel [Platypus](http://www.sveinbjorn.org/platypus) fût utilisé pour créer l'app native. Il prend en entrée certaines meta data et un "launcher script" (`shell` ou autre)
+
+
+<hr />
 
 <br/>
+
 
 ## Formation
 
@@ -468,10 +571,10 @@ Des tests similaires ont été réalisés en rust avec la conversation vers pdf.
    
 
 
-***
+<hr />
 
 <br/>
 
 ## Feedback
 
-Un des cours, si ce n'est le cours, le plus satisfant et stimulant du bachelor.
+Un des cours, si ce n'est le cours, le plus satisfant et stimulant du bachelor.  
