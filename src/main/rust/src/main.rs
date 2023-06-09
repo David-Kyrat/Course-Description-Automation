@@ -17,12 +17,42 @@ use pandoc::*;
 use launcher::{extract_std, extract_stderr, extract_stdout};
 use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
 
+fn default_pandoc_options_md_to_pdf() -> Vec<PandocOption> {
+    use pandoc::PandocRuntimeSystemOption::MaximumHeapMemory;
+    use PandocOption as PO;
+    use PO::Var;
+    //PO::PdfEngine("wkhtmltopdf".into())
+
+    fn wo(s: &str) -> Option<String> {
+        Some(s.to_owned())
+    }
+    fn w(s: &str) -> String {
+        s.to_string()
+    }
+
+    /// Wraps endless boilerplate to generate `PandocOption::Var`
+    fn var(key: &str, value: &str) -> PandocOption {
+        Var(w(key), wo(value))
+    }
+
+    vec![
+        PO::Template("templates/template.html".into()),
+        Var(w("margin-top"), wo("2")),
+        Var(w("margin-left"), wo("3")),
+        Var(w("margin-right"), wo("0")),
+        Var(w("margin-bottom"), wo("0")),
+        // PO::Css(w("templates/course-desc.css")),
+        PO::RuntimeSystem(vec![MaximumHeapMemory(w("8192M"))]),
+        PO::PdfEngine("wkhtmltopdf".into()),
+    ]
+}
+
 fn test_pandoc(
     md_filename: &str,
     _path: Option<PathBuf>,
 ) -> Result<pandoc::PandocOutput, pandoc::PandocError> {
     let out_pdf = md_filename.replace(".md", ".pdf");
-    let cmd_line: &[&str] = &[
+    let _cmd_line: &[&str] = &[
         md_filename,
         "-o",
         &out_pdf,
@@ -43,41 +73,11 @@ fn test_pandoc(
         "course-desc.css",
         "--quiet",
     ];
-
-    use pandoc::PandocRuntimeSystemOption::MaximumHeapMemory;
-    use MarkdownExtension::*;
-    use PandocOption as PO;
-    use PO::Var;
-    //PO::PdfEngine("wkhtmltopdf".into())
-
-    /// Wraps endless boilerplate
-    fn wo(s: &str) -> Option<String> {
-        Some(s.to_owned())
-    }
-
-    /// Wraps endless boilerplate
-    fn w(s: &str) -> String {
-        s.to_string()
-    }
-
-    /// Wraps endless boilerplate to generate `PandocOption::Var`
-    fn var(key: &str, value: &str) -> PandocOption {
-        Var(w(key), wo(value))
-    }
-
     let mut pandoc = pandoc::new();
     pandoc
         .add_input(md_filename)
         .set_output_format(OutputFormat::Html, vec![])
-        .add_options(&[
-            PO::Template("templates/template.html".into()),
-            Var(w("margin-top"), wo("2")),
-            Var(w("margin-left"), wo("3")),
-            Var(w("margin-right"), wo("0")),
-            Var(w("margin-bottom"), wo("0")),
-            PO::Css(w("templates/course-desc.css")),
-            PO::RuntimeSystem(vec![MaximumHeapMemory(w("8192M"))]), 
-        ])
+        .add_options(&default_pandoc_options_md_to_pdf())
         .set_output(OutputKind::File(out_pdf.into()))
         .set_show_cmdline(true)
         .clone()
@@ -108,8 +108,10 @@ pub fn main() {
 
     // let pd_path = which("pandoc");
 
-    let name = "hello_world.md";
+    let _name = "hello_world.md";
     let name = "desc-2022-11X001.md";
+    std::fs::remove_file(name.replace(".md", ".pdf")).expect("can't remove pdfs");
+
     match test_pandoc(name, None) {
         Ok(_) => println!(
             "dir:\n{}",
