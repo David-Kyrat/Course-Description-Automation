@@ -51,7 +51,6 @@ use rocket::{get, routes, State};
 use std::fs::File;
 use std::io::Read;
 
-#[get("/course-description-automation.jar")]
 async fn download_file(state: State<Files>) -> Result<File, rocket::Error> {
         let url = "https://github.com/David-Kyrat/Course-Description-Automation/blob/master/files/res/java/course-description-automation.jar";
             let mut resp = state.client.get(url).await?;
@@ -60,7 +59,6 @@ async fn download_file(state: State<Files>) -> Result<File, rocket::Error> {
                         Ok(file)
 }
 
-#[routes]
 struct Files;
 
 fn main() {
