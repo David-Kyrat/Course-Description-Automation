@@ -12,6 +12,7 @@ description = "Application to automatically generate pdfs of course description 
 log = "0.4.17"
 log4rs = "1.2.0"
 native-dialog = "0.6.3"
+pandoc = "0.8.10"
 path-clean = "1.0.1"
 rayon = "1.7.0"
 

@@ -105,6 +105,36 @@ pub fn extract_std(out: Vec<u8>) -> String {
     String::from_utf8(out).expect("output didn't return a valid utf8 string")
 }
 
+
+/// # Descriptionn
+/// Takes in an `std::process::Output` return the underlying represented utf8 string.
+/// `Vec<u8>` is the type returned by `outuput.stdout` or `output.stderr`
+/// so we need an actual shorthand function for that.
+///
+/// # Param
+/// - out: Output of `Command` instance
+/// # Returns
+/// Standard output of said command
+/// # Panics
+/// If the command stdout byte vector is not a valid utf8 string
+pub fn extract_stdout(out: Output) -> String {
+    String::from_utf8(out.stdout).expect("output didn't return a valid utf8 string")
+}
+
+/** # Descriptionn
+Takes in an `std::process::Output` return the underlying represented utf8 string.
+`Vec<u8>` is the type returned by `outuput.stdout` or `output.stderr`
+so we need an actual shorthand function for that.
+# Param
+- out: Output of `Command` instance
+# Returns
+Standard error output of said command
+# Panics
+If the command stderr byte vector is not a valid utf8 string */
+pub fn extract_stderr(out: Output) -> String {
+    String::from_utf8(out.stderr).expect("output didn't return a valid utf8 string")
+}
+
 fn launch_gui() -> io::Result<Output> {
     let (java_exe_path, javafx_lib_path, jar_path, scala_jar_path) = get_java_paths()?;
     let abbrevfile_path = get_abbrev_file_path();

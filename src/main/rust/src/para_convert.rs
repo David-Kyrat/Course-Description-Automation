@@ -9,7 +9,7 @@ use io::ErrorKind::Other;
 use rayon::iter::*;
 use std::ffi::OsString;
 use std::fs::{DirEntry, ReadDir};
-use std::path::{PathBuf};
+use std::path::PathBuf;
 use std::process::{Command, ExitStatus, Stdio}; use std::{fs, io};
 use log::error;
 /// # Returns
@@ -18,7 +18,7 @@ fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
 }
 
-use std::env::{self, current_dir};
+use std::env;
 
 
 /// # Description
@@ -48,7 +48,7 @@ pub fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
 pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
     let mut np = env::current_dir().unwrap();
     np.push("wkhtmltopdf");
-    let np = String::from(np.to_string_lossy());
+    let _np = String::from(np.to_string_lossy());
 
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
