@@ -1,17 +1,24 @@
 #![allow(non_snake_case)]
 
-pub mod utils;
-pub mod para_convert; 
+pub mod bootstrapper;
 pub mod launcher;
 pub mod message_dialog;
+pub mod para_convert;
+pub mod utils;
 
 use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
 
-pub fn main() {
+fn _real_main() {
     init_log4rs(None);
     // HK: DONT DELETE ABOVE THIS
-    // init_log4rs_debug();
-    // let paths = utils::current_exe_path();
-    // dbg!(paths);
     launcher::main();
+}
+
+fn _test_main() {
+    dbg!(bootstrapper::main()).expect("test main should not error");
+}
+
+pub fn main() {
+    // real_main();
+    _test_main();
 }
