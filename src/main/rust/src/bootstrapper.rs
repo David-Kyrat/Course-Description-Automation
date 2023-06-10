@@ -1,9 +1,11 @@
 #![allow(dead_code, unused_imports)]
 
-use crate::net::{self, url_tail};
+use crate::net::{self, async_runtime_wrap, rl, rls, url_tail, url_tail_s};
 use crate::utils::{self, current_exe_path, RETRY_AMOUNT};
 use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
+use futures_util::{TryFutureExt, Future};
+use futures_util::__private::async_await;
 use io::ErrorKind::Other;
 use native_dialog::MessageType;
 use rayon::iter::*;
@@ -19,7 +21,7 @@ use std::{env, fs, io, panic, thread};
 extern crate url;
 use url::{ParseError, Url};
 
-const REPO: &str =
+pub const REPO: &str =
     "https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master";
 
 /// # Returns
@@ -29,46 +31,96 @@ pub fn repo() -> Result<Url, url::ParseError> {
     Url::parse(REPO) //.expect("Github url repo should be parsable by url::parse")
 }
 
-/// Resolves given `rel_path` agains the url of the repo given by `repo()`
-/// # Returns
-/// new resolved url i.e. `repo()/rel_path`
-fn rl(rel_path: String) -> Result<Url, url::ParseError> {
-    repo()?.join(&rel_path)
-}
-
-/// Resolves (as string) given `rel_path` agains the url (as string) of the repo given by `repo()`
-/// # Returns
-/// new resolved url (as string) i.e. `repo()/rel_path`
-fn rls(rel_path: String) -> String {
-    format!("{REPO}/rel_path")
-}
-
 /// # Params
 /// - `rel_path`: relative path to the root of the repo i.e. "`Course-Description-Automation/<branch>`"
 /// - `parent_dir`: path to directory to download the file to
 /// - `name`: optional name to rename the file. If `None`, => defaults to the name contained in
 /// `rel_path`
-fn dl_file(
+async fn dl_file(
     client: &Client,
     rel_path: String,
     parent_dir: PathBuf,
     name: Option<String>,
-) -> Result<(), ParseError> {
+) -> Result<(), String> {
     // let file_url = &rl(rel_path)?;
-    let file_url = rls(rel_path);
+    let file_url = rls(&rel_path);
     let file_name = match name {
         Some(val) => val,
-        None => url_tail(rel_path),
+        None => url_tail_s(&rel_path),
     };
-    let path = PathBuf::from("");
-    net::download_file(client, file_url, &path);
+    let file_path = parent_dir.join(file_name);
+    net::download_file(client, file_url, &file_path).await?;
+    Ok(())
+}
+
+/// # Params
+/// - `rel_path`: relative path to the root of the repo i.e. "`Course-Description-Automation/<branch>`"
+/// - `exact_path`: exact path to download the file to
+/// `rel_path`
+async fn dl_file_exact(
+    client: &Client,
+    rel_path: &String,
+    parent_dir: PathBuf,
+    name: Option<String>,
+) -> Result<(), String> {
+    // let file_url = &rl(rel_path)?;
+    let file_url = rls(&rel_path);
+    let file_name = match name {
+        Some(val) => val,
+        None => url_tail_s(&rel_path),
+    };
+    let file_path = parent_dir.join(file_name);
+    net::download_file(client, file_url, &file_path).await?;
+    Ok(())
+}
+
+/// # Params
+///
+/// - `rel_paths`: relative path (from the repo root) to the file to download.
+/// these relative paths will also be used to infer the directory they must be in.
+///
+/// - `parent_dir`: path to the directoy that will be the "root" of all the downloaded content
+/// the rest of the paths will be infered from the given urls (i.e. `rel_paths`)
+/// and they will be created if they do not exists.
+/// If not given, defaults to "`current_exe()`".
+///
+/// For exemple, for `rel_path: files/res/java/form.jar` and `parent_dir: None `.
+/// The file will be downloaded into the (created) directory "current_exe_path/files/res/java" as "form.jar"
+///
+async fn dl_files(client: &Client, rel_paths: Vec<String>, parent_dir: Option<PathBuf>) -> Result<(), String> {
+    let parent_dir: PathBuf = match parent_dir {
+        Some(dir) => dir,
+        None => {
+            let mut path = current_exe_path();
+            path.pop();
+            path
+        }
+    };
+
+    let rel_path = "";
+            let dl_dir_path: PathBuf = parent_dir.join(&rel_path);
+            match dl_file_exact(client, rel_path, dl_dir_path, None).await {
+                Ok(()) => (),
+                Err(cause) => ()
+            };
+    rel_paths.par_iter().for_each(|rel_path|{
+            // let url = rl(rel_path)
+            // Removes file name from rel_path to get the complete directory name
+            // let path: PathBuf = parent_dir.join(rel_path.rsplit('/').skip(1).collect::<String>());
+    });
 
     Ok(())
 }
 
-pub fn main() -> Result<(), url::ParseError> {
-    let url = Url::parse("http://my.com/dir1/dir2/file.ext")?;
+pub fn main() -> Result<(), String> {
     let client = Client::new();
-
-    Ok(())
+    async_runtime_wrap(async {
+        dl_file(
+            &client,
+            format!("files/res/{}", utils::LOG_CONFIG_FILE_NAME),
+            std::env::current_dir().unwrap(),
+            None,
+        )
+        .await
+    })
 }

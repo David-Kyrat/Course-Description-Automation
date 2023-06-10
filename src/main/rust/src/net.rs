@@ -1,13 +1,30 @@
-use futures_util::StreamExt;
+use futures_util::{Future, StreamExt};
 use reqwest::{Client, IntoUrl, Response};
 use std::cmp::min;
+use std::env;
 use std::fs::{self, File};
 use std::io::{self, Seek, Write};
 use std::path::{self, PathBuf};
 use std::result::Result;
+use url::Url;
 
+use crate::bootstrapper::repo;
+use crate::bootstrapper::REPO;
 use crate::utils::wrap_etos;
 
+/// Resolves given `rel_path` agains the url of the repo given by `repo()`
+/// # Returns
+/// new resolved url i.e. `repo()/rel_path`
+pub fn rl(rel_path: String) -> Result<Url, url::ParseError> {
+    repo()?.join(&rel_path)
+}
+
+/// Resolves (as string) given `rel_path` agains the url (as string) of the repo given by `repo()`
+/// # Returns
+/// new resolved url (as string) i.e. `repo()/rel_path`
+pub fn rls(rel_path: &str) -> String {
+    format!("{REPO}/{rel_path}")
+}
 
 /// # Returns
 /// last component of url i.e. from the last apperance of `/` until the end.
@@ -78,7 +95,6 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
     return Ok(());
 }
 
-
 /// # Returns
 /// "`$CWD/childPath`" as a `PathBuf`. Where `$CWD` is `std::env::current_directory()`
 /* fn resolve_from_cwd(child_path: &str) -> Result<PathBuf, String> {
@@ -87,13 +103,32 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
         .join(child_path))
 } */
 
-// fn main() {
+/// # Description
+/// Takes a `Future` as argument, runs it in async block in a new built tokio runtime with
+/// `block_on(future)`.
+///
+/// Must be called the least amount of time possible since it creates a new `Tokio new_multi_thread runtime` each
+/// time and I have no clue what that actually means (aside from the fact that its multi-threaded)
+/// # Returns
+/// Future output
+/// # Example
+/// `async_runtime_wrap().block_on(async { ... } )`
+pub fn async_runtime_wrap<F: Future>(future: F) -> <F as Future>::Output  {
+    tokio::runtime::Builder::new_multi_thread()
+        .enable_all()
+        .build()
+        .unwrap()
+        .block_on( future )
+}
+
 pub fn main() -> Result<(), String> {
     let client = Client::new();
     let url = std::env::args()
         .last()
         .ok_or_else(|| ("usage: rget <url>".to_string()))?;
-    let name = url_tail_s(&url);
+    let mut name = wrap_etos(env::current_dir(), "current_dir() should not fail")?;
+    name.push(url_tail_s(&url));
+
     // println!("\nDownloading \"{name}\"\nfrom \"{url}\"");
     tokio::runtime::Builder::new_multi_thread()
         .enable_all()

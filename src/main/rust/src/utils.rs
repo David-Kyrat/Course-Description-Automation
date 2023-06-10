@@ -1,10 +1,12 @@
 use path_clean::PathClean;
 
+use std::env::current_dir;
 use std::error::Error;
 use log4rs;
 use std::path::{Path, PathBuf};
 use std::{env, io};
 pub const RETRY_AMOUNT: u8 = 0;
+pub static LOG_CONFIG_FILE_NAME: &str = "logging_config.yaml";
 
 ///////////////////////////////////////////
 /// NOTE: ------------- MACROS ------------
@@ -134,7 +136,6 @@ pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
 }
 
 static WEIRD_PATTERN: &str = "\\\\?\\";
-static LOG_CONFIG_FILE_NAME: &str = "logging_config.yaml";
 
 pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
     let path = absolute_path(path);
@@ -159,6 +160,11 @@ pub fn current_exe_path() -> PathBuf {
     // let path = PathBuf::from(r"C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER/course-description-automation.exe");
     //let path = PathBuf::from(r"/Users/ekkemunz/Documents/.noah/cda/course-description-automation");
     path
+}
+
+pub fn rl_crt_dir(path: &str) -> Result<PathBuf, String> {
+    let new_path = wrap_etos(current_dir(), "current dir should work")?;
+    Ok(new_path.join(path))
 }
 
 /// Function that takes in a string (message) and return function that can be passed
