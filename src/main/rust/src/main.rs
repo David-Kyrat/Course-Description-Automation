@@ -1,12 +1,14 @@
 #![allow(non_snake_case)]
 
+pub mod net;
 pub mod bootstrapper;
 pub mod launcher;
 pub mod message_dialog;
 pub mod para_convert;
 pub mod utils;
 
-use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
+use utils::*;
+// use utils::{abs_path_clean, init_log4rs, pop_n_push_s};
 
 fn _real_main() {
     init_log4rs(None);

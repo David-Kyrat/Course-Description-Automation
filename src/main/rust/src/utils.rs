@@ -1,9 +1,106 @@
 use path_clean::PathClean;
 
+use std::error::Error;
 use log4rs;
 use std::path::{Path, PathBuf};
 use std::{env, io};
 pub const RETRY_AMOUNT: u8 = 0;
+
+///////////////////////////////////////////
+/// NOTE: ------------- MACROS ------------
+///////////////////////////////////////////
+
+/// Formats error, with line and file in msg
+#[macro_export]
+macro_rules! fr {
+    ($msg: expr) => {
+        format!("{}.\n\t Line {}, File '{}'.\n", $msg, line!(), file!())
+    };
+}
+
+#[macro_export]
+macro_rules! log_err {
+    ( $err:expr  $(, $msg:expr) ? ) => {
+        error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", $err, fr!(""));
+    }
+}
+
+#[macro_export]
+/// # Description
+/// If given `Result<_,_>` is an error. (`is_err() == true`)
+/// panics and logs it with the `error!` macro from `log4rs`
+/// otherwise return unwrwapped value.  
+///
+/// # Params
+/// - `fun_res` : a `Result<_,_>` to check
+/// - `msg` : an optional error messag to add while logging
+///
+/// # Returns
+/// Panics if given `Result` is an error otherwise return unwrapped value.
+macro_rules! unwrap_or_log {
+    ( $fun_res:expr  $(, $msg:expr) ? ) => {
+        if let Ok(res) = $fun_res { res }
+        else {
+            log_err!($fun_res.err().unwrap(), $( $msg.to_owned() )?);
+            panic!()
+        }
+    }
+}
+
+#[macro_export]
+/// # Description
+/// If given `Result<_,_>` is an error. (`is_err() == true`)
+/// `return` that error and logs it with the `error!` macro from `log4rs`
+/// otherwise do nothing.  
+/// Used to ensure that a call to `unwrap()` will never `panic`.
+///
+/// # Params
+/// - `fun_res` : a `Result<_,_>` to check
+/// - `msg` : an optional error messag to add while logging
+///
+/// # Returns
+/// `Err(fun_res.unwrap_err)` if given `Result` is an error otherwise nothing.
+macro_rules! log_if_err{
+    ( $fun_res:expr  $(, $msg:expr) ? ) => {
+        if $fun_res.is_err() {
+            let err = $fun_res.unwrap_err();
+            error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", err, fr!(""));
+            return Err(err);
+        } else { return Ok(()) }
+    }
+}
+
+#[macro_export]
+/// Does the same as `unwrap_or_log`
+/// but instead retries `RETRY_AMOUNT` times
+/// before returning an error and logging it
+/// # Params
+/// - `$fun_res`: a `Result<_, _>` which is the return value of calling `$fun`
+/// - `$fun`: the function that returned `$fun_res`
+/// - `$msg`: (optional) message to give to the logger if `$fun_res`.`is_err()`. `Must be wrapped in a block!` i.e. ` { "..." } `
+/// - `args`: (optionnal only if function doesn't require arguments) arguments of the function separated by a comma
+macro_rules! unwrap_retry_or_log {
+    ( $fun_res:expr, $fun: ident, $msg:expr  $(, $args:expr)* ) => {
+        {
+            let mut r = 1;
+            let x =  $fun( $($args),* );
+            while x.is_err() && r < RETRY_AMOUNT {
+                let _x = $fun( $($args),* );
+                r += 1;
+            }
+            if r >= RETRY_AMOUNT {
+                let err = x.unwrap_err();
+                error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
+                return Err(err);
+            }
+            x
+        }
+    }
+}
+
+
+/// NOTE: ------------- END MACROS ------------
+
 
 /// # Description
 /// Pops n times given path. and adds sequentially each one in `to_join`
@@ -47,7 +144,7 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .replace(WEIRD_PATTERN, "")
 }
 
-/// # Description 
+/// # Description
 /// Wrapper around `std::env::current_exe().expect(...)`
 /// particularly useful when debugging and we have to simulate a relative file path to have
 /// we can just modify the return by this function instead of doing in 10 diffferent file each
@@ -58,9 +155,33 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
 pub fn current_exe_path() -> PathBuf {
     let path = std::env::current_exe().expect("could not get path of current executable");
     // FIX: comment below for release
+    //
     // let path = PathBuf::from(r"C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER/course-description-automation.exe");
     //let path = PathBuf::from(r"/Users/ekkemunz/Documents/.noah/cda/course-description-automation");
-    path 
+    path
+}
+
+/// Function that takes in a string (message) and return function that can be passed
+/// to `map_err` to convert the result into a `Result<_, String>`
+/// # Returns
+/// A function that returns `format!("{additional_msg} : {:?}", err)`
+/// i.e. something that can be passed to `map_err`
+pub fn e_to_s<E: Error>(additional_msg: &str) -> impl Fn(E) -> String + '_ {
+    let x = move |err: E| {
+        fr!(format!(
+            "{additional_msg}:  {:?}       {}. Source: {:?}",
+            err,
+            err.to_string(),
+            err.source()
+        ))
+    };
+    x
+}
+
+/// Wraps a call to something that returns a result and converts its `Result<T, _>` into a
+/// `Result<T, String>` (i.e. calls `e_to_s` on it)
+pub fn wrap_etos<T, E: Error>(res: Result<T, E>, message: &str) -> Result<T, String> {
+    res.map_err(e_to_s(message))
 }
 
 /// # Description
@@ -69,7 +190,11 @@ pub fn current_exe_path() -> PathBuf {
 /// defaults to the static variable of the same name if given a `None`
 pub fn init_log4rs(log_config_file: Option<String>) {
     let log_config_file = log_config_file.unwrap_or_else(|| {
-        let config_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res", LOG_CONFIG_FILE_NAME]);
+        let config_path = pop_n_push_s(
+            &current_exe_path(),
+            1,
+            &["files", "res", LOG_CONFIG_FILE_NAME],
+        );
         config_path.to_str().unwrap().to_owned()
     });
     // dbg!(&log_config_file);
@@ -83,92 +208,3 @@ pub fn init_log4rs_debug() {
 }
 
 
-// NOTE: ------------- MACROS ------------
-
-/// Formats error, with line and file in msg
-#[macro_export]
-macro_rules! fr {
-    ($msg: expr) => {
-        format!("{}.\n\t Line {}, File '{}'.\n", $msg, line!(), file!())
-    };
-}
-
-#[macro_export]
-macro_rules! log_err {
-    ( $err:expr  $(, $msg:expr) ? ) => {
-        error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", $err, fr!(""));
-    }
-}
-
-#[macro_export]
-/// # Description
-/// If given `Result<_,_>` is an error. (`is_err() == true`)
-/// panics and logs it with the `error!` macro from `log4rs`
-/// otherwise return unwrwapped value.  
-///
-/// # Params
-/// - `fun_res` : a `Result<_,_>` to check
-/// - `msg` : an optional error messag to add while logging
-///
-/// # Returns
-/// Panics if given `Result` is an error otherwise return unwrapped value. 
-macro_rules! unwrap_or_log {
-    ( $fun_res:expr  $(, $msg:expr) ? ) => {
-        if let Ok(res) = $fun_res { res }
-        else {
-            log_err!($fun_res.err().unwrap(), $( $msg.to_owned() )?);
-            panic!()
-        }
-    }
-}
-
-#[macro_export]
-/// # Description
-/// If given `Result<_,_>` is an error. (`is_err() == true`)
-/// `return` that error and logs it with the `error!` macro from `log4rs`
-/// otherwise do nothing.  
-/// Used to ensure that a call to `unwrap()` will never `panic`.
-///
-/// # Params
-/// - `fun_res` : a `Result<_,_>` to check
-/// - `msg` : an optional error messag to add while logging
-///
-/// # Returns
-/// `Err(fun_res.unwrap_err)` if given `Result` is an error otherwise nothing. 
-macro_rules! log_if_err{
-    ( $fun_res:expr  $(, $msg:expr) ? ) => {
-        if $fun_res.is_err() {
-            let err = $fun_res.unwrap_err();
-            error!("{}\n\t{:?}{}.", $( $msg.to_owned() + )? "", err, fr!(""));
-            return Err(err);
-        } else { return Ok(()) }
-    }
-}
-
-#[macro_export]
-/// Does the same as `unwrap_or_log`
-/// but instead retries `RETRY_AMOUNT` times
-/// before returning an error and logging it
-/// # Params
-/// - `$fun_res`: a `Result<_, _>` which is the return value of calling `$fun`
-/// - `$fun`: the function that returned `$fun_res`
-/// - `$msg`: (optional) message to give to the logger if `$fun_res`.`is_err()`. `Must be wrapped in a block!` i.e. ` { "..." } `
-/// - `args`: (optionnal only if function doesn't require arguments) arguments of the function separated by a comma
-macro_rules! unwrap_retry_or_log {
-    ( $fun_res:expr, $fun: ident, $msg:expr  $(, $args:expr)* ) => {
-        {
-            let mut r = 1;
-            let x =  $fun( $($args),* );
-            while x.is_err() && r < RETRY_AMOUNT {
-                let _x = $fun( $($args),* );
-                r += 1;
-            }
-            if r >= RETRY_AMOUNT {
-                let err = x.unwrap_err();
-                error!("{}\n\t{:?}{}.",$msg, err, fr!(""));
-                return Err(err);
-            }
-            x
-        }
-    }
-}
