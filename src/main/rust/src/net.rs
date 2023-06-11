@@ -1,15 +1,10 @@
-use futures_util::{Future, StreamExt};
-use reqwest::{Client, IntoUrl, Response};
-use std::cmp::min;
-use std::env;
-use std::fs::{self, File};
-use std::io::{self, Seek, Write};
-use std::path::{self, PathBuf};
-use std::result::Result;
-use url::Url;
+use std::{self, env, result::Result, cmp::min, fs::{self, File}, io::{self, Seek, Write}, path::{self, PathBuf}};
 
-use crate::bootstrapper::repo;
-use crate::bootstrapper::REPO;
+use url::Url;
+use reqwest::{Client, IntoUrl, Response};
+use futures_util::{Future, StreamExt, future};
+
+use crate::bootstrapper::{repo, REPO};
 use crate::utils::wrap_etos;
 
 /// Resolves given `rel_path` agains the url of the repo given by `repo()`
@@ -103,6 +98,17 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
         .join(child_path))
 } */
 
+pub async fn join_parallel<T: Send + 'static>(
+    futs: impl IntoIterator<Item = impl Future<Output = T> + Send + 'static>,
+) -> Vec<T> {
+    let tasks: Vec<_> = futs.into_iter().map(tokio::spawn).collect();
+    future::join_all(tasks)
+        .await
+        .into_iter()
+        .map(Result::unwrap)
+        .collect()
+}
+
 /// # Description
 /// Takes a `Future` as argument, runs it in async block in a new built tokio runtime with
 /// `block_on(future)`.
@@ -113,16 +119,25 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
 /// Future output
 /// # Example
 /// `async_runtime_wrap().block_on(async { ... } )`
-pub fn async_runtime_wrap<F: Future>(future: F) -> <F as Future>::Output  {
+pub fn async_runtime_wrap<F: Future>(future: F) -> <F as Future>::Output {
     tokio::runtime::Builder::new_multi_thread()
         .enable_all()
         .build()
         .unwrap()
-        .block_on( future )
+        .block_on(future)
 }
 
 pub fn main() -> Result<(), String> {
     let client = Client::new();
+    let resources_to_dl = vec![
+        "files/res/logging_config.yaml",
+        "files/res/2",
+        "files/res/3",
+        "files/res/4",
+        "files/res/5",
+        "files/res/6",
+        "files/res/7",
+    ];
     let url = std::env::args()
         .last()
         .ok_or_else(|| ("usage: rget <url>".to_string()))?;
