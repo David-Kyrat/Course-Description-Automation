@@ -1,0 +1,5 @@
+files/res/logging_config.yaml
+files/res/abbrev.tsv
+files/res/app-info-logo.svg
+files/res/readme-example2.png
+files/res/cda-icon-mac.icn

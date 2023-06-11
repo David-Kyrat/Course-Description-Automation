@@ -1,9 +1,15 @@
 #![allow(dead_code)]
 
-use crate::net::{self, async_runtime_wrap, join_parallel, rls, url_tail_s};
-use crate::utils::{self, wrap_etos};
-
-use std::{self, env, fs, path::{PathBuf, Path}};
+use crate::net::{async_runtime_wrap, download_file, join_parallel, rls, url_tail_s};
+use crate::{
+    fr,
+    utils::{self, wrap_etos},
+};
+use std::fs::read_to_string;
+use std::{
+    self, env, fs,
+    path::{Path, PathBuf},
+};
 
 use reqwest::Client;
 
@@ -21,39 +27,34 @@ pub fn repo() -> Result<Url, url::ParseError> {
 }
 
 /// # Params
-/// - `rel_path`: relative path to the root of the repo i.e. "`Course-Description-Automation/<branch>`"
+/// - `rel_path`: relative path to the root of the repo i.e. "`Course-Description-Automation/<branch>`" (and also download path relative to `parent_dir` )
 /// - `parent_dir`: path to directory to download the file to. (`parent_dir` must point to an existing directory)
-/// - `name`: optional name to rename the file. If `None`, => defaults to the name contained in
-/// `rel_path`.
 ///
 /// # Exemple
 /// if we want to download `https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master/files/res/logging_config.yaml`
-/// just enter `files/res/logging_config.yaml` as `rel_path` (also give in a `parent_dir` and leave name to `None`), and the function will
+/// just enter `files/res/logging_config.yaml` as `rel_path` (also give in a `parent_dir`), and the function will
 /// - prepend "`https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master/`"
 /// to the url to download from (to target the correct file in the repo), (gives `https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master/files/res/yaml`)
 /// - prepend `parent_dir` to download the file at the path
 /// `<parent_dir>/files/res/logging_config.yaml`
-async fn dl_file(
-    client: &Client,
-    rel_path: String,
-    parent_dir: &Path,
-    name: Option<String>,
-) -> Result<(), String> {
+async fn dl_file(client: &Client, rel_path: String, parent_dir: &Path) -> Result<(), String> {
     // let file_url = &rl(rel_path)?;
     let file_url = rls(&rel_path); // prepend repo url
     let x = file_url.clone();
-    let file_name = match name {
-        Some(val) => val,
-        None => url_tail_s(&rel_path),
-    };
-    let file_path = parent_dir.join(file_name); // prepend actual parent download path
-    create_parent_dirs(&file_path).unwrap_or_else(|_| panic!(
-        "we should be able to create the parents of {}",
-        file_path.display()
-    ));
-    net::download_file(client, file_url, &file_path).await?;
+    let file_path = parent_dir.join(rel_path); // prepend actual parent download path
+    create_parent_dirs(&file_path).unwrap_or_else(|_| {
+        eprintln!(
+            "we should be able to create the parents of {}",
+            file_path.display()
+        )
+    });
+    download_file(client, file_url, &file_path).await?;
 
-    eprintln!("Downloading {} to {}", x, &file_path.display());
+    eprintln!(
+        "\nDownloading \n\"{}\" \nto \"{}\"",
+        x,
+        &file_path.display()
+    );
     Ok(())
 }
 
@@ -63,7 +64,10 @@ async fn dl_file(
 fn create_parent_dirs(path: &Path) -> Result<(), String> {
     wrap_etos(
         fs::create_dir_all(path.parent().unwrap()),
-        &format!("could not create all dirs in {}/..", path.display()),
+        &fr!(format!(
+            "could not create all dirs in {}/..",
+            path.display()
+        )),
     )
 }
 
@@ -72,7 +76,6 @@ async fn test_dl_config_log(client: &Client) -> Result<(), String> {
         client,
         format!("files/res/{}", utils::LOG_CONFIG_FILE_NAME),
         &std::env::current_dir().unwrap(),
-        None,
     )
     .await
 }
@@ -81,19 +84,36 @@ use lazy_static::lazy_static;
 /// Making a struct to be able to keep the 2 variable below in a lazy static bloc
 /// to be able to pass them to the async bloc in join_parallel below
 struct ClientExt {
-    pub client: Client,
-    pub dl_parent_dir: PathBuf,
+    client: Client,
+    dl_parent_dir: PathBuf,
+}
+
+/// # Returns
+/// Vector containing trimmed lines of file at `to_dl_filepath`
+fn get_resources_to_dl(to_dl_filepath: &Path) -> Result<Vec<String>, String> {
+    Ok(wrap_etos(
+        read_to_string(to_dl_filepath).map(|content| content.trim().to_string()),
+        &fr!(format!(
+            "resources_to_dl: cannot read file containing what to download. Path:{}",
+            to_dl_filepath.display()
+        )),
+    )?
+    .split('\n')
+    .map(|line| line.trim().to_string())
+    .collect::<Vec<String>>())
 }
 
 pub fn main() -> Result<(), String> {
     // let client: Client = Client::new();
-    let resources_to_dl = vec![
+    /* let resources_to_dl = vec![
         "files/res/logging_config.yaml",
         "files/res/abbrev.tsv",
         "files/res/app-info-logo.svg",
         "files/res/readme-example2.png",
         "files/res/cda-icon-mac.icns",
-    ];
+    ]; */
+    let resources_to_dl: Vec<String> = get_resources_to_dl(&PathBuf::from("to_dl.txt"))?;
+    eprintln!("{:#?}", resources_to_dl);
     lazy_static! {
         static ref CLIENT: ClientExt = ClientExt {
             client: Client::new(),
@@ -101,22 +121,39 @@ pub fn main() -> Result<(), String> {
         };
     }
 
-    let _results: Vec<_> = async_runtime_wrap(async {
+    // FIXME: If url is not found doesnt return an error 
+    // it will just download a file with as only content "404: Not Found"
+
+    let results: Vec<Result<(), String>> = async_runtime_wrap(async {
         // test_dl_config_log(&client).await
-        join_parallel(resources_to_dl.into_iter().map(|rel_path| async {
-            dl_file(
-                &CLIENT.client,
-                rel_path.to_string(),
-                &CLIENT.dl_parent_dir,
-                // env::current_dir().unwrap(),
-                None,
-            ).await
+        join_parallel(resources_to_dl.into_iter().map(|rel_path| async move {
+            dl_file(&CLIENT.client, rel_path.to_string(), &CLIENT.dl_parent_dir).await
+            // .map_err(e_to_s("cannot"))
         }))
         .await
     });
+    let mut is_err: bool = false;
+    let err_msg: String = results
+        .iter()
+        .filter(|res| res.is_err())
+        .map(|res| {
+            if !is_err {
+                is_err = true;
+            }
+            res.as_ref().err().unwrap().to_string() + "\n\n"
+        })
+        .collect();
 
-    Ok(())
+    if is_err {
+        Err(err_msg)
+    } else {
+        Ok(())
+    }
 }
+
+// ------------------------------------------------
+// ------------------- UNUSED ---------------------
+// ------------------------------------------------
 
 /* /// # Params
 ///

@@ -1,11 +1,22 @@
-use std::{self, env, result::Result, cmp::min, fs::{self, File}, io::{self, Seek, Write}, path::{self, PathBuf}};
+use std::{
+    self,
+    cmp::min,
+    env,
+    fs::{self, File},
+    io::{self, Seek, Write},
+    path::{self, PathBuf},
+    result::Result,
+};
 
-use url::Url;
+use futures_util::{future, Future, StreamExt};
 use reqwest::{Client, IntoUrl, Response};
-use futures_util::{Future, StreamExt, future};
+use url::Url;
 
-use crate::bootstrapper::{repo, REPO};
 use crate::utils::wrap_etos;
+use crate::{
+    bootstrapper::{repo, REPO},
+    fr,
+};
 
 /// Resolves given `rel_path` agains the url of the repo given by `repo()`
 /// # Returns
@@ -28,7 +39,7 @@ pub fn rls(rel_path: &str) -> String {
 /// let url = Url::parse("http://stuff.org/some/long/path/foo.text").unwrap();
 /// assert_eq!(url_tail(&url), "foo.text");
 pub fn url_tail(url: String) -> String {
-    url.rsplit( '/').next().unwrap_or("").to_string()
+    url.rsplit('/').next().unwrap_or("").to_string()
 }
 
 /// # Returns
@@ -48,16 +59,16 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
     url: U,
     path: &PathBuf,
 ) -> Result<(), String> {
-    let res: Response = wrap_etos(client.get(url).send().await, "Failed to GET")?;
+    let res: Response = wrap_etos(client.get(url).send().await, &fr!("Failed to GET"))?;
     let total_size = res
         .content_length()
-        .ok_or("Failed to get content length".to_string())?;
+        .ok_or(fr!("Failed to get content length"))?;
 
     let mut file;
     let mut downloaded: u64 = 0;
     let mut stream = res.bytes_stream();
-
-    if path::Path::new(&path).exists() {
+    dbg!(&path);
+    if (path::Path::new(&path).exists() && false) {
         file = fs::OpenOptions::new()
             .read(true)
             .append(true)
@@ -70,7 +81,7 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
     } else {
         file = wrap_etos(
             File::create(path),
-            &format!("Failed to create file '{:?}'", path),
+            &fr!(format!("Failed to create file '{}'", path.display())),
         )?
     }
 
@@ -78,7 +89,7 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
         let chunk = item.or(Err(("Error while downloading file").to_string()))?;
         wrap_etos(
             file.write_all(&chunk),
-            "dl file: error in while, writting to file.",
+            &fr!("dl file: error in while, writting to file."),
         )?;
 
         /* file.write_all(&chunk)
@@ -118,7 +129,7 @@ pub async fn join_parallel<T: Send + 'static>(
 /// # Returns
 /// Future output
 /// # Example
-/// `async_runtime_wrap().block_on(async { ... } )`
+/// `async_runtime_wrap(async { ... } )`
 pub fn async_runtime_wrap<F: Future>(future: F) -> <F as Future>::Output {
     tokio::runtime::Builder::new_multi_thread()
         .enable_all()
@@ -129,15 +140,6 @@ pub fn async_runtime_wrap<F: Future>(future: F) -> <F as Future>::Output {
 
 pub fn main() -> Result<(), String> {
     let client = Client::new();
-    let _resources_to_dl = vec![
-        "files/res/logging_config.yaml",
-        "files/res/2",
-        "files/res/3",
-        "files/res/4",
-        "files/res/5",
-        "files/res/6",
-        "files/res/7",
-    ];
     let url = std::env::args()
         .last()
         .ok_or_else(|| ("usage: rget <url>".to_string()))?;
