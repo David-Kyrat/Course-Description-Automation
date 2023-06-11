@@ -4,8 +4,8 @@ mod message_dialog;
 mod net;
 mod utils;
 
-use crate::net::{async_runtime_wrap, download_file, join_parallel, rls};
-use crate::utils::*;
+use net::{async_runtime_wrap, download_file, join_parallel, rls};
+use utils::*;
 use std::fs::read_to_string;
 use std::{
     self, env, fs,
@@ -108,14 +108,6 @@ fn get_resources_to_dl(to_dl_filepath: &Path) -> Result<Vec<String>, String> {
 pub fn main() -> Result<(), String> {
     use std::time::Instant;
     let start = Instant::now();
-    // let client: Client = Client::new();
-    /* let resources_to_dl = vec![
-        "files/res/logging_config.yaml",
-        "files/res/abbrev.tsv",
-        "files/res/app-info-logo.svg",
-        "files/res/readme-example2.png",
-        "files/res/cda-icon-mac.icns",
-    ]; */
     let resources_to_dl: Vec<String> = get_resources_to_dl(&PathBuf::from("to_dl.txt"))?;
     // eprintln!("{:#?}", resources_to_dl);
     lazy_static! {
