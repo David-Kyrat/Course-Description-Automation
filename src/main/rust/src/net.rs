@@ -28,7 +28,7 @@ pub fn rls(rel_path: &str) -> String {
 /// let url = Url::parse("http://stuff.org/some/long/path/foo.text").unwrap();
 /// assert_eq!(url_tail(&url), "foo.text");
 pub fn url_tail(url: String) -> String {
-    url.rsplitn(2, '/').next().unwrap_or("").to_string()
+    url.rsplit( '/').next().unwrap_or("").to_string()
 }
 
 /// # Returns
@@ -38,7 +38,7 @@ pub fn url_tail(url: String) -> String {
 /// let url = Url::parse("http://stuff.org/some/long/path/foo.text").unwrap();
 /// assert_eq!(url_tail(&url), "foo.text");
 pub fn url_tail_s(url: &str) -> String {
-    url.rsplitn(2, '/').next().unwrap_or("").to_string()
+    url.rsplit('/').next().unwrap_or("").to_string()
 }
 
 /// # Description
@@ -51,7 +51,7 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
     let res: Response = wrap_etos(client.get(url).send().await, "Failed to GET")?;
     let total_size = res
         .content_length()
-        .ok_or(format!("Failed to get content length"))?;
+        .ok_or("Failed to get content length".to_string())?;
 
     let mut file;
     let mut downloaded: u64 = 0;
@@ -75,7 +75,7 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
     }
 
     while let Some(item) = stream.next().await {
-        let chunk = item.or(Err(format!("Error while downloading file")))?;
+        let chunk = item.or(Err(("Error while downloading file").to_string()))?;
         wrap_etos(
             file.write_all(&chunk),
             "dl file: error in while, writting to file.",
@@ -87,7 +87,7 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
         let new = min(downloaded + (chunk.len() as u64), total_size);
         downloaded = new;
     }
-    return Ok(());
+    Ok(())
 }
 
 /// # Returns

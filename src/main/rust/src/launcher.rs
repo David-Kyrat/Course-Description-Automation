@@ -87,7 +87,7 @@ fn get_abbrev_file_path() -> String {
 fn clean_md_before(md_path: &PathBuf) -> io::Result<()> {
     if md_path.is_dir() {
         std::fs::remove_dir_all(md_path);
-    } 
+    }
     std::fs::create_dir_all(md_path)
 }
 
@@ -116,7 +116,7 @@ fn launch_gui() -> io::Result<Output> {
             "-jar --module-path {} --add-modules javafx.controls,javafx.fxml,javafx.graphics {} {}",
             javafx_lib_path, jar_path, abbrevfile_path
         )
-            .split(" "),
+            .split(' '),
         )
         .output()
     // .expect("failed to execute process");
@@ -138,7 +138,7 @@ fn launch_main_scalapp(args: &String) -> io::Result<Output> {
     // dbg!(&cmd.join(" "));
 
     Command::new(java_exe_path)
-        .args(&["-jar", scala_jar_path.as_str(), args])
+        .args(["-jar", scala_jar_path.as_str(), args])
         .output()
 }
 
@@ -192,7 +192,7 @@ fn sub_main() -> Result<(), String> {
         return Err(extract_std(main_out.stderr));
     }
 
-    let main_result = para_convert::main()
+    para_convert::main()
         .map_err(|cause| err_fmt("Not all pdf could be generated. (para_convert)"))?;
 
     Ok(())
@@ -217,7 +217,7 @@ pub fn main() {
         let err_msg = "main could not display popup";
         quick_yesno_dialog(
             "Success",
-            &format!("PDF generation successful.\n Do you want to generate anything else?"),
+            "PDF generation successful.\n Do you want to generate anything else?",
             None,
         )
         .expect(err_msg)
@@ -240,6 +240,6 @@ pub fn main() {
     };
 
     if retry {
-        return main();
+        main()
     }
 }

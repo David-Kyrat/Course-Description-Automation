@@ -3,18 +3,12 @@
 use crate::net::{self, async_runtime_wrap, join_parallel, rls, url_tail_s};
 use crate::utils::{self, wrap_etos};
 
+use std::{self, env, fs, path::{PathBuf, Path}};
 
-
-use path::{PathBuf};
-
-use std::{self, env, fs, path};
-
-
-use rayon::iter::*;
 use reqwest::Client;
 
 extern crate url;
-use url::{Url};
+use url::Url;
 
 pub const REPO: &str =
     "https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master";
@@ -42,7 +36,7 @@ pub fn repo() -> Result<Url, url::ParseError> {
 async fn dl_file(
     client: &Client,
     rel_path: String,
-    parent_dir: &PathBuf,
+    parent_dir: &Path,
     name: Option<String>,
 ) -> Result<(), String> {
     // let file_url = &rl(rel_path)?;
@@ -53,7 +47,7 @@ async fn dl_file(
         None => url_tail_s(&rel_path),
     };
     let file_path = parent_dir.join(file_name); // prepend actual parent download path
-    create_parent_dirs(&file_path).expect(&format!(
+    create_parent_dirs(&file_path).unwrap_or_else(|_| panic!(
         "we should be able to create the parents of {}",
         file_path.display()
     ));
@@ -66,7 +60,7 @@ async fn dl_file(
 /// # Description
 /// Creates all directory in the path of the parent of given `PathBuf`if they do point to an existing path.
 /// (i.e. `mkdir -p "path/.."`)
-fn create_parent_dirs(path: &PathBuf) -> Result<(), String> {
+fn create_parent_dirs(path: &Path) -> Result<(), String> {
     wrap_etos(
         fs::create_dir_all(path.parent().unwrap()),
         &format!("could not create all dirs in {}/..", path.display()),
@@ -75,7 +69,7 @@ fn create_parent_dirs(path: &PathBuf) -> Result<(), String> {
 
 async fn test_dl_config_log(client: &Client) -> Result<(), String> {
     dl_file(
-        &client,
+        client,
         format!("files/res/{}", utils::LOG_CONFIG_FILE_NAME),
         &std::env::current_dir().unwrap(),
         None,
@@ -116,7 +110,7 @@ pub fn main() -> Result<(), String> {
                 &CLIENT.dl_parent_dir,
                 // env::current_dir().unwrap(),
                 None,
-            )
+            ).await
         }))
         .await
     });

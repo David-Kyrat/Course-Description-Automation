@@ -14,7 +14,6 @@ use std::{
     io::{ErrorKind::Other, Write},
 };
 
-use rayon::iter::*;
 use reqwest::Client;
 
 extern crate url;

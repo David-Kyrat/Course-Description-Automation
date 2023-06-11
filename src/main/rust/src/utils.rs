@@ -1,8 +1,9 @@
 use path_clean::PathClean;
 
+use log4rs;
 use std::env::current_dir;
 use std::error::Error;
-use log4rs;
+use std::fmt::Debug;
 use std::path::{Path, PathBuf};
 use std::{env, io};
 pub const RETRY_AMOUNT: u8 = 0;
@@ -100,9 +101,7 @@ macro_rules! unwrap_retry_or_log {
     }
 }
 
-
 /// NOTE: ------------- END MACROS ------------
-
 
 /// # Description
 /// Pops n times given path. and adds sequentially each one in `to_join`
@@ -113,8 +112,8 @@ macro_rules! unwrap_retry_or_log {
 /// # Return
 /// `path` after having applied
 /// `for _ in 0..n { path.pop() }` and `for s in to_join { path.push(s) } `
-pub fn pop_n_push_s(path: &PathBuf, n: u16, to_join: &[&str]) -> PathBuf {
-    let mut path = path.clone(); // copy to avoid modifying argument
+pub fn pop_n_push_s(path: &Path, n: u16, to_join: &[&str]) -> PathBuf {
+    let mut path = path.to_path_buf(); // copy to avoid modifying argument
     for _ in 0..n {
         path.pop();
     }
@@ -124,7 +123,7 @@ pub fn pop_n_push_s(path: &PathBuf, n: u16, to_join: &[&str]) -> PathBuf {
     path.clone()
 }
 
-pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
+pub fn absolute_path<A: AsRef<Path>>(path: A) -> io::Result<PathBuf> {
     let path = path.as_ref();
     let absolute_path = if path.is_absolute() {
         path.to_path_buf()
@@ -137,9 +136,13 @@ pub fn absolute_path(path: impl AsRef<Path>) -> io::Result<PathBuf> {
 
 static WEIRD_PATTERN: &str = "\\\\?\\";
 
-pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
-    let path = absolute_path(path);
-    path.expect(&format!("in abs_path_clean"))
+pub fn abs_path_clean<P: AsRef<Path> + Debug>(path: P) -> String {
+    let clean_path = absolute_path(&path);
+    clean_path
+        .expect(&format!(
+            "abs_path_clean: absolute_path({:?}) should not fail",
+            path
+        ))
         .to_str()
         .unwrap()
         .replace(WEIRD_PATTERN, "")
@@ -173,15 +176,14 @@ pub fn rl_crt_dir(path: &str) -> Result<PathBuf, String> {
 /// A function that returns `format!("{additional_msg} : {:?}", err)`
 /// i.e. something that can be passed to `map_err`
 pub fn e_to_s<E: Error>(additional_msg: &str) -> impl Fn(E) -> String + '_ {
-    let x = move |err: E| {
+    move |err: E| {
         fr!(format!(
             "{additional_msg}:  {:?}       {}. Source: {:?}",
             err,
-            err.to_string(),
+            err,
             err.source()
         ))
-    };
-    x
+    }
 }
 
 /// Wraps a call to something that returns a result and converts its `Result<T, _>` into a
@@ -212,5 +214,3 @@ pub fn init_log4rs(log_config_file: Option<String>) {
 pub fn init_log4rs_debug() {
     log4rs::init_file("logging_config.yaml", Default::default()).expect("Cannot find log file");
 }
-
-

@@ -48,7 +48,7 @@ use std::env;
 /// Result containing `ExitStatus` of child process (or the error)
 pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<Output> {
     Command::new(exe_path)
-        .args(cmd_line.iter().map(|s| OsString::from(s)))
+        .args(cmd_line.iter().map(OsString::from))
         .stdout(Stdio::null())
         .env("PATH", format!("/usr/local/bin:/usr/local/sbin:{}:/bin:/sbin", env!("PATH")))
         .spawn()?
