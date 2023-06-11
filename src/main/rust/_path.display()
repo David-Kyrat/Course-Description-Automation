@@ -1,20 +1,24 @@
 #![allow(dead_code)]
 
-use crate::net::{self, async_runtime_wrap, join_parallel, rls, url_tail_s};
-use crate::utils::{self, wrap_etos};
+use crate::net::{self, async_runtime_wrap, join_parallel, rl, rls, url_tail, url_tail_s};
+use crate::utils::{self, current_exe_path, wrap_etos, RETRY_AMOUNT};
+use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
 
-
-
-use path::{PathBuf};
-
-use std::{self, env, fs, path};
-
+use fs::{DirEntry, File, ReadDir};
+use path::{Path, PathBuf};
+use process::{exit, Command, ExitStatus, Output};
+use std::{self, env, fs, io, panic, path, process, thread};
+use std::{
+    any::Any,
+    error::Error,
+    io::{ErrorKind::Other, Write},
+};
 
 use rayon::iter::*;
 use reqwest::Client;
 
 extern crate url;
-use url::{Url};
+use url::{ParseError, Url};
 
 pub const REPO: &str =
     "https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master";

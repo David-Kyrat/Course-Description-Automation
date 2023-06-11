@@ -129,7 +129,7 @@ pub fn async_runtime_wrap<F: Future>(future: F) -> <F as Future>::Output {
 
 pub fn main() -> Result<(), String> {
     let client = Client::new();
-    let resources_to_dl = vec![
+    let _resources_to_dl = vec![
         "files/res/logging_config.yaml",
         "files/res/2",
         "files/res/3",
