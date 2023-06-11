@@ -123,6 +123,8 @@ pub fn main() -> Result<(), String> {
 
     // FIXME: If url is not found doesnt return an error 
     // it will just download a file with as only content "404: Not Found"
+    //
+    // FIXME: Pandoc and jdk are not on github, find solution
 
     let results: Vec<Result<(), String>> = async_runtime_wrap(async {
         // test_dl_config_log(&client).await
