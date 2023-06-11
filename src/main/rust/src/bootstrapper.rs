@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 
+use crate::message_dialog;
 use crate::net::{async_runtime_wrap, download_file, join_parallel, rls, url_tail_s};
 use crate::{
     fr,
@@ -11,6 +12,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use native_dialog::MessageType;
 use reqwest::Client;
 
 extern crate url;
@@ -40,7 +42,7 @@ pub fn repo() -> Result<Url, url::ParseError> {
 async fn dl_file(client: &Client, rel_path: String, parent_dir: &Path) -> Result<(), String> {
     // let file_url = &rl(rel_path)?;
     let file_url = rls(&rel_path); // prepend repo url
-    let x = file_url.clone();
+    let _x = file_url.clone();
     let file_path = parent_dir.join(rel_path); // prepend actual parent download path
     create_parent_dirs(&file_path).unwrap_or_else(|_| {
         eprintln!(
@@ -50,11 +52,11 @@ async fn dl_file(client: &Client, rel_path: String, parent_dir: &Path) -> Result
     });
     download_file(client, file_url, &file_path).await?;
 
-    eprintln!(
+    /* eprintln!(
         "\nDownloading \n\"{}\" \nto \"{}\"",
         x,
         &file_path.display()
-    );
+    ); */
     Ok(())
 }
 
@@ -113,7 +115,7 @@ pub fn main() -> Result<(), String> {
         "files/res/cda-icon-mac.icns",
     ]; */
     let resources_to_dl: Vec<String> = get_resources_to_dl(&PathBuf::from("to_dl.txt"))?;
-    eprintln!("{:#?}", resources_to_dl);
+    // eprintln!("{:#?}", resources_to_dl);
     lazy_static! {
         static ref CLIENT: ClientExt = ClientExt {
             client: Client::new(),
@@ -121,19 +123,21 @@ pub fn main() -> Result<(), String> {
         };
     }
 
-    // FIXME: If url is not found doesnt return an error 
+    // FIXME: If url is not found doesnt return an error
     // it will just download a file with as only content "404: Not Found"
     //
     // FIXME: Pandoc and jdk are not on github, find solution
 
-    let results: Vec<Result<(), String>> = async_runtime_wrap(async {
+    message_dialog::quick_message_dialog("Press ok to start downloading.", "The program will be downloading itself.\n Please wait and do not close the program or your internet connection during the process.\n\nPress ok to start downloading.", Some(MessageType::Warning)).ok();
+
+    let results: Vec<Result<(), String>> = async_runtime_wrap(
+        //async {
         // test_dl_config_log(&client).await
         join_parallel(resources_to_dl.into_iter().map(|rel_path| async move {
             dl_file(&CLIENT.client, rel_path.to_string(), &CLIENT.dl_parent_dir).await
             // .map_err(e_to_s("cannot"))
-        }))
-        .await
-    });
+        })), // .await
+    );
     let mut is_err: bool = false;
     let err_msg: String = results
         .iter()

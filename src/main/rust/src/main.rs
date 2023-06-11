@@ -22,5 +22,10 @@ fn _test_main() {
 
 pub fn main() {
     // real_main();
+    use std::time::Instant;
+    let start = Instant::now();
     _test_main();
+    let duration = start.elapsed();
+    dbg!(duration);
+    println!("{:#?}", duration);
 }

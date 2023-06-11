@@ -67,8 +67,7 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
     let mut file;
     let mut downloaded: u64 = 0;
     let mut stream = res.bytes_stream();
-    dbg!(&path);
-    if (path::Path::new(&path).exists() && false) {
+    if path::Path::new(&path).exists() {
         file = fs::OpenOptions::new()
             .read(true)
             .append(true)

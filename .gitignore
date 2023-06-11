@@ -50,6 +50,7 @@ res/templates/rmd
 # Rust binaries & config files
 
 **/rust/target
+**/rust/files
 # **/rust/target/*
 # !**/rust/target/release
 # **/rust/target/release/*
