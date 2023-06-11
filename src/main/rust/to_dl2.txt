@@ -1,8 +1,0 @@
-files/res/logging_config.yaml
-files/res/abbrev.tsv
-files/res/java/core-12.62.7.jar
-files/res/java/course-description-automation.jar
-files/res/java/fancyform.jar
-files/res/java/javafx-swt.jar
-files/res/java/jfoenix-19.0.1.jar
-files/res/java/jvm-driver-9.4.3.jar
