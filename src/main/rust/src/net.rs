@@ -8,15 +8,13 @@ use std::{
     result::Result,
 };
 
+use crate::utils::wrap_etos;
+use crate::{
+    fr, {repo, REPO},
+};
 use futures_util::{future, Future, StreamExt};
 use reqwest::{Client, IntoUrl, Response};
 use url::Url;
-
-use crate::utils::wrap_etos;
-use crate::{
-    bootstrapper::{repo, REPO},
-    fr,
-};
 
 /// Resolves given `rel_path` agains the url of the repo given by `repo()`
 /// # Returns

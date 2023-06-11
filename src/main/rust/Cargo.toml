@@ -1,5 +1,5 @@
 [package]
-name = "par_convert_md_to_pdf"
+name = "Course-Description-Automation"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
@@ -20,12 +20,18 @@ futures-util = "0.3.28"
 tokio = { version = "1.13.0", features = ["full"] }
 lazy_static = "1.4.0"
 
+# [[bin]]
+# name = "Course-Description-Automation"
+# path = "src/main.rs"
+# test = false
+# bench = false
+
+
 [[bin]]
-name = "Course-Description-Automation"
-path = "src/main.rs"
+name = "installer"
+path = "src/bootstrapper.rs"
 test = false
 bench = false
-
 
 #[[bin]]
 #name = "launcher"

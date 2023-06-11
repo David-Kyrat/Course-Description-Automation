@@ -1,11 +1,11 @@
 #![allow(dead_code)]
 
-use crate::message_dialog;
-use crate::net::{async_runtime_wrap, download_file, join_parallel, rls, url_tail_s};
-use crate::{
-    fr,
-    utils::{self, wrap_etos},
-};
+mod message_dialog;
+mod net;
+mod utils;
+
+use crate::net::{async_runtime_wrap, download_file, join_parallel, rls};
+use crate::utils::*;
 use std::fs::read_to_string;
 use std::{
     self, env, fs,
@@ -106,6 +106,8 @@ fn get_resources_to_dl(to_dl_filepath: &Path) -> Result<Vec<String>, String> {
 }
 
 pub fn main() -> Result<(), String> {
+    use std::time::Instant;
+    let start = Instant::now();
     // let client: Client = Client::new();
     /* let resources_to_dl = vec![
         "files/res/logging_config.yaml",
@@ -138,6 +140,9 @@ pub fn main() -> Result<(), String> {
             // .map_err(e_to_s("cannot"))
         })), // .await
     );
+    let duration = start.elapsed();
+    println!("Files downloaded in {:#?}", duration);
+
     let mut is_err: bool = false;
     let err_msg: String = results
         .iter()
