@@ -5,27 +5,54 @@ mod net;
 mod utils;
 
 use net::{async_runtime_wrap, download_file, join_parallel, rls};
-use utils::*;
 use std::fs::read_to_string;
 use std::{
     self, env, fs,
     path::{Path, PathBuf},
 };
+use utils::*;
 
+use indicatif::{ProgressBar, ProgressStyle};
 use native_dialog::MessageType;
 use reqwest::Client;
+use lazy_static::lazy_static;
 
-extern crate url;
 use url::Url;
 
-pub const REPO: &str =
-    "https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master";
+// pub const REPO: &str = "https://raw.githubusercontent.com/David-Kyrat/Course-Description-Automation/master";
+pub const REPO: &str = "https://github.com/David-Kyrat/Course-Description-Automation/raw/master";
 
 /// # Returns
 /// Url to github repository (with `raw.githubusercontent` prepended to it)
 /// to be able to directly download files from repo to bootstrap project installation
 pub fn repo() -> Result<Url, url::ParseError> {
     Url::parse(REPO) //.expect("Github url repo should be parsable by url::parse")
+}
+
+/// # Returns
+/// `ProgressBar` that shows No progress indication. i.e. Doesn't require to know full size
+fn static_bar() -> ProgressBar {
+    let pb = ProgressBar::new_spinner();
+    // pb.enable_steady_tick(120);
+    pb.enable_steady_tick(60);
+    pb.set_style(
+        ProgressStyle::default_spinner()
+            .tick_strings(&[
+                "▱▱▱▱▱▱▱",
+                "▰▱▱▱▱▱▱",
+                "▰▰▱▱▱▱▱",
+                "▰▰▰▱▱▱▱",
+                "▰▰▰▰▱▱▱",
+                "▰▰▰▰▰▱▱",
+                "▰▰▰▰▰▰▱",
+                "▰▰▰▰▰▰▰",
+            ])
+            // .template("[  {msg}\t  {spinner:.green} ]\t\t  [{elapsed_precise}]"),
+            .template("[ {spinner:.blue}\t {msg}\t  {spinner:.green} ]\t\t  [{elapsed_precise}]"),
+        // .template("{msg}\n{spinner:.green} [{elapsed_precise}] [{wide_bar:.white/blue}] {bytes}/{total_bytes} ({bytes_per_sec}, {eta})")
+    );
+    pb.set_message("Downloading...");
+    pb
 }
 
 /// # Params
@@ -51,12 +78,7 @@ async fn dl_file(client: &Client, rel_path: String, parent_dir: &Path) -> Result
         )
     });
     download_file(client, file_url, &file_path).await?;
-
-    /* eprintln!(
-        "\nDownloading \n\"{}\" \nto \"{}\"",
-        x,
-        &file_path.display()
-    ); */
+    /* eprintln!( "\nDownloading \n\"{}\" \nto \"{}\"", x, &file_path.display()); */
     Ok(())
 }
 
@@ -73,15 +95,6 @@ fn create_parent_dirs(path: &Path) -> Result<(), String> {
     )
 }
 
-async fn test_dl_config_log(client: &Client) -> Result<(), String> {
-    dl_file(
-        client,
-        format!("files/res/{}", utils::LOG_CONFIG_FILE_NAME),
-        &std::env::current_dir().unwrap(),
-    )
-    .await
-}
-use lazy_static::lazy_static;
 
 /// Making a struct to be able to keep the 2 variable below in a lazy static bloc
 /// to be able to pass them to the async bloc in join_parallel below
@@ -119,11 +132,10 @@ pub fn main() -> Result<(), String> {
 
     // FIXME: If url is not found doesnt return an error
     // it will just download a file with as only content "404: Not Found"
-    //
-    // FIXME: Pandoc and jdk are not on github, find solution
 
     message_dialog::quick_message_dialog("Press ok to start downloading.", "The program will be downloading itself.\n Please wait and do not close the program or your internet connection during the process.\n\nPress ok to start downloading.", Some(MessageType::Warning)).ok();
 
+    let ps = static_bar();
     let results: Vec<Result<(), String>> = async_runtime_wrap(
         //async {
         // test_dl_config_log(&client).await
@@ -147,6 +159,8 @@ pub fn main() -> Result<(), String> {
         })
         .collect();
 
+    ps.finish_with_message("Download completed!");
+
     if is_err {
         Err(err_msg)
     } else {
@@ -157,6 +171,29 @@ pub fn main() -> Result<(), String> {
 // ------------------------------------------------
 // ------------------- UNUSED ---------------------
 // ------------------------------------------------
+
+/* "▹▹▹▹▹",
+"▸▹▹▹▹",
+"▹▸▹▹▹",
+"▹▹▸▹▹",
+"▹▹▹▸▹",
+"▹▹▹▹▸",
+"▪▪▪▪▪", */
+
+/* fn tick_strings() -> [&'static str; 10] {
+    [
+        "▱▱▱▱▱▱▱",
+        "▰▱▱▱▱▱▱",
+        "▰▰▱▱▱▱▱",
+        "▰▰▰▱▱▱▱",
+        "▰▰▰▰▱▱▱",
+        "▰▰▰▰▰▱▱",
+        "▰▰▰▰▰▰▱",
+        "▰▰▰▰▰▰▰",
+        "▰▱▱▱▱▱▱",
+        "▱▱▱▱▱▱▱",
+    ]
+} */
 
 /* /// # Params
 ///

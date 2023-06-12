@@ -58,9 +58,9 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
     path: &PathBuf,
 ) -> Result<(), String> {
     let res: Response = wrap_etos(client.get(url).send().await, &fr!("Failed to GET"))?;
-    let total_size = res
+    /* let total_size = res
         .content_length()
-        .ok_or(fr!("Failed to get content length"))?;
+        .ok_or(fr!("Failed to get content length")); */
 
     let mut file;
     let mut downloaded: u64 = 0;
@@ -92,7 +92,7 @@ pub async fn download_file<U: IntoUrl + std::fmt::Display>(
         /* file.write_all(&chunk)
         .map_err(e_to_s("dl file: error in while, writting to file."))?; */
 
-        let new = min(downloaded + (chunk.len() as u64), total_size);
+        let new = downloaded + (chunk.len() as u64);
         downloaded = new;
     }
     Ok(())
