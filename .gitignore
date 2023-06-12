@@ -5,8 +5,9 @@ other_res
 *.DS_Store
 
 # bundle jdk and javafx
-**/jdk-17
-res/java/tmep
+#**/jdk-17
+**/legal
+
 
 # utility scripts
 **/tmp.ps1
