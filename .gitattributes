@@ -1,1 +1,4 @@
 files/res/java/jdk-17 filter=lfs diff=lfs merge=lfs -text
+*.exe filter=lfs diff=lfs merge=lfs -text
+files/res/bin-converters/** filter=lfs diff=lfs merge=lfs -text
+files/res/java/jdk-17/** filter=lfs diff=lfs merge=lfs -text
