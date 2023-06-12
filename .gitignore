@@ -87,7 +87,6 @@ target/scala-2.13/api
 **/vendor
 src/main/rust2/rust-para-convert/target
 
-*.exe
 **/node_modules
 **/rome.json
 **/Course-Descritpion-Automation
