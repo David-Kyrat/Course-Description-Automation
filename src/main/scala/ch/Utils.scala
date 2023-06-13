@@ -2,34 +2,60 @@ package ch
 
 import scala.collection.immutable
 import scala.jdk.CollectionConverters._
+import scala.sys.env
+import scala.util.control.NonFatal
+import scala.util.{Failure, Success, Try}
+
+import java.io.File
 // import scala.language.postfixOps
 import java.io.{BufferedWriter, FileWriter, PrintWriter}
 import java.nio.charset.StandardCharsets.UTF_8
+import java.nio.file.Paths
 import java.nio.file.StandardOpenOption._
+import java.nio.file.attribute.FileAttribute
 import java.nio.file.{Files, Path}
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import scala.util.{Failure, Success, Try}
-import java.nio.file.attribute.FileAttribute
 
 final object Utils {
-    val LOG_MAX_SIZE = 5 << 20 // 5MB
-    private lazy val logPath_Try = getLogPath
-    lazy val logPath = logPath_Try match {
-        case Success(path) => path
-        case Failure(e)    => Path.of("")
-    }
-    lazy val canLog = logPath_Try.isSuccess
+    val LOG_MAX_SIZE = 50 << 20 // 5MB
+    val LOG_NAME = "cda-err.log"
 
-    private lazy val logWrtr: PrintWriter = if (canLog) {
-        val pw = new PrintWriter(new BufferedWriter(new FileWriter(logPath.toString, UTF_8, true)), true)
-        pw.println(String.format("\n\n[%s]: --------------------------------------- Run started %s", now(), sep))
-        pw
-    } else null
+    private lazy val logFile_Try: Try[File] = getLogPath
+    lazy val logFile: File = logFile_Try match {
+        case Success(file) => if (file.exists) file else logFallBack()
+        case Failure(e)    => logFallBack()
+    }
+    if (logFile.canRead()) logFile.setReadable(true, false)
+    if (logFile.canWrite()) logFile.setWritable(true, false)
+    lazy val canLog = true
+
+    /**
+     * FallBack if usual log file isnt found. Creates a file at `$HOME/Documents/err.log`
+     *
+     * @return `java.io.File` pointing to created (or already existing) fallback logfile
+     */
+    private def logFallBack(): File = {
+        val logPath = Path.of(env("HOME"), "Documents", LOG_NAME)
+        Try { Files.createFile(logPath) } // now either this try failed and the file already existed or it didn't and the Try succeeded in both case the file exists after this line
+        logPath.toFile()
+    }
+
+    /** @return current running directory (variable set by the JVM) */
+    def cwd: String = System.getProperty("user.dir")
+
+    private def logStartMsg: String = String.format("\n\n[%s]: --------------------------------------- Run started %s \tcurrent path: %s \n", now(), sep, cwd)
     private val sep = "---------------------------------------\n\n"
 
-    private def getLogPath: Try[Path] = Try {
-        val path = pathOf("log/err.log") // .toAbsolutePath
+    private lazy val logWrtr: PrintWriter = if (canLog) {
+        // val fw = new FileWriter() logPath)
+        val pw = new PrintWriter(new BufferedWriter(new FileWriter(logFile, UTF_8, true)), true)
+        pw.println(logStartMsg)
+        pw
+    } else null
+
+    private def getLogPath: Try[File] = Try {
+        val path = pathOf(f"log/$LOG_NAME") // .toAbsolutePath
         var exists = Files.exists(path)
         // println("LogPath: " + path.toAbsolutePath)
         // to prevent call Files.sizes 2 times => separate conditions
@@ -41,7 +67,9 @@ final object Utils {
             Files.createDirectories(path.resolve("..").normalize())
             Files.createFile(path)
         }
-        path
+        if (!path.toFile.exists())
+            throw new IllegalStateException("getLogPath: creating parent directories of logFile or logFile itself failed. Falling back to $HOME/Documents/err.log")
+        path.toFile()
     }
 
     /**
@@ -65,13 +93,14 @@ final object Utils {
     def createResDirsIfNotExists() = {
         val paths = pathOf("md") :: pathOf("pdf") :: Nil;
         paths.map(_.toAbsolutePath.normalize).foreach(Files.createDirectories(_))
-        paths.map(_.toAbsolutePath.normalize).foreach(p => {
-            log("creating " + p)
-            println("creating " + p)
-            println("exists ? " + Files.exists(p))
-        })
+        paths
+            .map(_.toAbsolutePath.normalize)
+            .foreach(p => {
+                log("creating " + p)
+                println("creating " + p)
+                println("exists ? " + Files.exists(p))
+            })
     }
-
 
     /**
      * Wraps `Path.of(r(path))` see `Utils.r` for more info
@@ -209,4 +238,23 @@ final object Utils {
             }
         }
     }
+
+    def registerAtExit(f: => Unit): Unit = {
+        sys.addShutdownHook(new Thread() {
+            override def run(): Unit = {
+                try {
+                    f
+                } catch {
+                    case NonFatal(e) =>
+                    // ignore errors
+                }
+            }
+        })
+    }
+
+    def closeLogWriter(): Unit = {
+        if (logWrtr != null) { logWrtr.flush(); logWrtr.close() }
+    }
+
+    registerAtExit(closeLogWriter)
 }
