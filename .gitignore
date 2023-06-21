@@ -1,30 +1,35 @@
-# Example for startup debugging 
-src/main/scala/example/
-other_res
-
 *.DS_Store
 
-# bundle jdk and javafx
-**/jdk-17
-res/java/tmep
+
+# useless stuff
+**/legal
+**/src.zip
 
 # utility scripts
 **/tmp.ps1
 **/shortcut-res.ps1
 
+# ignoring linux and mac version of jdk
+files/res/java/jre-17-linux
+files/res/java/jre-17-mac
 files/res/pdf/*.pdf
+
+# ignoring non windows pandoc/wkhtmltopdf
+files/res/bin-converters/*
+!files/res/bin-converters/pandoc.exe
+!files/res/bin-converters/wkhtmltopdf.exe
+
 
 # Scala config folders
 null
 .bsp
-#target
 target/*
 target/scala-2.13/*
 !target/scala-2.13
 
 # ignoring windows build dir, because its in branch build
 target/windows
-res/templates/rust/pandoc.exe **/pandoc.exe
+res/templates/rust/pandoc.exe 
 
 # sbt config dirs
 project/.bloop
@@ -43,12 +48,15 @@ res/log/*
 !res/log/.gitkeep
 res/templates/rmd
 
-files/res/md/*.md
-files/res/pdf/*.pdf
+
+**/pdf/*.pdf
+**/md/*.md
 
 # Rust binaries & config files
 
 **/rust/target
+**/rust/files
+**/rust/*.exe
 # **/rust/target/*
 # !**/rust/target/release
 # **/rust/target/release/*
@@ -59,7 +67,6 @@ files/res/pdf/*.pdf
 
 # Formatters config
 remarkrc.json
-
 
 # Ignoring scala-doc generated web-pages, as they are present in the other repo
 target/scala-2.13/api
@@ -86,3 +93,6 @@ src/main/rust2/rust-para-convert/target
 
 **/node_modules
 **/rome.json
+
+build
+Course-Description-Automation.zip

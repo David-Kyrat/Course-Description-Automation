@@ -8,7 +8,7 @@ appenders:
     policy:
       trigger:
         kind: size
-        limit: 50kb
+        limit: 5mb
       roller:
         kind: delete
   my_stdout:
@@ -16,7 +16,6 @@ appenders:
     encoder:
       pattern: "{h({d(%Y-%m-%d %H:%M:%S)} - {l}: {m}{n})}"
 root:
-  level: warn
+  level: info
   appenders:
     - file_logger
-    - my_stdout

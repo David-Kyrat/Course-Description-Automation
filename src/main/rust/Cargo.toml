@@ -1,6 +1,6 @@
 [package]
-name = "par_convert_md_to_pdf"
-version = "0.1.0"
+name = "CDA"
+version = "2.0.0"
 edition = "2021"
 license = "MIT"
 authors = ["Noah Munz <munz.no@gmail.com>"]
@@ -9,22 +9,33 @@ description = "Application to automatically generate pdfs of course description 
 
 
 [dependencies]
+chrono = "0.4.26"
 log = "0.4.17"
 log4rs = "1.2.0"
 native-dialog = "0.6.3"
 path-clean = "1.0.1"
 rayon = "1.7.0"
 
-[[bin]]
-name = "Course-Descritpion-Automation"
-path = "src/main.rs"
-test = false
-bench = false
+
+[target.'cfg(windows)'.dependencies]
+winsafe = { version = "0.0.15", features = ["kernel", "shell", "user", "ole", "oleaut"] }
+
+# [[bin]]
+# name = "Course-Description-Automation"
+# path = "src/main.rs"
+# test = false
+# bench = false
 
 
 #[[bin]]
-#name = "launcher"
-#path = "src/launcher.rs"
+#name = "installer"
+#path = "src/bootstrapper.rs"
+#test = false
+#bench = false
+#
+#[[bin]]
+#name = "para-convert"
+#path = "src/para_convert.rs"
 #test = false
 #bench = false
 
