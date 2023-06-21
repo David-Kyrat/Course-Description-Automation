@@ -42,7 +42,7 @@ fn message_dialog(
         .set_text(text);
 
     match popup_type {
-        Some(YesNo) => msg_dialog.show_confirm().map(|answer| Some(answer)),
+        Some(YesNo) => msg_dialog.show_confirm().map(Some),
         Some(Ok) | None => msg_dialog.show_alert().map(|()| None),
     }
 }

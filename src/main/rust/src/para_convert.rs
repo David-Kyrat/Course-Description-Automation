@@ -1,43 +1,56 @@
-#![allow(non_snake_case)]
-#![allow(dead_code)]
+use crate::{
+    exec::execvp,
+    fr, log_err,
+    utils::{abs_path_clean, current_exe_path, e_to_s, pop_n_push_s},
+};
 
-use crate::utils::{current_exe_path, RETRY_AMOUNT};
-use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
+use log::{error, warn};
+use rayon::{self, iter::*};
 
-use io::ErrorKind::Other;
-use rayon::iter::*;
-use std::ffi::OsString;
-use std::fs::{DirEntry, ReadDir};
-use std::path::{Path, PathBuf};
-use std::process::{Command, ExitStatus, Stdio};
+use std::path::PathBuf;
 use std::{fs, io};
 
-use log::error;
 /// # Returns
 /// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
-fn custom_io_err(message: &str) -> io::Error {
+/* fn custom_io_err(message: &str) -> io::Error {
     io::Error::new(Other, message)
-}
+} */
 
 /// # Description
+/// Modify this process' environment variables
+/// # Errors
+/// This function will return an error if it failed to joined the current `$PATH` with `to_add`
+/* fn add_to_path(to_add: PathBuf) -> Result<(), env::JoinPathsError> {
+    let path = env::var_os("PATH").unwrap();
+    let mut paths = env::split_paths(&path).collect::<Vec<_>>();
+    paths.push(to_add);
+    let new_path = env::join_paths(paths)?;
+    env::set_var("PATH", &new_path);
+    Ok(())
+} */
+/*
+/// # Description
 /// Wrapper arround a `std::process::Command::new(...).args(...).spawn().wait()` i.e.
-/// * Creates a new `std::process::Command` instance with the executable path given by `exe_path`.  
+/// * Creates a new `std::process::Command` instance with the executable path given by `exe_path`.
 /// * Sets its arguments to `cmd_line`.
 /// * `spawn()` the child (returning the error if their were any.)
-/// * Then `wait()` on said child.  
+/// * Then `wait()` on said child.
 /// # Params
 /// * `exe_path` - Path of the executable to give to the constructor of `Command`
 /// * `cmd_line` - arguments to that comand (e.g. for "`ls -la`", `args` = `["-la"]`)
 /// # Returns
 /// Result containing `ExitStatus` of child process (or the error)
-pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
+pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<Output> {
     Command::new(exe_path)
-        .args(cmd_line.iter().map(|s| OsString::from(s)))
+        .args(cmd_line.iter().map(OsString::from))
         .stdout(Stdio::null())
-        .stderr(Stdio::null())
+        .env(
+            "PATH",
+            format!("/usr/local/bin:/usr/local/sbin:{}:/bin:/sbin", env!("PATH")),
+        )
         .spawn()?
-        .wait()
-}
+        .wait_with_output()
+} */
 
 /// # Description
 /// Return a (`Result` of) 4-tuple containing the paths to the executables
@@ -45,216 +58,44 @@ pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<ExitStatus> {
 /// and templates resource directory ('res/md' and 'res/templates')
 ///
 /// # Returns
-/// `Result<(pandoc_path, wkhtmltopdf_path, md_path, templates_path), io::Error>`
-fn get_resources_path() -> io::Result<(String, String, String, String)> {
+/// `Result<(pandoc_path, md_path, templates_path), io::Error>`
+fn get_resources_path() -> io::Result<(String, String, String)> {
     let res_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res"]);
     let exes_path = pop_n_push_s(&res_path, 0, &["bin-converters"]);
-    let (pandoc, wkhtml, md, templates) = (
-        pop_n_push_s(&exes_path, 0, &["pandoc.exe"]),
-        pop_n_push_s(&exes_path, 0, &["wkhtmltopdf.exe"]),
+
+    let pandoc_bin_name = if cfg!(target_os = "windows") {
+        "pandoc.exe"
+    } else {
+        "pandoc"
+    };
+    let (pandoc, md, templates) = (
+        pop_n_push_s(&exes_path, 0, &[pandoc_bin_name]),
         pop_n_push_s(&res_path, 0, &["md"]),
         pop_n_push_s(&res_path, 0, &["templates"]),
     );
     if !pandoc.exists() {
         return Err(io::Error::new(
             io::ErrorKind::NotFound,
-            format!("pandoc path {:#?} not found", pandoc.display()),
+            format!("pandoc path {} not found", pandoc.display()),
         ));
     }
     if !md.exists() {
         return Err(io::Error::new(
             io::ErrorKind::NotFound,
-            format!("md path {:#?} not found", md.display()),
+            format!("md path {} not found", md.display()),
         ));
     }
     if !templates.exists() {
         return Err(io::Error::new(
             io::ErrorKind::NotFound,
-            format!("templates path {:#?} not found", templates.display()),
+            format!("templates path {} not found", templates.display()),
         ));
     }
     Ok((
         abs_path_clean(pandoc),
-        abs_path_clean(wkhtml),
         abs_path_clean(md),
         abs_path_clean(templates),
     ))
-}
-
-/// # Description
-/// Calls pandoc cmd with `execvp` to convert the given markdown file according
-/// to the predefined html template.
-///
-/// # Params
-/// - `md_filename`: filename of a markdown document in `/res/md/` directory.
-/// i.e. `desc-2022-11X001.md` for `/res/md/desc-2022-11X001.md`
-/// - `pandoc_path`: Absolute path to the pandoc executable.
-/// - `md_path`: Absolute path to the `/res/md` directory.
-/// - `templates_path`: Absolute path to the `/res/templates` directory.
-///
-/// # NB
-/// The output file is saved in `/res/templates/<md_filename>.html` (without the '.md' extension)
-//
-fn pandoc_fill_template(
-    md_filename: &String,
-    pandoc_path: &str,
-    md_path: &str,
-    templates_path: &str,
-) -> io::Result<PathBuf> {
-    let _template: String = templates_path.to_owned() + "\\template.html";
-
-    let md_filepath: &String = &format!("{md_path}\\{md_filename}");
-    let out_html = templates_path.to_owned() + "\\" + &md_filename.replace(".md", ".html");
-    let out_html_path = Path::new(&out_html);
-    if out_html_path.exists() {
-        fs::remove_file(out_html_path).unwrap_or_default();
-    }
-    let cmd_line: &[&str] = &[
-        md_filepath,
-        "-t",
-        "html",
-        "--template={template}",
-        "-o",
-        &out_html,
-        "--quiet"
-    ];
-
-    let exec_res = execvp(pandoc_path, cmd_line);
-    let _exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
-    } else {
-        exec_res
-    };
-
-    let out_html: &Path = Path::new(&out_html);
-
-    if out_html.exists() {
-        Ok(out_html.to_path_buf())
-    } else {
-        let msg = &format!(
-            "pandoc_fill_template: Could not generate html file {md_path}\\{md_filename} \n
-            \n||  template: {templates_path}    \n||  md_path: {md_path}       \n||   templates_path: {templates_path}        
-            \n||  pandoc_path: {pandoc_path}"
-        );
-        Err(custom_io_err(msg))
-    }
-}
-
-/// # Description
-/// Converts html generated by pandoc to pdf
-///
-/// # Params
-/// - `wk_path`: Absolute path to the 'wkhtmltopdf' executable.
-///
-/// # Returns
-/// Path of the generated pdf (usually dir of executable i.e. `env::current_exe()`)
-fn wkhtmltopdf(out_html: &Path, wk_path: &str) -> io::Result<PathBuf> {
-    /* let mut out_pdf: PathBuf = env::current_exe().expect("wkhtmltopdf: could not get current_dir");
-    let mut out_pdf: PathBuf = PathBuf::from(r"C:\Users\noahm\DocumentsNb\BA4\Course-Description-Automation\res\bin-converters\rust_para_convert-mdToPdf.exe"); */
-    let mut out_pdf = pop_n_push_s(&current_exe_path(), 2, &["pdf"]);
-
-    let new_name: &str = &out_html
-        .file_name()
-        .unwrap()
-        .to_str()
-        .unwrap()
-        .replace(".html", ".pdf");
-    out_pdf.push(new_name);
-
-    let cmd_line: &[&str] = &[
-        "--enable-local-file-access",
-        "-T",
-        "2",
-        "-B",
-        "0",
-        "-L",
-        "3",
-        "-R",
-        "0",
-        out_html.to_str().unwrap(),
-        &out_pdf.to_str().unwrap(),
-    ];
-
-    let exec_res = execvp(wk_path, cmd_line);
-    let _exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!(exec_res, execvp, "execvp(wkhtml)", wk_path, cmd_line)
-    } else {
-        exec_res
-    };
-
-    let out_pdf = out_pdf.clone(); // removes mut? i.e. makes out_pdf immutable ?
-    if out_pdf.exists() {
-        Ok(out_pdf)
-    } else {
-        let msg = &format!(
-            "Could not convert html file to pdf: {} {:?}",
-            wk_path, cmd_line
-        )
-        .to_string();
-        Err(custom_io_err(msg))
-    }
-}
-
-/// # Description
-/// Calls 'pandoc' cmd with `execvp` to convert the given markdown file according
-/// to the predefined html template.
-/// Then do the same with 'wkhtmltopdf' to convert the html into a pdf
-///
-/// # Params
-/// - `md_filename`: filename of a markdown document in `/res/md/` directory.
-/// i.e. `desc-2022-11X001.md` for `/res/md/desc-2022-11X001.md`
-/// - `pandoc_path`: Absolute path to the pandoc executable.
-/// - `wk_path`: Absolute path to the 'wkhtmltopdf' executable.
-/// - `md_path`: Absolute path to the `/res/md` directory.
-/// - `templates_path`: Absolute path to the `/res/templates` directory.
-///
-/// # Returns
-/// Path of the generated pdf (usually  `<calling_directory/markdown_filename.pdf>` where `calling_directory` is `env::current_dir()`)
-fn fill_template_convert_pdf(
-    md_filename: &String,
-    pandoc_path: &str,
-    wk_path: &str,
-    md_path: &str,
-    templates_path: &str,
-) -> io::Result<PathBuf> {
-    let out_html = pandoc_fill_template(md_filename, pandoc_path, md_path, templates_path);
-    let out_html = if out_html.is_err() {
-        let msg = format!(
-            "pandoc_fill_template: pandoc_path = {:?},  md_filename ={:?},  md_path={:?}",
-            pandoc_path, md_filename, md_path
-        );
-
-        unwrap_retry_or_log!(
-            out_html,
-            pandoc_fill_template,
-            { msg },
-            md_filename,
-            pandoc_path,
-            md_path,
-            templates_path
-        )
-    } else {
-        out_html
-    };
-
-    if out_html.is_err() {
-        return out_html;
-    } // do not try conversion of html to pdf if md to html failed
-
-    let tmp = &out_html.unwrap();
-    let out_html: &Path = Path::new(tmp);
-
-    let exec_res = wkhtmltopdf(out_html, wk_path);
-
-    if exec_res.is_err() {
-        let msg = format!(
-            "wkhtmltopdf: wk_path = {:?},  out_hmtl ={:?}",
-            wk_path, out_html
-        );
-        unwrap_retry_or_log!(exec_res, wkhtmltopdf, { msg }, out_html, wk_path)
-    } else {
-        exec_res
-    }
 }
 
 /// # Description
@@ -273,11 +114,11 @@ fn fill_template_convert_pdf(
 /// # Returns
 /// Path of the generated pdf (usually  `res/pdf/<markdown_filename.pdf>`.
 fn pandoc_md_to_pdf(
-    md_filename: &String,
+    md_filename: &str,
     pandoc_path: &str,
     md_path: &str,
     templates_path: &str,
-) -> io::Result<PathBuf> {
+) -> Result<PathBuf, String> {
     let tmpl_path = PathBuf::from(templates_path.to_owned());
     let md_pathbuf = PathBuf::from(md_path.to_owned());
     let (template, css_path, out_pdf, md_filepath) = (
@@ -323,30 +164,30 @@ fn pandoc_md_to_pdf(
         out_pdf_s,
     ];
 
-    let exec_res = execvp(pandoc_path, cmd_line);
-    let exec_res = if exec_res.is_err() {
-        unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
-    } else {
-        exec_res
-    };
+    let _exec_res = execvp(pandoc_path, cmd_line).map_err(|error| {
+            // let err_msg = &error.to_string();
+            log_err!(format!("{error}"), format!("pandoc_md_to_pdf. conversion to pdf execvp({}, {:?}) returned an error", &pandoc_path, &cmd_line));
+            warn!(
+            "pandoc_md_to_pdf:  {md_path}/{md_filename}\n\n
+            ---------------------------------------------------------------
+            \n|| template: {template_s}    \n||  md_path: {md_path}       \n||  templates_path: {templates_path} 
+            \n||  pandoc_path: {pandoc_path}    \n||  css_path: {css_path_s}    \n||  out_pdf: {out_pdf_s}");
+            error
+    })?;
 
-    if out_pdf.exists() && exec_res.is_ok() {
+    if out_pdf.exists() {
         Ok(out_pdf)
     } else {
-        let er = if !out_pdf.exists() {
-            "".to_owned()
-        } else {
-            format!("\n{:?}", &exec_res)
-        };
+        // let er = format!("std_err: \n-----\n\t{}", extract_std(exec_res.stderr));
         let msg = &format!(
-            "pandoc_md_to_pdf: PDF Not generated: {md_path}\\{md_filename} {er}
+            "pandoc_md_to_pdf: PDF Not generated: {md_path}/{md_filename}\n \n
             ---------------------------------------------------------------
             \n|| template: {template_s}    \n||  md_path: {md_path}       \n||  templates_path: {templates_path}        
             \n||  pandoc_path: {pandoc_path}    \n||  css_path: {css_path_s}    \n||  out_pdf: {out_pdf_s}",
 
         );
         error!("{}", &msg);
-        Err(custom_io_err(msg))
+        Err(msg.to_string())
     }
 }
 
@@ -368,88 +209,54 @@ fn pandoc_md_to_pdf(
 ///
 /// x.err() discards the value T from a Result<T, E> and extracts the E (type of error, here string).
 /// ```
-pub fn ftcp_parallel(
-    pandoc_path: &str,
-    wk_path: &str,
-    md_path: &str,
-    templates_path: &str,
-) -> io::Result<()> {
-    let dir_ent_it: io::Result<ReadDir> = fs::read_dir(md_path); // iterator over DirEntry
-    if dir_ent_it.is_err() {
-        return dir_ent_it.map(|_| ());
-    }
-    let mdfiles_vec: Vec<DirEntry> = dir_ent_it
-        .map(|read_dir| {
-            read_dir
-                .filter_map(Result::ok)
-                .filter(|dir_ent| match dir_ent.file_name().to_str() {
-                    Some(name) => name.ends_with(".md"),
-                    None => false,
+fn ftcp_parallel(pandoc_path: &str, md_path: &str, templates_path: &str) -> io::Result<()> {
+    let dir_ent_vec: Vec<PathBuf> = fs::read_dir(md_path)?
+        .filter_map(|dir_entry| {
+            dir_entry
+                .map(|ok_value| ok_value.path())
+                .ok()
+                .and_then(|dir_entry| {
+                    if dir_entry.extension().map_or(false, |ext| ext == "md") {
+                        Some(dir_entry)
+                    } else {
+                        None
+                    }
                 })
-                .collect() // ignore dir entry error and collect only Ok ones that refer to a markdown file in vector
         })
-        .unwrap();
-
-    let err_messages: Vec<String> = mdfiles_vec
-        .par_iter()
-        .map_with(
-            (pandoc_path, wk_path, md_path, templates_path),
-            |q, md_file| {
-                // we can directly unwrap since the path on wich to_str() would return None have been filtered
-                let name = md_file.file_name();
-                let name = name.to_str();
-                if name.is_none() {
-                    let message = &format!(
-                        "ftcp_parallel, getting file {md_path}\\{:?} line:{}",
-                        name,
-                        line!()
-                    );
-                    error!("{}", message);
-                    return Err(custom_io_err(message));
-                }
-                let name = name.unwrap().to_owned();
-                pandoc_md_to_pdf(&name, q.0, q.2, q.3)
-                // fill_template_convert_pdf(&name, q.0, q.1, q.2, q.3)
-            },
-        )
-        .filter_map(|x| x.err())
-        .map(|e| format!("ftcp_parallel {:?}", e))
         .collect();
 
-    match &err_messages.len() {
-        0 => Ok(()),
-        _ => Err(custom_io_err(&format!(
-            "ftcp_parallel {}",
-            err_messages.join("\n")
-        ))),
-    }
+    // filters only dir-entry that were successfully read and map each of theme to their path at the same time
+    let mdfiles = dir_ent_vec
+        .par_iter()
+        .filter(|dir_entry| dir_entry.extension().map_or(false, |ext| ext == "md")) // now that we only have valid values (and not options) we can filter the non-markdown files
+        .for_each(|md_file_path| {
+            pandoc_md_to_pdf(
+                md_file_path.file_name().unwrap().to_str().unwrap(),
+                pandoc_path,
+                md_path,
+                templates_path,
+            )
+            .ok();
+        });
+
+    Ok(mdfiles)
+    // NB: No need to recover any error, since they'd have already been logged in the methods above.
+    // (and since there is no specific action we can really do about it other than logging it)
 }
 
 pub fn main() -> io::Result<()> {
-    let _r = 0;
     let rp = get_resources_path();
-    let rp = if rp.is_err() {
-        unwrap_retry_or_log!(&x, get_resources_path, "get_resources_path")
-    } else {
-        rp
-    };
+    let (pandoc_path, md_path, templates_path) = rp.map_err(|err| {
+        log_err!(err, "main, cannot get resources_path");
+        err
+    })?;
 
-    let (pandoc_path, wk_path, md_path, templates_path) = rp.unwrap();
-    // dbg!(&md_path);
-    let out: Result<(), io::Error> =
-        ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path);
-    if out.is_err() {
-        unwrap_retry_or_log!(
-            &out,
-            ftcp_parallel,
-            "ftcp_parallel",
-            &pandoc_path,
-            &wk_path,
-            &md_path,
-            &templates_path
-        )
-    } else {
-        out
-    }
-    // Ok(())
+    // add_to_path(PathBuf::from(&wk_path)).map_err(|c| custom_io_err(&format!("{:#?}", c)))?;
+    // dbg!(env!("PATH"));
+    // let out: Result<(), io::Error> = ftcp_parallel(&pandoc_path, &wk_path, &md_path, &templates_path).map_err(|err|)
+    ftcp_parallel(&pandoc_path, &md_path, &templates_path).map_err(|err| {
+        let msg = fr!(e_to_s("in main, calling Ftcp_parallel.")(err));
+        error!("--------\n\n {}", msg);
+        io::Error::new(io::ErrorKind::Other, msg)
+    })
 }

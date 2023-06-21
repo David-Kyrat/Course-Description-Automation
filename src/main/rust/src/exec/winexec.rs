@@ -1,31 +1,15 @@
-// NOTE: Unused since the client's OS isn't windows but this file is kept as reference in case a
-// windows implementation is, one day, needed. (dependency is winsafe api see "https://crates.io/crates/WinSafe")
-
-/*
-#![allow(non_snake_case)]
-#![allow(unused)]
-
-use crate::{abs_path_clean, init_log4rs, pop_n_push_s, fr};
-
-use io::ErrorKind::Other;
-use rayon::iter::*;
-use std::fs::{DirEntry, ReadDir};
-use std::path::{Path, PathBuf};
-use std::{env, fs, io};
-
-use winsafe::prelude::{kernel_Hpipe, kernel_Hstd};
-use winsafe::{prelude::*, SECURITY_DESCRIPTOR};
-use winsafe::{co::*, HFILE};
-use winsafe::guard::CloseHandlePiGuard;
-use winsafe::{prelude::*, SysResult, HPIPE, HPROCESS, STARTUPINFO, SECURITY_ATTRIBUTES, PROCESS_INFORMATION};
-
+use std::{error::Error};
 use log::{error, warn};
-/// # Returns
-/// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
-fn custom_io_err(message: &str) -> io::Error {
-    io::Error::new(Other, message)
-}
 
+use winsafe::co::*;
+use winsafe::guard::CloseHandlePiGuard;
+use winsafe::{prelude::*, SysResult, HPROCESS, STARTUPINFO};
+
+use crate::fr;
+
+/* /// # Returns
+/// `io::Error::new(Other, message)`. i.e. a custom `io::Error`
+fn custom_io_err(message: &str) -> io::Error { io::Error::new(Other, message) } */
 
 /// # Description
 /// Private wrapper around `HPROCESS::CreateProcess`
@@ -56,10 +40,9 @@ fn exec(app_name: &str, command_line: &str) -> SysResult<CloseHandlePiGuard> {
         CREATE::NO_WINDOW | CREATE::INHERIT_PARENT_AFFINITY,
         None, //inherits
         None, // inherits
-        &mut STARTUPINFO::default())
+        &mut STARTUPINFO::default(),
+    )
 }
-
-
 
 /// # Description
 /// Creates a process using winsafe api. (safe wrapper around windows sdk api).
@@ -71,38 +54,42 @@ fn exec(app_name: &str, command_line: &str) -> SysResult<CloseHandlePiGuard> {
 /// # Params
 /// - `app_name`: Absolute path to an executable
 /// - `command_line`: Argument to program (equivalent of `argv`)
-/// - `wait_time`: time to wait for the process to finish (in milliseconds)
+///
+/// # Error
+///
+/// If any error arise from the close handle (i.e. low level api call). Its description, source...
+/// are directly logged and returned.
 ///
 /// # NB
 /// This functions returns after having waited on the "child" process.
 /// (Although the wait is not mandatory to avoid zombies thanks to the winsafe api,
 /// here we just want to wait for the completion of the job.)
-pub fn execvp(app_name: &str, command_line: &str, wait_time: Option<u32>) -> io::Result<()> {
-    let close_handle_res = exec(app_name, command_line);
-
-    if close_handle_res.is_err() {
-        return Err(custom_io_err(&format!(
-            "WinErr: could not start process '{app_name} {command_line}', {}.   Line {}, File '{}'",
-            close_handle_res.map(|_| ()).unwrap_err(),
+// pub fn execvp(app_name: &str, command_line: &[&str]) -> io::Result<()> {
+pub fn execvp(app_name: &str, command_line: &[&str]) -> Result<(), String> {
+    let command_line = command_line.to_vec().join(" ");
+    let close_handle = exec(app_name, &command_line).map_err(|err| {
+        let err_msg = 
+        format!(
+            "WinErr: could not start process '{app_name} {command_line}'\n {}: {}.\n Source: {:?}.  Line {}, File '{}'",
+            err,
+            err.FormatMessage(),
+            err.source(),
             line!(),
             file!()
-        )));
-    }
+        );
+        error!("{err_msg}");
+        err_msg
+    })?;
 
-    let wait_time = match wait_time {
-        Some(amount) => Some(amount),
-        None => Some(10_000), //10 sec by default
-    };
+    let wait_time =  Some(30_000); //30 sec by default
 
-    let close_handle = close_handle_res.unwrap();
-    let wait_res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, wait_time); // waits 10 sec at most
-                                                                                        // its ok to wait this long because the calls are often made in parallel so they're not actually blocking each other
+    let wait_res = HPROCESS::WaitForSingleObject(&close_handle.hProcess, wait_time); // waits 30 sec at most
+                                                                                     // its ok to wait this long because the calls are often made in parallel so they're not actually blocking each other
     if wait_res.is_err() {
         warn!(
             "Could not wait on child process: {app_name} {command_line}\n\t{}",
-            wait_res.unwrap_err()
+            fr!(wait_res.unwrap_err())
         );
     }
     Ok(())
 }
-*/
