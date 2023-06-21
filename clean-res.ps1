@@ -1,11 +1,13 @@
-$oldpath = $PWD
-cd $appi
-
-$dirs = "pdf", "templates"
+$dirs = "files/res/pdf", "files/res/md"
 
 $dirs | % {
     $folder_name = $_
-    rm "res/$folder_name/desc-20??-*"
+    rm "$folder_name/desc-20??-*"
 }
 
-cd $oldpath
+$dirs | % {
+    $fd = $_
+    if (-not (Test-Path("$fd/.gitkeep"))) {
+        echo " " >> "$fd/.gitkeep"
+    }
+}
