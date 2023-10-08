@@ -81,6 +81,7 @@ An image is worth a 1000 words so here is the use case diagram:
 
 ![use case diagram](./report-diagrams/svg/use-case-diagram.svg)
 
+<h3>NB: The scala part is available in the <a href="https://github.com/David-Kyrat/Course-Description-Automation/tree/scalight">scala</a> branch</h3>
 
 
 ## Meeting Reports
