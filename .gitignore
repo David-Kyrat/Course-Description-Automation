@@ -1,4 +1,5 @@
-# Example for startup debugging 
+course-description-automation
+
 src/main/scala/example/
 other_res
 
@@ -89,7 +90,6 @@ src/main/rust2/rust-para-convert/target
 **/node_modules
 **/rome.json
 **/Course-Descritpion-Automation
-course-descritpion-automation
 
 build
 
