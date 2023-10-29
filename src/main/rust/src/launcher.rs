@@ -53,7 +53,7 @@ fn get_java_paths() -> io::Result<(String, String, String, String)> {
         abs_path_clean(pop_n_push_s(
             &javadir,
             0,
-            &["Course-Description-Automation.jar"],
+            &["course-description-automation.jar"],
         )),
     );
 
