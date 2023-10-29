@@ -3,11 +3,14 @@ EXEC = course-description-automation
 all: install
 
 # build and move to root
-install: build
+install: clean build
 	mv src/main/rust/target/release/$(EXEC) .
 
 build:
 	cd src/main/rust && cargo build --release && cd ../../..
 
 clean:
-	- rm ./Course-Description-Automation
+	- make __clean__ &> /dev/null
+
+__clean__:
+	- rm $(EXEC)

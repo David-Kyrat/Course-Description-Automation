@@ -2,7 +2,7 @@ use path_clean::PathClean;
 
 use log4rs;
 use std::path::{Path, PathBuf};
-use std::{env, io};
+use std::{env, fs, io};
 pub const RETRY_AMOUNT: u8 = 0;
 
 /// # Description
@@ -47,7 +47,7 @@ pub fn abs_path_clean(path: impl AsRef<Path>) -> String {
         .replace(WEIRD_PATTERN, "")
 }
 
-/// # Description 
+/// # Description
 /// Wrapper around `std::env::current_exe().expect(...)`
 /// particularly useful when debugging and we have to simulate a relative file path to have
 /// we can just modify the return by this function instead of doing in 10 diffferent file each
@@ -60,7 +60,7 @@ pub fn current_exe_path() -> PathBuf {
     // FIX: comment below for release
     // let path = PathBuf::from(r"C:/Users/noahm/DocumentsNb/BA4/CDA-MASTER/course-description-automation.exe");
     //let path = PathBuf::from(r"/Users/ekkemunz/Documents/.noah/cda/course-description-automation");
-    path 
+    path
 }
 
 /// # Description
@@ -68,11 +68,25 @@ pub fn current_exe_path() -> PathBuf {
 /// to log the config file call `log_config_file`
 /// defaults to the static variable of the same name if given a `None`
 pub fn init_log4rs(log_config_file: Option<String>) {
-    let log_config_file = log_config_file.unwrap_or_else(|| {
+    let log_config_file = match log_config_file {
+        Some(expr) => PathBuf::from(expr),
+        None => {
+            let current_log_dir = pop_n_push_s(&current_exe_path(), 1, &["files", "res"]);
+            if !current_log_dir.exists() {
+                fs::create_dir_all(&current_log_dir).unwrap_or_else(|_| {
+                    eprintln!("Cannot create log directory. Logging will be disabled");
+                    return;
+                })
+            }
+            pop_n_push_s(&current_log_dir, 0, &[LOG_CONFIG_FILE_NAME])
+        }
+    };
+
+    /* let log_config_file = log_config_file.unwrap_or_else(|| {
         let config_path = pop_n_push_s(&current_exe_path(), 1, &["files", "res", LOG_CONFIG_FILE_NAME]);
         config_path.to_str().unwrap().to_owned()
-    });
-    // dbg!(&log_config_file);
+    }); */
+    dbg!(&log_config_file);
     log4rs::init_file(log_config_file, Default::default()).unwrap();
 }
 
@@ -81,7 +95,6 @@ pub fn init_log4rs(log_config_file: Option<String>) {
 pub fn init_log4rs_debug() {
     log4rs::init_file("logging_config.yaml", Default::default()).expect("Cannot find log file");
 }
-
 
 // NOTE: ------------- MACROS ------------
 
@@ -111,7 +124,7 @@ macro_rules! log_err {
 /// - `msg` : an optional error messag to add while logging
 ///
 /// # Returns
-/// Panics if given `Result` is an error otherwise return unwrapped value. 
+/// Panics if given `Result` is an error otherwise return unwrapped value.
 macro_rules! unwrap_or_log {
     ( $fun_res:expr  $(, $msg:expr) ? ) => {
         if let Ok(res) = $fun_res { res }
@@ -134,7 +147,7 @@ macro_rules! unwrap_or_log {
 /// - `msg` : an optional error messag to add while logging
 ///
 /// # Returns
-/// `Err(fun_res.unwrap_err)` if given `Result` is an error otherwise nothing. 
+/// `Err(fun_res.unwrap_err)` if given `Result` is an error otherwise nothing.
 macro_rules! log_if_err{
     ( $fun_res:expr  $(, $msg:expr) ? ) => {
         if $fun_res.is_err() {
