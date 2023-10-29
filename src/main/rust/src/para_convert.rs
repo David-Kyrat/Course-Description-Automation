@@ -3,13 +3,13 @@
 
 use crate::launcher::extract_std;
 use crate::utils::{current_exe_path, RETRY_AMOUNT};
-use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log};
+use crate::{abs_path_clean, fr, pop_n_push_s, unwrap_retry_or_log, log_err};
 
 
 use io::ErrorKind::Other;
 use rayon::iter::*;
 use std::{fs, io};
-use std::fs::{DirEntry, ReadDir};
+use std::fs::{DirEntry, ReadDir, File};
 use std::path::PathBuf;
 use std::process::{Command, Stdio, Output}; 
 use std::ffi::OsString;
@@ -50,6 +50,13 @@ pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<Output> {
     Command::new(exe_path)
         .args(cmd_line.iter().map(|s| OsString::from(s)))
         .stdout(Stdio::null())
+        .stderr(match File::open("files/res/log/rust-convert.log") {
+            Ok(expr) => Stdio::from(expr),
+            Err(e) => {
+                log_err!(e, "Log_file not found when trying to redirect stderr to it (execvp)");
+                Stdio::null()
+            },
+        })
         .env("PATH", format!("/usr/local/bin:/usr/local/sbin:{}:/bin:/sbin", env!("PATH")))
         .spawn()?
         .wait_with_output()
@@ -164,6 +171,7 @@ fn pandoc_md_to_pdf(
     ];
 
     let exec_res = execvp(pandoc_path, cmd_line);
+
     let exec_res = if exec_res.is_err() {
         unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
     } else {
