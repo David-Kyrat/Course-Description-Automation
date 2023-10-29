@@ -22,11 +22,11 @@ java_ver="$(java -version 2>&1 | grep -i version | cut -d'"' -f2 | cut -d'.' -f1
 
 cd files/res
 cd bin-converters
-# ln -s "$(which pandoc)"
+ln -sf "$(which pandoc)"
 cd ..
 
 cd java
-# ln -s "$(wh)"
+ln -sf "$JAVA_HOME" jdk-17 # todo change name later
 cd ..
 
 cd ../..
