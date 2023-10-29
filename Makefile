@@ -1,4 +1,4 @@
-EXEC = Course-Description-Automation
+EXEC = course-description-automation
 
 all: install
 
