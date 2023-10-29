@@ -164,7 +164,6 @@ fn pandoc_md_to_pdf(
     ];
 
     let exec_res = execvp(pandoc_path, cmd_line);
-    dbg!(&exec_res);
     let exec_res = if exec_res.is_err() {
         unwrap_retry_or_log!("", execvp, "execvp", pandoc_path, cmd_line)
     } else {
