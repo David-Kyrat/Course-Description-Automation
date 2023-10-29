@@ -16,7 +16,7 @@ path-clean = "1.0.1"
 rayon = "1.7.0"
 
 [[bin]]
-name = "Course-Description-Automation"
+name = "course-description-automation"
 path = "src/main.rs"
 test = false
 bench = false
