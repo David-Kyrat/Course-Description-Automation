@@ -53,6 +53,7 @@ pub fn execvp(exe_path: &str, cmd_line: &[&str]) -> io::Result<Output> {
         .stderr(match File::open("files/res/log/rust-convert.log") {
             Ok(expr) => Stdio::from(expr),
             Err(e) => {
+                // will log to console
                 log_err!(e, "Log_file not found when trying to redirect stderr to it (execvp)");
                 Stdio::null()
             },
