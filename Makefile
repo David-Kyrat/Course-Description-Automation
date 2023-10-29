@@ -12,5 +12,8 @@ build:
 clean:
 	- make __clean__ &> /dev/null
 
+clean_pdf:
+	- rm files/res/pdf/*
+
 __clean__:
 	- rm $(EXEC)
