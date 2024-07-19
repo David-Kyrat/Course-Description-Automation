@@ -1,6 +1,6 @@
 <div align="center">
 
-# Unige - 12X015 | Course Description Automator
+# UNIGE Administration Project | Course Description Automator
 
 Application to automatically generate printable 1-2 page PDF of course descriptions.
 
